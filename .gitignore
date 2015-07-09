@@ -28,3 +28,7 @@ dist/
 node_modules/
 bower_components/
 client/lib/
+
+.DS_Store
+.Spotlight-V100
+.Trashes
