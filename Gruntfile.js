@@ -10,20 +10,46 @@ module.exports = function(grunt) {
           force: 'true',
           jshintrc: '.jshintrc',
           ignores: [
-            'client/assets/**/*.js',
+            'client/lib/**/*.js',
             'node_modules/**/*.js',
-            '**/node_modules/**/*.js',
-            'bower_components/**/*.js',
-            '**/bower_components/**/*.js',
-            'test/testData.js'
           ]
         }
       },
+
       "bower-install-simple": {
         options: {
           directory: 'client/lib'
         }
       },
+
+      watch: {
+        scripts: {
+          files: [
+            '**/*.js',
+            './*.js',
+          ],
+          tasks: [
+            'jshint',
+          ]
+        },
+      },
+
+      concurrent: {
+        dev: {
+          tasks: ['nodemon', 'watch'],
+          options: {
+            logConcurrentOutput: true
+          }
+        }
+      },
+
+      nodemon: {
+        dev: {
+          script: 'index.js'
+        }
+      },
+
+
   });
 
   // Load the plugin that provides the "uglify" task.
@@ -36,7 +62,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-npm-install');
 
   // Default task(s).
+
+  grunt.registerTask('mon', ['jshint', 'concurrent']);
+
   grunt.registerTask('default', ['jshint']);
-  grunt.registerTask('install', ['bower-install-simple', 'grunt-npm-install']);
+
+  grunt.registerTask('install', ['npm-install', 'bower-install-simple']);
+
+  grunt.registerTask('test', []);
+
+
 
 };
