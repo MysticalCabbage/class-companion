@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "body-parser": "^1.13.2",
     "express": "^4.13.1",
     "flux": "^2.0.3",
     "react": "^0.13.3"
@@ -27,7 +28,7 @@
     "watchify": "^3.2.3"
   },
   "scripts": {
-   "test": "jest"
+    "test": "jest"
   },
   "jest": {
     "rootDir": "./js"
