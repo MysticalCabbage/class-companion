@@ -62,8 +62,6 @@ gulp.task('watch', function() {
     .pipe(gulp.dest(path.DEST_SRC));
 });
 
-gulp.task('default', ['watch']);
-
 // PRODUCTION TASKS
 
 gulp.task('build', function(){
@@ -89,4 +87,5 @@ gulp.task('replaceHTML', function(){
 	.pipe(gulp.dest(path.DEST));
 });
 
+gulp.task('default', ['watch']);
 gulp.task('production', ['replaceHTML', 'build']);
