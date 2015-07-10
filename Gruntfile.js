@@ -3,7 +3,8 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    
+    firebaseConfig: grunt.file.readJSON('firebaseConfig.json'),
+
       jshint: {
         all: ['Gruntfile.js', 'client/**/*.js', 'server/**/*.js'],
         options: {
@@ -49,7 +50,17 @@ module.exports = function(grunt) {
         }
       },
 
-
+      firebase: {
+        options: {
+          reference: '<%= firebaseConfig.ref %>',
+          token: '<%= firebaseConfig.token %>'
+        },
+        load: {
+          files: [
+            { src: './mysticalCabbageDb.json' }
+          ]
+        }
+      }
   });
 
   // Load the plugin that provides the "uglify" task.
@@ -60,6 +71,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-bower-install-simple');  
   grunt.loadNpmTasks('grunt-npm-install');
+  grunt.loadNpmTasks('grunt-firebase');
 
   // Default task(s).
 
