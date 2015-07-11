@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var nodemon = require('gulp-nodemon');
 var uglify = require('gulp-uglify');
 var htmlreplace = require('gulp-html-replace');
 var source = require('vinyl-source-stream');
@@ -62,6 +63,15 @@ gulp.task('watch', function() {
     .pipe(gulp.dest(path.DEST_SRC));
 });
 
+gulp.task('serve', function(){
+  nodemon({
+    // Start server on index.js and watch for changes
+    script: 'index.js',
+    // Watch all js and html files in the directory
+    ext: 'js html'
+  });
+});
+
 // PRODUCTION TASKS
 
 gulp.task('build', function(){
@@ -87,5 +97,5 @@ gulp.task('replaceHTML', function(){
 	.pipe(gulp.dest(path.DEST));
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['serve', 'watch']);
 gulp.task('production', ['replaceHTML', 'build']);
