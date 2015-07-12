@@ -3,7 +3,7 @@ var React = require('react');
 var Navbar = React.createClass({
 	render: function() {
 		return (
-			<nav className="navbar navbar-default navbar-fixed-top">
+			<nav className="navbar navbar-default">
 				<div className="container">
 				  <div className="navbar-header">
 				  	<a className="navbar-brand" href="#">Mystical Cabbage</a>

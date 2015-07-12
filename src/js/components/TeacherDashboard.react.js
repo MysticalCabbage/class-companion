@@ -4,9 +4,13 @@ var TeacherClass = require('./TeacherClass.react');
 var TeacherDashboard = React.createClass({
 	render: function() {
 		return (
-			<div>
-				<h1>I am Teacher view</h1>
-				<TeacherClass />
+			<div className="teacherDashboard container">
+				<div className="row">
+					<TeacherClass />
+					<TeacherClass />
+					<TeacherClass />
+					<TeacherClass />
+				</div>
 			</div>
 		);
 	}
