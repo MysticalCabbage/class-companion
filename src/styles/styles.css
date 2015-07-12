@@ -1,16 +1,3 @@
-.teacherClass{
-	display: inline-block;
-	width: 100%;
-	padding: 0.25em;
-}
-
 .well{
-	position: relative;
-	display: block;
-}
-
-.row{
-	column-count: 250px;
-	-moz-column-count: 250px;
-	-webkit-column-width: 250px;
+	text-align: center;
 }

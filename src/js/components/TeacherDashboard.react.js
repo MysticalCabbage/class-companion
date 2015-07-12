@@ -10,6 +10,8 @@ var TeacherDashboard = React.createClass({
 					<TeacherClass />
 					<TeacherClass />
 					<TeacherClass />
+					<TeacherClass />
+					<TeacherClass />
 				</div>
 			</div>
 		);
