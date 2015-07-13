@@ -46,7 +46,11 @@ var TeacherDashboard = React.createClass({
       <div className="teacherDashboard container">
         <div className="row">
           {classNodes}
-          <TeacherClass classTitle="Add Class +" add={this.handleAddClass}/>
+          <div className="teacherClass col-md-3">
+            <div className="well">
+              <a href="#" add={this.handleAddClass}>Add Class +</a>
+            </div>
+          </div>
           <TeacherForm />
         </div>
       </div>
