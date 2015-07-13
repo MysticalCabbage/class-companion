@@ -3,19 +3,19 @@ var AuthConstants = require('../constants/AuthConstants');
 
 var AuthActions = {
   signup: function(credentials){
-    AppDispatcher.handleAuth({
+    AppDispatcher.handleAction({
       actionType: AuthConstants.SIGNUP,
       data: credentials
     });
   },
   login: function(credentials){
-    AppDispatcher.handleAuth({
+    AppDispatcher.handleAction({
       actionType: AuthConstants.LOGIN,
       data: credentials
     });
   },
   logout: function(){
-    AppDispatcher.handleAuth({
+    AppDispatcher.handleAction({
       actionType: AuthConstants.LOGOUT,
       data: null
     });
