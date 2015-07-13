@@ -2,6 +2,7 @@ var React = require('react');
 var TeacherClass = require('./TeacherClass.react');
 var TeacherActions = require('../actions/TeacherActions');
 var TeacherStore = require('../stores/TeacherStore');
+var TeacherForm = require('./TeacherForm.react');
 
 
 var TeacherDashboard = React.createClass({
@@ -46,6 +47,7 @@ var TeacherDashboard = React.createClass({
 				<div className="row">
 					{classNodes}
 					<TeacherClass classTitle="Add Class +" add={this.handleAddClass}/>
+					<TeacherForm />
 				</div>
 			</div>
 		);
