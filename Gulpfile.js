@@ -15,6 +15,7 @@ var clean = require('gulp-clean');
 gulp.task('watch', function() {
   // If something does change, run the copy task
   gulp.watch('src/index.html', ['copy']);
+  gulp.watch('src/styles/*.css', ['copyStyles']);
 
   // Watchify will cache our files and watch for changes, only updating the necessary changes
   // Here we're passing browserify an object to set up the configurations for our browserify build
@@ -50,10 +51,13 @@ gulp.task('watch', function() {
 gulp.task('copy',function() {
     gulp.src('src/index.html')
       .pipe(gulp.dest('dist'));
+});
+
+gulp.task('copyStyles',function() {
     // gulp.src('src/assets/**/*.*')
     //   .pipe(gulp.dest('dist/assets'));
-    // gulp.src('src/styles/*.css')
-    //   .pipe(gulp.dest('dist/styles'));
+    gulp.src('src/styles/*.css')
+      .pipe(gulp.dest('dist/styles'));
 });
 
 gulp.task('serve', function(){
@@ -98,6 +102,6 @@ gulp.task('replaceHTML', function(){
  .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['copy', 'watch', 'serve']);
+gulp.task('default', ['copy', 'copyStyles', 'watch', 'serve']);
 // gulp.task('production', ['clean', 'copy', 'replaceHTML', 'build']);
 gulp.task('production', ['replaceHTML', 'build']);

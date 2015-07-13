@@ -1,1 +1,8 @@
-styles.css
+a, a:visited, a:hover, a:active {
+  color: #5e5e5e;
+  text-decoration: none !important;
+}
+
+.well{
+	text-align: center;
+}
