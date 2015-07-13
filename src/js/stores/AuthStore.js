@@ -7,8 +7,11 @@ var Q = require('q');
 
 var CHANGE_EVENT = 'change';
 
+// set root ref of firebase database
 var rootRef = new Firebase(AuthConstants.DB);
 
+// firebase email/password authentication
+// returns a promise
 var authWithPassword = function(userObj) {
   var deferred = Q.defer();
   rootRef.authWithPassword(userObj, function onAuth(err, user) {
@@ -21,7 +24,8 @@ var authWithPassword = function(userObj) {
   });
   return deferred.promise;
 };
-// create a user but not login
+
+// create a user but not log in
 // returns a promsie
 var createUser = function(userObj) {
   var deferred = Q.defer();
@@ -34,7 +38,8 @@ var createUser = function(userObj) {
   });
   return deferred.promise;
 };
-// Create a user and then login in
+
+// create a user and then log in
 // returns a promise
 var createUserAndLogin = function(userObj) {
   return createUser(userObj)
@@ -43,21 +48,22 @@ var createUserAndLogin = function(userObj) {
   });
 };
 
+// sign up a user and then log in
 var signup = function(credentials){
   createUserAndLogin(credentials)
     .then(function(authData) {
-      console.log('succesfully signed up');//, authData);
+      console.log('succesfully signed up');
     })
     .catch(function(err) {
-      // email taken, redirect/display
       console.error(err);
     });
 };
 
+// login a user
 var login = function(credentials){
   authWithPassword(credentials)
     .then(function(authData) {
-      console.log('sucessfully logged in');//, authData);
+      console.log('sucessfully logged in');
     })
     .catch(function(err) {
       // login fail, redirect/display
@@ -65,6 +71,8 @@ var login = function(credentials){
     });
 };
 
+// log out user
+// confirms if firebase auth data was removed from local storage
 var logout = function() {
   rootRef.unauth();
   
@@ -75,6 +83,8 @@ var logout = function() {
   }
 };
 
+// check if a user is logged in
+// returns firebase authentication data
 var checkAuth = function(){
   return rootRef.getAuth();
 };
@@ -86,15 +96,12 @@ AppDispatcher.register(function(payload){
   switch(action.actionType){
     case AuthConstants.SIGNUP:
       signup(action.data);
-      //authStore.signup.emit(CHANGE_EVENT);
       break;
     case AuthConstants.LOGIN:
       login(action.data);
-      //authStore.login.emit(CHANGE_EVENT);
       break;
     case AuthConstants.LOGOUT:
       logout();
-      //authStore.logout.emit(CHANGE_EVENT);
       break;
     default:
       return true;
