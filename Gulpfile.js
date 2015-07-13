@@ -62,7 +62,10 @@ gulp.task('serve', function(){
     script: 'index.js',
     // Watch all js and html files in the directory
     ext: 'js',
-    ignore: 'node_modules/**/*.js'
+    ignore: 'node_modules/**/*.js',
+    env: {
+      PORT: '3000'
+    }
   });
 });
 
