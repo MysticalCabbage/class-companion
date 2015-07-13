@@ -6,15 +6,15 @@ var TeacherForm = require('./TeacherForm.react');
 
 
 var TeacherDashboard = React.createClass({
-	// Invoke TeacherStore.getList() and set the result to the list property on our state
-	getInitialState: function(){
-		return {
-			list: TeacherStore.getList()
-		}
-	},
+  // Invoke TeacherStore.getList() and set the result to the list property on our state
+  getInitialState: function(){
+    return {
+      list: TeacherStore.getList()
+    }
+  },
 
-	// Call the addChangeListener method on TeacherStore to add an event listener
-	componentDidMount: function(){
+  // Call the addChangeListener method on TeacherStore to add an event listener
+  componentDidMount: function(){
     TeacherStore.addChangeListener(this._onChange);
   },
 
@@ -23,35 +23,35 @@ var TeacherDashboard = React.createClass({
     TeacherStore.removeChangeListener(this._onChange);
   },
 
-	// Whenever data in the store changes, fetch data from the store and update the component state
-	_onChange: function(){
+  // Whenever data in the store changes, fetch data from the store and update the component state
+  _onChange: function(){
     this.setState({
       list: TeacherStore.getList()
     })
   },
 
   // Invoking the addClass method on our TeacherActions whenever a addClass user event occurs
-	handleAddClass: function(newClass){
-		TeacherActions.addClass(newClass);
-	},
+  handleAddClass: function(newClass){
+    TeacherActions.addClass(newClass);
+  },
 
-	render: function() {
-		var classNodes = this.state.list.map(function(classNode, index){
-			return (
-				<TeacherClass key={index} classTitle={classNode.classTitle}/>
-			)
-		})
+  render: function() {
+    var classNodes = this.state.list.map(function(classNode, index){
+      return (
+        <TeacherClass key={index} classTitle={classNode.classTitle}/>
+      )
+    })
 
-		return (
-			<div className="teacherDashboard container">
-				<div className="row">
-					{classNodes}
-					<TeacherClass classTitle="Add Class +" add={this.handleAddClass}/>
-					<TeacherForm />
-				</div>
-			</div>
-		);
-	}
+    return (
+      <div className="teacherDashboard container">
+        <div className="row">
+          {classNodes}
+          <TeacherClass classTitle="Add Class +" add={this.handleAddClass}/>
+          <TeacherForm />
+        </div>
+      </div>
+    );
+  }
 
 });
 
