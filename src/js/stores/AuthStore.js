@@ -1,7 +1,7 @@
-var AppDispatcher = require('../dispatchers/dispatcher');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var AuthConstants = require('../constants/authConstants');
-var assign = require('react/lib/Object.assign');
+var AuthConstants = require('../constants/AuthConstants');
+var objectAssign = require('object-assign');
 var Firebase = require('firebase');
 var Q = require('q');
 
@@ -79,32 +79,7 @@ var checkAuth = function(){
   return rootRef.getAuth();
 };
 
-var authStore = {};
-
-/*authStore.signup = assign({}, EventEmitter.prototype, {
-  addChangeListener: function(cb){
-    this.on(CHANGE_EVENT, cb);
-  },
-  removeChangeListener: function(cb){
-    this.removeListener(CHANGE_EVENT, cb);
-  }
-});
-authStore.login = assign({}, EventEmitter.prototype, {
-  addChangeListener: function(cb){
-    this.on(CHANGE_EVENT, cb);
-  },
-  removeChangeListener: function(cb){
-    this.removeListener(CHANGE_EVENT, cb);
-  }
-});
-authStore.logout = assign({}, EventEmitter.prototype, {
-  addChangeListener: function(cb){
-    this.on(CHANGE_EVENT, cb);
-  },
-  removeChangeListener: function(cb){
-    this.removeListener(CHANGE_EVENT, cb);
-  }
-});*/
+var AuthStore = {};
 
 AppDispatcher.register(function(payload){
   var action = payload.action;
@@ -126,4 +101,4 @@ AppDispatcher.register(function(payload){
   }
 });
 
-module.exports = authStore;
+module.exports = AuthStore;
