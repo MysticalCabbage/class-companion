@@ -1,4 +1,46 @@
 var React = require('react');
-var App = require('./components/App.react')
-  
-React.render(<App />, document.getElementById('app'));
+var App = require('./components/App.react');
+var TeacherDashboard = require('./components/TeacherDashboard.react');
+var TeacherClass = require('./components/TeacherClass.react');
+var Auth = require('./components/Auth.react');
+
+var Router = require('react-router');
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
+var DefaultRoute = Router.DefaultRoute;
+var Link = Router.Link;
+var Navigation = Router.Navigation;
+// var history = require('../../node_modules/react-router/lib/History');
+
+
+// var HashHistory = Router/lib/HashHistory;
+// var history = new HashHistory({ queryKey: true });
+
+// React.render(<App />, document.getElementById('app'));
+
+// var routes = (
+//   <Router history={history}>
+//     <Route path="/" component={App}>
+//       <Route path="login" component={Auth.Login}/>
+//       <Route path="signup" component={Auth.Signup}/>
+//       <Route path="teacherDashboard" component={TeacherDashboard} onEnter={requireAuth}/>
+//     </Route>
+//   </Router>
+// );
+
+var routes = (
+  <Route path="/" handler={App}>
+  	<DefaultRoute handler={TeacherDashboard}/>
+    <Route path="login" handler={Auth.Login}/>
+    <Route path="logout" handler={Auth.Logout}/>
+    <Route path="signup" handler={Auth.Signup}/>
+    <Route path="teacherDashboard" handler={TeacherDashboard}/>
+    	<Route path="teacherClass/:id" handler={TeacherClass}/>
+  </Route>
+);
+
+// React.render(routes, document.getElementById('app'));
+
+Router.run(routes, Router.HashLocation, function(Root){
+  React.render(<Root/>, document.getElementById('app'));
+});
