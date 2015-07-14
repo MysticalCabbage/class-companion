@@ -1,4 +1,7 @@
 var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
+
 
 var Navbar = React.createClass({
   render: function() {
@@ -6,12 +9,12 @@ var Navbar = React.createClass({
       <nav className="navbar navbar-default">
         <div className="container">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#">Mystical Cabbage</a>
+            <Link to="/" className="navbar-brand">Mystical Cabbage</Link>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a href="#">Logout</a>
+                <Link to="/logout">Logout</Link>
               </li>
             </ul>
           </div>

@@ -2,7 +2,32 @@ var React = require('react');
 var authActions = require('../actions/AuthActions');
 var authStore = require('../stores/AuthStore');
 
+var Router = require('react-router');
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
+var DefaultRoute = Router.DefaultRoute;
+var Link = Router.Link;
+var Navigation = Router.Navigation;
+
 var Auth = {};
+
+Auth.Authentication = {
+  statics: {
+    willTransitionTo: function (transition) {
+      var nextPath = transition.path;
+
+      // To delete line 20 and uncomment line 24 when we get authStore.checkAuth() to work
+      var test = true;
+
+      // Redirect to /login if false. 
+      if (!test) {
+      // if (!authStore.checkAuth()) {
+        transition.redirect('/login',{},
+          { 'nextPath' : nextPath });
+      }
+    }
+  }
+};
 
 Auth.Signup = React.createClass({
   handleSubmit: function(e){
@@ -38,8 +63,22 @@ Auth.Signup = React.createClass({
 });
 
 Auth.Login = React.createClass({
+  mixins: [ Router.Navigation],
+  getInitialState: function () {
+    return {
+      error: false
+    };
+  },
+
   handleSubmit: function(e){
     e.preventDefault();
+
+    // Line 79 and 89-93 are for the router. 
+    // Need to figure out how to redirect after authentication once AuthStore is set up
+    // Follow this example: https://github.com/rackt/react-router/blob/de9f8098baee3b5d24b1c337dc9aa0e7439a295e/examples/auth-flow/app.js
+    // getQuery() returns a hash of the currently active query params.
+
+    // var nextPath = this.getQuery().nextPath;
 
     var emailNode = React.findDOMNode(this.refs.email);
     var passwordNode = React.findDOMNode(this.refs.password);
@@ -48,6 +87,12 @@ Auth.Login = React.createClass({
       email: emailNode.value, 
       password: passwordNode.value
     });
+
+    // if (nextPath) {
+    //   this.transitionTo(nextPath);
+    // } else {
+    //   this.replaceWith('/teacherDashboard');
+    // }
     
     emailNode.value = '';
     passwordNode.value = '';
