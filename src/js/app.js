@@ -4,7 +4,7 @@ var TeacherDashboard = require('./components/TeacherDashboard.react');
 var TeacherClass = require('./components/TeacherClass.react');
 var TeacherForm = require('./components/TeacherForm.react');
 var ClassroomDashboard = require('./components/ClassroomDashboard.react');
-var Auth = require('./components/Auth.react');
+// var Auth = require('./components/Auth.react');
 var Signup = require('./components/Signup.react');
 var Login = require('./components/Login.react');
 
