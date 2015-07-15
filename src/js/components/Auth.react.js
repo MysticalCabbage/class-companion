@@ -33,21 +33,42 @@ Auth.Signup = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
 
+    var prefixNode = React.findDOMNode(this.refs.prefix);
+    var firstNameNode = React.findDOMNode(this.refs.firstName);
+    var lastNameNode = React.findDOMNode(this.refs.lastName);
     var emailNode = React.findDOMNode(this.refs.email);
     var passwordNode = React.findDOMNode(this.refs.password);
 
     this.props.signup({
       email: emailNode.value, 
-      password: passwordNode.value
+      password: passwordNode.value,
+      prefix: prefixNode.value,
+      firstName: firstNameNode.value,
+      lastName: lastNameNode.value
     });
 
     emailNode.value = '';
     passwordNode.value = '';
+    prefixNode.value = '';
+    firstNameNode.value = '';
+    lastNameNode.value = '';
   },
   render: function() {
     return (
       <form id="frmSignup" role="form" onSubmit={this.handleSubmit}>
         <h2>Signup</h2>
+        <div>
+          <label for="txtPrefix">Prefix</label>
+          <input type="text" id="txtPrefix" placeholder="Mr/Ms/Mrs" ref="prefix" required/>
+        </div>
+        <div>
+          <label for="txtFirstName">First Name</label>
+          <input type="text" id="txtFirstName" placeholder="First Name" ref="firstName" required/>
+        </div>
+        <div>
+          <label for="txtLastName">Last Name</label>
+          <input type="text" id="txtLastName" placeholder="Last Name" ref="lastName" required/>
+        </div>
         <div>
           <label for="txtRegEmail">Email address</label>
           <input type="email" id="txtEmail" placeholder="Enter email" ref="email" required/>
@@ -123,12 +144,9 @@ Auth.Logout = React.createClass({
   },
   render: function(){
     return (
-      <div>
-        <hr/>
-        <form id="frmLogout" role="form" onSubmit={this.handleSubmit}>
-          <button type="submit">Logout</button>
-        </form>
-      </div>
+      <form id="frmLogout" role="form" onSubmit={this.handleSubmit}>
+        <button type="submit">Logout</button>
+      </form>
     );
   }
 });

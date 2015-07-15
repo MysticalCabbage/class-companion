@@ -7,8 +7,9 @@ var Q = require('q');
 
 var CHANGE_EVENT = 'change';
 
-// set root ref of firebase database
+// set ref to firebase database
 var rootRef = new Firebase(AuthConstants.DB);
+var teacherRef = rootRef.child('teachers');
 
 // firebase email/password authentication
 // returns a promise
@@ -49,10 +50,22 @@ var createUserAndLogin = function(userObj) {
 };
 
 // sign up a user and then log in
-var signup = function(credentials){
+var signup = function(data){
+  var credentials = {
+    email: data.email,
+    password: data.password
+  }
+  var info = {
+    email: data.email,
+    prefix: data.prefix,
+    firstName: data.firstName,
+    lastName: data.lastName
+  };
   createUserAndLogin(credentials)
     .then(function(authData) {
       console.log('succesfully signed up');
+      info.uid = authData.uid;
+      return createTeacher(info);
     })
     .catch(function(err) {
       console.error(err);
@@ -89,6 +102,21 @@ var checkAuth = function(){
   return rootRef.getAuth();
 };
 
+var createTeacher = function(info){
+  console.log('new Teacher: ', info.uid);
+  var deferred = new Q.defer();
+
+  teacherRef.child(info.uid).set({info: info}, function(err){
+    if(err) {
+      deferred.reject(err);
+    } else {
+      deferred.resolve();
+    }
+  });
+
+  return deferred.promise;
+};
+
 var AuthStore = {};
 
 AppDispatcher.register(function(payload){
@@ -109,3 +137,4 @@ AppDispatcher.register(function(payload){
 });
 
 module.exports = AuthStore;
+
