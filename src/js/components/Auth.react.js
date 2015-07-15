@@ -55,30 +55,50 @@ Auth.Signup = React.createClass({
   },
   render: function() {
     return (
-      <form id="frmSignup" role="form" onSubmit={this.handleSubmit}>
-        <h2>Signup</h2>
-        <div>
-          <label for="txtPrefix">Prefix</label>
-          <input type="text" id="txtPrefix" placeholder="Mr/Ms/Mrs" ref="prefix" required/>
-        </div>
-        <div>
-          <label for="txtFirstName">First Name</label>
-          <input type="text" id="txtFirstName" placeholder="First Name" ref="firstName" required/>
-        </div>
-        <div>
-          <label for="txtLastName">Last Name</label>
-          <input type="text" id="txtLastName" placeholder="Last Name" ref="lastName" required/>
-        </div>
-        <div>
-          <label for="txtRegEmail">Email address</label>
-          <input type="email" id="txtEmail" placeholder="Enter email" ref="email" required/>
-        </div>
-        <div>
-          <label for="txtRegPass">Password</label>
-          <input type="password" id="txtPass" placeholder="Password" ref="password" required/>
-        </div>
-        <button type="submit">Signup</button>
-      </form>
+      <div className="signupForm container">
+        <div className="row">
+          <div className="col-sm-5 well">
+            <h2>Signup</h2>
+            <form className="form-horizontal" id="frmSignup" role="form" onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label for="txtPrefix" className="col-sm-3 control-label">Prefix</label>
+                <div className="col-sm-9">
+                  <input type="text" className="form-control" id="txtPrefix" placeholder="Mr/Ms/Mrs" ref="prefix" required/>
+                </div>
+              </div>
+              <div className="form-group">
+                <label for="txtFirstName" className="col-sm-3 control-label">First Name</label>
+                <div className="col-sm-9">
+                  <input type="text" className="form-control" placeholder="First Name" ref="firstName" required/>
+                </div>
+              </div>
+              <div className="form-group">
+                <label for="txtLastName" className="col-sm-3 control-label">Last Name</label>
+                <div className="col-sm-9">
+                  <input type="text" className="form-control" placeholder="Last Name" ref="lastName" required/>
+                </div>
+              </div>
+              <div className="form-group">
+                <label for="txtRegEmail" className="col-sm-3 control-label">Email</label>
+                <div className="col-sm-9">
+                  <input type="email" className="form-control" id="txtEmail" placeholder="Enter email" ref="email" required/>
+                </div>
+              </div>
+              <div className="form-group">
+                <label for="txtRegPass" className="col-sm-3 control-label">Password</label>
+                <div className="col-sm-9">
+                  <input type="password" className="form-control" id="txtPass" placeholder="Password" ref="password" required/>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="col-sm-offset-9 col-sm-3">
+                  <button type="submit" className="btn btn-default btn-block submit-button">Sign up</button>
+                </div>
+              </div>
+            </form>
+          </div> 
+        </div> 
+      </div>
     );
   }
 });
@@ -120,18 +140,32 @@ Auth.Login = React.createClass({
   },
   render: function() {
     return (
-      <form id="frmLogin" role="form" onSubmit={this.handleSubmit}>
-        <h1>Login</h1>
-        <div>
-          <label for="txtEmail">Email address</label>
-          <input type="email" id="txtEmail" placeholder="Enter email" ref="email" required/>
-        </div>
-        <div>
-          <label for="txtPass">Password</label>
-          <input type="password" id="txtPass" placeholder="Password" ref="password" required/>
-        </div>
-        <button type="submit">Login</button>
-      </form>
+      <div className="loginForm container">
+        <div className="row">
+          <div className="col-sm-5 well">
+            <h2>Login</h2>
+            <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label for="txtEmail" className="col-sm-3 control-label">Email</label>
+                <div className="col-sm-9">
+                  <input type="email" className="form-control" id="txtEmail" placeholder="Enter email" ref="email" required/>
+                </div>
+              </div>
+              <div className="form-group">
+                <label for="txtPass" className="col-sm-3 control-label">Password</label>
+                <div className="col-sm-9">
+                  <input type="password" className="form-control" id="txtPass" placeholder="Password" ref="password" required/>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="col-sm-offset-9 col-sm-3">
+                  <button type="submit" className="btn btn-default btn-block submit-button">Sign in</button>
+                </div>
+              </div>
+            </form>
+          </div> 
+        </div> 
+      </div>
     );
   }
 });
