@@ -26,7 +26,7 @@ var ClassroomDashboard = React.createClass({
   render: function(){
     var studentNodes = this.state.list.map(function(studentNode,index){
       return (
-        <ClassroomStudent key={index} studentTitle={studentNode.studentTitle} />
+        <ClassroomStudent key={index} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior}/>
       )
     })
     return (
@@ -35,7 +35,7 @@ var ClassroomDashboard = React.createClass({
         {studentNodes}
           <div className="classroom col-md-3">
             <div className="well">
-              <a href="#" add={this.handleAddClass}>Add Student</a>
+              <a>Add Student</a>
             </div>
           </div>
          <ClassroomForm />
