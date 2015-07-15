@@ -8,14 +8,9 @@ var ClassroomForm = React.createClass({
   },
   handleAddStudent: function(e){
     e.preventDefault();
-    ClassroomActions.addStudent(this.state.newStudent);
-    var form = document.getElementById('newStudent');
-    form.value = '';
-  },
-  updateStudent: function(e){
-    this.setState({
-      newStudent: e.target.value
-    });
+    var form = React.findDOMNode(this.refs.newClass).value;
+    ClassroomActions.addStudent({studentTitle: form});
+    React.findDOMNode(this.refs.newClass).value = '';
   },
   render: function() {
     return (
@@ -25,7 +20,7 @@ var ClassroomForm = React.createClass({
             <form>
               <label for="">Add student</label>
               <div className="form-group">
-                <input type="text" id="newStudent" onChange={this.updateStudent} className="form-control" placeholder="new student"  />
+                <input type="text" ref="newClass" id="newStudent" className="form-control" placeholder="new student"  />
               </div>
               <button type="submit" id="addNewStudent" onClick={this.handleAddStudent} className="btn btn-primary btn-block submit-button">Add student!</button>
             </form>
