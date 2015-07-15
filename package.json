@@ -10,7 +10,8 @@
     "q": "^1.4.1",
     "react": "^0.13.3",
     "react-modal": "^0.2.0",
-    "react-router": "^0.13.3"
+    "react-router": "^0.13.3",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "browserify": "^10.2.6",
