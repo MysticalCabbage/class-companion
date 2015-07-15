@@ -4,6 +4,8 @@ var TeacherActions = require('../actions/TeacherActions');
 var TeacherStore = require('../stores/TeacherStore');
 var TeacherForm = require('./TeacherForm.react');
 var Auth = require('./Auth.react');
+var Router = require('react-router');
+var Link = Router.Link;
 
 var TeacherDashboard = React.createClass({
   mixins: [ Auth.Authentication ],
@@ -31,12 +33,8 @@ var TeacherDashboard = React.createClass({
     })
   },
 
-  // Invoking the addClass method on our TeacherActions whenever a addClass user event occurs
-  handleAddClass: function(newClass){
-    TeacherActions.addClass(newClass);
-  },
-
   render: function() {
+    console.log(this.state.list);
     var classNodes = this.state.list.map(function(classNode, index){
       return (
         <TeacherClass key={index} classTitle={classNode.classTitle}/>
@@ -49,7 +47,7 @@ var TeacherDashboard = React.createClass({
           {classNodes}
           <div className="teacherClass col-md-3">
             <div className="well">
-              <a href="#" add={this.handleAddClass}>Add Class +</a>
+              <Link to="/teacherForm">Add Class +</Link>
             </div>
           </div>
           <TeacherForm />

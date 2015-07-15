@@ -6,7 +6,7 @@ var TeacherActions = {
     AppDispatcher.handleAction({
       actionType: TeacherConstants.ADD_CLASS,
       data: newClass
-    })
+    }) 
   }
 };
 

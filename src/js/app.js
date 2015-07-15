@@ -2,6 +2,8 @@ var React = require('react');
 var App = require('./components/App.react');
 var TeacherDashboard = require('./components/TeacherDashboard.react');
 var TeacherClass = require('./components/TeacherClass.react');
+var TeacherForm = require('./components/TeacherForm.react');
+var ClassroomDashboard = require('./components/ClassroomDashboard');
 var Auth = require('./components/Auth.react');
 
 var Router = require('react-router');
@@ -18,7 +20,9 @@ var routes = (
     <Route path="logout" handler={Auth.Logout}/>
     <Route path="signup" handler={Auth.Signup}/>
     <Route path="teacherDashboard" handler={TeacherDashboard}/>
-    	<Route path="teacherClass/:id" handler={TeacherClass}/>
+      <Route path="teacherClass/:id" handler={TeacherClass}/>
+      <Route path="teacherForm" handler={TeacherForm}/>
+    <Route path="classroomDashboard" handler={ClassroomDashboard}/>
   </Route>
 );
 
