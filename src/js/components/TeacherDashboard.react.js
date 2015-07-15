@@ -5,6 +5,7 @@ var TeacherStore = require('../stores/TeacherStore');
 var TeacherForm = require('./TeacherForm.react');
 var Auth = require('./Auth.react');
 var Router = require('react-router');
+var _ = require('underscore');
 var Link = Router.Link;
 
 var TeacherDashboard = React.createClass({
@@ -19,11 +20,13 @@ var TeacherDashboard = React.createClass({
   // Call the addChangeListener method on TeacherStore to add an event listener
   componentDidMount: function(){
     TeacherStore.addChangeListener(this._onChange);
+    TeacherStore.dbOn();
   },
 
   // Call the removeChangeListener method on TeacherStore to remove an event listener
   componentWillUnmount: function(){
     TeacherStore.removeChangeListener(this._onChange);
+    TeacherStore.dbOff();
   },
 
   // Whenever data in the store changes, fetch data from the store and update the component state
@@ -35,7 +38,7 @@ var TeacherDashboard = React.createClass({
 
   render: function() {
     console.log(this.state.list);
-    var classNodes = this.state.list.map(function(classNode, index){
+    var classNodes = _.map(this.state.list, function(classNode, index){
       return (
         <TeacherClass key={index} classTitle={classNode.classTitle}/>
       )
@@ -52,6 +55,7 @@ var TeacherDashboard = React.createClass({
           </div>
           <TeacherForm />
         </div>
+
       </div>
     );
   }

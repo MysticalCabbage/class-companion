@@ -2,13 +2,13 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AuthConstants = require('../constants/AuthConstants');
 var objectAssign = require('object-assign');
-var Firebase = require('firebase');
+var FirebaseStore = require('./FirebaseStore');
 var Q = require('q');
 
 var CHANGE_EVENT = 'change';
 
 // set ref to firebase database
-var rootRef = new Firebase(AuthConstants.DB);
+var rootRef = FirebaseStore.db;
 var teacherRef = rootRef.child('teachers');
 
 // firebase email/password authentication

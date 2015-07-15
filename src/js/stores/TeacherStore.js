@@ -2,24 +2,19 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var TeacherConstants = require('../constants/TeacherConstants');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
+var FirebaseStore = require('./FirebaseStore');
 
 var CHANGE_EVENT = 'change';
 
 var _store = {
-  list: [
-    // {classTitle: 'Math'},
-    // {classTitle: 'English'},
-    // {classTitle: 'Science'},
-    // {classTitle: 'History'},
-    // {classTitle: 'Biology'},
-    // {classTitle: 'Chemistry'},
-    // {classTitle: 'Geography'},
-    // {classTitle: 'Spanish'}
-  ]
+  teacher_id: FirebaseStore.db.getAuth().uid,
+  list: {}
 };
 
 var addClass = function(newClass){
-  _store.list.push(newClass);
+  var newClassId = FirebaseStore.db.child('classes').push().key();
+  FirebaseStore.db.child('teachers/' + _store.teacher_id + '/classes/' + newClassId).set(newClassId);
+  FirebaseStore.db.child('classes/' + newClassId + '/class_info').set({classTitle: newClass, teacher_id: _store.teacher_id);
 };
 
 var TeacherStore = objectAssign({}, EventEmitter.prototype, {
@@ -35,6 +30,27 @@ var TeacherStore = objectAssign({}, EventEmitter.prototype, {
   getList: function(){
     return _store.list;
   },
+
+  dbOn: function(){
+    console.log(FirebaseStore.db.getAuth().uid === _store.teacher_id);
+    // get teacher info, your id stored in rootRef.getAuth().uid
+    FirebaseStore.db.child(_store.teacher_id + '/info').on('value', function(snapshot){
+      console.log(snapshot.val()); // get entire teacher info back
+    });
+
+
+    // get all classes, store class id, set current class id
+    FirebaseStore.db.child(_store.teacher_id + '/classes').on('value', function(snapshot){
+      console.log(snapshot.val()); // retrieves all classes
+      // compare with current class list and add to state list
+    });
+  },
+
+  dbOff: function(){
+    console.log(FirebaseStore.db.getAuth().uid === _store.teacher_id);
+    FirebaseStore.db.child(_store.teacher_id + '/info').off();
+    FirebaseStore.db.child(_store.teacher_id + '/classes').off();
+  }
 });
 
 AppDispatcher.register(function(payload){
