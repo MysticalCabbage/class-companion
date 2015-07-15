@@ -3,6 +3,7 @@ var ClassroomConstants = require('../constants/ClassroomConstants');
 
 var ClassroomActions = {
   addStudent: function(newStudent){
+    console.log("HERE");
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.ADD_STUDENT,
       data: newStudent

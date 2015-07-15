@@ -6,8 +6,8 @@ var ClassroomForm = React.createClass({
       newStudent: ''
     }
   },
-  handleAddStudent: function(){
-    
+  handleAddStudent: function(e){
+    e.preventDefault();
     ClassroomActions.addStudent(this.state.newStudent);
     var form = document.getElementById('newStudent');
     form.value = '';
@@ -27,7 +27,7 @@ var ClassroomForm = React.createClass({
               <div className="form-group">
                 <input type="text" id="newStudent" onChange={this.updateStudent} className="form-control" placeholder="new student"  />
               </div>
-              <button type="submit" onClick={this.handleAddStudent} id="addNewStudent" className="btn btn-primary btn-block submit-button">Add student!</button>
+              <button type="submit" id="addNewStudent" onClick={this.handleAddStudent} className="btn btn-primary btn-block submit-button">Add student!</button>
             </form>
           </div> 
         </div> 
