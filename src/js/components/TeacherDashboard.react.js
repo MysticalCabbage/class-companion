@@ -38,7 +38,7 @@ var TeacherDashboard = React.createClass({
 
   render: function() {
     console.log(this.state.list);
-    var classNodes = _(this.state.list).map(function(classNode, index){
+    var classNodes = _.map(this.state.list, function(classNode, index){
       return (
         <TeacherClass key={index} classTitle={classNode.classTitle}/>
       )
