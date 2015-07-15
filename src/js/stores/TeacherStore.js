@@ -14,7 +14,7 @@ var _store = {
 var addClass = function(newClass){
   var newClassId = FirebaseStore.db.child('classes').push().key();
   FirebaseStore.db.child('teachers/' + _store.teacher_id + '/classes/' + newClassId).set(newClassId);
-  FirebaseStore.db.child('classes/' + newClassId + '/class_info').set({class_name: newClass, teacher: _store.teacher_id, grade: 'GRADE_LEVEL'});
+  FirebaseStore.db.child('classes/' + newClassId + '/class_info').set({classTitle: newClass, teacher_id: _store.teacher_id);
 };
 
 var TeacherStore = objectAssign({}, EventEmitter.prototype, {
