@@ -3,7 +3,7 @@ var Modal = require('react-modal');
 var ClassroomStudent = require('./ClassroomStudent.react');
 var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
-var ClassroomForm = require('./ClassroomForm');
+var ClassroomForm = require('./ClassroomForm.react');
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){

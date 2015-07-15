@@ -2,6 +2,7 @@
   "dependencies": {
     "body-parser": "^1.13.2",
     "bootstrap": "^3.3.5",
+    "classnames": "^1.2.2",
     "express": "^4.13.1",
     "firebase": "^2.2.7",
     "flux": "^2.0.3",
