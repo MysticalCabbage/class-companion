@@ -6,6 +6,7 @@ var TeacherForm = require('./TeacherForm.react');
 var Auth = require('./Auth.react');
 var Router = require('react-router');
 var Link = Router.Link;
+var _ = require('underscore');
 
 var TeacherDashboard = React.createClass({
   mixins: [ Auth.Authentication ],
@@ -34,11 +35,11 @@ var TeacherDashboard = React.createClass({
   },
 
   render: function() {
-    var classNodes = this.state.list.map(function(classNode, index){
+    var classNodes = _.map(this.state.list, function(classNode, index){
       return (
         <TeacherClass key={index} classTitle={classNode.classTitle}/>
       )
-    })
+    });
 
     return (
       <div className="teacherDashboard container">

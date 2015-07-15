@@ -6,20 +6,15 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 var _store = {
-  list: [
-    // {classTitle: 'Math'},
-    // {classTitle: 'English'},
-    // {classTitle: 'Science'},
-    // {classTitle: 'History'},
-    // {classTitle: 'Biology'},
-    // {classTitle: 'Chemistry'},
-    // {classTitle: 'Geography'},
-    // {classTitle: 'Spanish'}
-  ]
+  list: {}
 };
 
 var addClass = function(newClass){
-  _store.list.push(newClass);
+  _store.list[newClass.classTitle] = newClass
+};
+
+var removeClass = function(classTitle){
+  delete _store.list[classTitle];
 };
 
 var TeacherStore = objectAssign({}, EventEmitter.prototype, {
@@ -41,9 +36,12 @@ AppDispatcher.register(function(payload){
   var action = payload.action;
   switch(action.actionType){
     case TeacherConstants.ADD_CLASS:
-      // inboke the addClass setter function above to add new class to the list
+      // invoke the addClass setter function above to add new class to the list
       addClass(action.data);
       // Emit a change event
+      TeacherStore.emit(CHANGE_EVENT);
+    case TeacherConstants.REMOVE_CLASS:
+      removeClass(action.data);
       TeacherStore.emit(CHANGE_EVENT);
       break;
     default:
