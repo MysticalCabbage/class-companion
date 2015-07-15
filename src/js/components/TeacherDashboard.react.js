@@ -9,7 +9,6 @@ var Link = Router.Link;
 var _ = require('underscore');
 
 var TeacherDashboard = React.createClass({
-  mixins: [ Auth.Authentication ],
   // Invoke TeacherStore.getList() and set the result to the list property on our state
   getInitialState: function(){
     return {

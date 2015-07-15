@@ -15,20 +15,34 @@ var DefaultRoute = Router.DefaultRoute;
 var Redirect = Router.Redirect;
 var Link = Router.Link;
 var Navigation = Router.Navigation;
+var RouterContainer = require('./services/RouterContainer');
+// var AuthenticatedApp = require('./components/AuthenticatedApp');
 
 var routes = (
-  <Route name="root" path="/" handler={App}>
+  // <Route name="root" path="/" handler={App}>
+  // <Route handler={AuthenticatedApp}>
+  <Route handler={App}>
   	<DefaultRoute handler={TeacherDashboard}/>
+    // Delete if necessary
+    <Route name="home" path="/" handler={TeacherDashboard}/>
     <Route path="login" handler={Login}/>
-    <Redirect from="logout" to="root" />
     <Route path="signup" handler={Signup}/>
+    <Redirect from="logout" to="root" />
     <Route path="teacherDashboard" handler={TeacherDashboard}/>
-      <Route path="teacherClass/:id" handler={TeacherClass}/>
-      <Route path="teacherForm" handler={TeacherForm}/>
+    <Route path="teacherForm" handler={TeacherForm}/>
     <Route path="classroomDashboard" handler={ClassroomDashboard}/>
   </Route>
 );
 
-Router.run(routes, Router.HashLocation, function(Root){
+var router = Router.create({routes});
+RouterContainer.set(router);
+
+// // Not sure what these are for
+// let jwt = localStorage.getItem('jwt');
+// if (jwt) {
+//   LoginActions.loginUser(jwt);
+// }
+
+router.run(function(Root){
   React.render(<Root/>, document.getElementById('app'));
 });

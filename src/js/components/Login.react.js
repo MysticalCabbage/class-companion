@@ -2,8 +2,9 @@ var React = require('react');
 var AuthActions = require('../actions/AuthActions');
 var Router = require('react-router');
 var Link = Router.Link;
+var Auth = require('../services/AuthService');
 
-var Login = React.createClass({
+var Login = React.createClass({ 
   getInitialState: function () {
     return {
       error: false
@@ -16,13 +17,14 @@ var Login = React.createClass({
     var emailNode = React.findDOMNode(this.refs.email);
     var passwordNode = React.findDOMNode(this.refs.password);
 
-    AuthActions.login({
+    Auth.login({
       email: emailNode.value, 
       password: passwordNode.value
     });
     
     emailNode.value = '';
     passwordNode.value = '';
+
   },
   render: function() {
     return (
@@ -45,7 +47,7 @@ var Login = React.createClass({
               </div>
               <div className="form-group">
                 <div className="col-sm-offset-5">
-                  Dont have an account? <Link to="/signup">Register</Link>
+                  Dont have an account? <Link to="/signup">Signup</Link>
                 </div>
               </div>
               <div className="form-group">

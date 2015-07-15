@@ -117,7 +117,7 @@ var createTeacher = function(info){
   return deferred.promise;
 };
 
-var AuthStore = {};
+var AuthStore = objectAssign({}, EventEmitter.prototype);
 
 AppDispatcher.register(function(payload){
   var action = payload.action;
@@ -126,7 +126,10 @@ AppDispatcher.register(function(payload){
       signup(action.data);
       break;
     case AuthConstants.LOGIN:
-      login(action.data);
+      // login(action.data);
+      AuthStore._user = action.data;
+      AuthStore._loggedIn = action.loggedIn;
+      this.emit('change');
       break;
     case AuthConstants.LOGOUT:
       logout();
@@ -135,6 +138,21 @@ AppDispatcher.register(function(payload){
       return true;
   }
 });
+
+AuthStore.user = null;
+AuthStore._loggedIn = null;
+
+AuthStore.isLoggedIn = function() {
+  return !!AuthStore._loggedIn;
+};
+
+AuthStore.addChangeListener = function(cb) {
+  this.on('change', cb)
+};
+
+AuthStore.removeChangeListener = function(cb) {
+  this.removeListener('change', cb);
+}
 
 module.exports = AuthStore;
 
