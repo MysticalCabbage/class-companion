@@ -1,4 +1,5 @@
 var React = require('react');
+var Modal = require('react-modal');
 var ClassroomStudent = require('./ClassroomStudent.react');
 var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');

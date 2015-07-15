@@ -13,7 +13,7 @@ var ClassroomStudent = React.createClass({
     return (
         <div className="classroomStudent col-md-3">
           <div className="well">
-          <a href="#" onDoubleClick={this.removeStudent}>{this.props.studentTitle}</a>
+          <a onDoubleClick={this.removeStudent}>{this.props.studentTitle}</a>
           </div>
         </div>
     );
