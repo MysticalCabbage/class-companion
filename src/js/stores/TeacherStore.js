@@ -7,14 +7,14 @@ var CHANGE_EVENT = 'change';
 
 var _store = {
   list: [
-    {classTitle: 'Math'},
-    {classTitle: 'English'},
-    {classTitle: 'Science'},
-    {classTitle: 'History'},
-    {classTitle: 'Biology'},
-    {classTitle: 'Chemistry'},
-    {classTitle: 'Geography'},
-    {classTitle: 'Spanish'}
+    // {classTitle: 'Math'},
+    // {classTitle: 'English'},
+    // {classTitle: 'Science'},
+    // {classTitle: 'History'},
+    // {classTitle: 'Biology'},
+    // {classTitle: 'Chemistry'},
+    // {classTitle: 'Geography'},
+    // {classTitle: 'Spanish'}
   ]
 };
 
