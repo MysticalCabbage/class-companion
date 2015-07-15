@@ -10,9 +10,8 @@ var TeacherForm = React.createClass({
   handleAddClass: function(e){
     e.preventDefault();
     var newClass = React.findDOMNode(this.refs.newClass).value;
-    console.log(newClass);
-    TeacherActions.addClass({classTitle: newClass});
-    newClass.value = '';
+    TeacherActions.addClass({classTitle: newClass, teacher: ''});
+    React.findDOMNode(this.refs.newClass).value = '';
   },
 
   render: function() {

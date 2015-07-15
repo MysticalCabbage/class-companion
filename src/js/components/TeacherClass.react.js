@@ -2,7 +2,6 @@ var React = require('react');
 
 var TeacherClass = React.createClass({
   getInitialState: function(){
-    console.log(this.props);
     return null;
   },
 
