@@ -103,6 +103,12 @@ var AuthService = {
 	  return deferred.promise;
 	},
 
+	// log out user
+	// confirms if firebase auth data was removed from local storage
+	logout: function() {
+		AuthActions.logout();
+	},
+
 	// check if a user is logged in
 	// returns firebase authentication data
 	checkAuth: function(){

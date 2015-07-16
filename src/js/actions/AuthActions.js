@@ -28,6 +28,7 @@ var AuthActions = {
     });
   },
   logout: function(){
+    RouterContainer.get().transitionTo('/login');
     AppDispatcher.handleAction({
       actionType: AuthConstants.LOGOUT,
       data: null
