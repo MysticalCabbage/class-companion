@@ -2,14 +2,14 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AuthConstants = require('../constants/AuthConstants');
 var objectAssign = require('object-assign');
-var Firebase = require('firebase');
+var FirebaseStore = require('./FirebaseStore');
 var Q = require('q');
 
 var CHANGE_EVENT = 'change';
 
 // set ref to firebase database
-var rootRef = new Firebase(AuthConstants.DB);
-var teacherRef = rootRef.child('teachers');
+var firebaseRef = FirebaseStore.getDb();
+var teacherRef = firebaseRef.child('teachers');
 
 var AuthStore = objectAssign({}, EventEmitter.prototype);
 AuthStore.user = null;
@@ -40,7 +40,7 @@ AppDispatcher.register(function(payload){
 // log out user
 // confirms if firebase auth data was removed from local storage
 AuthStore.logout = function() {
-  rootRef.unauth();
+  firebaseRef.unauth();
   
   if(!AuthStore.checkAuth()){
     console.log('sucessfully logged out');
@@ -52,7 +52,7 @@ AuthStore.logout = function() {
 // check if a user is logged in
 // returns firebase authentication data
 AuthStore.checkAuth = function(){
-  return rootRef.getAuth();
+  return firebaseRef.getAuth();
 };
 
 

@@ -4,12 +4,12 @@ var AuthConstants = require('../constants/AuthConstants');
 var Router = require('react-router');
 var Link = Router.Link;
 var objectAssign = require('object-assign');
-var Firebase = require('firebase');
+var FirebaseStore = require('../stores/FirebaseStore');
 var Q = require('q');
 
 // set ref to firebase database
-var rootRef = new Firebase(AuthConstants.DB);
-var teacherRef = rootRef.child('teachers');
+var firebaseRef = FirebaseStore.getDb();
+var teacherRef = firebaseRef.child('teachers');
 
 var AuthService = {
 
@@ -17,7 +17,7 @@ var AuthService = {
 	// returns a promise
 	authWithPassword: function(userObj) {
 	  var deferred = Q.defer();
-	  rootRef.authWithPassword(userObj, function onAuth(err, user) {
+	  firebaseRef.authWithPassword(userObj, function onAuth(err, user) {
 	    if (err) {
 	      deferred.reject(err);
 	    }
@@ -45,7 +45,7 @@ var AuthService = {
 	// returns a promsie
 	createUser: function(userObj) {
 	  var deferred = Q.defer();
-	  rootRef.createUser(userObj, function (err) {
+	  firebaseRef.createUser(userObj, function (err) {
 	    if (!err) {
 	      deferred.resolve();
 	    } else {
@@ -112,7 +112,7 @@ var AuthService = {
 	// check if a user is logged in
 	// returns firebase authentication data
 	checkAuth: function(){
-	  return rootRef.getAuth();
+	  return firebaseRef.getAuth();
 	}
 
 };
