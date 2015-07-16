@@ -32,7 +32,7 @@ var addClass = function(newClass){
 };
 
 var removeClass = function(classTitle){
-  delete _store.list[classTitle];
+  //delete _store.list[classTitle];
 };
 
 var TeacherStore = objectAssign({}, EventEmitter.prototype, {
