@@ -11,10 +11,11 @@ var TeacherClass = React.createClass({
   },
 
   render: function() {
+    var url = '#/classroomDashboard/' + this.props.classId;
     return (
       <div className="teacherClass col-md-3">
         <div className="well">
-          <a onDoubleClick={this.removeClass}>{this.props.classTitle}</a>
+          <a href={url}>{this.props.classTitle}</a>
         </div>
       </div>
     );

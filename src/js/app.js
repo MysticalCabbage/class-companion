@@ -23,7 +23,7 @@ var routes = (
     <Route path="signup" handler={Signup}/>
     <Route path="teacherDashboard" handler={TeacherDashboard}/>
     <Route path="teacherForm" handler={TeacherForm}/>
-    <Route path="classroomDashboard" handler={ClassroomDashboard}/>
+    <Route path="classroomDashboard/:id" handler={ClassroomDashboard}/>
   </Route>
 );
 

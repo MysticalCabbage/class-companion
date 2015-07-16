@@ -50,7 +50,7 @@ var TeacherDashboard = React.createClass({
   render: function() {
     var classNodes = _.map(this.state.list, function(classNode, index){
       return (
-        <TeacherClass key={index} classTitle={classNode.classTitle}/>
+        <TeacherClass key={index} classId={index} classTitle={classNode.classTitle}/>
       )
     });
 
