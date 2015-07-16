@@ -10,6 +10,10 @@ var _store = {
   info: {}
 };
 
+var initInfo = function(teacherId){
+  console.log(teacherId);
+};
+
 var addClass = function(newClass){
   _store.list[newClass.classTitle] = newClass
 };
@@ -44,9 +48,13 @@ AppDispatcher.register(function(payload){
       addClass(action.data);
       // Emit a change event
       TeacherStore.emit(CHANGE_EVENT);
+      break;
     case TeacherConstants.REMOVE_CLASS:
       removeClass(action.data);
       TeacherStore.emit(CHANGE_EVENT);
+      break;
+    case TeacherConstants.INIT_INFO:
+      initInfo(action.data);
       break;
     default:
       return true;

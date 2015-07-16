@@ -8,14 +8,13 @@ var FirebaseStore = require('../stores/FirebaseStore');
 var Router = require('react-router');
 var Link = Router.Link;
 var _ = require('underscore');
-var authStore = require('../stores/AuthStore');
 
 var firebaseRef = FirebaseStore.getDb();
 
 var TeacherDashboard = React.createClass({
   // Invoke TeacherStore.getList() and set the result to the list property on our state
   getInitialState: function(){
-    if(!authStore.checkAuth()){
+    if(!AuthStore.checkAuth()){
       location.hash = '/login';
     }
     return {
@@ -26,6 +25,11 @@ var TeacherDashboard = React.createClass({
 
   // Call the addChangeListener method on TeacherStore to add an event listener
   componentDidMount: function(){
+    // query firebase for logged in user information
+    var authData = AuthStore.checkAuth();
+    if(authData){
+      TeacherActions.initInfo(authData.uid);
+    }
     TeacherStore.addChangeListener(this._onChange);
   },
 
