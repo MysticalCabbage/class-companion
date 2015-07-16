@@ -17,16 +17,16 @@ var addStudent = function(newStudent){
   firebaseRef.child('classes/' + _store.info.classId + '/students').push({studentTitle: newStudent, behavior: 0});
 };
 
-var removeStudent = function(student){
+var removeStudent = function(studentId){
 
 };
 
-var subtractPoint = function(student){
-
+var subtractPoint = function(data){
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId).set({behavior: data.behavior-1});
 };
 
-var addPoint = function(student){
-
+var addPoint = function(data){
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId).set({behavior: data.behavior+1});
 };
 
 var initQuery = function(classId){

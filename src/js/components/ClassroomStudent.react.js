@@ -6,13 +6,13 @@ var ClassroomStudent = React.createClass({
     return null;
   },
   removeStudent: function(){
-    ClassroomActions.removeStudent(this.props.studentTitle);
+    ClassroomActions.removeStudent(this.props.studentId);
   },
   addPoint: function(){
-    ClassroomActions.addPoint(this.props.studentTitle);
+    ClassroomActions.addPoint(this.props.studentId, this.props.behavior);
   },
   subtractPoint: function(){
-    ClassroomActions.subtractPoint(this.props.studentTitle);
+    ClassroomActions.subtractPoint(this.props.studentId, this.props.behavior);
   },
   render: function(){
     return (
