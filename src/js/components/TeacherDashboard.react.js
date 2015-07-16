@@ -15,7 +15,8 @@ var TeacherDashboard = React.createClass({
       location.hash = '/login';
     }
     return {
-      list: TeacherStore.getList()
+      list: TeacherStore.getList(),
+      info: TeacherStore.getInfo()
     }
   },
 
@@ -32,7 +33,8 @@ var TeacherDashboard = React.createClass({
   // Whenever data in the store changes, fetch data from the store and update the component state
   _onChange: function(){
     this.setState({
-      list: TeacherStore.getList()
+      list: TeacherStore.getList(),
+      info: TeacherStore.getInfo()
     })
   },
 

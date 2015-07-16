@@ -6,7 +6,8 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 var _store = {
-  list: {}
+  list: {},
+  info: {}
 };
 
 var addClass = function(newClass){
@@ -29,6 +30,9 @@ var TeacherStore = objectAssign({}, EventEmitter.prototype, {
 
   getList: function(){
     return _store.list;
+  },
+  getInfo: function(){
+    return _store.info;
   },
 });
 
