@@ -9,10 +9,12 @@ var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var Navigation = Router.Navigation;
 
-var Authenticated = React.createClass({
+module.exports = function(ComposedComponent){ 
+ return React.createClass({
   willTransitionTo: function (transition) {
     if (!authStore.isLoggedIn()) {
-      transition.redirect('/login', {}, {'nextPath' : transition.path});
+      // transition.redirect('/login', {}, {'nextPath' : transition.path});
+      transition.redirect('/login');
     }
   },
 
@@ -54,8 +56,9 @@ var Authenticated = React.createClass({
   }
 
   
-});
-  
-module.exports = function(ComposedComponent){
-  return Authenticated;
+  });
 };
+  
+// module.exports = function(ComposedComponent){
+//   return Authenticated;
+// };

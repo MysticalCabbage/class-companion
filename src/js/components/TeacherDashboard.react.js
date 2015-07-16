@@ -7,10 +7,14 @@ var Auth = require('./Auth.react');
 var Router = require('react-router');
 var Link = Router.Link;
 var _ = require('underscore');
+var authStore = require('../stores/AuthStore');
 
 var TeacherDashboard = React.createClass({
   // Invoke TeacherStore.getList() and set the result to the list property on our state
   getInitialState: function(){
+    if(!authStore.isLoggedIn()){
+      location.hash = '/login';
+    }
     return {
       list: TeacherStore.getList()
     }
