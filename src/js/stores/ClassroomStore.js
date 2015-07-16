@@ -14,7 +14,8 @@ var _store = {
 };
 
 var addStudent = function(newStudent){
-  firebaseRef.child('classes/' + _store.info.classId + '/students').push({studentTitle: newStudent, behavior: 0});
+  newStudent.behavior = 0;
+  firebaseRef.child('classes/' + _store.info.classId + '/students').push(newStudent);
 };
 
 var removeStudent = function(studentId){
