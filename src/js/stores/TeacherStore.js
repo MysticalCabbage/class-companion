@@ -1,5 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var TeacherConstants = require('../constants/TeacherConstants');
+var AuthConstants = require('../constants/AuthConstants');
 var FirebaseStore = require('./FirebaseStore');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
@@ -25,6 +26,11 @@ var initQuery = function(teacherId){
 var endQuery = function(){
   firebaseRef.child('teachers/'+_store.info.uid).off();
 };
+
+var clean = function(){
+  _store.list = {};
+  _store.info = {};
+}
 
 var addClass = function(newClass){
   newClass.teacherId = _store.info.uid;
@@ -78,6 +84,9 @@ AppDispatcher.register(function(payload){
       endQuery();
       TeacherStore.emit(CHANGE_EVENT);
       break;
+    case AuthConstants.LOGOUT:
+      clean();
+      TeacherStore.emit(CHANGE_EVENT);
     default:
       return true;
   }
