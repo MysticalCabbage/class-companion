@@ -28,7 +28,7 @@ var TeacherDashboard = React.createClass({
     // query firebase for logged in user information
     var authData = AuthStore.checkAuth();
     if(authData){
-      TeacherActions.initInfo(authData.uid);
+      TeacherActions.initQuery(authData.uid);
     }
     TeacherStore.addChangeListener(this._onChange);
   },

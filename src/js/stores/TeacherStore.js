@@ -13,8 +13,13 @@ var _store = {
   info: {}
 };
 
-var initInfo = function(teacherId){
-  console.log(teacherId);
+var initQuery = function(teacherId){
+  firebaseRef.child('teachers/'+teacherId).on('value', function(snapshot){
+    var teacherData = snapshot.val();
+    _store.info = teacherData.info;
+    _store.list = teacherData.classes || {};
+    TeacherStore.emit(CHANGE_EVENT);
+  });
 };
 
 var addClass = function(newClass){
@@ -56,8 +61,8 @@ AppDispatcher.register(function(payload){
       removeClass(action.data);
       TeacherStore.emit(CHANGE_EVENT);
       break;
-    case TeacherConstants.INIT_INFO:
-      initInfo(action.data);
+    case TeacherConstants.INIT_QUERY:
+      initQuery(action.data);
       break;
     default:
       return true;

@@ -14,9 +14,9 @@ var TeacherActions = {
       data: ClassTitle
     });
   },
-  initInfo: function(teacherId){
+  initQuery: function(teacherId){
     AppDispatcher.handleAction({
-      actionType: TeacherConstants.INIT_INFO,
+      actionType: TeacherConstants.INIT_QUERY,
       data: teacherId
     });
   }
