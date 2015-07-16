@@ -21,7 +21,6 @@ var routes = (
   	<DefaultRoute handler={TeacherDashboard}/>
     <Route path="login" handler={Login}/>
     <Route path="signup" handler={Signup}/>
-    <Redirect from="logout" to="root" />
     <Route path="teacherDashboard" handler={TeacherDashboard}/>
     <Route path="teacherForm" handler={TeacherForm}/>
     <Route path="classroomDashboard" handler={ClassroomDashboard}/>
