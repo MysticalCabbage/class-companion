@@ -4,7 +4,7 @@ var authStore = require('../stores/AuthStore');
 
 var TeacherForm = React.createClass({
   getInitialState: function(){
-    if(!authStore.isLoggedIn()){
+    if(!authStore.checkAuth()){
       location.hash = '/login';
     }
     return null;

@@ -8,7 +8,7 @@ var authStore = require('../stores/AuthStore');
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
-    if(!authStore.isLoggedIn()){
+    if(!authStore.checkAuth()){
       location.hash = '/login';
     }
     //set list upon initialstate w/ ClassroomStore.getList

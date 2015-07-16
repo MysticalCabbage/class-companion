@@ -11,7 +11,7 @@ var authStore = require('../stores/AuthStore');
 var TeacherDashboard = React.createClass({
   // Invoke TeacherStore.getList() and set the result to the list property on our state
   getInitialState: function(){
-    if(!authStore.isLoggedIn()){
+    if(!authStore.checkAuth()){
       location.hash = '/login';
     }
     return {

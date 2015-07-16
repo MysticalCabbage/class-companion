@@ -11,24 +11,6 @@ var CHANGE_EVENT = 'change';
 var rootRef = new Firebase(AuthConstants.DB);
 var teacherRef = rootRef.child('teachers');
 
-// log out user
-// confirms if firebase auth data was removed from local storage
-var logout = function() {
-  rootRef.unauth();
-  
-  if(!checkAuth()){
-    console.log('sucessfully logged out');
-  } else {
-    console.error('Error logging out')
-  }
-};
-
-// check if a user is logged in
-// returns firebase authentication data
-var checkAuth = function(){
-  return rootRef.getAuth();
-};
-
 var AuthStore = objectAssign({}, EventEmitter.prototype);
 AuthStore.user = null;
 AuthStore._loggedIn = null;
@@ -48,12 +30,31 @@ AppDispatcher.register(function(payload){
       this.emit('change');
       break;
     case AuthConstants.LOGOUT:
-      logout();
+      AuthStore.logout();
       break;
     default:
       return true;
   }
 });
+
+// log out user
+// confirms if firebase auth data was removed from local storage
+AuthStore.logout = function() {
+  rootRef.unauth();
+  
+  if(!AuthStore.checkAuth()){
+    console.log('sucessfully logged out');
+  } else {
+    console.error('Error logging out')
+  }
+};
+
+// check if a user is logged in
+// returns firebase authentication data
+AuthStore.checkAuth = function(){
+  return rootRef.getAuth();
+};
+
 
 AuthStore.isLoggedIn = function() {
   return !!AuthStore._loggedIn;
