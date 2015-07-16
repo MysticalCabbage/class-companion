@@ -19,14 +19,32 @@ var _store = {
 };
 
 var addStudent = function(newKid){
-  console.log("adding new", newKid);
-  _store.list.push({studentTitle:newKid});
+  _store.list.push({studentTitle:newKid, behavior: 0});
+  console.log("store has", _store.list);
 };
 
 var removeStudent = function(student){
   for(var i = 0; i<_store.list.length; i++){
     if(_store.list[i].studentTitle === student){
       _store.list.splice(i,1);
+    }
+  }
+};
+
+var subtractPoint = function(student){
+  console.log("SUB",student);
+  for(var i = 0; i<_store.list.length; i++){
+    if(_store.list[i].studentTitle === student){
+      _store.list[i].behavior--;
+    }
+  }
+};
+
+var addPoint = function(student){
+  console.log("ADD",student);
+  for(var i = 0; i<_store.list.length; i++){
+    if(_store.list[i].studentTitle === student){
+      _store.list[i].behavior++;
     }
   }
 };
@@ -55,9 +73,22 @@ AppDispatcher.register(function(payload){
       // Emit a change event
       ClassroomStore.emit(CHANGE_EVENT);
       break;
+    
     case ClassroomConstants.REMOVE_STUDENT:
       removeStudent(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
+      break;
+
+    case ClassroomConstants.ADD_POINT:
+      addPoint(action.data);
+      ClassroomStore.emit(CHANGE_EVENT);
+      break;
+
+    case ClassroomConstants.SUBTRACT_POINT:
+      subtractPoint(action.data);
+      ClassroomStore.emit(CHANGE_EVENT);
+      break;
+
     default:
       return true;
   }
