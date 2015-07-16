@@ -8,22 +8,34 @@ var ClassroomActions = {
       data: newStudent
     });
   },
-  removeStudent: function(student){
+  removeStudent: function(studentId){
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.REMOVE_STUDENT,
-      data: student
+      data: studentId
     });
   },
-  addPoint: function(student){
+  addPoint: function(studentId, points){
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.ADD_POINT,
-      data: student
+      data: {studentId: studentId, behavior: points}
     });
   },
-  subtractPoint: function(student){
+  subtractPoint: function(studentId, points){
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.SUBTRACT_POINT,
-      data: student
+      data: {studentId: studentId, behavior: points}
+    });
+  },
+  initQuery: function(classId){
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.INIT_QUERY,
+      data: classId
+    });
+  },
+  endQuery: function(){
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.END_QUERY,
+      data: null
     });
   }
 };

@@ -2,42 +2,44 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var ClassroomConstants = require('../constants/ClassroomConstants');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
+var FirebaseStore = require('./FirebaseStore');
 
 var CHANGE_EVENT = 'change';
 
+var firebaseRef = FirebaseStore.getDb();
+
 var _store = {
-  list: []
+  list: {},
+  info: {}
 };
 
-var addStudent = function(newKid){
-  _store.list.push({studentTitle:newKid, behavior: 0});
-  console.log("store has", _store.list);
+var addStudent = function(newStudent){
+  firebaseRef.child('classes/' + _store.info.classId + '/students').push({studentTitle: newStudent, behavior: 0});
 };
 
-var removeStudent = function(student){
-  for(var i = 0; i<_store.list.length; i++){
-    if(_store.list[i].studentTitle === student){
-      _store.list.splice(i,1);
-    }
-  }
+var removeStudent = function(studentId){
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + studentId).remove();
 };
 
-var subtractPoint = function(student){
-  console.log("SUB",student);
-  for(var i = 0; i<_store.list.length; i++){
-    if(_store.list[i].studentTitle === student){
-      _store.list[i].behavior--;
-    }
-  }
+var subtractPoint = function(data){
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior').set(data.behavior-1);
 };
 
-var addPoint = function(student){
-  console.log("ADD",student);
-  for(var i = 0; i<_store.list.length; i++){
-    if(_store.list[i].studentTitle === student){
-      _store.list[i].behavior++;
-    }
-  }
+var addPoint = function(data){
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior').set(data.behavior+1);
+};
+
+var initQuery = function(classId){
+  firebaseRef.child('classes/'+classId).on('value', function(snapshot){
+    var classData = snapshot.val();
+    _store.info = classData.info;
+    _store.list = classData.students || {};
+    ClassroomStore.emit(CHANGE_EVENT);
+  });
+};
+
+var endQuery = function(){
+  firebaseRef.child('classes/'+_store.info.classId).off();
 };
 
 var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
@@ -53,6 +55,10 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   getList: function(){
     return _store.list;
   },
+
+  getInfo: function(){
+    return _store.info;
+  }
 });
 
 AppDispatcher.register(function(payload){
@@ -64,22 +70,25 @@ AppDispatcher.register(function(payload){
       // Emit a change event
       ClassroomStore.emit(CHANGE_EVENT);
       break;
-    
     case ClassroomConstants.REMOVE_STUDENT:
       removeStudent(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
-
     case ClassroomConstants.ADD_POINT:
       addPoint(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
-
     case ClassroomConstants.SUBTRACT_POINT:
       subtractPoint(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
-
+    case ClassroomConstants.INIT_QUERY:
+      initQuery(action.data);
+      break;
+    case ClassroomConstants.END_QUERY:
+      endQuery();
+      ClassroomStore.emit(CHANGE_EVENT);
+      break;
     default:
       return true;
   }

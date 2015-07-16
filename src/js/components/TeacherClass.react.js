@@ -7,14 +7,20 @@ var TeacherClass = React.createClass({
   },
 
   removeClass: function(e){
-    TeacherActions.removeClass(this.props.classTitle);
+    TeacherActions.removeClass(this.props.classId);
   },
 
   render: function() {
+    var url = '#/classroomDashboard/' + this.props.classId;
     return (
       <div className="teacherClass col-md-3">
         <div className="well">
-          <a onDoubleClick={this.removeClass}>{this.props.classTitle}</a>
+        <div className="row">
+          <div className="col-md-4 col-md-offset-4">
+            <button type="button" className="close" aria-label="Close" onClick={this.removeClass}><span aria-hidden="true">&times;</span></button>
+          </div>
+        </div>
+          <a href={url}>{this.props.classTitle}</a>
         </div>
       </div>
     );

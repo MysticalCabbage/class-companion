@@ -3,43 +3,51 @@ var TeacherClass = require('./TeacherClass.react');
 var TeacherActions = require('../actions/TeacherActions');
 var TeacherStore = require('../stores/TeacherStore');
 var TeacherForm = require('./TeacherForm.react');
+var AuthStore = require('../stores/AuthStore');
 var Router = require('react-router');
 var Link = Router.Link;
 var _ = require('underscore');
-var authStore = require('../stores/AuthStore');
 
 var TeacherDashboard = React.createClass({
   // Invoke TeacherStore.getList() and set the result to the list property on our state
   getInitialState: function(){
-    if(!authStore.checkAuth()){
+    if(!AuthStore.checkAuth()){
       location.hash = '/login';
     }
     return {
-      list: TeacherStore.getList()
+      list: TeacherStore.getList(),
+      info: TeacherStore.getInfo()
     }
   },
 
   // Call the addChangeListener method on TeacherStore to add an event listener
   componentDidMount: function(){
+    // query firebase for logged in user information
+    var authData = AuthStore.checkAuth();
+    if(authData){
+      TeacherActions.initQuery(authData.uid);
+    }
     TeacherStore.addChangeListener(this._onChange);
   },
 
   // Call the removeChangeListener method on TeacherStore to remove an event listener
   componentWillUnmount: function(){
+    TeacherActions.endQuery();
     TeacherStore.removeChangeListener(this._onChange);
   },
 
   // Whenever data in the store changes, fetch data from the store and update the component state
   _onChange: function(){
     this.setState({
-      list: TeacherStore.getList()
+      list: TeacherStore.getList(),
+      info: TeacherStore.getInfo()
     })
   },
 
   render: function() {
     var classNodes = _.map(this.state.list, function(classNode, index){
       return (
-        <TeacherClass key={index} classTitle={classNode.classTitle}/>
+        <TeacherClass key={index} classId={index} classTitle={classNode.classTitle}/>
       )
     });
 

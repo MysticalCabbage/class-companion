@@ -5,6 +5,7 @@ var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomForm = require('./ClassroomForm.react');
 var authStore = require('../stores/AuthStore');
+var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
@@ -13,24 +14,28 @@ var ClassroomDashboard = React.createClass({
     }
     //set list upon initialstate w/ ClassroomStore.getList
     return {
-      list: ClassroomStore.getList()
+      list: ClassroomStore.getList(),
+      info: ClassroomStore.getInfo()
     }
   },
   componentDidMount: function(){
+    ClassroomActions.initQuery(this.props.params.id);
     ClassroomStore.addChangeListener(this._onChange);
   },
   componentWillUnmount: function(){
+    ClassroomActions.endQuery();
     ClassroomStore.removeChangeListener(this._onChange);
   },
   _onChange: function(){
     this.setState({
-      list: ClassroomStore.getList()
+      list: ClassroomStore.getList(),
+      info: ClassroomStore.getInfo()
     })
   },
   render: function(){
-    var studentNodes = this.state.list.map(function(studentNode,index){
+    var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
-        <ClassroomStudent key={index} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior}/>
+        <ClassroomStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior}/>
       )
     })
     return (
