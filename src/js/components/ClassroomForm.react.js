@@ -9,7 +9,7 @@ var ClassroomForm = React.createClass({
   handleAddStudent: function(e){
     e.preventDefault();
     var newStudent = React.findDOMNode(this.refs.newStudent).value;
-    ClassroomActions.addStudent(newStudent);
+    ClassroomActions.addStudent({studentTitle: newStudent});
     React.findDOMNode(this.refs.newStudent).value = '';
   },
   render: function() {

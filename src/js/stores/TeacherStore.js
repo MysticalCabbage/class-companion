@@ -27,8 +27,11 @@ var endQuery = function(){
 };
 
 var addClass = function(newClass){
-  var newClassId = firebaseRef.child('teachers/' + _store.info.uid + '/classes').push({classTitle: newClass, teacherId: _store.info.uid}).key();
-  firebaseRef.child('classes/' + newClassId + '/info').set({classId: newClassId, classTitle: newClass, teacherId: _store.info.uid});
+  newClass.teacherId = _store.info.uid;
+  var newClassId = firebaseRef.child('teachers/' + _store.info.uid + '/classes').push(newClass).key();
+
+  newClass.classId = newClassId;
+  firebaseRef.child('classes/' + newClassId + '/info').set(newClass);
 };
 
 var removeClass = function(classId){
