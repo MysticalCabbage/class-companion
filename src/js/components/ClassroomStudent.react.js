@@ -3,7 +3,6 @@ var ClassroomActions = require('../actions/ClassroomActions');
 
 var ClassroomStudent = React.createClass({
   getInitialState: function(){
-    console.log("thispropis",this.props);
     return null;
   },
   removeStudent: function(){

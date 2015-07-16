@@ -13,8 +13,8 @@ var _store = {
   info: {}
 };
 
-var addStudent = function(newKid){
-
+var addStudent = function(newStudent){
+  firebaseRef.child('classes/' + _store.info.classId + '/students').push({studentTitle: newStudent, behavior: 0});
 };
 
 var removeStudent = function(student){
