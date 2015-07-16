@@ -4,12 +4,9 @@ var TeacherActions = require('../actions/TeacherActions');
 var TeacherStore = require('../stores/TeacherStore');
 var TeacherForm = require('./TeacherForm.react');
 var AuthStore = require('../stores/AuthStore');
-var FirebaseStore = require('../stores/FirebaseStore');
 var Router = require('react-router');
 var Link = Router.Link;
 var _ = require('underscore');
-
-var firebaseRef = FirebaseStore.getDb();
 
 var TeacherDashboard = React.createClass({
   // Invoke TeacherStore.getList() and set the result to the list property on our state
