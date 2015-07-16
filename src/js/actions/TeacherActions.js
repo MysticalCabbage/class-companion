@@ -7,6 +7,12 @@ var TeacherActions = {
       actionType: TeacherConstants.ADD_CLASS,
       data: newClass
     }) 
+  },
+  removeClass: function(ClassTitle){
+    AppDispatcher.handleAction({
+      actionType: TeacherConstants.REMOVE_CLASS,
+      data: ClassTitle
+    }) 
   }
 };
 

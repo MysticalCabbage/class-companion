@@ -6,16 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 var _store = {
-  list: [
-    // {studentTitle: 'JD'},
-    // {studentTitle: 'David'},
-    // {studentTitle: 'Stacy'},
-    // {studentTitle: 'Eric'},
-    // {studentTitle: 'Bahia'},
-    // {studentTitle: 'Shannan'},
-    // {studentTitle: 'Jack'},
-    // {studentTitle: 'Francois'}
-  ]
+  list: []
 };
 
 var addStudent = function(newKid){

@@ -3,14 +3,17 @@ var TeacherClass = require('./TeacherClass.react');
 var TeacherActions = require('../actions/TeacherActions');
 var TeacherStore = require('../stores/TeacherStore');
 var TeacherForm = require('./TeacherForm.react');
-var Auth = require('./Auth.react');
 var Router = require('react-router');
 var Link = Router.Link;
+var _ = require('underscore');
+var authStore = require('../stores/AuthStore');
 
 var TeacherDashboard = React.createClass({
-  mixins: [ Auth.Authentication ],
   // Invoke TeacherStore.getList() and set the result to the list property on our state
   getInitialState: function(){
+    if(!authStore.checkAuth()){
+      location.hash = '/login';
+    }
     return {
       list: TeacherStore.getList()
     }
@@ -34,12 +37,11 @@ var TeacherDashboard = React.createClass({
   },
 
   render: function() {
-    console.log(this.state.list);
-    var classNodes = this.state.list.map(function(classNode, index){
+    var classNodes = _.map(this.state.list, function(classNode, index){
       return (
         <TeacherClass key={index} classTitle={classNode.classTitle}/>
       )
-    })
+    });
 
     return (
       <div className="teacherDashboard container">
