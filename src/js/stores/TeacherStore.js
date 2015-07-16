@@ -48,9 +48,10 @@ var TeacherStore = objectAssign({}, EventEmitter.prototype, {
   getList: function(){
     return _store.list;
   },
+
   getInfo: function(){
     return _store.info;
-  },
+  }
 });
 
 AppDispatcher.register(function(payload){
@@ -79,4 +80,3 @@ AppDispatcher.register(function(payload){
 });
 
 module.exports = TeacherStore;
-
