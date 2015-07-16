@@ -2,8 +2,11 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var ClassroomConstants = require('../constants/ClassroomConstants');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
+var FirebaseStore = require('./FirebaseStore');
 
 var CHANGE_EVENT = 'change';
+
+var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
   list: []
@@ -40,6 +43,14 @@ var addPoint = function(student){
   }
 };
 
+var initQuery = function(classId){
+
+};
+
+var endQuery = function(){
+
+};
+
 var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   // Invoke the callback function (ie. the _onChange function in TeacherDashboard) whenever it hears a change event
   addChangeListener: function(cb){
@@ -64,22 +75,25 @@ AppDispatcher.register(function(payload){
       // Emit a change event
       ClassroomStore.emit(CHANGE_EVENT);
       break;
-    
     case ClassroomConstants.REMOVE_STUDENT:
       removeStudent(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
-
     case ClassroomConstants.ADD_POINT:
       addPoint(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
-
     case ClassroomConstants.SUBTRACT_POINT:
       subtractPoint(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
-
+    case ClassroomConstants.INIT_QUERY:
+      initQuery(action.data);
+      break;
+    case ClassroomConstants.END_QUERY:
+      endQuery();
+      ClassroomStore.emit(CHANGE_EVENT);
+      break;
     default:
       return true;
   }

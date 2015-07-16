@@ -25,6 +25,18 @@ var ClassroomActions = {
       actionType: ClassroomConstants.SUBTRACT_POINT,
       data: student
     });
+  },
+  initQuery: function(classId){
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.INIT_QUERY,
+      data: classId
+    });
+  },
+  endQuery: function(){
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.END_QUERY,
+      data: null
+    });
   }
 };
 

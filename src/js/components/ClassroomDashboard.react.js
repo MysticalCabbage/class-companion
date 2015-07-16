@@ -17,9 +17,11 @@ var ClassroomDashboard = React.createClass({
     }
   },
   componentDidMount: function(){
+    ClassroomActions.initQuery(this.props.params.id);
     ClassroomStore.addChangeListener(this._onChange);
   },
   componentWillUnmount: function(){
+    ClassroomActions.endQuery();
     ClassroomStore.removeChangeListener(this._onChange);
   },
   _onChange: function(){
