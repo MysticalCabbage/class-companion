@@ -31,8 +31,9 @@ var addClass = function(newClass){
   firebaseRef.child('classes/' + newClassId + '/info').set({classId: newClassId, classTitle: newClass, teacherId: _store.info.uid});
 };
 
-var removeClass = function(classTitle){
-  //delete _store.list[classTitle];
+var removeClass = function(classId){
+  firebaseRef.child('classes/' + classId).remove();
+  firebaseRef.child('teachers/' + _store.info.uid + '/classes/' + classId).remove();
 };
 
 var TeacherStore = objectAssign({}, EventEmitter.prototype, {

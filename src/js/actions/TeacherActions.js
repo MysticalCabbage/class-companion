@@ -8,10 +8,10 @@ var TeacherActions = {
       data: newClass
     });
   },
-  removeClass: function(ClassTitle){
+  removeClass: function(ClassId){
     AppDispatcher.handleAction({
       actionType: TeacherConstants.REMOVE_CLASS,
-      data: ClassTitle
+      data: ClassId
     });
   },
   initQuery: function(teacherId){
