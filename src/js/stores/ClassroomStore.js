@@ -13,34 +13,19 @@ var _store = {
 };
 
 var addStudent = function(newKid){
-  _store.list.push({studentTitle:newKid, behavior: 0});
-  console.log("store has", _store.list);
+
 };
 
 var removeStudent = function(student){
-  for(var i = 0; i<_store.list.length; i++){
-    if(_store.list[i].studentTitle === student){
-      _store.list.splice(i,1);
-    }
-  }
+
 };
 
 var subtractPoint = function(student){
-  console.log("SUB",student);
-  for(var i = 0; i<_store.list.length; i++){
-    if(_store.list[i].studentTitle === student){
-      _store.list[i].behavior--;
-    }
-  }
+
 };
 
 var addPoint = function(student){
-  console.log("ADD",student);
-  for(var i = 0; i<_store.list.length; i++){
-    if(_store.list[i].studentTitle === student){
-      _store.list[i].behavior++;
-    }
-  }
+
 };
 
 var initQuery = function(classId){
