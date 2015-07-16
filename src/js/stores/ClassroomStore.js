@@ -9,7 +9,8 @@ var CHANGE_EVENT = 'change';
 var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
-  list: []
+  list: {},
+  info: {}
 };
 
 var addStudent = function(newKid){
@@ -29,11 +30,16 @@ var addPoint = function(student){
 };
 
 var initQuery = function(classId){
-
+  firebaseRef.child('classes/'+classId).on('value', function(snapshot){
+    var classData = snapshot.val();
+    _store.info = classData.info;
+    _store.list = classData.students || {};
+    ClassroomStore.emit(CHANGE_EVENT);
+  });
 };
 
 var endQuery = function(){
-
+  firebaseRef.child('classes/'+_store.info.classId).off();
 };
 
 var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
@@ -49,6 +55,10 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   getList: function(){
     return _store.list;
   },
+
+  getInfo: function(){
+    return _store.info;
+  }
 });
 
 AppDispatcher.register(function(payload){
