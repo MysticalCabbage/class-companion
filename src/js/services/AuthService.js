@@ -58,6 +58,7 @@ var AuthService = {
 	// create a user and then log in
 	// returns a promise
 	createUserAndLogin: function(userObj) {
+		console.log('Signing up');
 	  return this.createUser(userObj)
 	    .then(function () {
 	      return AuthService.authWithPassword(userObj);
@@ -80,12 +81,13 @@ var AuthService = {
 	    .then(function(authData) {
 	      console.log('succesfully signed up');
 	      info.uid = authData.uid;
-	      AuthActions.login(credentials, AuthService.checkAuth());
-	      return this.createTeacher(info);
+	      return AuthService.createTeacher(info);
+	    }).then(function(){
+	      AuthActions.signup(credentials, AuthService.checkAuth());
 	    })
-	    // .catch(function(err) {
-	    //   console.error(err);
-	    // });
+/*	    .catch(function(err) {
+	      console.error(err);
+	    });*/
 	},
 
 	createTeacher: function(info){
