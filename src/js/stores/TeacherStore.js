@@ -23,8 +23,8 @@ var initQuery = function(teacherId){
 };
 
 var addClass = function(newClass){
-  var newClassId = firebaseRef.child('teachers/' + _store.info.uid + '/classes').push({classTitle: newClass, teacher_id: _store.info.uid}).key();
-  firebaseRef.child('classes/' + newClassId + '/class_info').set({classId: newClassId, classTitle: newClass, teacher_id: _store.info.uid});
+  var newClassId = firebaseRef.child('teachers/' + _store.info.uid + '/classes').push({classTitle: newClass, teacherId: _store.info.uid}).key();
+  firebaseRef.child('classes/' + newClassId + '/info').set({classId: newClassId, classTitle: newClass, teacherId: _store.info.uid});
 };
 
 var removeClass = function(classTitle){
