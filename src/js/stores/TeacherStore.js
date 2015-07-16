@@ -1,9 +1,12 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var TeacherConstants = require('../constants/TeacherConstants');
+var FirebaseStore = require('./FirebaseStore');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 
 var CHANGE_EVENT = 'change';
+
+var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
   list: {},
