@@ -8,7 +8,6 @@ var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var Auth = require('../services/AuthService');
 var authStore = require('../stores/AuthStore');
-var Authenticated = require('./Auth.react');
 
 var App = React.createClass({
 

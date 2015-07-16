@@ -3,7 +3,6 @@ var TeacherClass = require('./TeacherClass.react');
 var TeacherActions = require('../actions/TeacherActions');
 var TeacherStore = require('../stores/TeacherStore');
 var TeacherForm = require('./TeacherForm.react');
-var Auth = require('./Auth.react');
 var Router = require('react-router');
 var Link = Router.Link;
 var _ = require('underscore');

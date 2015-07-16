@@ -37,12 +37,6 @@ var routes = (
 var router = Router.create({routes});
 RouterContainer.set(router);
 
-// // Not sure what these are for
-// let jwt = localStorage.getItem('jwt');
-// if (jwt) {
-//   LoginActions.loginUser(jwt);
-// }
-
 router.run(function(Root){
   React.render(<Root/>, document.getElementById('app'));
 });
