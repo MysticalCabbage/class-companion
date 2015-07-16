@@ -31,7 +31,7 @@ var Signup = React.createClass({
     return (
       <div className="signupForm container">
         <div className="row">
-          <div className="col-sm-7 well">
+          <div className="col-sm-5 well">
             <h2>Signup</h2>
             <form className="form-horizontal" id="frmSignup" role="form" onSubmit={this.handleSubmit}>
               <div className="form-group">
