@@ -4,9 +4,13 @@ var ClassroomStudent = require('./ClassroomStudent.react');
 var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomForm = require('./ClassroomForm.react');
+var authStore = require('../stores/AuthStore');
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
+    if(!authStore.isLoggedIn()){
+      location.hash = '/login';
+    }
     //set list upon initialstate w/ ClassroomStore.getList
     return {
       list: ClassroomStore.getList()

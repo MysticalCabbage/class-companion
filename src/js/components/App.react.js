@@ -1,11 +1,8 @@
 var React = require('react');
 var Navbar = require('./Navbar.react');
-
 var Router = require('react-router');
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
-var DefaultRoute = Router.DefaultRoute;
-var Link = Router.Link;
 var Auth = require('../services/AuthService');
 var authStore = require('../stores/AuthStore');
 
@@ -23,4 +20,3 @@ var App = React.createClass({
 });
 
 module.exports = App;
-
