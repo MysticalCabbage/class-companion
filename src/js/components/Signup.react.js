@@ -2,6 +2,7 @@ var React = require('react');
 var AuthActions = require('../actions/AuthActions');
 var Router = require('react-router');
 var Link = Router.Link;
+var Auth = require('../services/AuthService');
 
 var Signup = React.createClass({
   handleSubmit: function(e){
@@ -13,7 +14,7 @@ var Signup = React.createClass({
     var emailNode = React.findDOMNode(this.refs.email);
     var passwordNode = React.findDOMNode(this.refs.password);
 
-    AuthActions.signup({
+    Auth.signup({
       email: emailNode.value, 
       password: passwordNode.value,
       prefix: prefixNode.value,

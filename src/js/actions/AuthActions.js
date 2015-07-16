@@ -3,10 +3,15 @@ var AuthConstants = require('../constants/AuthConstants');
 var RouterContainer = require('../services/RouterContainer');
 
 var AuthActions = {
-  signup: function(data){
+  signup: function(data, loggedIn){
+    if (loggedIn) {
+      var nextPath = RouterContainer.get().getCurrentQuery().nextPath || '/';
+      RouterContainer.get().transitionTo(nextPath);
+    }
     AppDispatcher.handleAction({
       actionType: AuthConstants.SIGNUP,
-      data: data
+      data: data,
+      loggedIn: loggedIn
     });
   },
   login: function(data, loggedIn){
