@@ -22,6 +22,10 @@ var initQuery = function(teacherId){
   });
 };
 
+var endQuery = function(){
+  firebaseRef.child('teachers/'+_store.info.uid).off();
+};
+
 var addClass = function(newClass){
   var newClassId = firebaseRef.child('teachers/' + _store.info.uid + '/classes').push({classTitle: newClass, teacherId: _store.info.uid}).key();
   firebaseRef.child('classes/' + newClassId + '/info').set({classId: newClassId, classTitle: newClass, teacherId: _store.info.uid});
@@ -64,6 +68,10 @@ AppDispatcher.register(function(payload){
       break;
     case TeacherConstants.INIT_QUERY:
       initQuery(action.data);
+      break;
+    case TeacherConstants.END_QUERY:
+      endQuery();
+      TeacherStore.emit(CHANGE_EVENT);
       break;
     default:
       return true;

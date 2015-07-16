@@ -19,6 +19,12 @@ var TeacherActions = {
       actionType: TeacherConstants.INIT_QUERY,
       data: teacherId
     });
+  },
+  endQuery: function(){
+    AppDispatcher.handleAction({
+      actionType: TeacherConstants.END_QUERY,
+      data: null
+    });
   }
 };
 

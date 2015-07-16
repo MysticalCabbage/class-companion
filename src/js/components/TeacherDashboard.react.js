@@ -35,6 +35,7 @@ var TeacherDashboard = React.createClass({
 
   // Call the removeChangeListener method on TeacherStore to remove an event listener
   componentWillUnmount: function(){
+    TeacherActions.endQuery();
     TeacherStore.removeChangeListener(this._onChange);
   },
 
