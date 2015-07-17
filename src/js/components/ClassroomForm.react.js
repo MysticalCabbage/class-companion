@@ -1,17 +1,29 @@
 var React = require('react');
 var ClassroomActions = require('../actions/ClassroomActions');
+
 var ClassroomForm = React.createClass({
   getInitialState: function(){
     return {
       newStudent: ''
     }
   },
+
+  componentWillMount: function(){
+    if(!AuthStore.checkAuth()){
+      this.render = function () {
+        return false;
+      }
+      location.hash = '/login';
+    }
+  },
+
   handleAddStudent: function(e){
     e.preventDefault();
     var newStudent = React.findDOMNode(this.refs.newStudent).value;
     ClassroomActions.addStudent({studentTitle: newStudent});
     React.findDOMNode(this.refs.newStudent).value = '';
   },
+
   render: function() {
     return (
       <div className="classroomForm container">

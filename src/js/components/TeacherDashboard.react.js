@@ -11,12 +11,18 @@ var _ = require('underscore');
 var TeacherDashboard = React.createClass({
   // Invoke TeacherStore.getList() and set the result to the list property on our state
   getInitialState: function(){
-    if(!AuthStore.checkAuth()){
-      location.hash = '/login';
-    }
     return {
       list: TeacherStore.getList(),
       info: TeacherStore.getInfo()
+    }
+  },
+
+  componentWillMount: function(){
+    if(!AuthStore.checkAuth()){
+      this.render = function () {
+        return false;
+      }
+      location.hash = '/login';
     }
   },
 

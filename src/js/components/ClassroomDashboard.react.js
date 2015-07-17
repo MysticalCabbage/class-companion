@@ -9,29 +9,40 @@ var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
-    if(!authStore.checkAuth()){
-      location.hash = '/login';
-    }
     //set list upon initialstate w/ ClassroomStore.getList
     return {
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo()
     }
   },
-  componentDidMount: function(){
+
+  componentWillMount: function(){
+    if(!AuthStore.checkAuth()){
+      this.render = function () {
+        return false;
+      }
+      location.hash = '/login';
+    }
+  },
+
+  componentDidMount: function(){ 
     ClassroomActions.initQuery(this.props.params.id);
     ClassroomStore.addChangeListener(this._onChange);
   },
+
+
   componentWillUnmount: function(){
     ClassroomActions.endQuery();
     ClassroomStore.removeChangeListener(this._onChange);
   },
+
   _onChange: function(){
     this.setState({
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo()
     })
   },
+  
   render: function(){
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
