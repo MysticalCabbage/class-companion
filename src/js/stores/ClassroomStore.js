@@ -31,7 +31,16 @@ var addPoint = function(data){
 };
 
 var markAttendance = function(data){
-  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance').push({ date: Firebase.ServerValue.TIMESTAMP, attedance: data.attendance });
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance')
+    .set(Firebase.ServerValue.TIMESTAMP);
+
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance').once('value', function(snapshot){
+    var current_server_time = snapshot.val();
+    var date = new Date(current_server_time).toLocaleDateString();
+    var newDate = date.replace(/\//g, '-');
+    firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance/' + newDate)
+      .set(data.attendance);
+  });
 }
 
 var initQuery = function(classId){

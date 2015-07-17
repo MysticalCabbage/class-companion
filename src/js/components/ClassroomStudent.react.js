@@ -42,9 +42,9 @@ var ClassroomStudent = React.createClass({
             <button type="button" onClick={this.subtractPoint} className="btn btn-danger">-</button>
           </div>
           <div className="btn-group" role="group" aria-label="attendanceButtonBar">
-            <button type="button" onClick={this.markAttendance.bind(this, 2)} className="btn btn-success">Present</button>
-            <button type="button" onClick={this.markAttendance.bind(this, 1)} className="btn btn-warning">Late</button>
-            <button type="button" onClick={this.markAttendance.bind(this, 0)} className="btn btn-danger">Absent</button>
+            <button type="button" onClick={this.markAttendance.bind(this, 'Present')} className="btn btn-success">Present</button>
+            <button type="button" onClick={this.markAttendance.bind(this, 'Late')} className="btn btn-warning">Late</button>
+            <button type="button" onClick={this.markAttendance.bind(this, 'Absent')} className="btn btn-danger">Absent</button>
           </div>
         </div>
       </div>
