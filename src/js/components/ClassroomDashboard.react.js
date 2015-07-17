@@ -65,6 +65,32 @@ var ClassroomDashboard = React.createClass({
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
+        <nav className="classroomNavbar container navbar navbar-default">
+          <div className="container">
+            <div id="navbar" className="navbar-collapse collapse">
+              <ul className="nav navbar-nav">
+                <li>
+                  <a onClick={this.handleAttendance}>Attendance</a>
+                </li>
+              </ul>
+              <ul className="nav navbar-nav">
+                <li>
+                  <a>Random</a>
+                </li>
+              </ul>
+              <ul className="nav navbar-nav">
+                <li>
+                  <a>Group</a>
+                </li>
+              </ul>
+              <ul className="nav navbar-nav">
+                <li>
+                  <a>Timer</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
         <div className="container">
           <div className="row">
             <button type="button" className="btn btn-info" onClick={this.showTimerOptions}><i className="fa fa-clock-o"> Timer</i></button>
