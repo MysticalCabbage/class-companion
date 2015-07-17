@@ -11,7 +11,7 @@ var _ = require('underscore');
 
 var Results = React.createClass({
     render: function() {
-      return <div id="results" className="search-results"><Timer initialTimeRemaining={300000}/></div>;
+      return <div id="results"><Timer initialTimeRemaining={300000}/></div>;
     }
   });
 

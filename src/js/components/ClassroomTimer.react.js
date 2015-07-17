@@ -22,6 +22,7 @@ var Timer = React.createClass({
       timeRemaining: this.props.initialTimeRemaining,
       timeoutId: undefined,
       prevTime: undefined,
+      showResults: false
     };
   },
 
