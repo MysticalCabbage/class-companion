@@ -10,7 +10,8 @@ var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
   list: {},
-  info: {}
+  info: {},
+  behavior: {}
 };
 
 var addStudent = function(newStudent){
@@ -53,6 +54,7 @@ var initQuery = function(classId){
     var classData = snapshot.val();
     _store.info = classData.info;
     _store.list = classData.students || {};
+    _store.behavior = classData.behavior;
     ClassroomStore.emit(CHANGE_EVENT);
   });
 };
@@ -77,6 +79,9 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 
   getInfo: function(){
     return _store.info;
+  },
+  getBehavior: function(){
+    return _store.behavior;
   }
 });
 
