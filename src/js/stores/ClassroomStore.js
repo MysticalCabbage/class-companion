@@ -14,7 +14,6 @@ var _store = {
 };
 
 var addStudent = function(newStudent){
-  newStudent.behavior = 0;
   firebaseRef.child('classes/' + _store.info.classId + '/students').push(newStudent);
 };
 
