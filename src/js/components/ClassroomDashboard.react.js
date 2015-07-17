@@ -8,7 +8,12 @@ var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
 var TimerBar = require('./TimerBar.react.js');
 var ClassroomNavbar = require('./ClassroomNavbar.react');
+<<<<<<< HEAD
 var AttendanceNavbar = require('./AttendanceNavbar.react');
+=======
+var StudentGroup = require('./StudentGroup.react');
+var StudentRandom = require('./StudentRandom.react');
+>>>>>>> (feat) add random student and group student component
 var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
@@ -80,6 +85,14 @@ var ClassroomDashboard = React.createClass({
     });
   },
 
+  pickRandom: function(){
+    console.log('pick random');
+  },
+
+  pickGroup: function(){
+    console.log('pick group');
+  },
+
   render: function(){
     var attendance = this.state.showAttendance;
     var behaviorTypes = this.state.info.behavior;
@@ -106,6 +119,9 @@ var ClassroomDashboard = React.createClass({
               </div>
             </div>
            <ClassroomForm />
+          <button className="btn btn-primary" onClick={this.pickRandom}>Pick Random</button> <button className="btn btn-primary" onClick={this.pickGroup}>Pick Group</button>
+          <StudentRandom student={this.state.random}/>
+          <StudentGroup />
           </div>
         </div>
       </div>
