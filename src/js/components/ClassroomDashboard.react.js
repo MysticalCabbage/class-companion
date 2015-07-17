@@ -6,14 +6,9 @@ var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomForm = require('./ClassroomForm.react');
 var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
-var Timer = require('./ClassroomTimer.react.js');
-var _ = require('underscore');
+var TimerBar = require('./TimerBar.react.js');
 
-var Results = React.createClass({
-    render: function() {
-      return <div id="results"><Timer initialTimeRemaining={300000}/></div>;
-    }
-  });
+var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
@@ -56,9 +51,11 @@ var ClassroomDashboard = React.createClass({
     })
   },
   
-  timerClick: function(){
+  showTimerOptions: function(){
     this.setState({showResults: !this.state.showResults});
   },
+
+
   render: function(){
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
@@ -69,8 +66,10 @@ var ClassroomDashboard = React.createClass({
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
-          <button type="button" className="btn btn-info" onClick={this.timerClick}>Start Timer</button>
-          {this.state.showResults ? <Results/> : null}
+          <div className="row">
+            <button type="button" className="btn btn-info" onClick={this.showTimerOptions}><i className="fa fa-clock-o"> Timer</i></button>
+            {this.state.showResults ? <TimerBar/> : null}
+          </div>
           <div className="row">
           {studentNodes}
             <div className="classroom col-md-3">
@@ -82,6 +81,7 @@ var ClassroomDashboard = React.createClass({
           </div>
         </div>
       </div>
+      
     );
   }
 });
