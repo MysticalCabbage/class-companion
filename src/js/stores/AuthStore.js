@@ -17,7 +17,7 @@ var _loggedIn = null;
 
 var redirect = function(){
   if (_loggedIn) {
-    var nextPath = RouterContainer.get().getCurrentQuery().nextPath || '/';
+    var nextPath = RouterContainer.get().getCurrentQuery().nextPath || '/TeacherDashboard';
     RouterContainer.get().transitionTo(nextPath);
   }
 }
