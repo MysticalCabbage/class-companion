@@ -26,6 +26,12 @@ var ClassroomActions = {
       data: {studentId: studentId, behavior: points}
     });
   },
+  markAttendance: function(studentId, attendance){
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.MARK_ATTENDANCE,
+      data: {studentId: studentId, attendance: attendance}
+    });
+  },
   initQuery: function(classId){
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.INIT_QUERY,

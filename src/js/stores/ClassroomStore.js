@@ -30,6 +30,10 @@ var addPoint = function(data){
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior').set(data.behavior+1);
 };
 
+var markAttendance = function(data){
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance').push({ date: Firebase.ServerValue.TIMESTAMP, attedance: data.attendance });
+}
+
 var initQuery = function(classId){
   firebaseRef.child('classes/'+classId).on('value', function(snapshot){
     var classData = snapshot.val();
@@ -81,6 +85,10 @@ AppDispatcher.register(function(payload){
       break;
     case ClassroomConstants.SUBTRACT_POINT:
       subtractPoint(action.data);
+      ClassroomStore.emit(CHANGE_EVENT);
+      break;
+    case ClassroomConstants.MARK_ATTENDANCE:
+      markAttendance(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
     case ClassroomConstants.INIT_QUERY:
