@@ -6,7 +6,14 @@ var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomForm = require('./ClassroomForm.react');
 var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
+var Timer = require('./ClassroomTimer.react.js');
 var _ = require('underscore');
+
+var Results = React.createClass({
+    render: function() {
+      return <div id="results" className="search-results"><Timer initialTimeRemaining={300000}/></div>;
+    }
+  });
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
@@ -24,6 +31,7 @@ var ClassroomDashboard = React.createClass({
         return false;
       }
       location.hash = '/login';
+      showResults: false
     }
   },
 
@@ -48,6 +56,9 @@ var ClassroomDashboard = React.createClass({
     })
   },
   
+  timerClick: function(){
+    this.setState({showResults: !this.state.showResults});
+  },
   render: function(){
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
@@ -58,6 +69,8 @@ var ClassroomDashboard = React.createClass({
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
+          <button type="button" className="btn btn-info" onClick={this.timerClick}>Start Timer</button>
+          {this.state.showResults ? <Results/> : null}
           <div className="row">
           {studentNodes}
             <div className="classroom col-md-3">
