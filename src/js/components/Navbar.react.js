@@ -10,6 +10,7 @@ var Navbar = React.createClass({
   handleLogout: function(){
     Auth.logout();
   },
+
   render: function() {
     return (
       <nav className="navbar navbar-default">
@@ -18,16 +19,27 @@ var Navbar = React.createClass({
             <Link to="/" className="navbar-brand">Mystical Cabbage</Link>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <a onClick={this.handleLogout}>Logout</a>
-              </li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-            </ul>
+            { this.props.loggedIn ? 
+              <ul className="nav navbar-nav navbar-right">
+                <li>
+                  <a onClick={this.handleLogout}>Logout</a>
+                </li>
+              </ul>
+            : null }
+            { this.props.loggedIn ? null :
+              <ul className="nav navbar-nav navbar-right">
+                <li>
+                  <Link to="/signup">Signup</Link>
+                </li>
+              </ul>
+            }
+            { this.props.loggedIn ? null :
+              <ul className="nav navbar-nav navbar-right">
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+              </ul>
+            }
           </div>
         </div>
       </nav>

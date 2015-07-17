@@ -12,7 +12,8 @@ var ClassroomDashboard = React.createClass({
     //set list upon initialstate w/ ClassroomStore.getList
     return {
       list: ClassroomStore.getList(),
-      info: ClassroomStore.getInfo()
+      info: ClassroomStore.getInfo(),
+      loggedIn: AuthStore.checkAuth()
     }
   },
 
@@ -28,18 +29,21 @@ var ClassroomDashboard = React.createClass({
   componentDidMount: function(){ 
     ClassroomActions.initQuery(this.props.params.id);
     ClassroomStore.addChangeListener(this._onChange);
+    AuthStore.addChangeListener(this._onChange);
   },
 
 
   componentWillUnmount: function(){
     ClassroomActions.endQuery();
     ClassroomStore.removeChangeListener(this._onChange);
+    AuthStore.removeChangeListener(this._onChange);
   },
 
   _onChange: function(){
     this.setState({
       list: ClassroomStore.getList(),
-      info: ClassroomStore.getInfo()
+      info: ClassroomStore.getInfo(),
+      loggedIn: AuthStore.checkAuth()
     })
   },
   
@@ -50,15 +54,18 @@ var ClassroomDashboard = React.createClass({
       )
     })
     return (
-      <div className="classroomDashboard container">
-        <div className="row">
-        {studentNodes}
-          <div className="classroom col-md-3">
-            <div className="well">
-              <a>Add Student</a>
+      <div className="classroomDashboard">
+        <Navbar loggedIn = {this.state.loggedIn}/>
+        <div className="container">
+          <div className="row">
+          {studentNodes}
+            <div className="classroom col-md-3">
+              <div className="well">
+                <a>Add Student</a>
+              </div>
             </div>
+           <ClassroomForm />
           </div>
-         <ClassroomForm />
         </div>
       </div>
     );
