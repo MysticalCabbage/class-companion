@@ -3,6 +3,7 @@ var AuthActions = require('../actions/AuthActions');
 var Router = require('react-router');
 var Link = Router.Link;
 var Auth = require('../services/AuthService');
+var Navbar = require('./Navbar.react');
 
 var Login = React.createClass({ 
   getInitialState: function () {
@@ -28,34 +29,37 @@ var Login = React.createClass({
   },
   render: function() {
     return (
-      <div className="signupForm container">
-        <div className="row">
-          <div className="col-sm-5 well">
-            <h2>Login</h2>
-            <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label for="txtEmail" className="col-sm-3 control-label">Email</label>
-                <div className="col-sm-9">
-                  <input type="email" className="form-control" id="txtEmail" placeholder="Enter email" ref="email" required/>
+      <div className="signupForm">
+        <Navbar />
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-5 well">
+              <h2>Login</h2>
+              <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                  <label for="txtEmail" className="col-sm-3 control-label">Email</label>
+                  <div className="col-sm-9">
+                    <input type="email" className="form-control" id="txtEmail" placeholder="Enter email" ref="email" required/>
+                  </div>
                 </div>
-              </div>
-              <div className="form-group">
-                <label for="txtPass" className="col-sm-3 control-label">Password</label>
-                <div className="col-sm-9">
-                  <input type="password" className="form-control" id="txtPass" placeholder="Password" ref="password" required/>
+                <div className="form-group">
+                  <label for="txtPass" className="col-sm-3 control-label">Password</label>
+                  <div className="col-sm-9">
+                    <input type="password" className="form-control" id="txtPass" placeholder="Password" ref="password" required/>
+                  </div>
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-sm-offset-5">
-                  Dont have an account? <Link to="/signup">Signup</Link>
+                <div className="form-group">
+                  <div className="col-sm-offset-5">
+                    Dont have an account? <Link to="/signup">Signup</Link>
+                  </div>
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-sm-offset-9 col-sm-3">
-                  <button type="submit" className="btn btn-default btn-block submit-button">Login</button>
+                <div className="form-group">
+                  <div className="col-sm-offset-9 col-sm-3">
+                    <button type="submit" className="btn btn-default btn-block submit-button">Login</button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div> 
         </div> 
       </div>

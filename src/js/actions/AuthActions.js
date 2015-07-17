@@ -4,10 +4,6 @@ var RouterContainer = require('../services/RouterContainer');
 
 var AuthActions = {
   signup: function(data, loggedIn){
-    if (loggedIn) {
-      var nextPath = RouterContainer.get().getCurrentQuery().nextPath || '/';
-      RouterContainer.get().transitionTo(nextPath);
-    }
     AppDispatcher.handleAction({
       actionType: AuthConstants.SIGNUP,
       data: data,
@@ -15,12 +11,6 @@ var AuthActions = {
     });
   },
   login: function(data, loggedIn){
-    // Go to the Home page once the user is logged in
-    if (loggedIn) {
-      var nextPath = RouterContainer.get().getCurrentQuery().nextPath || '/';
-      RouterContainer.get().transitionTo(nextPath);
-    }
-
     AppDispatcher.handleAction({
       actionType: AuthConstants.LOGIN,
       data: data,
@@ -28,7 +18,6 @@ var AuthActions = {
     });
   },
   logout: function(){
-    RouterContainer.get().transitionTo('/login');
     AppDispatcher.handleAction({
       actionType: AuthConstants.LOGOUT,
       data: null

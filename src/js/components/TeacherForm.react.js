@@ -1,13 +1,19 @@
 var React = require('react');
 var TeacherActions = require('../actions/TeacherActions');
-var authStore = require('../stores/AuthStore');
+var AuthStore = require('../stores/AuthStore');
 
 var TeacherForm = React.createClass({
   getInitialState: function(){
-    if(!authStore.checkAuth()){
+    return null;
+  },
+
+  componentWillMount: function(){
+    if(!AuthStore.checkAuth()){
+      this.render = function () {
+        return false;
+      }
       location.hash = '/login';
     }
-    return null;
   },
 
   // Invoking the addClass method on our TeacherActions whenever a addClass user event occurs
