@@ -4,7 +4,7 @@ var ClassroomStudent = require('./ClassroomStudent.react');
 var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomForm = require('./ClassroomForm.react');
-var authStore = require('../stores/AuthStore');
+var AuthStore = require('../stores/AuthStore');
 var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
