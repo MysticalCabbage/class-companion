@@ -4,6 +4,7 @@ var TeacherActions = require('../actions/TeacherActions');
 var TeacherStore = require('../stores/TeacherStore');
 var TeacherForm = require('./TeacherForm.react');
 var AuthStore = require('../stores/AuthStore');
+var Navbar = require('./Navbar.react');
 var Router = require('react-router');
 var Link = Router.Link;
 var _ = require('underscore');
