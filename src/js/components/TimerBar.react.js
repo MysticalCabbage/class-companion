@@ -11,6 +11,10 @@ var TimerBar = React.createClass({
     var timeSeconds = x * 60000;
     this.setState({showTimer: !this.state.showTimer, totalTime: timeSeconds });
   },
+  customTime: function(){
+    var time = React.findDOMNode(this.refs.customTime).value * 60000;
+    this.setState({showTimer: !this.state.showTimer, totalTime: time });
+  },
   render: function() {
     return (
       <div className='row'>
@@ -23,7 +27,9 @@ var TimerBar = React.createClass({
           <button type="button" className="btn btn-default" onClick={this.showTimer.bind(null,10)}>10 Minutes</button>
         </div>
         <div className="btn-group" role="group">
-          <button type="button" className="btn btn-default">custom time</button>
+          <form onSubmit={this.customTime}>
+          <input type="text" className="btn btn-default" placeholder="Enter Minutes" ref="customTime" />
+          </form>
         </div>
         </div>
       </div>
