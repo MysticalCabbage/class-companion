@@ -7,7 +7,7 @@ var ClassroomForm = require('./ClassroomForm.react');
 var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
 var TimerBar = require('./TimerBar.react.js');
-
+var ClassroomNavbar = require('./ClassroomNavbar.react');
 var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
@@ -65,32 +65,7 @@ var ClassroomDashboard = React.createClass({
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
-        <nav className="classroomNavbar container navbar navbar-default">
-          <div className="container">
-            <div id="navbar" className="navbar-collapse collapse">
-              <ul className="nav navbar-nav">
-                <li>
-                  <a onClick={this.handleAttendance}>Attendance</a>
-                </li>
-              </ul>
-              <ul className="nav navbar-nav">
-                <li>
-                  <a>Random</a>
-                </li>
-              </ul>
-              <ul className="nav navbar-nav">
-                <li>
-                  <a>Group</a>
-                </li>
-              </ul>
-              <ul className="nav navbar-nav">
-                <li>
-                  <a>Timer</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <ClassroomNavbar />
         <div className="container">
           <div className="row">
             <button type="button" className="btn btn-info" onClick={this.showTimerOptions}><i className="fa fa-clock-o"> Timer</i></button>
