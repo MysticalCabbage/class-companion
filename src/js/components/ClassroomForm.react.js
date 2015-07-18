@@ -22,11 +22,12 @@ var ClassroomForm = React.createClass({
   handleAddStudent: function(e){
     e.preventDefault();
     var newStudent = React.findDOMNode(this.refs.newStudent).value;
-    var setBehavior = ClassroomStore.getBehavior();
+    var setBehavior = ClassroomStore.getInfo().behavior;
+    console.log("setbehaviosdfr is",setBehavior);
     for(var key in setBehavior){
       setBehavior[key] = 0;
     }
-    ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior });
+    ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0  });
     React.findDOMNode(this.refs.newStudent).value = '';
   },
 

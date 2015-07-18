@@ -1,9 +1,18 @@
 var React = require('react');
 var ClassroomActions = require('../actions/ClassroomActions');
+var _ = require('underscore');
+
+var BUTTON = React.createClass({
+  render: function(){
+    return (
+      <button>{this.props.behavior}</button>
+    );
+  }
+});
 
 var ClassroomStudent = React.createClass({
   getInitialState: function(){
-    return null;
+    return null
   },
 
   removeStudent: function(){
@@ -22,7 +31,21 @@ var ClassroomStudent = React.createClass({
     ClassroomActions.markAttendance(this.props.studentId, attendance);
   },
 
+  updatePoints: function(behaviorType, points){
+    console.log("bheviortype", behaviorType);
+    console.log("points", points);
+
+  },
+
   render: function(){
+    var updatePoints = this.updatePoints;
+     var studentBehaviors = _.map(this.props.behaviorActions, function(points,index){
+      console.log("index", index);
+      console.log("points",points);
+      return (
+        <BUTTON onClick={updatePoints.bind(null, index, points)} behavior={index}/>
+      )
+    });
     return (
       <div className="classroomStudent col-md-3">
         <div className="well">
@@ -43,6 +66,7 @@ var ClassroomStudent = React.createClass({
           </div>  
           <div className="row">
             <div>{this.props.studentTitle}</div>
+            {studentBehaviors}
           </div>
           <div className="row">
             <button type="button" onClick={this.addPoint} className="btn btn-success">+</button>

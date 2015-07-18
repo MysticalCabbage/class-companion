@@ -67,11 +67,12 @@ var ClassroomDashboard = React.createClass({
 
   render: function(){
     var attendance = this.state.showAttendance;
+    var behaviorTypes = this.state.info.behavior;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
-        <ClassroomStudent key={index} studentId={index} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior}/>
+        <ClassroomStudent key={index} studentId={index} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior.total} behaviorActions={behaviorTypes}/>
       )
-    })
+    });
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
