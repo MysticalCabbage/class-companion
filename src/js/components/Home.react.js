@@ -9,6 +9,15 @@ var Home = React.createClass({
 	  }
 	},
 
+	componentWillMount: function(){
+	  if(AuthStore.checkAuth()){
+	    this.render = function () {
+	      return false;
+	    }
+	    location.hash = '/teacherDashboard';
+	  }
+	},
+
 	componentDidMount: function(){
 	  AuthStore.addChangeListener(this._onChange);
 	},
