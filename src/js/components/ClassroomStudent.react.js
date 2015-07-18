@@ -11,22 +11,8 @@ var ClassroomStudent = React.createClass({
     ClassroomActions.removeStudent(this.props.studentId);
   },
 
-  addPoint: function(){
-    ClassroomActions.addPoint(this.props.studentId, this.props.behavior);
-  },
-
-  subtractPoint: function(){
-    ClassroomActions.subtractPoint(this.props.studentId, this.props.behavior);
-  },
-
   markAttendance: function(attendance){
     ClassroomActions.markAttendance(this.props.studentId, attendance);
-  },
-
-  updatePoints: function(behaviorType, points){
-    console.log("bheviortype", behaviorType);
-    console.log("points", points);
-
   },
 
   render: function(){
