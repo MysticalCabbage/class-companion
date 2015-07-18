@@ -7,7 +7,7 @@ var ClassroomForm = require('./ClassroomForm.react');
 var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
 var TimerBar = require('./TimerBar.react.js');
-
+var ClassroomNavbar = require('./ClassroomNavbar.react');
 var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
@@ -16,7 +16,9 @@ var ClassroomDashboard = React.createClass({
     return {
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
-      loggedIn: AuthStore.checkAuth()
+      loggedIn: AuthStore.checkAuth(),
+      showAttendance: false,
+      showResults: false
     }
   },
 
@@ -26,7 +28,6 @@ var ClassroomDashboard = React.createClass({
         return false;
       }
       location.hash = '/login';
-      showResults: false
     }
   },
 
@@ -47,27 +48,36 @@ var ClassroomDashboard = React.createClass({
     this.setState({
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
-      loggedIn: AuthStore.checkAuth()
-    })
+      loggedIn: AuthStore.checkAuth(),
+    });
+  },
+
+  handleAttendance: function(){
+    this.setState({
+      showAttendance: !this.state.showAttendance,
+    });
   },
   
   showTimerOptions: function(){
-    this.setState({showResults: !this.state.showResults});
+    this.setState({
+      showResults: !this.state.showResults
+    });
   },
 
 
   render: function(){
+    var attendance = this.state.showAttendance;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
-        <ClassroomStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior}/>
+        <ClassroomStudent key={index} studentId={index} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior}/>
       )
     })
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
+        <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions}/>
         <div className="container">
           <div className="row">
-            <button type="button" className="btn btn-info" onClick={this.showTimerOptions}><i className="fa fa-clock-o"> Timer</i></button>
             {this.state.showResults ? <TimerBar/> : null}
           </div>
           <div className="row">
