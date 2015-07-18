@@ -31,13 +31,19 @@ var addPoint = function(data){
 };
 
 var markAttendance = function(data){
+  // Recored the current timestamp based don the Firebase server
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance')
     .set(Firebase.ServerValue.TIMESTAMP);
 
+  // Listens for when the attendance data gets stored
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance').once('value', function(snapshot){
+    // Grab the timestamp stored in the database
     var current_server_time = snapshot.val();
+    // Converts the timestamp into a readable string, using locale conventions (eg. 7/17/2015)
     var date = new Date(current_server_time).toLocaleDateString();
+    // Replace '/' with '-' so the database recognize date as one string and sets it as the param 
     var newDate = date.replace(/\//g, '-');
+    // Store student attendance for that date
     firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance/' + newDate)
       .set(data.attendance);
   });

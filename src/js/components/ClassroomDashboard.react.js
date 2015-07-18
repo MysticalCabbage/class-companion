@@ -16,7 +16,8 @@ var ClassroomDashboard = React.createClass({
     return {
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
-      loggedIn: AuthStore.checkAuth()
+      loggedIn: AuthStore.checkAuth(),
+      showAttendance: false,
     }
   },
 
@@ -47,8 +48,14 @@ var ClassroomDashboard = React.createClass({
     this.setState({
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
-      loggedIn: AuthStore.checkAuth()
-    })
+      loggedIn: AuthStore.checkAuth(),
+    });
+  },
+
+  handleAttendance: function(){
+    this.setState({
+      showAttendance: !this.state.showAttendance,
+    });
   },
   
   showTimerOptions: function(){
@@ -57,15 +64,16 @@ var ClassroomDashboard = React.createClass({
 
 
   render: function(){
+    var attendance = this.state.showAttendance;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
-        <ClassroomStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior}/>
+        <ClassroomStudent key={index} studentId={index} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior}/>
       )
     })
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
-        <ClassroomNavbar />
+        <ClassroomNavbar onAttendanceClick={this.handleAttendance} />
         <div className="container">
           <div className="row">
             <button type="button" className="btn btn-info" onClick={this.showTimerOptions}><i className="fa fa-clock-o"> Timer</i></button>

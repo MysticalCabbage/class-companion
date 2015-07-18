@@ -8,7 +8,7 @@ var Link = Router.Link;
 
 var ClassroomNavbar = React.createClass({
   handleAttendance: function(){
-
+    this.props.onAttendanceClick();
   },
 
   render: function() {
