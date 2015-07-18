@@ -12,12 +12,7 @@ var BehaviorButtons = React.createClass({
   },
 
   buttonClicked: function(points, index){
-    console.log("index", index);
-    console.log("propsare",this.state.list);
     ClassroomActions.behaviorClicked(this.props.studentId, index, points)
-    console.log("points", points);
-    console.log("student clicked is", this.props);
-
   },
 
   render: function() {
