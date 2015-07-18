@@ -78,6 +78,7 @@ var ClassroomDashboard = React.createClass({
         <Navbar loggedIn = {this.state.loggedIn}/>
         <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions}/>
         <div className="container">
+          <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions}/>
           <div className="row">
             {this.state.showResults ? <TimerBar/> : null}
           </div>
