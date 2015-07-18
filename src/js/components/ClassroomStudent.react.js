@@ -1,14 +1,6 @@
 var React = require('react');
 var ClassroomActions = require('../actions/ClassroomActions');
-var _ = require('underscore');
-
-var BUTTON = React.createClass({
-  render: function(){
-    return (
-      <button>{this.props.behavior}</button>
-    );
-  }
-});
+var BehaviorButtons = require('./BehaviorButtons.react');
 
 var ClassroomStudent = React.createClass({
   getInitialState: function(){
@@ -38,14 +30,6 @@ var ClassroomStudent = React.createClass({
   },
 
   render: function(){
-    var updatePoints = this.updatePoints;
-     var studentBehaviors = _.map(this.props.behaviorActions, function(points,index){
-      console.log("index", index);
-      console.log("points",points);
-      return (
-        <BUTTON onClick={updatePoints.bind(null, index, points)} behavior={index}/>
-      )
-    });
     return (
       <div className="classroomStudent col-md-3">
         <div className="well">
@@ -66,11 +50,9 @@ var ClassroomStudent = React.createClass({
           </div>  
           <div className="row">
             <div>{this.props.studentTitle}</div>
-            {studentBehaviors}
           </div>
           <div className="row">
-            <button type="button" onClick={this.addPoint} className="btn btn-success">+</button>
-            <button type="button" onClick={this.subtractPoint} className="btn btn-danger">-</button>
+            <BehaviorButtons studentId={this.props.studentId} />
           </div>
         </div>
       </div>

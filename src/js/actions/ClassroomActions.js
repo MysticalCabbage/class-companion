@@ -14,16 +14,10 @@ var ClassroomActions = {
       data: studentId
     });
   },
-  addPoint: function(studentId, points){
+  behaviorClicked: function(studentId, index, points){
     AppDispatcher.handleAction({
-      actionType: ClassroomConstants.ADD_POINT,
-      data: {studentId: studentId, behavior: points}
-    });
-  },
-  subtractPoint: function(studentId, points){
-    AppDispatcher.handleAction({
-      actionType: ClassroomConstants.SUBTRACT_POINT,
-      data: {studentId: studentId, behavior: points}
+      actionType: ClassroomConstants.BEHAVIOR_CLICKED,
+      data: {studentId: studentId, behaviorAction: index, behaviorValue: points }
     });
   },
   markAttendance: function(studentId, attendance){

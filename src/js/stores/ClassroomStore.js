@@ -46,7 +46,11 @@ var markAttendance = function(data){
     firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance/' + newDate)
       .set(data.attendance);
   });
-}
+};
+
+var behaviorClicked = function(data){
+  console.log("u get this",data);
+};
 
 var initQuery = function(classId){
   firebaseRef.child('classes/'+classId).on('value', function(snapshot){
@@ -99,6 +103,10 @@ AppDispatcher.register(function(payload){
       break;
     case ClassroomConstants.SUBTRACT_POINT:
       subtractPoint(action.data);
+      ClassroomStore.emit(CHANGE_EVENT);
+      break;
+    case ClassroomConstants.BEHAVIOR_CLICKED:
+      behaviorClicked(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
     case ClassroomConstants.MARK_ATTENDANCE:

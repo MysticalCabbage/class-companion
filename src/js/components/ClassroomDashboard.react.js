@@ -70,7 +70,7 @@ var ClassroomDashboard = React.createClass({
     var behaviorTypes = this.state.info.behavior;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
-        <ClassroomStudent key={index} studentId={index} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behavior.total} behaviorActions={behaviorTypes}/>
+        <ClassroomStudent key={index} studentId={index} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behaviorTotal} behaviorActions={behaviorTypes}/>
       )
     });
     return (

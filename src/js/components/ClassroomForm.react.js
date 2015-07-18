@@ -27,6 +27,7 @@ var ClassroomForm = React.createClass({
     for(var key in setBehavior){
       setBehavior[key] = 0;
     }
+    console.log("behavior is now", setBehavior);
     ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0  });
     React.findDOMNode(this.refs.newStudent).value = '';
   },
