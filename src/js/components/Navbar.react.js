@@ -1,10 +1,7 @@
 var React = require('react');
-var Router = require('react-router');
-var AuthActions = require('../actions/AuthActions');
 var Auth = require('../services/AuthService');
-
+var Router = require('react-router');
 var Link = Router.Link;
-
 
 var Navbar = React.createClass({
   handleLogout: function(){

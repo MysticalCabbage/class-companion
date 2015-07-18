@@ -1,9 +1,5 @@
 var React = require('react');
 var Router = require('react-router');
-var AuthActions = require('../actions/AuthActions');
-var Auth = require('../services/AuthService');
-
-var Link = Router.Link;
 
 
 var ClassroomNavbar = React.createClass({
