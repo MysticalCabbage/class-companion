@@ -24,7 +24,8 @@ var ClassroomDashboard = React.createClass({
       info: ClassroomStore.getInfo(),
       loggedIn: AuthStore.checkAuth(),
       showAttendance: false,
-      showResults: false
+      showResults: false,
+      random: ''
     }
   },
 
@@ -86,7 +87,18 @@ var ClassroomDashboard = React.createClass({
   },
 
   pickRandom: function(){
-    console.log('pick random');
+    var random = prevRandom = this.state.random;
+
+    while(random === prevRandom){
+      count = 0;
+      for(var student in this.state.list){
+        if(Math.random() < 1/++count){
+          random = this.state.list[student];
+        }
+      }
+    }
+
+    this.setState({random: random});
   },
 
   pickGroup: function(){
@@ -105,7 +117,7 @@ var ClassroomDashboard = React.createClass({
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
-        <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions}/>
+        <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions} pickRandom={this.pickRandom} pickGroup={this.pickGroup}/>
         <div className="container">
           {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
           <div className="row">
@@ -119,8 +131,7 @@ var ClassroomDashboard = React.createClass({
               </div>
             </div>
            <ClassroomForm />
-          <button className="btn btn-primary" onClick={this.pickRandom}>Pick Random</button> <button className="btn btn-primary" onClick={this.pickGroup}>Pick Group</button>
-          <StudentRandom student={this.state.random}/>
+          <StudentRandom student={this.state.random.studentTitle}/>
           <StudentGroup />
           </div>
         </div>

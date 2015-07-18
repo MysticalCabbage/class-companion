@@ -11,6 +11,14 @@ var ClassroomNavbar = React.createClass({
     this.props.showTimerOptions();
   },
 
+  pickRandom: function(){
+    this.props.pickRandom();
+  },
+
+  pickGroup: function(){
+    this.props.pickGroup();
+  },
+
   render: function() {
     return (
       <nav className="classroomNavbar container navbar navbar-default">
@@ -23,12 +31,12 @@ var ClassroomNavbar = React.createClass({
             </ul>
             <ul className="nav navbar-nav">
               <li>
-                <a><i className="fa fa-random"> Random</i></a>
+                <a onClick={this.pickRandom}><i className="fa fa-random"> Random</i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav">
               <li>
-                <a><i className="fa fa-users"> Group</i></a>
+                <a onClick={this.pickGroup}><i className="fa fa-users"> Group</i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav">
