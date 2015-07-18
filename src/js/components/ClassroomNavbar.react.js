@@ -11,6 +11,10 @@ var ClassroomNavbar = React.createClass({
     this.props.onAttendanceClick();
   },
 
+  showTimerOptions: function(){
+    this.props.showTimerOptions();
+  },
+
   render: function() {
     return (
       <nav className="classroomNavbar container navbar navbar-default">
@@ -18,22 +22,22 @@ var ClassroomNavbar = React.createClass({
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
               <li>
-                <a onClick={this.handleAttendance}>Attendance</a>
+                <a onClick={this.handleAttendance}><i className="fa fa-check-square-o"> Attendance</i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav">
               <li>
-                <a>Random</a>
+                <a><i className="fa fa-random"> Random</i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav">
               <li>
-                <a>Group</a>
+                <a><i className="fa fa-users"> Group</i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav">
               <li>
-                <a>Timer</a>
+                <a onClick={this.showTimerOptions}><i className="fa fa-clock-o"> Timer</i></a>
               </li>
             </ul>
           </div>

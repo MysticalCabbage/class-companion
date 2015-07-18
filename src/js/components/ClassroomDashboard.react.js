@@ -18,6 +18,7 @@ var ClassroomDashboard = React.createClass({
       info: ClassroomStore.getInfo(),
       loggedIn: AuthStore.checkAuth(),
       showAttendance: false,
+      showResults: false
     }
   },
 
@@ -27,7 +28,6 @@ var ClassroomDashboard = React.createClass({
         return false;
       }
       location.hash = '/login';
-      showResults: false
     }
   },
 
@@ -59,7 +59,9 @@ var ClassroomDashboard = React.createClass({
   },
   
   showTimerOptions: function(){
-    this.setState({showResults: !this.state.showResults});
+    this.setState({
+      showResults: !this.state.showResults
+    });
   },
 
 
@@ -73,10 +75,9 @@ var ClassroomDashboard = React.createClass({
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
-        <ClassroomNavbar onAttendanceClick={this.handleAttendance} />
+        <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions}/>
         <div className="container">
           <div className="row">
-            <button type="button" className="btn btn-info" onClick={this.showTimerOptions}><i className="fa fa-clock-o"> Timer</i></button>
             {this.state.showResults ? <TimerBar/> : null}
           </div>
           <div className="row">
