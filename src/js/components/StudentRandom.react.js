@@ -1,6 +1,27 @@
 var React = require('react');
+var StudentSelectionStore = require('../stores/StudentSelectionStore');
 
 var StudentRandom = React.createClass({
+  getInitialState: function(){
+    return {
+      random: StudentSelectionStore.getRandom()
+    }
+  },
+
+  componentDidMount: function(){ 
+    StudentSelectionStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function(){
+    StudentSelectionStore.removeChangeListener(this._onChange);
+  },
+
+  _onChange: function(){
+    this.setState({
+      random: StudentSelectionStore.getRandom()
+    });
+  },
+
   closeModal: function(){
     console.log('close');
   },
@@ -14,7 +35,7 @@ var StudentRandom = React.createClass({
             <button type="button" className="close" aria-label="Close" onClick={this.closeModal}><span aria-hidden="true">&times;</span></button>
           </div>
         </div>
-          <div>{this.props.student}</div>
+          <div>{this.state.random.studentTitle}</div>
         </div>
       </div>
     );
