@@ -26,6 +26,18 @@ var ClassroomActions = {
       data: {studentId: studentId, attendance: attendance}
     });
   },
+  randStudent: function(){
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.RAND_STUDENT,
+      data: null
+    });
+  },
+  randGroup: function(){
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.RAND_GROUP,
+      data: null
+    });
+  },
   initQuery: function(classId){
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.INIT_QUERY,
