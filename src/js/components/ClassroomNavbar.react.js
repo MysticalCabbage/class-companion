@@ -14,8 +14,8 @@ var ClassroomNavbar = React.createClass({
   render: function() {
     return (
       <nav className="classroomNavbar container navbar navbar-default">
-        <div className="container">
-          <div id="navbar" className="navbar-collapse collapse">
+        <div className="container-fluid">
+          <div id="navbar" className="navbar-collapse collapsed">
             <ul className="nav navbar-nav">
               <li>
                 <a onClick={this.handleAttendance}><i className="fa fa-check-square-o"> Attendance</i></a>

@@ -82,6 +82,10 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 
   getInfo: function(){
     return _store.info;
+  },
+
+  getAttendance: function(){
+    return _store.attendance;
   }
 });
 
