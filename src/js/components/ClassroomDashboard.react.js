@@ -8,12 +8,9 @@ var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
 var TimerBar = require('./TimerBar.react.js');
 var ClassroomNavbar = require('./ClassroomNavbar.react');
-<<<<<<< HEAD
 var AttendanceNavbar = require('./AttendanceNavbar.react');
-=======
 var StudentGroup = require('./StudentGroup.react');
 var StudentRandom = require('./StudentRandom.react');
->>>>>>> (feat) add random student and group student component
 var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
@@ -25,7 +22,8 @@ var ClassroomDashboard = React.createClass({
       loggedIn: AuthStore.checkAuth(),
       showAttendance: false,
       showResults: false,
-      random: ''
+      showRandom: false,
+      showGroup: false
     }
   },
 
@@ -64,7 +62,7 @@ var ClassroomDashboard = React.createClass({
       showAttendance: !this.state.showAttendance,
     });
   },
-  
+
   showTimerOptions: function(){
     this.setState({
       showResults: !this.state.showResults
@@ -86,23 +84,19 @@ var ClassroomDashboard = React.createClass({
     });
   },
 
-  pickRandom: function(){
-    var random = prevRandom = this.state.random;
-
-    while(random === prevRandom){
-      count = 0;
-      for(var student in this.state.list){
-        if(Math.random() < 1/++count){
-          random = this.state.list[student];
-        }
-      }
+  randStudent: function(){
+    if(!this.state.showRandom){
+      ClassroomActions.randStudent();
     }
+    this.setState({showRandom : !this.state.showRandom});
 
-    this.setState({random: random});
   },
 
-  pickGroup: function(){
-    console.log('pick group');
+  randGroup: function(){
+    if(!this.state.showGroup){
+      ClassroomActions.randGroup();
+    }
+    this.setState({showGroup : !this.state.showGroup});
   },
 
   render: function(){
@@ -117,7 +111,7 @@ var ClassroomDashboard = React.createClass({
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
-        <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions} pickRandom={this.pickRandom} pickGroup={this.pickGroup}/>
+        <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions} randStudent={this.randStudent} randGroup={this.randGroup}/>
         <div className="container">
           {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
           <div className="row">
@@ -125,14 +119,14 @@ var ClassroomDashboard = React.createClass({
           </div>
           <div className="row">
           {studentNodes}
-            <div className="classroom col-md-3">
-              <div className="well">
-                <a>Add Student</a>
-              </div>
+          <div className="classroom col-md-3">
+            <div className="well">
+              <a>Add Student</a>
             </div>
-           <ClassroomForm />
-          <StudentRandom student={this.state.random.studentTitle}/>
-          <StudentGroup />
+          </div>
+          <ClassroomForm />
+          {this.state.showRandom ? <StudentRandom/> : null }
+          {this.state.showGroup ? <StudentGroup/> : null }
           </div>
         </div>
       </div>
