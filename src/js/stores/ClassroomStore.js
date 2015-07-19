@@ -10,7 +10,7 @@ var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
   list: {},
-  info: {},
+  info: {}
 };
 
 var addStudent = function(newStudent){

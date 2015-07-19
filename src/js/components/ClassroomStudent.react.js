@@ -4,7 +4,7 @@ var BehaviorButtons = require('./BehaviorButtons.react');
 
 var ClassroomStudent = React.createClass({
   getInitialState: function(){
-    return null
+    return null;
   },
 
   removeStudent: function(){
