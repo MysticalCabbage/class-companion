@@ -7,14 +7,11 @@ var TeacherForm = require('./components/TeacherForm.react');
 var ClassroomDashboard = require('./components/ClassroomDashboard.react');
 var Signup = require('./components/Signup.react');
 var Login = require('./components/Login.react');
-
 var Router = require('react-router');
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 var DefaultRoute = Router.DefaultRoute;
 var Redirect = Router.Redirect;
-var Link = Router.Link;
-var Navigation = Router.Navigation;
 var RouterContainer = require('./services/RouterContainer');
 
 var routes = (

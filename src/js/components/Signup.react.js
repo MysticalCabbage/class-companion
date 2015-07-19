@@ -1,5 +1,4 @@
 var React = require('react');
-var AuthActions = require('../actions/AuthActions');
 var Router = require('react-router');
 var Link = Router.Link;
 var Auth = require('../services/AuthService');
@@ -29,6 +28,7 @@ var Signup = React.createClass({
     firstNameNode.value = '';
     lastNameNode.value = '';
   },
+  
   render: function() {
     return (
       <div className="signupForm">

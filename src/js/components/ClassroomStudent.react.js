@@ -1,10 +1,13 @@
 var React = require('react');
 var ClassroomActions = require('../actions/ClassroomActions');
 var BehaviorButtons = require('./BehaviorButtons.react');
+var ClassroomStore = require('../stores/ClassroomStore');
 
 var ClassroomStudent = React.createClass({
   getInitialState: function(){
-    return null;
+    return {
+      toggle: 'Present'
+    }
   },
 
   removeStudent: function(){
@@ -12,7 +15,19 @@ var ClassroomStudent = React.createClass({
   },
 
   markAttendance: function(attendance){
-    ClassroomActions.markAttendance(this.props.studentId, attendance);
+    this.props.markAttendance(this.props.studentId, attendance);
+    var toggleState = this.state.toggle;
+    if(toggleState === 'Present'){
+      toggleState = 'Late';
+    }else if(toggleState === 'Late'){
+      toggleState = 'Absent';
+    }else{
+      toggleState = 'Present';
+    }
+
+    this.setState({
+      toggle: toggleState
+    });
   },
 
   render: function(){
@@ -24,13 +39,19 @@ var ClassroomStudent = React.createClass({
               <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
             </div>
           </div>
-          { this.props.attendance ? 
-            <div className="btn-group" role="group" aria-label="attendanceButtonBar">
-              <button type="button" onClick={this.markAttendance.bind(this, 'Present')} className="btn btn-success">Present</button>
-              <button type="button" onClick={this.markAttendance.bind(this, 'Late')} className="btn btn-warning">Late</button>
-              <button type="button" onClick={this.markAttendance.bind(this, 'Absent')} className="btn btn-danger">Absent</button>
-            </div>
-          : null }
+        { this.props.attendance ? 
+          <div className="btn-group" role="group" aria-label="attendanceButtonBar">
+            { this.state.toggle === 'Present' ? 
+            <button type="button" onClick={this.markAttendance.bind(this, 'Late')} className="btn btn-success">Present</button>
+            : null }
+            { this.state.toggle === 'Late' ? 
+            <button type="button" onClick={this.markAttendance.bind(this, 'Absent')} className="btn btn-warning">Late</button>
+            : null }
+            { this.state.toggle === 'Absent' ? 
+            <button type="button" onClick={this.markAttendance.bind(this, 'Present')} className="btn btn-danger">Absent</button>
+            : null }
+          </div>
+        : null }
           <div className="row">
             <span className="label label-default">{this.props.behavior}</span>
           </div>  

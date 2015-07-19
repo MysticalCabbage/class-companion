@@ -1,4 +1,5 @@
 var React = require('react');
+
 var Timer = React.createClass({
   propTypes: {
     initialTimeRemaining: React.PropTypes.number.isRequired,

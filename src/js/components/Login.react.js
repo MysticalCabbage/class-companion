@@ -1,5 +1,4 @@
 var React = require('react');
-var AuthActions = require('../actions/AuthActions');
 var Router = require('react-router');
 var Link = Router.Link;
 var Auth = require('../services/AuthService');

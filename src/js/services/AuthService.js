@@ -1,6 +1,5 @@
 var React = require('react');
 var AuthActions = require('../actions/AuthActions');
-var AuthConstants = require('../constants/AuthConstants');
 var Router = require('react-router');
 var Link = Router.Link;
 var objectAssign = require('object-assign');

@@ -8,6 +8,7 @@ var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
 var TimerBar = require('./TimerBar.react.js');
 var ClassroomNavbar = require('./ClassroomNavbar.react');
+var AttendanceNavbar = require('./AttendanceNavbar.react');
 var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
@@ -64,13 +65,28 @@ var ClassroomDashboard = React.createClass({
     });
   },
 
+  markAttendance: function(studentId, attendance){
+    console.log("studentId: " + studentId + "attendance: " + attendance);
+    this.state.list[studentId]['attendance'] = attendance;
+  },
+
+  saveAttendance: function(){
+    return _.map(this.state.list, function(studentNode, index){
+      if(studentNode.attendance){
+        ClassroomActions.markAttendance(index, studentNode.attendance);  
+      }else{
+        ClassroomActions.markAttendance(index, 'Present');  
+      }
+    });
+  },
 
   render: function(){
     var attendance = this.state.showAttendance;
     var behaviorTypes = this.state.info.behavior;
+    var markAttendance = this.markAttendance;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
-        <ClassroomStudent key={index} studentId={index} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behaviorTotal} behaviorActions={behaviorTypes}/>
+        <ClassroomStudent key={index} studentId={index} markAttendance={markAttendance} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behaviorTotal} behaviorActions={behaviorTypes} />
       )
     });
     return (
@@ -78,6 +94,7 @@ var ClassroomDashboard = React.createClass({
         <Navbar loggedIn = {this.state.loggedIn}/>
         <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions}/>
         <div className="container">
+          {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
           <div className="row">
             {this.state.showResults ? <TimerBar/> : null}
           </div>
