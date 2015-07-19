@@ -12,11 +12,11 @@ var ClassroomNavbar = React.createClass({
   },
 
   pickRandom: function(){
-    this.props.pickRandom();
+    this.props.randStudent();
   },
 
   pickGroup: function(){
-    this.props.pickGroup();
+    this.props.randGroup();
   },
 
   render: function() {
