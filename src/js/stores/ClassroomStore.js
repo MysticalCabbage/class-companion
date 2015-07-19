@@ -14,7 +14,6 @@ var _store = {
 };
 
 var addStudent = function(newStudent){
-  newStudent.behavior = 0;
   firebaseRef.child('classes/' + _store.info.classId + '/students').push(newStudent);
 };
 
@@ -24,10 +23,6 @@ var removeStudent = function(studentId){
 
 var subtractPoint = function(data){
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior').set(data.behavior-1);
-};
-
-var addPoint = function(data){
-  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior').set(data.behavior+1);
 };
 
 var markAttendance = function(data){
@@ -47,7 +42,16 @@ var markAttendance = function(data){
     firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance/' + newDate)
       .set(data.attendance);
   });
-}
+};
+
+var behaviorClicked = function(data){
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
+    return current_value + 1;
+  });
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behaviorTotal/').transaction(function(current_value){
+    return current_value + data.behaviorValue;
+  });  
+};
 
 var initQuery = function(classId){
   firebaseRef.child('classes/'+classId).on('value', function(snapshot){
@@ -94,12 +98,8 @@ AppDispatcher.register(function(payload){
       removeStudent(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
-    case ClassroomConstants.ADD_POINT:
-      addPoint(action.data);
-      ClassroomStore.emit(CHANGE_EVENT);
-      break;
-    case ClassroomConstants.SUBTRACT_POINT:
-      subtractPoint(action.data);
+    case ClassroomConstants.BEHAVIOR_CLICKED:
+      behaviorClicked(action.data);
       ClassroomStore.emit(CHANGE_EVENT);
       break;
     case ClassroomConstants.MARK_ATTENDANCE:

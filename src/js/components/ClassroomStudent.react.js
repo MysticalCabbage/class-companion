@@ -1,5 +1,6 @@
 var React = require('react');
 var ClassroomActions = require('../actions/ClassroomActions');
+var BehaviorButtons = require('./BehaviorButtons.react');
 
 var ClassroomStudent = React.createClass({
   getInitialState: function(){
@@ -8,14 +9,6 @@ var ClassroomStudent = React.createClass({
 
   removeStudent: function(){
     ClassroomActions.removeStudent(this.props.studentId);
-  },
-
-  addPoint: function(){
-    ClassroomActions.addPoint(this.props.studentId, this.props.behavior);
-  },
-
-  subtractPoint: function(){
-    ClassroomActions.subtractPoint(this.props.studentId, this.props.behavior);
   },
 
   markAttendance: function(attendance){
@@ -45,8 +38,7 @@ var ClassroomStudent = React.createClass({
             <div>{this.props.studentTitle}</div>
           </div>
           <div className="row">
-            <button type="button" onClick={this.addPoint} className="btn btn-success">+</button>
-            <button type="button" onClick={this.subtractPoint} className="btn btn-danger">-</button>
+            <BehaviorButtons studentId={this.props.studentId} />
           </div>
         </div>
       </div>

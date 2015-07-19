@@ -1,6 +1,7 @@
 var React = require('react');
 var ClassroomActions = require('../actions/ClassroomActions');
 var AuthStore = require('../stores/AuthStore');
+var ClassroomStore = require('../stores/ClassroomStore');
 
 var ClassroomForm = React.createClass({
   getInitialState: function(){
@@ -21,7 +22,11 @@ var ClassroomForm = React.createClass({
   handleAddStudent: function(e){
     e.preventDefault();
     var newStudent = React.findDOMNode(this.refs.newStudent).value;
-    ClassroomActions.addStudent({studentTitle: newStudent});
+    var setBehavior = ClassroomStore.getInfo().behavior;
+    for(var key in setBehavior){
+      setBehavior[key] = 0;
+    }
+    ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0  });
     React.findDOMNode(this.refs.newStudent).value = '';
   },
 
