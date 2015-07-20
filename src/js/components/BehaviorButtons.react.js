@@ -19,7 +19,7 @@ var BehaviorButtons = React.createClass({
     var buttonClicked = this.buttonClicked;
     var studentBehaviors = _.map(this.state.info.behavior, function(points, index){
       return (
-        <button key={index} onClick={buttonClicked.bind(null, points, index)}>{index}</button>
+        <button type="button" className="btn btn-default" key={index} onClick={buttonClicked.bind(null, points, index)}>{index}</button>
       )
     })
     return (
