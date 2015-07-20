@@ -9,6 +9,8 @@ var Navbar = require('./Navbar.react');
 var TimerBar = require('./TimerBar.react.js');
 var ClassroomNavbar = require('./ClassroomNavbar.react');
 var AttendanceNavbar = require('./AttendanceNavbar.react');
+var StudentGroup = require('./StudentGroup.react');
+var StudentRandom = require('./StudentRandom.react');
 var _ = require('underscore');
 
 var ClassroomDashboard = React.createClass({
@@ -19,7 +21,9 @@ var ClassroomDashboard = React.createClass({
       info: ClassroomStore.getInfo(),
       loggedIn: AuthStore.checkAuth(),
       showAttendance: false,
-      showResults: false
+      showResults: false,
+      showRandom: false,
+      showGroup: false
     }
   },
 
@@ -58,7 +62,7 @@ var ClassroomDashboard = React.createClass({
       showAttendance: !this.state.showAttendance,
     });
   },
-  
+
   showTimerOptions: function(){
     this.setState({
       showResults: !this.state.showResults
@@ -80,6 +84,21 @@ var ClassroomDashboard = React.createClass({
     });
   },
 
+  randStudent: function(){
+    if(!this.state.showRandom){
+      ClassroomActions.randStudent();
+    }
+    this.setState({showRandom : !this.state.showRandom});
+
+  },
+
+  randGroup: function(){
+    if(!this.state.showGroup){
+      ClassroomActions.randGroup();
+    }
+    this.setState({showGroup : !this.state.showGroup});
+  },
+
   render: function(){
     var attendance = this.state.showAttendance;
     var behaviorTypes = this.state.info.behavior;
@@ -92,7 +111,7 @@ var ClassroomDashboard = React.createClass({
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
-        <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions}/>
+        <ClassroomNavbar onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions} randStudent={this.randStudent} randGroup={this.randGroup}/>
         <div className="container">
           {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
           <div className="row">
@@ -100,12 +119,14 @@ var ClassroomDashboard = React.createClass({
           </div>
           <div className="row">
           {studentNodes}
-            <div className="classroom col-md-3">
-              <div className="well">
-                <a>Add Student</a>
-              </div>
+          <div className="classroom col-md-3">
+            <div className="well">
+              <a>Add Student</a>
             </div>
-           <ClassroomForm />
+          </div>
+          <ClassroomForm />
+          {this.state.showRandom ? <StudentRandom/> : null }
+          {this.state.showGroup ? <StudentGroup/> : null }
           </div>
         </div>
       </div>
