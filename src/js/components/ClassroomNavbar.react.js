@@ -1,5 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
+var Link = Router.Link;
 
 
 var ClassroomNavbar = React.createClass({
@@ -42,6 +43,11 @@ var ClassroomNavbar = React.createClass({
             <ul className="nav navbar-nav">
               <li>
                 <a onClick={this.showTimerOptions}><i className="fa fa-clock-o"> Timer</i></a>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <Link to="/reportsDashboard"><i className="fa fa-pie-chart"> Reports</i></Link>
               </li>
             </ul>
           </div>

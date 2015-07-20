@@ -130,7 +130,6 @@ var ClassroomDashboard = React.createClass({
           </div>
         </div>
       </div>
-      
     );
   }
 });
