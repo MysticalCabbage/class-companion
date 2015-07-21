@@ -32,7 +32,6 @@ var ClassroomDashboard = React.createClass({
     this.setState({modalIsOpen: true});
   },
   closeModal: function() {
-    console.log("u closed this");
     this.setState({modalIsOpen: false});
   },
 

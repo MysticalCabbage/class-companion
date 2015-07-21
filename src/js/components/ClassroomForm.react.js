@@ -19,9 +19,6 @@ var ClassroomForm = React.createClass({
     }
   },
 
-  componentDidMount: function(){
-
-  },
 
   handleAddStudent: function(e){
     e.preventDefault();
