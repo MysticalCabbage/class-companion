@@ -22,7 +22,7 @@ var TeacherForm = React.createClass({
     var newClass = React.findDOMNode(this.refs.newClass).value;
     TeacherActions.addClass({classTitle: newClass, behavior: { helping: 1, goodJob: 1, badJob: -1, bullying: -1 }});
     React.findDOMNode(this.refs.newClass).value = '';
-    this.props.closeModal();
+    // this.props.closeModal();
   },
 
   render: function() {
@@ -30,12 +30,12 @@ var TeacherForm = React.createClass({
       <div className="teacherForm container">
         <div className="row">
           <div className="col-sm-6 well text-center">
-            <form>
+            <form onSubmit={this.handleAddClass}>
               <label for="">Give your class a name</label>
               <div className="form-group">
                 <input type="text" ref="newClass" id="newClass" className="form-control" placeholder="Example: JD's English Class" />
               </div>
-              <button type="submit" id="addNewClass" className="btn btn-primary btn-block submit-button" onClick={this.handleAddClass} >Create my class!</button>
+              <button type="submit" id="addNewClass" className="btn btn-primary btn-block submit-button">Create my class!</button>
             </form>
           </div> 
         </div> 

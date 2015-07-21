@@ -54,7 +54,7 @@ var TeacherDashboard = React.createClass({
     AuthStore.removeChangeListener(this._onChange);
   },
    componentWillUpdate: function(){
-    var appElement = document.getElementById('teachermodal');
+    var appElement = document.getElementById('modalstuff');
     Modal.setAppElement(appElement);
     Modal.injectCSS();
   },
@@ -83,17 +83,11 @@ var TeacherDashboard = React.createClass({
             {classNodes}
             <div className="teacherClass col-md-3">
               <div className="well">
-                <button onClick={this.openModal}>Add Class</button>
+                <Link to="/teacherForm">Add Class +</Link>
               </div>
             </div>
+            <TeacherForm />
           </div>
-          <div id="teachermodal">
-              <Modal
-                isOpen={this.state.modalIsOpen}
-                onRequestClose={this.closeModal}>
-                  <TeacherForm closeModal={this.closeModal}/>
-              </Modal>
-            </div>
         </div>
       </div>
     );
