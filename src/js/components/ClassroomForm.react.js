@@ -19,6 +19,7 @@ var ClassroomForm = React.createClass({
     }
   },
 
+
   handleAddStudent: function(e){
     e.preventDefault();
     var newStudent = React.findDOMNode(this.refs.newStudent).value;
@@ -28,6 +29,7 @@ var ClassroomForm = React.createClass({
     }
     ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0  });
     React.findDOMNode(this.refs.newStudent).value = '';
+    this.props.closeModal();
   },
 
   render: function() {
@@ -35,6 +37,7 @@ var ClassroomForm = React.createClass({
       <div className="classroomForm container">
         <div className="row">
           <div className="col-sm-6 well text-center">
+    
             <form>
               <label for="">Add student</label>
               <div className="form-group">
