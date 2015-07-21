@@ -6,12 +6,11 @@ var ClassroomStore = require('../stores/ClassroomStore');
 var ReportsStudent = React.createClass({
   render: function(){
     return (
-      <div className="panel-body">
-        {this.props.studentTitle}
-      </div>
+    	<div className="panel-body">
+    	  {this.props.studentTitle}
+    	</div>
     );
   }
 });
 
 module.exports = ReportsStudent;
-

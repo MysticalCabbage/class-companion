@@ -7,6 +7,7 @@
     "firebase": "^2.2.7",
     "flux": "^2.0.3",
     "gulp-clean": "^0.3.1",
+    "moment": "^2.10.3",
     "object-assign": "^3.0.0",
     "q": "^1.4.1",
     "react": "^0.13.3",

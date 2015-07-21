@@ -1,6 +1,7 @@
 var React = require('react');
 var AuthStore = require('../stores/AuthStore');
 var ReportsStudent = require('./ReportsStudent.react');
+var AttendanceCalendar = require('./AttendanceCalendar.react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomActions = require('../actions/ClassroomActions');
 var Navbar = require('./Navbar.react');
@@ -13,6 +14,7 @@ var ReportsDashboard = React.createClass({
 	  	list: ClassroomStore.getList(),
 	  	info: ClassroomStore.getInfo(),
 	    loggedIn: AuthStore.checkAuth(),
+	    reportType: 'Attendance'
 	  }
 	},
 
@@ -29,7 +31,6 @@ var ReportsDashboard = React.createClass({
     ClassroomActions.initQuery(this.props.params.id);
     ClassroomStore.addChangeListener(this._onChange);
     AuthStore.addChangeListener(this._onChange);
-    console.log(this.state.list)
   },
 
 
@@ -57,17 +58,24 @@ var ReportsDashboard = React.createClass({
       <div className="reportsDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
-          <div className="row container">
-          	<div className="col-md-3">
-          		<div className="panel panel-default">
+          <div className="row">
+          	<div className="col-md-2">
+          		<div className="panel panel-primary">
           		  <div className="panel-heading">
           		    <h3 className="panel-title">Students</h3>
           		  </div>
           		  {studentNodes}
           		</div>
           	</div>
-          	<div className="col-md-9 well">
-          		Reports Container
+          	<div className="col-md-10">
+          		<div className="panel panel-primary">
+          		  <div className="panel-heading">
+          		    <h3 className="panel-title">{this.state.reportType}</h3>
+          		  </div>
+          		  <div className="panel-body">
+          		    <AttendanceCalendar />
+          		  </div>
+          		</div>
           	</div>
           </div>
         </div>
