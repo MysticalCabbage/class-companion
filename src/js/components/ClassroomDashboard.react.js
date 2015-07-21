@@ -13,6 +13,9 @@ var StudentGroup = require('./StudentGroup.react');
 var StudentRandom = require('./StudentRandom.react');
 var _ = require('underscore');
 
+var appElement = document.getElementById('modalstuff');
+    Modal.setAppElement(appElement);
+    Modal.injectCSS();
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
@@ -50,11 +53,6 @@ var ClassroomDashboard = React.createClass({
     AuthStore.addChangeListener(this._onChange);
   },
 
-  componentWillUpdate: function(){
-    var appElement = document.getElementById('modalstuff');
-    Modal.setAppElement(appElement);
-    Modal.injectCSS();
-  },
   componentWillUnmount: function(){
     ClassroomActions.endQuery();
     ClassroomStore.removeChangeListener(this._onChange);
@@ -114,7 +112,6 @@ var ClassroomDashboard = React.createClass({
     var attendance = this.state.showAttendance;
     var behaviorTypes = this.state.info.behavior;
     var markAttendance = this.markAttendance;
-    console.log("dhom", this.closeModal.toString());
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
         <ClassroomStudent key={index} studentId={index} markAttendance={markAttendance} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behaviorTotal} behaviorActions={behaviorTypes} />
@@ -134,17 +131,18 @@ var ClassroomDashboard = React.createClass({
           {studentNodes}
           <div className="classroom col-md-3">
             <div className="well">
-              <button onClick={this.openModal}>Add Student</button>
+              <a onClick={this.openModal}>Add Student</a>
             </div>
           </div>
-          <div id="modalstuff">
+      <div id="modalstuff"></div>
+
           <Modal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
           >
             <ClassroomForm closeModal={this.closeModal}/>
           </Modal>
-          </div>
+        
             {this.state.showRandom ? <StudentRandom/> : null }
             {this.state.showGroup ? <StudentGroup/> : null }
           </div>
