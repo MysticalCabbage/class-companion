@@ -28,6 +28,7 @@ var ClassroomForm = React.createClass({
       setBehavior[key] = 0;
     }
     ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0  });
+    console.log("newstudentis",newStudent);
     React.findDOMNode(this.refs.newStudent).value = '';
     this.props.closeModal();
   },
@@ -37,7 +38,6 @@ var ClassroomForm = React.createClass({
       <div className="classroomForm container">
         <div className="row">
           <div className="col-sm-6 well text-center">
-    
             <form>
               <label for="">Add student</label>
               <div className="form-group">

@@ -22,7 +22,7 @@ var TeacherForm = React.createClass({
     var newClass = React.findDOMNode(this.refs.newClass).value;
     TeacherActions.addClass({classTitle: newClass, behavior: { helping: 1, goodJob: 1, badJob: -1, bullying: -1 }});
     React.findDOMNode(this.refs.newClass).value = '';
-    // this.props.closeModal();
+    this.props.closeModal();
   },
 
   render: function() {

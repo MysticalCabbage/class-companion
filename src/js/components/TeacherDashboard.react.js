@@ -10,6 +10,10 @@ var Modal = require('react-modal');
 var Link = Router.Link;
 var _ = require('underscore');
 
+var appElement = document.getElementById('teachermodal');
+    Modal.setAppElement(appElement);
+    Modal.injectCSS();
+
 var TeacherDashboard = React.createClass({
   // Invoke TeacherStore.getList() and set the result to the list property on our state
   getInitialState: function(){
@@ -45,6 +49,7 @@ var TeacherDashboard = React.createClass({
     }
     TeacherStore.addChangeListener(this._onChange);
     AuthStore.addChangeListener(this._onChange);
+    
   },
 
   // Call the removeChangeListener method on TeacherStore to remove an event listener
@@ -52,11 +57,6 @@ var TeacherDashboard = React.createClass({
     TeacherActions.endQuery();
     TeacherStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
-  },
-   componentWillUpdate: function(){
-    var appElement = document.getElementById('modalstuff');
-    Modal.setAppElement(appElement);
-    Modal.injectCSS();
   },
 
   // Whenever data in the store changes, fetch data from the store and update the component state
@@ -83,10 +83,16 @@ var TeacherDashboard = React.createClass({
             {classNodes}
             <div className="teacherClass col-md-3">
               <div className="well">
-                <Link to="/teacherForm">Add Class +</Link>
+                 <a onClick={this.openModal}>Add Class</a>
               </div>
             </div>
-            <TeacherForm />
+            <div id="teachermodal"></div> 
+              <Modal
+              isOpen={this.state.modalIsOpen}
+              onRequestClose={this.closeModal}
+              >
+                <TeacherForm closeModal={this.closeModal}/>
+              </Modal>
           </div>
         </div>
       </div>
