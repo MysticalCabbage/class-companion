@@ -6,6 +6,7 @@ var TeacherForm = require('./TeacherForm.react');
 var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
 var Router = require('react-router');
+var Modal = require('react-modal');
 var Link = Router.Link;
 var _ = require('underscore');
 
@@ -15,7 +16,8 @@ var TeacherDashboard = React.createClass({
     return {
       list: TeacherStore.getList(),
       info: TeacherStore.getInfo(),
-      loggedIn: AuthStore.checkAuth()
+      loggedIn: AuthStore.checkAuth(),
+      modalIsOpen: false 
     }
   },
 
@@ -26,6 +28,12 @@ var TeacherDashboard = React.createClass({
       }
       location.hash = '/login';
     }
+  },
+  openModal: function(){
+    this.setState({modalIsOpen: true});
+  },
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
   },
 
   // Call the addChangeListener method on TeacherStore to add an event listener
@@ -44,6 +52,11 @@ var TeacherDashboard = React.createClass({
     TeacherActions.endQuery();
     TeacherStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
+  },
+   componentWillUpdate: function(){
+    var appElement = document.getElementById('teachermodal');
+    Modal.setAppElement(appElement);
+    Modal.injectCSS();
   },
 
   // Whenever data in the store changes, fetch data from the store and update the component state
@@ -70,11 +83,17 @@ var TeacherDashboard = React.createClass({
             {classNodes}
             <div className="teacherClass col-md-3">
               <div className="well">
-                <Link to="/teacherForm">Add Class +</Link>
+                <button onClick={this.openModal}>Add Class</button>
               </div>
             </div>
-            <TeacherForm />
           </div>
+          <div id="teachermodal">
+              <Modal
+                isOpen={this.state.modalIsOpen}
+                onRequestClose={this.closeModal}>
+                  <TeacherForm closeModal={this.closeModal}/>
+              </Modal>
+            </div>
         </div>
       </div>
     );

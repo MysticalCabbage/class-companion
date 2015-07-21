@@ -115,7 +115,6 @@ var ClassroomDashboard = React.createClass({
     var attendance = this.state.showAttendance;
     var behaviorTypes = this.state.info.behavior;
     var markAttendance = this.markAttendance;
-    console.log("dhom", this.closeModal.toString());
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
         <ClassroomStudent key={index} studentId={index} markAttendance={markAttendance} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behaviorTotal} behaviorActions={behaviorTypes} />
