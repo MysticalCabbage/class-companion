@@ -31,22 +31,36 @@ var Calendar = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<div className="header">
-					<i className="fa fa-angle-left" onClick={this.previous}></i>
-					{this.renderMonthLabel()}
-					<i className="fa fa-angle-right" onClick={this.next}></i>
-				</div>
+				<nav>
+				  <ul className="pagination">
+				    <li>
+				      <a onClick={this.previous} aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    {this.renderMonthLabel()}
+				    <li>
+				      <a onClick={this.next} aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
 				<table className="attendanceCalendar table table-bordered">
-				  <tr>
-				    <th className="warning">Sunday</th>
-				    <th className="danger">Monday</th>
-				    <th className="info">Tuesday</th>
-				    <th className="warning">Wednesday</th>
-				    <th className="danger">Thursday</th>
-				    <th className="info">Friday</th>
-				    <th className="warning">Saturday</th>
-				  </tr>
+					<thead>
+					  <tr>
+					    <th className="warning">Sunday</th>
+					    <th className="danger">Monday</th>
+					    <th className="info">Tuesday</th>
+					    <th className="warning">Wednesday</th>
+					    <th className="danger">Thursday</th>
+					    <th className="info">Friday</th>
+					    <th className="warning">Saturday</th>
+					  </tr>
+				  </thead>
+				  <tbody>
 				  {this.renderWeeks()}
+				  </tbody>
 				</table>
 			</div>
 		)
@@ -55,7 +69,7 @@ var Calendar = React.createClass({
 	renderWeeks: function() {
 		var weeks = [],
 			done = false,
-			date = this.state.month.clone().startOf("month").add(-1, "w").day("Sunday"),
+			date = this.state.month.clone().startOf("month").add("w" -1).day("Sunday"),
 			monthIndex = date.month(),
 			count = 0;
 
@@ -70,7 +84,7 @@ var Calendar = React.createClass({
 	},
 
 	renderMonthLabel: function() {
-		return <span>{this.state.month.format("MMMM, YYYY")}</span>;
+		return <li><a href="#">{this.state.month.format("MMMM, YYYY")}</a></li>;
 	}
 });
 
