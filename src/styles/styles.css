@@ -7,3 +7,7 @@ a, a:visited, a:hover, a:active {
 .well{
 	text-align: center;
 }
+
+.attendanceCalendar td{
+	font-size: 11px;
+}

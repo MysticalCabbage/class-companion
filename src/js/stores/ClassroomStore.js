@@ -30,7 +30,6 @@ var markAttendance = function(data){
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance')
     .set(Firebase.ServerValue.TIMESTAMP);
 
-  // Listens for when the attendance data gets stored
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance').once('value', function(snapshot){
     // Grab the timestamp stored in the database
     var current_server_time = snapshot.val();
