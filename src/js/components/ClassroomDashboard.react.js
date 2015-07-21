@@ -70,7 +70,6 @@ var ClassroomDashboard = React.createClass({
   },
 
   markAttendance: function(studentId, attendance){
-    console.log("studentId: " + studentId + "attendance: " + attendance);
     this.state.list[studentId]['attendance'] = attendance;
   },
 

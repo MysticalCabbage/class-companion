@@ -1,16 +1,14 @@
 var React = require('react');
 var DayNames = require('./DayNames.react');
 var Week = require('./Week.react');
+var ClassroomStore = require('../stores/ClassroomStore');
+var _ = require('underscore');
 
 var Calendar = React.createClass({
 	getInitialState: function() {
 		return {
-			month: this.props.selected.clone()
+			month: moment().startOf("day")
 		};
-	},
-
-	componentWillMount: function(){
-		console.log(this.state.month);
 	},
 
 	// Change state to previous month
@@ -30,7 +28,7 @@ var Calendar = React.createClass({
 
 	render: function() {
 		return (
-			<div>
+			<div className="attendanceCalendar">
 				<nav>
 				  <ul className="pagination">
 				    <li>
@@ -67,6 +65,7 @@ var Calendar = React.createClass({
 	},
 
 	renderWeeks: function() {
+		var list = this.props.list;
 		var weeks = [],
 			done = false,
 			date = this.state.month.clone().startOf("month").add("w" -1).day("Sunday"),
@@ -74,7 +73,7 @@ var Calendar = React.createClass({
 			count = 0;
 
 		while (!done) {
-			weeks.push(<Week key={date.toString()} date={date.clone()} month={this.state.month} select={this.select} selected={this.props.selected} />);
+			weeks.push(<Week list={list} key={date.toString()} date={date.clone()} month={this.state.month} select={this.select} selected={this.props.selected} />);
 			date.add(1, "w");
 			done = count++ > 2 && monthIndex !== date.month();
 			monthIndex = date.month();
