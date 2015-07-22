@@ -5,6 +5,7 @@ var Calendar = require('./Calendar.react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomActions = require('../actions/ClassroomActions');
 var Navbar = require('./Navbar.react');
+var BehaviorDashboard = require('./BehaviorReport.react');
 var _ = require('underscore');
 
 var ReportsDashboard = React.createClass({
@@ -48,10 +49,18 @@ var ReportsDashboard = React.createClass({
     });
   },
 
+  studentClick: function(){
+    console.log('clicked on', this.props);
+  },
+
   render: function(){
+    var studentClicked = this.studentClick;
+    console.log("storeis",this.state.list);
+    console.log("doesitwork",this);
+
   	var studentNodes = _.map(this.state.list, function(studentNode,index){
   	  return (
-  	  	<ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} />
+  	  	<ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked}/>
   	  )
   	});
     return (
@@ -73,7 +82,8 @@ var ReportsDashboard = React.createClass({
           		    <h3 className="panel-title">{this.state.reportType}</h3>
           		  </div>
           		  <div className="panel-body">
-          		    <Calendar list={this.state.list} />
+                  <BehaviorDashboard/>
+                  <Calendar/>
           		  </div>
           		</div>
           	</div>
