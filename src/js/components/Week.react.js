@@ -7,9 +7,6 @@ var Week = React.createClass({
 			date = this.props.date,
 			month = this.props.month;
 
-		console.log(date.date());
-		console.log(month.month());
-
 		for (var i = 0; i < 7; i++) {
 			var day = {
 				name: date.format("dd").substring(0, 1),
