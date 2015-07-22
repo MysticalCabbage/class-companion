@@ -84,6 +84,7 @@ var ClassroomDashboard = React.createClass({
   },
 
   saveAttendance: function(){
+    this.handleAttendance();
     return _.map(this.state.list, function(studentNode, index){
       if(studentNode.attendance){
         ClassroomActions.markAttendance(index, studentNode.attendance);  
