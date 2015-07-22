@@ -49,8 +49,8 @@ var ReportsDashboard = React.createClass({
     });
   },
 
-  studentClick: function(){
-    console.log('clicked on', this.props);
+  studentClick: function(x){
+    console.log('clicked on', x);
   },
 
   render: function(){
@@ -58,7 +58,7 @@ var ReportsDashboard = React.createClass({
 
   	var studentNodes = _.map(this.state.list, function(studentNode,index){
   	  return (
-  	  	<ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked}/>
+  	  	<ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked} studentBehavior={studentNode.behavior}/>
   	  )
   	});
     return (
