@@ -2,8 +2,8 @@ var React = require('react');
 var AuthStore = require('../stores/AuthStore');
 var ReportsStudent = require('./ReportsStudent.react');
 var Calendar = require('./Calendar.react');
-var AttendanceStore = require('../stores/AttendanceStore');
-var AttendanceActions = require('../actions/AttendanceActions');
+var ClassroomStore = require('../stores/ClassroomStore');
+var ClassroomActions = require('../actions/ClassroomActions');
 var Navbar = require('./Navbar.react');
 var _ = require('underscore');
 
@@ -11,8 +11,8 @@ var ReportsDashboard = React.createClass({
 	getInitialState: function(){
 	  //set list upon initialstate w/ ClassroomStore.getList
 	  return {
-	  	list: AttendanceStore.getList(),
-	  	info: AttendanceStore.getInfo(),
+	  	list: ClassroomStore.getList(),
+	  	info: ClassroomStore.getInfo(),
 	    loggedIn: AuthStore.checkAuth(),
 	    reportType: 'Attendance'
 	  }
@@ -28,22 +28,22 @@ var ReportsDashboard = React.createClass({
 	},
 
 	componentDidMount: function(){ 
-    AttendanceActions.initQuery(this.props.params.id);
-    AttendanceStore.addChangeListener(this._onChange);
+    ClassroomActions.initQuery(this.props.params.id);
+    ClassroomStore.addChangeListener(this._onChange);
     AuthStore.addChangeListener(this._onChange);
   },
 
 
   componentWillUnmount: function(){
-    AttendanceActions.endQuery();
-    AttendanceStore.removeChangeListener(this._onChange);
+    ClassroomActions.endQuery();
+    ClassroomStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
   },
 
   _onChange: function(){
     this.setState({
-      list: AttendanceStore.getList(),
-      info: AttendanceStore.getInfo(),
+      list: ClassroomStore.getList(),
+      info: ClassroomStore.getInfo(),
       loggedIn: AuthStore.checkAuth(),
     });
   },

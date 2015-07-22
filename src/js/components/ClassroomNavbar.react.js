@@ -21,6 +21,7 @@ var ClassroomNavbar = React.createClass({
   },
 
   render: function() {
+    var url = '#/reportsDashboard/' + this.props.classId;
     return (
       <nav className="classroomNavbar container navbar navbar-default">
         <div className="container-fluid">
@@ -47,7 +48,7 @@ var ClassroomNavbar = React.createClass({
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <Link to="/reportsDashboard"><i className="fa fa-pie-chart"> Reports</i></Link>
+                <a href={url}><i className="fa fa-pie-chart"> Reports</i></a>
               </li>
             </ul>
           </div>

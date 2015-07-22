@@ -24,7 +24,7 @@ var routes = (
     <Route path="teacherDashboard" handler={TeacherDashboard}/>
     <Route path="teacherForm" handler={TeacherForm}/>
     <Route path="classroomDashboard/:id" handler={ClassroomDashboard}/>
-    <Route path="ReportsDashboard" handler={ReportsDashboard}/>
+    <Route path="reportsDashboard/:id" handler={ReportsDashboard}/>
     <Route path="*" handler={TeacherDashboard} />
   </Route>
 );
