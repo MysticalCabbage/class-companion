@@ -5,9 +5,10 @@ var ClassroomStore = require('../stores/ClassroomStore');
 
 var ReportsStudent = React.createClass({
   render: function(){
+    console.log("IAM",this.props.studentBehavior);
     return (
     	<div className="panel-body">
-    	  <a onClick={this.props.studentClick}>{this.props.studentTitle}</a>
+    	  <a onClick={this.props.studentClick.bind(null,this.props.studentBehavior)}>{this.props.studentTitle}</a>
     	</div>
     );
   }

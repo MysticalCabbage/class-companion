@@ -34,7 +34,6 @@ var BehaviorDashboard = React.createClass({
         obj[key] = 0;
         arrayObj.push(obj);
     }
-    debugger;
     for(var key in this.state.list){
         for(var behaviors in this.state.list[key]["behavior"]){
             // if(arrayObj[behaviors]){
