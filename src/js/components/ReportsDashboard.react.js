@@ -55,8 +55,6 @@ var ReportsDashboard = React.createClass({
 
   render: function(){
     var studentClicked = this.studentClick;
-    console.log("storeis",this.state.list);
-    console.log("doesitwork",this);
 
   	var studentNodes = _.map(this.state.list, function(studentNode,index){
   	  return (

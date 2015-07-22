@@ -7,7 +7,7 @@ var ReportsStudent = React.createClass({
   render: function(){
     return (
     	<div className="panel-body">
-    	  {this.props.studentTitle}
+    	  <a onClick={this.props.studentClick}>{this.props.studentTitle}</a>
     	</div>
     );
   }
