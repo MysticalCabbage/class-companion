@@ -11,3 +11,20 @@ a, a:visited, a:hover, a:active {
 .attendanceCalendar td{
 	font-size: 11px;
 }
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ReactModal__Content{
+	padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50%;
+	transform: translateY(-50%);
+}
+
+.teacherForm, .teacherModal{
+	width: 586px;
+	height: 150px;
+}

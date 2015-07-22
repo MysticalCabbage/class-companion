@@ -13,9 +13,9 @@ var StudentGroup = require('./StudentGroup.react');
 var StudentRandom = require('./StudentRandom.react');
 var _ = require('underscore');
 
-var appElement = document.getElementById('modalstuff');
-    Modal.setAppElement(appElement);
-    Modal.injectCSS();
+var appElement = document.getElementById('app');
+Modal.setAppElement(appElement);
+Modal.injectCSS();
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
@@ -135,8 +135,7 @@ var ClassroomDashboard = React.createClass({
               <a onClick={this.openModal}>Add Student</a>
             </div>
           </div>
-      <div id="modalstuff"></div>
-
+          <div id="modalstuff"></div>
           <Modal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}

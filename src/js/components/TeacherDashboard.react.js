@@ -10,9 +10,9 @@ var Modal = require('react-modal');
 var Link = Router.Link;
 var _ = require('underscore');
 
-var appElement = document.getElementById('teachermodal');
-    Modal.setAppElement(appElement);
-    Modal.injectCSS();
+var appElement = document.app;
+Modal.setAppElement(appElement);
+Modal.injectCSS();
 
 var TeacherDashboard = React.createClass({
   // Invoke TeacherStore.getList() and set the result to the list property on our state
@@ -87,11 +87,11 @@ var TeacherDashboard = React.createClass({
               </div>
             </div>
             <div id="teachermodal"></div> 
-              <Modal
+              <Modal className="teacherModal"
               isOpen={this.state.modalIsOpen}
               onRequestClose={this.closeModal}
               >
-                <TeacherForm closeModal={this.closeModal}/>
+              <TeacherForm closeModal={this.closeModal}/>
               </Modal>
           </div>
         </div>
