@@ -14,4 +14,21 @@ describe("TeacherStore", function() {
     expect(TeacherStore).to.be.an('object');
   });
 
+  it('should have an addChangeListener method', function(){
+    expect(TeacherStore.addChangeListener).to.exist;
+  });
+
+  it('should have a removeChangeListener method', function(){
+    expect(TeacherStore.removeChangeListener).to.exist;
+  });
+
+  it('should have a getList method', function(){
+    expect(TeacherStore.getList).to.exist;
+  });
+
+  it('should have a getInfo method', function(){
+    expect(TeacherStore.getInfo).to.exist;
+  });
+
+
 });
