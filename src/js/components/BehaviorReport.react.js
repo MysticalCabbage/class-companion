@@ -18,7 +18,8 @@ var BehaviorDashboard = React.createClass({
 
   _onChange: function(){
     this.setState({
-        graph: ClassroomStore.getGraph()
+        graph: ClassroomStore.getGraph(),
+        list: ClassroomStore.getList()
     });
   },
 
@@ -41,18 +42,25 @@ var BehaviorDashboard = React.createClass({
   },
 
   render: function(){
+    var initial = this.state.list;
+
+    console.log(this.state.list);
     var chartData = this.state.graph;
+    console.log("thislist",chartData);
+    if(chartData === undefined){
+        chartData = []
+    }
 
     var pieData = [
-  {label: 'bullying', value: 20},
-  {label: 'goodJob', value: 55},
-  {label: 'badJob', value: 25 }
+  // {label: 'bullying', value: 20},
+  // {label: 'goodJob', value: 55},
+  // {label: 'badJob', value: 25 }
 ];
 
     // var pieData = [x];
     return (
           <PieChart
-      data={pieData}
+      data={this.state.graph}
       width={400}
       height={400}
       radius={100}

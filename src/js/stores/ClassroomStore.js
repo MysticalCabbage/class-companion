@@ -68,11 +68,18 @@ var behaviorChart = function(data){
   ClassroomStore.emit(CHANGE_EVENT);
 };
 
+var initGraph = function(){
+
+};
+
 var initQuery = function(classId){
   firebaseRef.child('classes/'+classId).on('value', function(snapshot){
     var classData = snapshot.val();
     _store.info = classData.info;
     _store.list = classData.students || {};
+    console.log("info in initQueryis",classData);
+    _store.graph = [];
+    var storeBehaviors = classData.students;
     ClassroomStore.emit(CHANGE_EVENT);
   });
 
