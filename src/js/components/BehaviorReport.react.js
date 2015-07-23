@@ -5,7 +5,6 @@ var _ = require('underscore');
 // require('../charts/pie');
 var PieChart = require('react-d3/piechart').PieChart;
 
-
 var BehaviorDashboard = React.createClass({
   getInitialState: function(){
     //set list upon initialstate w/ ClassroomStore.getList
@@ -23,10 +22,6 @@ var BehaviorDashboard = React.createClass({
     });
   },
 
-  componentWillMount: function(){
-    console.log("in behaviorreport",this.state.graph);
-  },
-  
   componentDidMount: function(){
     ClassroomStore.addChangeListener(this._onChange);    
   },
@@ -35,29 +30,13 @@ var BehaviorDashboard = React.createClass({
     ClassroomStore.removeChangeListener(this._onChange);
   },
 
-  componentDidUpdate: function(){
-  },
-
-  componentWillReceiveProps: function(){
-  },
-
   render: function(){
-    var initial = this.state.list;
+//     var pieData = [
+//   {label: 'bullying', value: 40},
+//   {label: 'goodJob', value: 55},
+//   {label: 'badJob', value: 25 }
+// ];
 
-    console.log(this.state.list);
-    var chartData = this.state.graph;
-    console.log("thislist",chartData);
-    if(chartData === undefined){
-        chartData = []
-    }
-
-    var pieData = [
-  {label: 'bullying', value: 40},
-  {label: 'goodJob', value: 55},
-  {label: 'badJob', value: 25 }
-];
-
-    // var pieData = [x];
     return (
           <PieChart
       data={this.state.graph}

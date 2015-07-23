@@ -78,7 +78,6 @@ var initQuery = function(classId){
     _store.list = classData.students || {};
 
     //this is for grabbing behaviorTotal of all students for graphs
-    console.log("info in initQueryis",classData);
     var students = classData.students;
     var totalCount = 0;
     var studentsArray = [];
@@ -139,7 +138,6 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
     return _store.today;
   },
   getGraph: function(){
-    console.log("yoo",_store.graph)
     return _store.graph;
   }
 });
