@@ -1,7 +1,7 @@
 var React = require('react');
 var AuthStore = require('../stores/AuthStore');
 var ReportsStudent = require('./ReportsStudent.react');
-var Calendar = require('./Calendar.react');
+var AttendanceCalendar = require('./AttendanceCalendar.react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomActions = require('../actions/ClassroomActions');
 var Navbar = require('./Navbar.react');
@@ -86,9 +86,9 @@ var ReportsDashboard = React.createClass({
           		    <h3 className="panel-title">{this.state.reportType}</h3>
           		  </div>
           		  <div className="panel-body">
-                <div id="studentgraph"></div>
+                  <div id="studentgraph"></div>
                   <BehaviorDashboard who={this.state.who}/>
-                  <Calendar list={this.state.list}/>
+          		    <AttendanceCalendar list={this.state.list} />
           		  </div>
           		</div>
           	</div>
