@@ -51,5 +51,5 @@ describe("AuthStore", function() {
   xit('logout method should return error message when not logged in', function(){
     AuthStore.logout()
     sinon.assert.calledWithExactly(console.error, "Error logging out")
-  })
+  });
 });
