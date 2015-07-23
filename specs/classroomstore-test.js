@@ -29,9 +29,17 @@ describe("ClassroomStore", function() {
   it('should have a getInfo method', function(){
     expect(ClassroomStore.getInfo).to.exist;
   });
+
+  it('getList method should return empty object when not logged in', function(){
+    expect(ClassroomStore.getList()).to.be.an('object');
+  });
   
-  it('should have a getAttendance method', function(){
-    expect(ClassroomStore.getAttendance).to.exist;
+  it('getInfo method should return empty object when not logged in', function(){
+    expect(ClassroomStore.getInfo()).to.be.an('object');
+  });
+  
+  it('getToday method should return empty string when not logged in', function(){
+    expect(ClassroomStore.getToday()).equal('');
   });
 
 });
