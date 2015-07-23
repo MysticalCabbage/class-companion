@@ -15,7 +15,7 @@ module.exports = function(karma) {
       extensions: ['.js','.jsx']
     },
 
-    browsers: ['Chrome'],
+    browsers: [process.env.TRAVIS ? 'Firefox' : 'Chrome' ],
     port: 9876,
     colors: true,
     singleRun: true

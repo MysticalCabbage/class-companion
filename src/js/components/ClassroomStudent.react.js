@@ -6,7 +6,7 @@ var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomStudent = React.createClass({
   getInitialState: function(){
     return {
-      toggle: 'Present'
+      toggle: this.props.status || 'Present'
     }
   },
 
