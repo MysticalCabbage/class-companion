@@ -68,7 +68,18 @@ a, a:visited, a:hover, a:active {
 	width: 500px;
 	height: 433px;
 }
+<<<<<<< HEAD
        
+=======
+
+/*StudentRandom*/
+.StudentRandom, .randomModal{
+	width: 250px;
+	height: 100px;
+	text-align: center;
+}
+
+>>>>>>> (Refactor) Add modal to display random student pick
 /*TeacherForm & ClassroomForm*/
 .teacherForm, .teacherModal, .classroomForm, .classModal{
 	width: 586px;
@@ -78,10 +89,4 @@ a, a:visited, a:hover, a:active {
 /*TimeBar*/
 .timeBar{
 	margin-bottom: 15px;
-}
-
-#chartdiv {
-  width   : 100%;
-  height    : 500px;
-  font-size : 11px;
 }

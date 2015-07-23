@@ -30,7 +30,7 @@ var ClassroomForm = React.createClass({
     ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0  });
     console.log("newstudentis",newStudent);
     React.findDOMNode(this.refs.newStudent).value = '';
-    this.props.closeModal();
+    this.props.closeAddStudentModal();
   },
 
   render: function() {
