@@ -95,9 +95,6 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
     return _store.info;
   },
 
-  getAttendance: function(){
-    return _store.attendance;
-  },
   getToday: function(){
     return _store.today;
   }
