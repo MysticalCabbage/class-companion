@@ -40,7 +40,7 @@ var ClassroomForm = React.createClass({
           <form>
             <label for="">Add student</label>
             <div className="form-group">
-              <input type="text" ref="newStudent" id="newStudent" className="form-control" placeholder="new student"  />
+              <input type="text" ref="newStudent" id="newStudent" className="form-control" placeholder="Example: Pikachu"  />
             </div>
             <button type="submit" id="addNewStudent" onClick={this.handleAddStudent} className="btn btn-primary btn-block submit-button">Add student!</button>
           </form>
