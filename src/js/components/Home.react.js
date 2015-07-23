@@ -58,6 +58,13 @@ var Home = React.createClass({
     this.setState({signupModalIsOpen: false});
   },
 
+  switchModal: function(){
+  	this.setState({
+      loginModalIsOpen: !this.state.loginModalIsOpen,
+      signupModalIsOpen: !this.state.signupModalIsOpen
+	  })
+  },
+
   render: function() {
     return (
       <div className="home">
@@ -66,10 +73,10 @@ var Home = React.createClass({
 	      	Hello! I am the home page! Please add content and make me pretty.
 	      </div>
 	      <Modal className="loginModal" isOpen={this.state.loginModalIsOpen} onRequestClose={this.closeLoginModal}>
-	      	<Login closeLoginModal={this.closeLoginModal}/>
+	      	<Login closeLoginModal={this.closeLoginModal} switchModal={this.switchModal} />
 	      </Modal>
 	      <Modal className="signupModal" isOpen={this.state.signupModalIsOpen} onRequestClose={this.closeSignupModal}>
-	      	<Signup closeSignupModal={this.closeSignupModal}/>
+	      	<Signup closeSignupModal={this.closeSignupModal} switchModal={this.switchModal} />
 	      </Modal>
 	    </div>
     );
