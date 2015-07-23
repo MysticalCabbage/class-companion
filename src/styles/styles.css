@@ -41,6 +41,12 @@ a, a:visited, a:hover, a:active {
 	cursor: pointer;
 }
 
+.attendanceButton{
+	position: absolute;
+	top: -20px;
+	right: 0px;
+}
+
 /*Login*/
 .loginForm, .loginModal{
 	width: 500px;

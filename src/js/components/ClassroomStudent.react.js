@@ -46,13 +46,9 @@ var ClassroomStudent = React.createClass({
 
   render: function(){
     return (
-      <div className="classroomStudent col-md-3" onClick={this.openBehaviorModal} >
-        <div className="well">
-          <div>
-            <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
-          </div>
+      <div className="col-md-3" >
           { this.props.attendance ? 
-          <div className="btn-group" role="group" aria-label="attendanceButtonBar">
+          <div className="attendanceButton btn-group" role="group" aria-label="attendanceButtonBar">
             { this.state.toggle === 'Present' ? 
             <button type="button" onClick={this.markAttendance.bind(this, 'Late')} className="btn btn-success">Present</button>
             : null }
@@ -64,6 +60,10 @@ var ClassroomStudent = React.createClass({
             : null }
           </div>
         : null }
+        <div className="well classroomStudent" onClick={this.openBehaviorModal}>
+          <div>
+            <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
+          </div>
           <div>
             <span className="label label-default">{this.props.behavior}</span>
           </div>  
