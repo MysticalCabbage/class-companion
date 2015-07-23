@@ -68,9 +68,6 @@ a, a:visited, a:hover, a:active {
 	width: 500px;
 	height: 433px;
 }
-<<<<<<< HEAD
-       
-=======
 
 /*StudentRandom*/
 .StudentRandom, .randomModal{
@@ -79,7 +76,6 @@ a, a:visited, a:hover, a:active {
 	text-align: center;
 }
 
->>>>>>> (Refactor) Add modal to display random student pick
 /*TeacherForm & ClassroomForm*/
 .teacherForm, .teacherModal, .classroomForm, .classModal{
 	width: 586px;
