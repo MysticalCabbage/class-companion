@@ -11,7 +11,8 @@ var firebaseRef = FirebaseStore.getDb();
 var _store = {
   list: {},
   info: {},
-  today: ''
+  today: '',
+  graph: []
 };
 
 var addStudent = function(newStudent){
@@ -53,11 +54,50 @@ var behaviorClicked = function(data){
   });  
 };
 
+var behaviorChart = function(data){
+  var total = data.total;
+  var behaviors = data.chartData
+  var chartData = [];
+  for(var key in behaviors){
+    newObj = {};
+    if(behaviors[key] === 0){
+      continue;
+    } 
+    newObj["label"] = key;
+    newObj["value"] = Math.ceil(((behaviors[key]/total)*100) * 100)/100;
+    chartData.push(newObj);
+  }
+  _store.graph = chartData;
+  ClassroomStore.emit(CHANGE_EVENT);
+};
+
 var initQuery = function(classId){
   firebaseRef.child('classes/'+classId).on('value', function(snapshot){
     var classData = snapshot.val();
     _store.info = classData.info;
     _store.list = classData.students || {};
+
+    //this is for grabbing behaviorTotal of all students for graphs
+    var students = classData.students;
+    var totalCount = 0;
+    var studentsArray = [];
+    var totalOfStudents = {}
+    for(var student in students){
+      for(var behavior in students[student]["behavior"]){
+        if(totalOfStudents[behavior] === undefined) totalOfStudents[behavior] = 0;
+        totalCount += students[student]["behavior"][behavior];
+        totalOfStudents[behavior] += students[student]["behavior"][behavior]
+      }
+    }
+    for(var value in totalOfStudents){
+      if(totalOfStudents[value] === 0) continue;
+      var newObj = {};
+      newObj["label"] = value;
+      newObj["value"] = Math.ceil((totalOfStudents[value]/totalCount * 100)*100)/100;
+      console.log(newObj["value"]);
+      studentsArray.push(newObj);
+    }
+    _store.graph = studentsArray || [];
     ClassroomStore.emit(CHANGE_EVENT);
   });
 
@@ -97,6 +137,9 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 
   getToday: function(){
     return _store.today;
+  },
+  getGraph: function(){
+    return _store.graph;
   }
 });
 
@@ -128,6 +171,8 @@ AppDispatcher.register(function(payload){
       endQuery();
       ClassroomStore.emit(CHANGE_EVENT);
       break;
+    case ClassroomConstants.GET_BEHAVIORS:
+      behaviorChart(action.data);
     default:
       return true;
   }
