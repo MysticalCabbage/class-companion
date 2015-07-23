@@ -1,8 +1,10 @@
 var React = require('react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var _ = require('underscore');
-require('../charts/amcharts');
-require('../charts/pie');
+// require('../charts/amcharts');
+// require('../charts/pie');
+var PieChart = require('react-d3/piechart').PieChart;
+
 
 var BehaviorDashboard = React.createClass({
   getInitialState: function(){
@@ -10,77 +12,46 @@ var BehaviorDashboard = React.createClass({
     return {
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
+      graph: ClassroomStore.getGraph()
     }
+  },
+
+  _onChange: function(){
+    this.setState({
+        graph: ClassroomStore.getGraph()
+    });
+    console.log("inONchange",this.state.graph);
   },
 
   componentWillMount: function(){
-    
-
-    // var tuple = [];
-    // for(var key in this.state.list){
-    //     var singleStudent = {};
-    //     for(var key2 in this.state.list[key].behavior){
-    //         singleStudent[key2] = this.state.list[key].behavior[key2]; 
-    //     }
-    //     tuple.push(singleStudent);
-    // }
-    // console.log(tuple);
+    console.log("in behaviorreport",this.state.graph);
   },
   
-  componentDidMount: function(){
-    var arrayObj = [];
-    for(var key in this.state.info.behavior){
-        var obj = {};
-        obj[key] = 0;
-        arrayObj.push(obj);
-    }
-    for(var key in this.state.list){
-        for(var behaviors in this.state.list[key]["behavior"]){
-            // if(arrayObj[behaviors]){
-            //     arrayObj[behaviors] += this.state.list[key]["behavior"][behaviors];
-            // }
-            console.log(this.state.list[key]["behavior"][behaviors]);
-            if(arrayObj[behaviors]){
-                arrayObj[behaviors] = arrayObj[behaviors] + this.state.list[key]["behavior"][behaviors];
-            }
-        }
-    }
-    console.log("b",arrayObj);
-    var chart;
-    var legend;
+  componentDidMount: function(){    
+  },
 
-    var chartData = [{
-        behavior: "badJob",
-        value: 12
-    }, {
-        behavior: "goodJob",
-        value: 16
-    }, {
-        behavior: "helping",
-        value: 12
-    }, {
-        behavior: "bullying",
-        value: 4
-    }];
-    
+  componentDidUpdate: function(){
+  },
 
-    AmCharts.ready(function () {
-        // PIE CHART
-        chart = new AmCharts.AmPieChart();
-        chart.dataProvider = chartData;
-        chart.titleField = "behavior";
-        chart.valueField = "value";
-        chart.outlineColor = "#FFFFFF";
-        chart.outlineAlpha = 0.8;
-        chart.outlineThickness = 2;
-        // WRITE
-        chart.write("chartdiv");
-    });
+  componentWillReceiveProps: function(){
   },
 
   render: function(){
+    console.log("pieEEE", this.state.graph);
+    var pieData = [
+  {label: 'bullying', value: 20},
+  {label: 'goodJob', value: 55},
+  {label: 'badJob', value: 25 }
+];
+
+    // var pieData = [x];
     return (
-      <div id="chartdiv"></div>
+          <PieChart
+      data={pieData}
+      width={400}
+      height={400}
+      radius={100}
+      innerRadius={20}/>
     );
   }
 });

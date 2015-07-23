@@ -38,6 +38,12 @@ var ClassroomActions = {
       data: null
     });
   },
+  getBehaviors: function(chartData, totalCount){
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.GET_BEHAVIORS,
+      data: {chartData: chartData, total: totalCount}
+    });
+  },
   initQuery: function(classId){
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.INIT_QUERY,

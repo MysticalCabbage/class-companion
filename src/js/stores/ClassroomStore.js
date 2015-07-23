@@ -11,7 +11,8 @@ var firebaseRef = FirebaseStore.getDb();
 var _store = {
   list: {},
   info: {},
-  today: ''
+  today: '',
+  graph: {}
 };
 
 var addStudent = function(newStudent){
@@ -51,6 +52,12 @@ var behaviorClicked = function(data){
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behaviorTotal/').transaction(function(current_value){
     return current_value + data.behaviorValue;
   });  
+};
+
+var behaviorChart = function(data){
+  _store.graph = data;
+  console.log("store graph is", _store.graph);
+  ClassroomStore.emit(CHANGE_EVENT);
 };
 
 var initQuery = function(classId){
@@ -97,6 +104,9 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 
   getToday: function(){
     return _store.today;
+  },
+  getGraph: function(){
+    return _store.graph;
   }
 });
 
@@ -128,6 +138,8 @@ AppDispatcher.register(function(payload){
       endQuery();
       ClassroomStore.emit(CHANGE_EVENT);
       break;
+    case ClassroomConstants.GET_BEHAVIORS:
+      behaviorChart(action.data);
     default:
       return true;
   }

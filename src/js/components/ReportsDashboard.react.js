@@ -5,8 +5,13 @@ var Calendar = require('./Calendar.react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomActions = require('../actions/ClassroomActions');
 var Navbar = require('./Navbar.react');
+require('../charts/amcharts');
+require('../charts/pie');
 var BehaviorDashboard = require('./BehaviorReport.react');
 var _ = require('underscore');
+var ClassroomStore = require('../stores/ClassroomStore');
+var ClassroomActions = require('../actions/ClassroomActions');
+
 
 var ReportsDashboard = React.createClass({
 	getInitialState: function(){
@@ -15,7 +20,9 @@ var ReportsDashboard = React.createClass({
 	  	list: ClassroomStore.getList(),
 	  	info: ClassroomStore.getInfo(),
 	    loggedIn: AuthStore.checkAuth(),
-	    reportType: 'Attendance'
+	    reportType: 'Attendance',
+      classInfo: ClassroomStore.getList()
+
 	  }
 	},
 
@@ -49,8 +56,20 @@ var ReportsDashboard = React.createClass({
     });
   },
 
-  studentClick: function(x){
-    console.log('clicked on', x);
+  studentClick: function(studentStats,behaviorTotal, studentId){
+    var chartData = [];
+    var total = 0;
+    for(var key in studentStats){
+       var newObj = {};
+       total += studentStats[key];
+       newObj["label"] = key;
+       newObj["value"] = studentStats[key];
+       chartData.push(newObj);
+    }
+    // this.setState({
+    //   who : chartData
+    // });
+    ClassroomActions.getBehaviors(chartData, total);
   },
 
   render: function(){
@@ -58,7 +77,7 @@ var ReportsDashboard = React.createClass({
 
   	var studentNodes = _.map(this.state.list, function(studentNode,index){
   	  return (
-  	  	<ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked} studentBehavior={studentNode.behavior}/>
+  	  	<ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked} studentBehavior={studentNode.behavior} behaviorTotal={studentNode.behaviorTotal}/>
   	  )
   	});
     return (
@@ -80,7 +99,8 @@ var ReportsDashboard = React.createClass({
           		    <h3 className="panel-title">{this.state.reportType}</h3>
           		  </div>
           		  <div className="panel-body">
-                  <BehaviorDashboard/>
+                <div id="studentgraph"></div>
+                  <BehaviorDashboard who={this.state.who}/>
                   <Calendar/>
           		  </div>
           		</div>
