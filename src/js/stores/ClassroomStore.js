@@ -27,10 +27,10 @@ var subtractPoint = function(data){
 
 var markAttendance = function(data){
   // Recored the current timestamp based don the Firebase server
-  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance')
+  firebaseRef.child('timestamp')
     .set(Firebase.ServerValue.TIMESTAMP);
 
-  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance').once('value', function(snapshot){
+  firebaseRef.child('timestamp').once('value', function(snapshot){
     // Grab the timestamp stored in the database
     var current_server_time = snapshot.val();
     // Converts the timestamp into a readable string, using locale conventions (eg. 7/17/2015)

@@ -80,15 +80,15 @@ var ClassroomDashboard = React.createClass({
   },
 
   markAttendance: function(studentId, attendance){
-    this.state.list[studentId]['attendance'] = attendance;
+    this.state.list[studentId].today = attendance;
   },
 
   saveAttendance: function(){
     this.handleAttendance();
     return _.map(this.state.list, function(studentNode, index){
-      if(studentNode.attendance){
-        ClassroomActions.markAttendance(index, studentNode.attendance);  
-      }else{
+      if(studentNode.today){
+        ClassroomActions.markAttendance(index, studentNode.today);
+      } else {
         ClassroomActions.markAttendance(index, 'Present');  
       }
     });
