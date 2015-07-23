@@ -30,6 +30,7 @@ var BehaviorButtons = React.createClass({
     return (
       <div className="panel panel-info behaviorButtons">
         <div className="panel-heading">
+          <button type="button" className="close" aria-label="Close" onClick={this.props.closeBehaviorModal}><span aria-hidden="true">&times;</span></button>
           <h3 className="panel-title">{this.props.studentTitle}</h3>
         </div>
         <div className="panel-body">

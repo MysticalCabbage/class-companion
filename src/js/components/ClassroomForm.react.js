@@ -37,6 +37,7 @@ var ClassroomForm = React.createClass({
     return (
       <div className="classroomForm">
         <div className="well text-center">
+          <button type="button" className="close" aria-label="Close" onClick={this.props.closeAddStudentModal}><span aria-hidden="true">&times;</span></button>
           <form>
             <label for="">Add student</label>
             <div className="form-group">

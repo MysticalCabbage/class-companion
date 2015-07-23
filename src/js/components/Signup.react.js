@@ -35,6 +35,7 @@ var Signup = React.createClass({
     return (
       <div className="signupForm">
         <div className="well">
+          <button type="button" className="close" aria-label="Close" onClick={this.props.closeSignupModal}><span aria-hidden="true">&times;</span></button>
           <h2>Signup</h2>
           <form className="form-horizontal" id="frmSignup" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">

@@ -32,6 +32,7 @@ var Login = React.createClass({
     return (
       <div className="loginForm">
         <div className="well">
+          <button type="button" className="close" aria-label="Close" onClick={this.props.closeLoginModal}><span aria-hidden="true">&times;</span></button>
           <h2>Login</h2>
           <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
