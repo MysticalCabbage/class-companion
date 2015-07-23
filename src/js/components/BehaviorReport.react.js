@@ -1,8 +1,6 @@
 var React = require('react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var _ = require('underscore');
-// require('../charts/amcharts');
-// require('../charts/pie');
 var PieChart = require('react-d3/piechart').PieChart;
 
 var BehaviorDashboard = React.createClass({
@@ -31,12 +29,6 @@ var BehaviorDashboard = React.createClass({
   },
 
   render: function(){
-//     var pieData = [
-//   {label: 'bullying', value: 40},
-//   {label: 'goodJob', value: 55},
-//   {label: 'badJob', value: 25 }
-// ];
-
     return (
           <PieChart
       data={this.state.graph}

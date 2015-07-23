@@ -64,7 +64,7 @@ var behaviorChart = function(data){
       continue;
     } 
     newObj["label"] = key;
-    newObj["value"] = Math.round(((behaviors[key]/total)*100));
+    newObj["value"] = Math.ceil(((behaviors[key]/total)*100) * 100)/100;
     chartData.push(newObj);
   }
   _store.graph = chartData;
@@ -93,7 +93,8 @@ var initQuery = function(classId){
       if(totalOfStudents[value] === 0) continue;
       var newObj = {};
       newObj["label"] = value;
-      newObj["value"] = Math.round(totalOfStudents[value]/totalCount * 100);
+      newObj["value"] = Math.ceil((totalOfStudents[value]/totalCount * 100)*100)/100;
+      console.log(newObj["value"]);
       studentsArray.push(newObj);
     }
     _store.graph = studentsArray || [];

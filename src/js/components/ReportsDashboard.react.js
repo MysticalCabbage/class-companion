@@ -5,13 +5,8 @@ var Calendar = require('./Calendar.react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomActions = require('../actions/ClassroomActions');
 var Navbar = require('./Navbar.react');
-require('../charts/amcharts');
-require('../charts/pie');
 var BehaviorDashboard = require('./BehaviorReport.react');
 var _ = require('underscore');
-var ClassroomStore = require('../stores/ClassroomStore');
-var ClassroomActions = require('../actions/ClassroomActions');
-
 
 var ReportsDashboard = React.createClass({
 	getInitialState: function(){
@@ -22,7 +17,6 @@ var ReportsDashboard = React.createClass({
 	    loggedIn: AuthStore.checkAuth(),
 	    reportType: 'Attendance',
       classInfo: ClassroomStore.getList()
-
 	  }
 	},
 
@@ -62,9 +56,7 @@ var ReportsDashboard = React.createClass({
     for(var key in studentStats){
        total += studentStats[key];
     }
-    // this.setState({
-    //   who : chartData
-    // });
+
     ClassroomActions.getBehaviors(studentStats, total);
   },
 
@@ -96,7 +88,7 @@ var ReportsDashboard = React.createClass({
           		  <div className="panel-body">
                 <div id="studentgraph"></div>
                   <BehaviorDashboard who={this.state.who}/>
-                  <Calendar/>
+                  <Calendar list={this.state.list}/>
           		  </div>
           		</div>
           	</div>
