@@ -71,17 +71,30 @@ var behaviorChart = function(data){
   ClassroomStore.emit(CHANGE_EVENT);
 };
 
-var initGraph = function(){
-
-};
-
 var initQuery = function(classId){
   firebaseRef.child('classes/'+classId).on('value', function(snapshot){
     var classData = snapshot.val();
     _store.info = classData.info;
     _store.list = classData.students || {};
+
+    //this is for grabbing behaviorTotal of all students for graphs
     console.log("info in initQueryis",classData);
-    var storeBehaviors = classData.students;
+    var students = classData.students;
+    var totalCount = 0;
+    var studentsArray = [];
+    var totalOfStudents = {}
+    for(var student in students){
+      for(var behavior in students[student]["behavior"]){
+        if(totalOfStudents[behavior] === undefined) totalOfStudents[behavior] = 0;
+        totalCount += students[student]["behavior"][behavior];
+        totalOfStudents[behavior] += students[student]["behavior"][behavior]
+      }
+    }
+    for(var value in totalOfStudents){
+      studentsArray.push({"behavior" : value, "value" : totalOfStudents[value] });
+    }
+    console.log("totalofStudents",studentsArray,"totalCount", totalCount);
+    
     ClassroomStore.emit(CHANGE_EVENT);
   });
 
