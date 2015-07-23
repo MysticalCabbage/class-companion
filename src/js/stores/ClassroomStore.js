@@ -91,10 +91,13 @@ var initQuery = function(classId){
       }
     }
     for(var value in totalOfStudents){
-      studentsArray.push({"behavior" : value, "value" : totalOfStudents[value] });
+      if(totalOfStudents[value] === 0) continue;
+      var newObj = {};
+      newObj["label"] = value;
+      newObj["value"] = Math.round(totalOfStudents[value]/totalCount * 100);
+      studentsArray.push(newObj);
     }
-    console.log("totalofStudents",studentsArray,"totalCount", totalCount);
-    
+    _store.graph = studentsArray || [];
     ClassroomStore.emit(CHANGE_EVENT);
   });
 
