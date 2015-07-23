@@ -76,7 +76,7 @@ AppDispatcher.register(function(payload){
       break;
     case AuthConstants.LOGOUT:
       AuthStore.logout();
-      RouterContainer.get().transitionTo('/login');
+      RouterContainer.get().transitionTo('/home');
       break;
     default:
       return true;

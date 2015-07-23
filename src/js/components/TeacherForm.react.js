@@ -12,7 +12,7 @@ var TeacherForm = React.createClass({
       this.render = function () {
         return false;
       }
-      location.hash = '/login';
+      location.hash = '/';
     }
   },
 
@@ -27,17 +27,15 @@ var TeacherForm = React.createClass({
 
   render: function() {
     return (
-      <div className="teacherForm container">
-        <div className="row">
-          <div className="col-sm-6 well text-center">
-            <form onSubmit={this.handleAddClass}>
-              <label for="">Give your class a name</label>
-              <div className="form-group">
-                <input type="text" ref="newClass" id="newClass" className="form-control" placeholder="Example: JD's English Class" />
-              </div>
-              <button type="submit" id="addNewClass" className="btn btn-primary btn-block submit-button">Create my class!</button>
-            </form>
-          </div> 
+      <div className="teacherForm">
+        <div className="well text-center">
+          <form onSubmit={this.handleAddClass}>
+            <label for="">Give your class a name</label>
+            <div className="form-group">
+              <input type="text" ref="newClass" id="newClass" className="form-control" placeholder="Example: JD's English Class" />
+            </div>
+            <button type="submit" id="addNewClass" className="btn btn-primary btn-block submit-button">Create my class!</button>
+          </form>
         </div> 
       </div>
     );

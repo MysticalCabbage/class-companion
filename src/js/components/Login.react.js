@@ -13,6 +13,8 @@ var Login = React.createClass({
 
   handleSubmit: function(e){
     e.preventDefault();
+    
+    this.props.closeLoginModal();
 
     var emailNode = React.findDOMNode(this.refs.email);
     var passwordNode = React.findDOMNode(this.refs.password);
@@ -24,43 +26,38 @@ var Login = React.createClass({
     
     emailNode.value = '';
     passwordNode.value = '';
-
   },
+  
   render: function() {
     return (
-      <div className="signupForm">
-        <Navbar />
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-5 well">
-              <h2>Login</h2>
-              <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                  <label for="txtEmail" className="col-sm-3 control-label">Email</label>
-                  <div className="col-sm-9">
-                    <input type="email" className="form-control" id="txtEmail" placeholder="Enter email" ref="email" required/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label for="txtPass" className="col-sm-3 control-label">Password</label>
-                  <div className="col-sm-9">
-                    <input type="password" className="form-control" id="txtPass" placeholder="Password" ref="password" required/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-sm-offset-5">
-                    Dont have an account? <Link to="/signup">Signup</Link>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-sm-offset-9 col-sm-3">
-                    <button type="submit" className="btn btn-default btn-block submit-button">Login</button>
-                  </div>
-                </div>
-              </form>
+      <div className="loginForm">
+        <div className="well">
+          <h2>Login</h2>
+          <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label for="txtEmail" className="col-sm-3 control-label">Email</label>
+              <div className="col-sm-9">
+                <input type="email" className="form-control" id="txtEmail" placeholder="Enter email" ref="email" required/>
+              </div>
             </div>
-          </div> 
-        </div> 
+            <div className="form-group">
+              <label for="txtPass" className="col-sm-3 control-label">Password</label>
+              <div className="col-sm-9">
+                <input type="password" className="form-control" id="txtPass" placeholder="Password" ref="password" required/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-offset-5">
+                Dont have an account? <Link to="/signup">Signup</Link>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-sm-offset-9 col-sm-3">
+                <button type="submit" className="btn btn-default btn-block submit-button">Login</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
