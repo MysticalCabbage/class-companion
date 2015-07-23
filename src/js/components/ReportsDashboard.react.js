@@ -60,19 +60,16 @@ var ReportsDashboard = React.createClass({
     var chartData = [];
     var total = 0;
     for(var key in studentStats){
-       var newObj = {};
        total += studentStats[key];
-       newObj["label"] = key;
-       newObj["value"] = studentStats[key];
-       chartData.push(newObj);
     }
     // this.setState({
     //   who : chartData
     // });
-    ClassroomActions.getBehaviors(chartData, total);
+    ClassroomActions.getBehaviors(studentStats, total);
   },
 
   render: function(){
+    console.log("sdflkjsd", this.state.studentInfo);
     var studentClicked = this.studentClick;
 
   	var studentNodes = _.map(this.state.list, function(studentNode,index){

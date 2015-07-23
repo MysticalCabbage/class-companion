@@ -20,14 +20,18 @@ var BehaviorDashboard = React.createClass({
     this.setState({
         graph: ClassroomStore.getGraph()
     });
-    console.log("inONchange",this.state.graph);
   },
 
   componentWillMount: function(){
     console.log("in behaviorreport",this.state.graph);
   },
   
-  componentDidMount: function(){    
+  componentDidMount: function(){
+    ClassroomStore.addChangeListener(this._onChange);    
+  },
+
+  componentWillUnmount: function(){
+    ClassroomStore.removeChangeListener(this._onChange);
   },
 
   componentDidUpdate: function(){
@@ -37,7 +41,8 @@ var BehaviorDashboard = React.createClass({
   },
 
   render: function(){
-    console.log("pieEEE", this.state.graph);
+    var chartData = this.state.graph;
+
     var pieData = [
   {label: 'bullying', value: 20},
   {label: 'goodJob', value: 55},

@@ -55,8 +55,16 @@ var behaviorClicked = function(data){
 };
 
 var behaviorChart = function(data){
-  _store.graph = data;
-  console.log("store graph is", _store.graph);
+  var total = data.total;
+  var behaviors = data.chartData
+  var chartData = [];
+  for(var key in behaviors){
+    newObj = {};
+    newObj["label"] = key;
+    newObj["value"] = (behaviors[key]/total)*100;
+    chartData.push(newObj);
+  }
+  _store.graph = chartData;
   ClassroomStore.emit(CHANGE_EVENT);
 };
 
@@ -106,6 +114,7 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
     return _store.today;
   },
   getGraph: function(){
+    console.log("yoo",_store.graph)
     return _store.graph;
   }
 });
