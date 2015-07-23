@@ -10,7 +10,8 @@ var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
   list: {},
-  info: {}
+  info: {},
+  today: ''
 };
 
 var addStudent = function(newStudent){
@@ -59,6 +60,17 @@ var initQuery = function(classId){
     _store.list = classData.students || {};
     ClassroomStore.emit(CHANGE_EVENT);
   });
+
+  firebaseRef.child('timestamp')
+    .set(Firebase.ServerValue.TIMESTAMP);
+
+  firebaseRef.child('timestamp').once('value', function(snapshot){
+    var current_server_time = snapshot.val();
+    var date = new Date(current_server_time).toLocaleDateString();
+    _store.today = date.replace(/\//g, '-');
+
+    ClassroomStore.emit(CHANGE_EVENT);
+  });
 };
 
 var endQuery = function(){
@@ -85,6 +97,9 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 
   getAttendance: function(){
     return _store.attendance;
+  },
+  getToday: function(){
+    return _store.today;
   }
 });
 

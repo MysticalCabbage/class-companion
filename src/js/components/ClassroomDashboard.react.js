@@ -23,6 +23,7 @@ var ClassroomDashboard = React.createClass({
     return {
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
+      today: ClassroomStore.getToday(),
       loggedIn: AuthStore.checkAuth(),
       showAttendance: false,
       showResults: false,
@@ -58,6 +59,7 @@ var ClassroomDashboard = React.createClass({
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
       loggedIn: AuthStore.checkAuth(),
+      today: ClassroomStore.getToday()
     });
   },
 
@@ -82,14 +84,18 @@ var ClassroomDashboard = React.createClass({
   },
 
   markAttendance: function(studentId, attendance){
-    this.state.list[studentId].today = attendance;
+    if(!this.state.list[studentId].hasOwnProperty(attendance)){
+      this.state.list[studentId].attendance = {};
+    }
+    this.state.list[studentId].attendance[this.state.today] = attendance;
   },
 
   saveAttendance: function(){
     this.handleAttendance();
+    var today = this.state.today;
     return _.map(this.state.list, function(studentNode, index){
-      if(studentNode.today){
-        ClassroomActions.markAttendance(index, studentNode.today);
+      if(studentNode.attendance && studentNode.attendance[today]){
+        ClassroomActions.markAttendance(index, studentNode.attendance[today]);
       } else {
         ClassroomActions.markAttendance(index, 'Present');  
       }
@@ -115,9 +121,14 @@ var ClassroomDashboard = React.createClass({
     var attendance = this.state.showAttendance;
     var behaviorTypes = this.state.info.behavior;
     var markAttendance = this.markAttendance;
+    var today = this.state.today;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
+      var status = null;
+      if(studentNode.attendance){
+        status = studentNode.attendance[today]
+      };
       return (
-        <ClassroomStudent key={index} studentId={index} markAttendance={markAttendance} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behaviorTotal} behaviorActions={behaviorTypes} />
+        <ClassroomStudent key={index} studentId={index} markAttendance={markAttendance} attendance={attendance} studentTitle={studentNode.studentTitle} behavior={studentNode.behaviorTotal} behaviorActions={behaviorTypes} status={status}/>
       )
     });
     return (
