@@ -22,9 +22,11 @@ var StudentGroup = React.createClass({
       groups: StudentSelectionStore.getGroup()
     });
   },
+
   closeModal: function(){
     console.log('close');
   },
+  
   render: function(){
     var groupStudent;
     var groups = _.map(this.state.groups, function(group, index){

@@ -2,16 +2,30 @@ var React = require('react');
 var ClassroomActions = require('../actions/ClassroomActions');
 var BehaviorButtons = require('./BehaviorButtons.react');
 var ClassroomStore = require('../stores/ClassroomStore');
+var Modal = require('react-modal');
+
+var appElement = document.getElementById('app');
+Modal.setAppElement(appElement);
+Modal.injectCSS();
 
 var ClassroomStudent = React.createClass({
   getInitialState: function(){
     return {
-      toggle: this.props.status || 'Present'
+      toggle: this.props.status || 'Present',
+      behaviorModalIsOpen: false 
     }
   },
 
   removeStudent: function(){
     ClassroomActions.removeStudent(this.props.studentId);
+  },
+
+  openBehaviorModal: function(){
+    this.setState({behaviorModalIsOpen: true});
+  },
+  
+  closeBehaviorModal: function() {
+    this.setState({behaviorModalIsOpen: false});
   },
 
   markAttendance: function(attendance){
@@ -32,15 +46,9 @@ var ClassroomStudent = React.createClass({
 
   render: function(){
     return (
-      <div className="classroomStudent col-md-3">
-        <div className="well">
-          <div className="row">
-            <div className="col-md-4 col-md-offset-4">
-              <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
-            </div>
-          </div>
-        { this.props.attendance ? 
-          <div className="btn-group" role="group" aria-label="attendanceButtonBar">
+      <div className="col-md-3" >
+          { this.props.attendance ? 
+          <div className="attendanceButton btn-group" role="group" aria-label="attendanceButtonBar">
             { this.state.toggle === 'Present' ? 
             <button type="button" onClick={this.markAttendance.bind(this, 'Late')} className="btn btn-success">Present</button>
             : null }
@@ -52,15 +60,19 @@ var ClassroomStudent = React.createClass({
             : null }
           </div>
         : null }
-          <div className="row">
+        <div className="well classroomStudent" onClick={this.openBehaviorModal}>
+          <div>
+            <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div>
             <span className="label label-default">{this.props.behavior}</span>
           </div>  
-          <div className="row">
+          <div>
             <div>{this.props.studentTitle}</div>
           </div>
-          <div className="row">
-            <BehaviorButtons studentId={this.props.studentId} />
-          </div>
+          <Modal className="behaviorModal" isOpen={this.state.behaviorModalIsOpen} onRequestClose={this.closeBehaviorModal}>
+            <BehaviorButtons studentId={this.props.studentId} studentTitle={this.props.studentTitle} closeBehaviorModal={this.closeBehaviorModal} />
+          </Modal>
         </div>
       </div>
     );

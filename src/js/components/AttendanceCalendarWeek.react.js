@@ -1,7 +1,7 @@
 var React = require('react');
 var _ = require('underscore');
 
-var Week = React.createClass({
+var AttendanceCalendarWeek = React.createClass({
 	render: function() {
 		var days = [],
 			date = this.props.date,
@@ -19,20 +19,26 @@ var Week = React.createClass({
 			};
 
 			var list = this.props.list;
-			var absentStudents = [];
-			var absentStudentsQuery = _.map(list, function(student, index){
+			// var absentStudents = [];
+			var absentStudents = _.map(list, function(student, index){
 				var queryDate = day.month + '-' + day.number + '-' + day.year;
-				if(student.attendance[queryDate] && student.attendance[queryDate] === 'Absent'){
-					absentStudents.push(<li>{student.studentTitle}</li>)
+				if(student.attendance && student.attendance[queryDate] && student.attendance[queryDate] === 'Absent'){
+					return (
+						<li key={index}>{student.studentTitle}</li>
+					)
 				}
 			});
-			var lateStudents = [];
-			var lateStudentsQuery = _.map(list, function(student, index){
+
+			// var lateStudents = [];
+			var lateStudents = _.map(list, function(student, index){
 				var queryDate = day.month + '-' + day.number + '-' + day.year;
-				if(student.attendance[queryDate] && student.attendance[queryDate] === 'Late'){
-					lateStudents.push(<li>{student.studentTitle}</li>)
+				if(student.attendance && student.attendance[queryDate] && student.attendance[queryDate] === 'Late'){
+					return (
+						<li key={index}>{student.studentTitle}</li>
+					)
 				}
 			});
+
 			days.push(
 				<td key={day.date.toString()} className={"day" + (day.isToday ? " today" : "") + (day.isCurrentMonth ? "" : " different-month") + (day.date.isSame(this.props.selected) ? " selected" : "")}>
 					{day.number}
@@ -60,4 +66,4 @@ var Week = React.createClass({
 	}
 });
 
-module.exports = Week;
+module.exports = AttendanceCalendarWeek;

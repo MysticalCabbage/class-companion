@@ -8,10 +8,7 @@ a, a:visited, a:hover, a:active {
 	text-align: center;
 }
 
-.attendanceCalendar td{
-	font-size: 11px;
-}
-
+/*Modal*/
 .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -22,24 +19,70 @@ a, a:visited, a:hover, a:active {
   margin-right: auto;
   top: 50%;
 	transform: translateY(-50%);
+	overflow: visible;
 }
 
-.teacherForm, .teacherModal, .classroomForm, .classModal{
-	width: 586px;
-	height: 150px;
+/*AttendanceCalendar*/
+.attendanceCalendar td{
+	font-size: 11px;
 }
 
+/*AttendanceNavbar*/
+.attendanceNavbar{
+	margin-bottom: 15px;
+}
+
+.attendanceNavbar button{
+	float: right;
+}
+
+/*BehaviorButtons*/
+.behaviorThumbnail{
+	text-align: center;
+}
+
+.behaviorButtons, .behaviorModal{
+	width: 400px;
+	height: 160px;
+}
+
+/*ClassroomStudent*/
+.classroomStudent{
+	cursor: pointer;
+}
+
+.attendanceButton{
+	position: absolute;
+	top: -10px;
+	left: 0px;
+}
+
+/*Login*/
 .loginForm, .loginModal{
 	width: 500px;
 	height: 285px;
 }
 
+/*Signup*/
 .signupForm, .signupModal{
 	width: 500px;
 	height: 433px;
 }
-#chartdiv {
-  width   : 100%;
-  height    : 500px;
-  font-size : 11px;
-}         
+
+/*StudentRandom*/
+.StudentRandom, .randomModal{
+	width: 250px;
+	height: 100px;
+	text-align: center;
+}
+
+/*TeacherForm & ClassroomForm*/
+.teacherForm, .teacherModal, .classroomForm, .classModal{
+	width: 586px;
+	height: 150px;
+}
+
+/*TimeBar*/
+.timeBar{
+	margin-bottom: 15px;
+}

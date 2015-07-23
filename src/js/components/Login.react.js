@@ -1,6 +1,5 @@
 var React = require('react');
 var Router = require('react-router');
-var Link = Router.Link;
 var Auth = require('../services/AuthService');
 var Navbar = require('./Navbar.react');
 
@@ -32,6 +31,7 @@ var Login = React.createClass({
     return (
       <div className="loginForm">
         <div className="well">
+          <button type="button" className="close" aria-label="Close" onClick={this.props.closeLoginModal}><span aria-hidden="true">&times;</span></button>
           <h2>Login</h2>
           <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
@@ -48,7 +48,7 @@ var Login = React.createClass({
             </div>
             <div className="form-group">
               <div className="col-sm-offset-5">
-                Dont have an account? <Link to="/signup">Signup</Link>
+                Dont have an account? <a onClick={this.props.switchModal}>Signup</a>
               </div>
             </div>
             <div className="form-group">

@@ -27,9 +27,9 @@ var ClassroomDashboard = React.createClass({
       loggedIn: AuthStore.checkAuth(),
       showAttendance: false,
       showResults: false,
-      showRandom: false,
       showGroup: false,
-      modalIsOpen: false 
+      addStudentModalIsOpen: false, 
+      randomModal: false
     }
   },
 
@@ -63,12 +63,20 @@ var ClassroomDashboard = React.createClass({
     });
   },
 
-  openModal: function(){
-    this.setState({modalIsOpen: true});
+  openAddStudentModal: function(){
+    this.setState({addStudentModalIsOpen: true});
   },
   
-  closeModal: function() {
-    this.setState({modalIsOpen: false});
+  closeAddStudentModal: function() {
+    this.setState({addStudentModalIsOpen: false});
+  },
+
+  openRandomModal: function(){
+    this.setState({randomModal: true});
+  },
+  
+  closeRandomModal: function() {
+    this.setState({randomModal: false});
   },
 
   handleAttendance: function(){
@@ -106,8 +114,7 @@ var ClassroomDashboard = React.createClass({
     if(!this.state.showRandom){
       ClassroomActions.randStudent();
     }
-    this.setState({showRandom : !this.state.showRandom});
-
+    this.openRandomModal();
   },
 
   randGroup: function(){
@@ -135,9 +142,14 @@ var ClassroomDashboard = React.createClass({
 
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
-        <ClassroomNavbar classId={this.state.info.classId} onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions} randStudent={this.randStudent} randGroup={this.randGroup}/>
+        <ClassroomNavbar 
+          classId={this.state.info.classId} 
+          onAttendanceClick={this.handleAttendance} 
+          showTimerOptions={this.showTimerOptions} 
+          randStudent={this.randStudent} 
+          randGroup={this.randGroup} />
+        {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
         <div className="container">
-          {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
           <div className="row">
             {this.state.showResults ? <TimerBar/> : null}
           </div>
@@ -145,17 +157,15 @@ var ClassroomDashboard = React.createClass({
           {studentNodes}
           <div className="classroom col-md-3">
             <div className="well">
-              <a onClick={this.openModal}>Add Student</a>
+              <a onClick={this.openAddStudentModal}>Add Student</a>
             </div>
           </div>
-          <Modal className="classModal"
-            isOpen={this.state.modalIsOpen}
-            onRequestClose={this.closeModal}
-          >
-            <ClassroomForm closeModal={this.closeModal}/>
+          <Modal className="classModal" isOpen={this.state.addStudentModalIsOpen} onRequestClose={this.closeAddStudentModal}>
+            <ClassroomForm closeAddStudentModal={this.closeAddStudentModal}/>
           </Modal>
-        
-            {this.state.showRandom ? <StudentRandom/> : null }
+          <Modal className="randomModal" isOpen={this.state.randomModal} onRequestClose={this.closeRandomModal}>
+            <StudentRandom closeRandomModal={this.closeRandomModal} />
+          </Modal>
             {this.state.showGroup ? <StudentGroup/> : null }
           </div>
         </div>

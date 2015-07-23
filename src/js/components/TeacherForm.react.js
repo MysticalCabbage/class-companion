@@ -20,7 +20,7 @@ var TeacherForm = React.createClass({
   handleAddClass: function(e){
     e.preventDefault();
     var newClass = React.findDOMNode(this.refs.newClass).value;
-    TeacherActions.addClass({classTitle: newClass, behavior: { helping: 1, goodJob: 1, badJob: -1, bullying: -1 }});
+    TeacherActions.addClass({classTitle: newClass, behavior: { 'Helping': 1, 'Good Job': 1, 'Bad Job': -1, 'Bullying': -1 }});
     React.findDOMNode(this.refs.newClass).value = '';
     this.props.closeModal();
   },
@@ -29,6 +29,7 @@ var TeacherForm = React.createClass({
     return (
       <div className="teacherForm">
         <div className="well text-center">
+          <button type="button" className="close" aria-label="Close" onClick={this.props.closeModal}><span aria-hidden="true">&times;</span></button>
           <form onSubmit={this.handleAddClass}>
             <label for="">Give your class a name</label>
             <div className="form-group">

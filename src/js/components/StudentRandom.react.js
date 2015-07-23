@@ -27,15 +27,15 @@ var StudentRandom = React.createClass({
   },
   render: function(){
     return (
-      <div className="StudentRandom col-md-3">
-        <div className="well">
-        <div className="row">
-          <div className="col-md-4 col-md-offset-4">
-            <div>Random Pick</div>
-            <button type="button" className="close" aria-label="Close" onClick={this.closeModal}><span aria-hidden="true">&times;</span></button>
-          </div>
+      <div className="panel panel-info StudentRandom">
+        <div className="panel-heading">
+          <button type="button" className="close" aria-label="Close" onClick={this.props.closeRandomModal}><span aria-hidden="true">&times;</span></button>
+          <h3 className="panel-title">Random Pick</h3>
         </div>
-          <div>{this.state.random.studentTitle}</div>
+        <div className="panel-body">
+          <div className="row">
+            {this.state.random.studentTitle}
+          </div>
         </div>
       </div>
     );
@@ -43,3 +43,4 @@ var StudentRandom = React.createClass({
 });
 
 module.exports = StudentRandom;
+

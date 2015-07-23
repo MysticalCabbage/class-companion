@@ -94,7 +94,6 @@ var initQuery = function(classId){
       var newObj = {};
       newObj["label"] = value;
       newObj["value"] = Math.ceil((totalOfStudents[value]/totalCount * 100)*100)/100;
-      console.log(newObj["value"]);
       studentsArray.push(newObj);
     }
     _store.graph = studentsArray || [];
