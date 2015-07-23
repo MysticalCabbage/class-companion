@@ -19,7 +19,6 @@ var routes = (
   <Route handler={App}>
   	<DefaultRoute handler={Home}/>
     <Route path="/" handler={Home}/>
-    <Route path="login" handler={Login}/>
     <Route path="signup" handler={Signup}/>
     <Route path="teacherDashboard" handler={TeacherDashboard}/>
     <Route path="teacherForm" handler={TeacherForm}/>

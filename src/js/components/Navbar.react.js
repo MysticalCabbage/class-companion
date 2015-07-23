@@ -26,14 +26,14 @@ var Navbar = React.createClass({
             { this.props.loggedIn ? null :
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <Link to="/signup">Signup</Link>
+                  <a onClick={this.props.openSignupModal}>Signup</a>
                 </li>
               </ul>
             }
             { this.props.loggedIn ? null :
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <Link to="/login">Login</Link>
+                  <a onClick={this.props.openLoginModal}>Login</a>
                 </li>
               </ul>
             }

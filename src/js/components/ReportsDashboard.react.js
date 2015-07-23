@@ -23,7 +23,7 @@ var ReportsDashboard = React.createClass({
 	    this.render = function () {
 	      return false;
 	    }
-	    location.hash = '/login';
+	    location.hash = '/';
 	  }
 	},
 

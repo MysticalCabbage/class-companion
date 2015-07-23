@@ -30,14 +30,8 @@ var TeacherDashboard = React.createClass({
       this.render = function () {
         return false;
       }
-      location.hash = '/login';
+      location.hash = '/';
     }
-  },
-  openModal: function(){
-    this.setState({modalIsOpen: true});
-  },
-  closeModal: function() {
-    this.setState({modalIsOpen: false});
   },
 
   // Call the addChangeListener method on TeacherStore to add an event listener
@@ -68,6 +62,14 @@ var TeacherDashboard = React.createClass({
     })
   },
 
+  openModal: function(){
+    this.setState({modalIsOpen: true});
+  },
+  
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
+  },
+
   render: function() {
     var classNodes = _.map(this.state.list, function(classNode, index){
       return (
@@ -86,13 +88,9 @@ var TeacherDashboard = React.createClass({
                  <a onClick={this.openModal}>Add Class</a>
               </div>
             </div>
-            <div id="teachermodal"></div> 
-              <Modal className="teacherModal"
-              isOpen={this.state.modalIsOpen}
-              onRequestClose={this.closeModal}
-              >
+            <Modal className="teacherModal" isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal}>
               <TeacherForm closeModal={this.closeModal}/>
-              </Modal>
+            </Modal>
           </div>
         </div>
       </div>

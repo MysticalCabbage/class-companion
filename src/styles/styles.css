@@ -24,7 +24,17 @@ a, a:visited, a:hover, a:active {
 	transform: translateY(-50%);
 }
 
-.teacherForm, .teacherModal{
+.teacherForm, .teacherModal, .classroomForm, .classModal{
 	width: 586px;
 	height: 150px;
+}
+
+.loginForm, .loginModal{
+	width: 500px;
+	height: 285px;
+}
+
+.signupForm, .signupModal{
+	width: 500px;
+	height: 433px;
 }

@@ -31,19 +31,13 @@ var ClassroomDashboard = React.createClass({
       modalIsOpen: false 
     }
   },
-  openModal: function(){
-    this.setState({modalIsOpen: true});
-  },
-  closeModal: function() {
-    this.setState({modalIsOpen: false});
-  },
 
   componentWillMount: function(){
     if(!AuthStore.checkAuth()){
       this.render = function () {
         return false;
       }
-      location.hash = '/login';
+      location.hash = '/';
     }
   },
 
@@ -65,6 +59,14 @@ var ClassroomDashboard = React.createClass({
       info: ClassroomStore.getInfo(),
       loggedIn: AuthStore.checkAuth(),
     });
+  },
+
+  openModal: function(){
+    this.setState({modalIsOpen: true});
+  },
+  
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
   },
 
   handleAttendance: function(){
@@ -135,8 +137,7 @@ var ClassroomDashboard = React.createClass({
               <a onClick={this.openModal}>Add Student</a>
             </div>
           </div>
-          <div id="modalstuff"></div>
-          <Modal
+          <Modal className="classModal"
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
           >
