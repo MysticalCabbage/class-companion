@@ -136,8 +136,8 @@ var ClassroomDashboard = React.createClass({
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <ClassroomNavbar classId={this.state.info.classId} onAttendanceClick={this.handleAttendance} showTimerOptions={this.showTimerOptions} randStudent={this.randStudent} randGroup={this.randGroup}/>
+        {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
         <div className="container">
-          {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
           <div className="row">
             {this.state.showResults ? <TimerBar/> : null}
           </div>
@@ -148,13 +148,9 @@ var ClassroomDashboard = React.createClass({
               <a onClick={this.openModal}>Add Student</a>
             </div>
           </div>
-          <Modal className="classModal"
-            isOpen={this.state.modalIsOpen}
-            onRequestClose={this.closeModal}
-          >
+          <Modal className="classModal" isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal}>
             <ClassroomForm closeModal={this.closeModal}/>
           </Modal>
-        
             {this.state.showRandom ? <StudentRandom/> : null }
             {this.state.showGroup ? <StudentGroup/> : null }
           </div>

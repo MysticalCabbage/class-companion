@@ -5,7 +5,7 @@ var TimerBar = React.createClass({
   getInitialState: function() {
     return {
       showTimer: false,
-      totalTime: undefined
+      totalTime: undefined 
     };
   },
 
@@ -21,7 +21,7 @@ var TimerBar = React.createClass({
 
   render: function() {
     return (
-      <div className='row'>
+      <div className='timeBar row'>
         <div className="timer col-md-7">
           <div className="btn-group btn-group-justified" role="group" aria-label="...">
             <div className="btn-group" role="group">
