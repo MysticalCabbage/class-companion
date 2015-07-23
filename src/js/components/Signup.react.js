@@ -69,7 +69,7 @@ var Signup = React.createClass({
             </div>
             <div className="form-group">
               <div className="col-sm-offset-5">
-                Already have an account? <a onClick={this.props.switchModal}>Signup</a>
+                Already have an account? <a onClick={this.props.switchModal}>Login</a>
               </div>
             </div>
             <div className="form-group">
