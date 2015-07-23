@@ -12,7 +12,7 @@ var _store = {
   list: {},
   info: {},
   today: '',
-  graph: {}
+  graph: []
 };
 
 var addStudent = function(newStudent){
@@ -60,8 +60,11 @@ var behaviorChart = function(data){
   var chartData = [];
   for(var key in behaviors){
     newObj = {};
+    if(behaviors[key] === 0){
+      continue;
+    } 
     newObj["label"] = key;
-    newObj["value"] = (behaviors[key]/total)*100;
+    newObj["value"] = Math.round(((behaviors[key]/total)*100));
     chartData.push(newObj);
   }
   _store.graph = chartData;
@@ -78,7 +81,6 @@ var initQuery = function(classId){
     _store.info = classData.info;
     _store.list = classData.students || {};
     console.log("info in initQueryis",classData);
-    _store.graph = [];
     var storeBehaviors = classData.students;
     ClassroomStore.emit(CHANGE_EVENT);
   });

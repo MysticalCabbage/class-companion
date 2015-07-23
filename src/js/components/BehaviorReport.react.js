@@ -52,9 +52,9 @@ var BehaviorDashboard = React.createClass({
     }
 
     var pieData = [
-  // {label: 'bullying', value: 20},
-  // {label: 'goodJob', value: 55},
-  // {label: 'badJob', value: 25 }
+  {label: 'bullying', value: 40},
+  {label: 'goodJob', value: 55},
+  {label: 'badJob', value: 25 }
 ];
 
     // var pieData = [x];
