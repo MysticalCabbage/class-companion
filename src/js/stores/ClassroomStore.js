@@ -162,7 +162,6 @@ var getNewPokemon = function(studentId) {
   pokemonAPIUtils.getRandomPokemon().then(function(pokemonData) {
     spriteUrl = pokemonData.sprites[0].resource_uri
     pokemonAPIUtils.getPokemonSprite(spriteUrl).then(function(pokemonSpriteData) {
-      console.log(pokemonData.name, pokemonSpriteData)
       pokemonData._spriteData = pokemonSpriteData
       assignNewPokemon(pokemonData, studentId);
       ClassroomStore.emit(CHANGE_EVENT);
@@ -176,7 +175,10 @@ var assignNewPokemon = function(pokemonData, studentId) {
       _store.list[listStudentId]._pokemonData = pokemonData
     }
   }
-  console.dir(_store.list)
+}
+
+var updateServerPokemon = function(studentId, pokemonData) {
+  
 }
 
 
