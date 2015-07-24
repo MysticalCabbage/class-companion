@@ -172,14 +172,15 @@ var getNewPokemon = function(studentId) {
     pokemonAPIUtils.getPokemonSprite(spriteUrl).then(function(pokemonSpriteData) {
       pokemonDirectory._pokemonData = pokemonData;
       pokemonDirectory._spriteData = pokemonSpriteData;
+      pokemonDirectory._spriteUrl = "http://pokeapi.co" + pokemonSpriteData.image
       pokemonDirectory.profile = defaultPokemonProfile;
-      updateServerPokemon(studentId, pokemonDirectory);
+      sendServerPokemon(studentId, pokemonDirectory);
     })
   });
 };
 
 
-var updateServerPokemon = function(studentId, pokemonDirectory) {
+var sendServerPokemon = function(studentId, pokemonDirectory) {
   console.log('trying to update server')
   firebaseRef.child('classes/' 
                     + _store.info.classId 
@@ -188,6 +189,41 @@ var updateServerPokemon = function(studentId, pokemonDirectory) {
                     + '/pokemon/'
                     )
                     .set(pokemonDirectory);
+}
+
+var addExperiencePoint = function(studentId, numberOfExperiencePointsToAdd) {
+   firebaseRef.child('classes/' 
+                    + _store.info.classId 
+                    + '/students/' 
+                    + studentId
+                    + '/pokemon/'
+                    + 'currentExp/'
+                    )
+                    .transaction(function(current_value){
+                      return current_value + numberOfExperiencePointsToAdd;
+                    });  
+}
+
+var handleLevelUp = function(studentId) {
+
+  var firebasePokemonProfileRef = firebaseRef.child('classes/' 
+                    + _store.info.classId 
+                    + '/students/' 
+                    + studentId
+                    + '/pokemon/'
+                    + 'profile/')
+
+  firebasePokemonProfileRef
+    .child('currentExp')
+    .transaction(function(current_value){
+      return 1;
+    });
+  firebasePokemonProfileRef
+    .child('level')
+    .transaction(function(current_value){
+      return current_value + 1;
+    });
+
 }
 
 

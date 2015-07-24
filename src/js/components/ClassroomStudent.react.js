@@ -30,7 +30,7 @@ var ClassroomStudent = React.createClass({
 
   componentWillMount: function() {
     // if the current student does not have a pokemon
-    if (!this.props.pokemon) {
+    if (!this.props.pokemon.profile) {
       // get a new pokemon for this student
       ClassroomActions.getNewPokemon(this.props.studentId);
     }
@@ -54,6 +54,7 @@ var ClassroomStudent = React.createClass({
   },
 
   render: function(){
+    console.log(this.props.pokemon)
     return (
       <div className="col-md-3" >
           { this.props.attendance ? 
@@ -83,10 +84,10 @@ var ClassroomStudent = React.createClass({
             <div>{this.props.studentTitle}</div>
           </div>
           <div>
-            <div>{this.props.pokemonName}</div>
+            <div>{this.props.pokemon._pokemonData.name}</div>
           </div>
           <div>
-            <img src={this.props.pokemonImageUrl} />
+            <img src={this.props.pokemon._spriteUrl} />
           </div>
           <Modal className="behaviorModal" isOpen={this.state.behaviorModalIsOpen} onRequestClose={this.closeBehaviorModal}>
             <BehaviorButtons studentId={this.props.studentId} studentTitle={this.props.studentTitle} closeBehaviorModal={this.closeBehaviorModal} />

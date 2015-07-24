@@ -138,6 +138,22 @@ var ClassroomDashboard = React.createClass({
 
     this.closeGroupModal();
   },
+  // returns pokemon data object for the view to render
+  makePokemonDirectory: function(studentNode) {
+    var pokemonDirectory;
+    // if the student node already has a pokemon data object
+    if (studentNode.pokemon) {
+      // store the current pokemon data in the pokemon directory object
+      pokemonDirectory = studentNode.pokemon
+    } // else if the student node does not have a pokemon directory object
+    else {
+      // create a dummy object with empty strings so the view can load without error
+      pokemonDirectory = {
+        _pokemonData: {name: ''}, 
+        _spriteUrl: ''};
+    }
+    return pokemonDirectory;
+  },
 
   render: function(){
     var attendance = this.state.showAttendance;
@@ -145,23 +161,15 @@ var ClassroomDashboard = React.createClass({
     var behaviorTypes = this.state.info.behavior;
     var markAttendance = this.markAttendance;
     var today = this.state.today;
-    // HARDCODED NAME FOR TESTING
+    var context = this;
+    var pokemonDirectory;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       var status = null;
-      var pokemonName;
-      var pokemonImageUrl;
-      if (studentNode.pokemon) {
-        pokemonName = studentNode.pokemon._pokemonData.name
-        pokemonImageUrl = "http://pokeapi.co" + studentNode.pokemon._spriteData.image
-      } else {
-        pokemonName = "MISSINGO"
-        pokemonImageUrl = ""
-      }
+      pokemonDirectory = context.makePokemonDirectory(studentNode);
       if(studentNode.attendance){
         status = studentNode.attendance[today]
       };
       return (
-<<<<<<< HEAD
         <ClassroomStudent 
           key={index} 
           studentId={index} 
@@ -172,7 +180,6 @@ var ClassroomDashboard = React.createClass({
           behaviorActions={behaviorTypes} 
           status={status}
           showBehavior={showBehavior} />
-=======
       )
     });
     return (
