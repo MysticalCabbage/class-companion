@@ -1,4 +1,5 @@
 var React = require('react');
+var HomeworkForm = require('./HomeworkForm.react')
 var HomeworkStore = require('../stores/HomeworkStore');
 var Navbar = require('./Navbar.react');
 var AuthStore = require('../stores/AuthStore');
@@ -24,6 +25,7 @@ var HomeworkDashboard = React.createClass({
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
           <p>holla</p>
+          <HomeworkForm />
         </div>
       </div>
     );
