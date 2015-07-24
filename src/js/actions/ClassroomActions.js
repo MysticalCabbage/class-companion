@@ -62,6 +62,12 @@ var ClassroomActions = {
       data: null
     });
   }
+  getNewPokemon: function() {
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.GET_NEW_POKEMON,
+      data: null
+    })
+  },
 };
 
 module.exports = ClassroomActions;

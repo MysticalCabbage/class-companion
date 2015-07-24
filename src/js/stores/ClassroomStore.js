@@ -3,6 +3,7 @@ var ClassroomConstants = require('../constants/ClassroomConstants');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var FirebaseStore = require('./FirebaseStore');
+var pokemonAPIUtils = require('../utils/PokemonWebAPIUtils')
 
 var CHANGE_EVENT = 'change';
 
@@ -97,8 +98,21 @@ var initQuery = function(classId){
       studentsArray.push(newObj);
     }
     _store.graph = studentsArray || [];
+
+    // TEST: add hardcoded pokemon name
+    // for (var student in _store.list) {
+    //   _store.list[student].pokemonName = "Charmander"
+    // }
+    // console.dir(students)
+
+    // TEST: AJAX CALL
+
+
     ClassroomStore.emit(CHANGE_EVENT);
-  });
+
+    });
+
+
 
   firebaseRef.child('timestamp')
     .set(Firebase.ServerValue.TIMESTAMP);
@@ -143,6 +157,16 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   }
 });
 
+var getNewPokemon = function(studentData) {
+  console.log('trying to call api from store')
+  pokemonAPIUtils.getRandomPokemon().then(function(pokemonData) {
+    console.dir(pokemonData)
+    console.log('inside store then', pokemonData);
+    // 
+  });
+};
+
+
 AppDispatcher.register(function(payload){
   var action = payload.action;
   switch(action.actionType){
@@ -173,6 +197,9 @@ AppDispatcher.register(function(payload){
       break;
     case ClassroomConstants.GET_BEHAVIORS:
       behaviorChart(action.data);
+    // Pokemon Server Actions
+    case ClassroomConstants.GET_NEW_POKEMON:
+      getNewPokemon(action.data)
     default:
       return true;
   }

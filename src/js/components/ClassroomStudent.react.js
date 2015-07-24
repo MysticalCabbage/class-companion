@@ -28,6 +28,10 @@ var ClassroomStudent = React.createClass({
     this.setState({behaviorModalIsOpen: false});
   },
 
+  componentDidMount: function() {
+    ClassroomActions.getNewPokemon()
+  },
+
   markAttendance: function(attendance){
     this.props.markAttendance(this.props.studentId, attendance);
     var toggleState = this.state.toggle;
@@ -72,6 +76,9 @@ var ClassroomStudent = React.createClass({
           </div>
           <div>
             <div>{this.props.studentTitle}</div>
+          </div>
+          <div>
+            <div>{this.props.pokemonName}</div>
           </div>
           <Modal className="behaviorModal" isOpen={this.state.behaviorModalIsOpen} onRequestClose={this.closeBehaviorModal}>
             <BehaviorButtons studentId={this.props.studentId} studentTitle={this.props.studentTitle} closeBehaviorModal={this.closeBehaviorModal} />

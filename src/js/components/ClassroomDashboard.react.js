@@ -145,8 +145,10 @@ var ClassroomDashboard = React.createClass({
     var behaviorTypes = this.state.info.behavior;
     var markAttendance = this.markAttendance;
     var today = this.state.today;
+    // HARDCODED NAME FOR TESTING
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       var status = null;
+      var pokemonName = studentNode.pokemonName || "Bulbasaur"
       if(studentNode.attendance){
         status = studentNode.attendance[today]
       };
