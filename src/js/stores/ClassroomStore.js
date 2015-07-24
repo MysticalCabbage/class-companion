@@ -158,10 +158,11 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 var getNewPokemon = function(studentId) {
-  var pokemonNumber;
+  var spriteUrl;
   pokemonAPIUtils.getRandomPokemon().then(function(pokemonData) {
-    pokemonNumber = pokemonData.national_id
-    pokemonAPIUtils.getPokemonSprite(pokemonNumber).then(function(pokemonSpriteData) {
+    spriteUrl = pokemonData.sprites[0].resource_uri
+    pokemonAPIUtils.getPokemonSprite(spriteUrl).then(function(pokemonSpriteData) {
+      console.log(pokemonData.name, pokemonSpriteData)
       pokemonData._spriteData = pokemonSpriteData
       assignNewPokemon(pokemonData, studentId);
       ClassroomStore.emit(CHANGE_EVENT);
