@@ -80,6 +80,9 @@ var ClassroomStudent = React.createClass({
           <div>
             <div>{this.props.pokemonName}</div>
           </div>
+          <div>
+            <img src={this.props.pokemonImageUrl} />
+          </div>
           <Modal className="behaviorModal" isOpen={this.state.behaviorModalIsOpen} onRequestClose={this.closeBehaviorModal}>
             <BehaviorButtons studentId={this.props.studentId} studentTitle={this.props.studentTitle} closeBehaviorModal={this.closeBehaviorModal} />
           </Modal>

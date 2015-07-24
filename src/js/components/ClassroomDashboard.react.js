@@ -152,13 +152,17 @@ var ClassroomDashboard = React.createClass({
       var pokemonImageUrl;
       if (studentNode._pokemonData) {
         pokemonName = studentNode._pokemonData.name
+        pokemonImageUrl = "http://pokeapi.co" + studentNode._pokemonData._spriteData.image
+        console.log(pokemonImageUrl)
       } else {
         pokemonName = "MISSINGO"
+        pokemonImageUrl = ""
       }
       if(studentNode.attendance){
         status = studentNode.attendance[today]
       };
       return (
+<<<<<<< HEAD
         <ClassroomStudent 
           key={index} 
           studentId={index} 
@@ -169,6 +173,7 @@ var ClassroomDashboard = React.createClass({
           behaviorActions={behaviorTypes} 
           status={status}
           showBehavior={showBehavior} />
+=======
       )
     });
     return (

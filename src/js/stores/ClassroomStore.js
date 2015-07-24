@@ -160,18 +160,12 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 var getNewPokemon = function(studentId) {
   var pokemonNumber;
   pokemonAPIUtils.getRandomPokemon().then(function(pokemonData) {
-    console.log('inside store then', pokemonData, studentId); // WORKS
     pokemonNumber = pokemonData.national_id
-    // debugger;
-
     pokemonAPIUtils.getPokemonSprite(pokemonNumber).then(function(pokemonSpriteData) {
-      console.log('in nested call')
-      pokemonData._pokemonSpriteData = pokemonSpriteData
+      pokemonData._spriteData = pokemonSpriteData
       assignNewPokemon(pokemonData, studentId);
       ClassroomStore.emit(CHANGE_EVENT);
     }) 
-
-
   });
 };
 
