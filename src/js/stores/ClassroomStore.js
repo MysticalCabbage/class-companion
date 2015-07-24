@@ -160,11 +160,15 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 var getNewPokemon = function(studentId) {
   var spriteUrl;
   pokemonAPIUtils.getRandomPokemon().then(function(pokemonData) {
+    if (!pokemonData) {
+      return;
+    }
     spriteUrl = pokemonData.sprites[0].resource_uri
     pokemonAPIUtils.getPokemonSprite(spriteUrl).then(function(pokemonSpriteData) {
       pokemonData._spriteData = pokemonSpriteData
-      assignNewPokemon(pokemonData, studentId);
-      ClassroomStore.emit(CHANGE_EVENT);
+      // assignNewPokemon(pokemonData, studentId);
+      // ClassroomStore.emit(CHANGE_EVENT);
+      updateServerPokemon(studentId, pokemonData)
     }) 
   });
 };
@@ -178,7 +182,14 @@ var assignNewPokemon = function(pokemonData, studentId) {
 }
 
 var updateServerPokemon = function(studentId, pokemonData) {
-  
+  console.log('trying to update server')
+  firebaseRef.child('classes/' 
+                    + _store.info.classId 
+                    + '/students/' 
+                    + studentId 
+                    + '/pokemon/'
+                    + '/pokemonData/')
+                    .set(pokemonData);
 }
 
 

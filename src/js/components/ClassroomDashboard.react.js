@@ -150,9 +150,9 @@ var ClassroomDashboard = React.createClass({
       var status = null;
       var pokemonName;
       var pokemonImageUrl;
-      if (studentNode._pokemonData) {
-        pokemonName = studentNode._pokemonData.name
-        pokemonImageUrl = "http://pokeapi.co" + studentNode._pokemonData._spriteData.image
+      if (studentNode.pokemon) {
+        pokemonName = studentNode.pokemon.pokemonData.name
+        pokemonImageUrl = "http://pokeapi.co" + studentNode.pokemon.pokemonData._spriteData.image
       } else {
         pokemonName = "MISSINGO"
         pokemonImageUrl = ""
