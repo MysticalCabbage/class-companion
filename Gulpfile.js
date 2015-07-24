@@ -17,7 +17,7 @@ var gutil = require('gulp-util');
 gulp.task('watch', function() {
   // If something does change, run the copy task
   gulp.watch('src/index.html', ['copyHTML']);
-  gulp.watch('src/styles/*.css', ['copyStyles']);
+  gulp.watch('src/styles/*.css', ['copyCSS']);
 
   // Watchify will cache our files and watch for changes, only updating the necessary changes
   // Here we're passing browserify an object to set up the configurations for our browserify build
