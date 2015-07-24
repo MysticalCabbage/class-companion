@@ -1,4 +1,15 @@
 {
+  "name": "Class Companion",
+  "version": "0.0.0",
+  "description": "Classroom management tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "0.12.4"
+  },
   "dependencies": {
     "body-parser": "^1.13.2",
     "bootstrap": "^3.3.5",
@@ -48,12 +59,5 @@
     "testdom": "^1.1.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.3"
-  },
-  "scripts": {
-    "test": "karma start",
-    "start": "node index.js"
-  },
-  "engines": {
-    "node": "0.12.4"
   }
 }
