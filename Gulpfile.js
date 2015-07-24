@@ -8,6 +8,8 @@ var watchify = require('watchify');
 var reactify = require('reactify');
 var streamify = require('gulp-streamify');
 var clean = require('gulp-clean');
+var runSequence = require('run-sequence');
+var gutil = require('gulp-util');
 
 // DEVELOPMENT TASKS
 
@@ -47,19 +49,6 @@ gulp.task('watch', function() {
     .pipe(gulp.dest('dist/js'));
 });
 
-
-gulp.task('copy',function() {
-    gulp.src('src/index.html')
-      .pipe(gulp.dest('dist'));
-});
-
-gulp.task('copyStyles',function() {
-    // gulp.src('src/assets/**/*.*')
-    //   .pipe(gulp.dest('dist/assets'));
-    gulp.src('src/styles/*.css')
-      .pipe(gulp.dest('dist/styles'));
-});
-
 gulp.task('serve', function(){
   nodemon({
     // Start server on index.js and watch for changes
@@ -75,9 +64,35 @@ gulp.task('serve', function(){
 
 // PRODUCTION TASKS
 gulp.task('clean', function(){
-  return gulp.src('dist/*', {read: false})
+  return gulp.src('dist/', {read: false})
     .pipe(clean());
 })
+
+// Replace script tag reference in index.html to the new build.min.js
+gulp.task('replaceHTML', function(){
+ // Grab index.html
+ gulp.src('src/index.html')
+ // Replace the build:js comment with <script src="build/build.min.js"></script>
+ .pipe(htmlreplace({
+   'js': 'src/app.min.js'
+ }))
+ .pipe(gulp.dest('dist'));
+});
+
+gulp.task('copyHTML',function() {
+ gulp.src('src/index.html')
+   .pipe(gulp.dest('dist'));
+});
+
+gulp.task('copyCSS',function() {
+ gulp.src('src/styles/**/*.css')
+   .pipe(gulp.dest('dist/styles'));
+});
+
+gulp.task('copyAssets',function() {
+ gulp.src('src/assets')
+   .pipe(gulp.dest('dist/'));
+});
 
 gulp.task('build', function(){
  browserify({
@@ -86,22 +101,14 @@ gulp.task('build', function(){
  })
  .bundle()
  .pipe(source('app.min.js'))
- .pipe(streamify(uglify()))
- // Pipe result to the dist/build folder
- .pipe(gulp.dest('dist/build'));
+ .pipe(streamify(uglify().on('error', gutil.log)))
+ .pipe(gulp.dest('dist/src'));
 });
 
-// Replace script tag reference in index.html to the new build.min.js
-gulp.task('replaceHTML', function(){
- // Grab index.html
- gulp.src('src/index.html')
- // Replace the build:js comment with <script src="build/build.min.js"></script>
- .pipe(htmlreplace({
-   'js': 'build/app.min.js'
- }))
- .pipe(gulp.dest('dist'));
+gulp.task('default', function(){
+ runSequence('clean', 'copyHTML', 'copyCSS', 'copyAssets', 'watch', 'serve');
 });
 
-gulp.task('default', ['copy', 'copyStyles', 'watch', 'serve']);
-// gulp.task('production', ['clean', 'copy', 'replaceHTML', 'build']);
-gulp.task('production', ['replaceHTML', 'build']);
+gulp.task('production', function(){
+ runSequence('clean', 'copyAssets', 'copyCSS', 'build', 'replaceHTML');
+});

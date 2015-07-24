@@ -27,7 +27,7 @@ var routes = (
   </Route>
 );
 
-var router = Router.create({routes});
+var router = Router.create({routes: routes});
 RouterContainer.set(router);
 
 router.run(function(Root){
