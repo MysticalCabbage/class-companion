@@ -112,3 +112,7 @@ gulp.task('default', function(){
 gulp.task('production', function(){
  runSequence('clean', 'copyAssets', 'copyCSS', 'build', 'replaceHTML');
 });
+
+gulp.task('heroku:production', function(){
+ runSequence('clean', 'copyAssets', 'copyCSS', 'build', 'replaceHTML');  
+});
