@@ -1,3 +1,14 @@
+body{
+	/*font-family: 'Press Start 2P', cursive;*/
+	background-image: url("http://i.imgur.com/UZKEjzG.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+/*i span{
+	font-family: 'Press Start 2P', cursive;
+}*/
+
 a, a:visited, a:hover, a:active {
   color: #5e5e5e;
   text-decoration: none !important;
@@ -55,6 +66,29 @@ a, a:visited, a:hover, a:active {
 	position: absolute;
 	top: -10px;
 	left: 0px;
+}
+.image { 
+	position: absolute; 
+	top: -18px;
+	left: -3px;
+}
+
+.img{
+  height: auto;
+  width: auto;
+  max-width: 43px;
+  max-height: 43px;
+}
+
+.behaviorPoints { 
+  color: red;
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  width: 32%;
+  font-weight: bold;
+  background-color: #FFF400;
+  text-align: center;
 }
 
 /*Login*/
