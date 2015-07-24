@@ -28,9 +28,14 @@ var ClassroomStudent = React.createClass({
     this.setState({behaviorModalIsOpen: false});
   },
 
-  componentDidMount: function() {
-    ClassroomActions.getNewPokemon(this.props.studentId);
+  componentWillMount: function() {
+    // if the current student does not have a pokemon
+    if (!this.props.pokemon) {
+      // get a new pokemon for this student
+      ClassroomActions.getNewPokemon(this.props.studentId);
+    }
   },
+
 
   markAttendance: function(attendance){
     this.props.markAttendance(this.props.studentId, attendance);
