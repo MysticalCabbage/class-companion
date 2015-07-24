@@ -90,8 +90,8 @@ gulp.task('copyCSS',function() {
 });
 
 gulp.task('copyAssets',function() {
- gulp.src('src/assets')
-   .pipe(gulp.dest('dist/'));
+ gulp.src('src/assets/*')
+   .pipe(gulp.dest('dist/assets'));
 });
 
 gulp.task('build', function(){
