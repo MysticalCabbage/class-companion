@@ -158,11 +158,20 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 var getNewPokemon = function(studentId) {
-  console.log('trying to call api from store')
+  var pokemonNumber;
   pokemonAPIUtils.getRandomPokemon().then(function(pokemonData) {
-    // console.log('inside store then', pokemonData, studentId); // WORKS
-    assignNewPokemon(pokemonData, studentId);
-    ClassroomStore.emit(CHANGE_EVENT);
+    console.log('inside store then', pokemonData, studentId); // WORKS
+    pokemonNumber = pokemonData.national_id
+    // debugger;
+
+    pokemonAPIUtils.getPokemonSprite(pokemonNumber).then(function(pokemonSpriteData) {
+      console.log('in nested call')
+      pokemonData._pokemonSpriteData = pokemonSpriteData
+      assignNewPokemon(pokemonData, studentId);
+      ClassroomStore.emit(CHANGE_EVENT);
+    }) 
+
+
   });
 };
 
@@ -172,6 +181,7 @@ var assignNewPokemon = function(pokemonData, studentId) {
       _store.list[listStudentId]._pokemonData = pokemonData
     }
   }
+  console.dir(_store.list)
 }
 
 
