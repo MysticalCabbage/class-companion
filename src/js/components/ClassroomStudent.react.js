@@ -29,7 +29,7 @@ var ClassroomStudent = React.createClass({
   },
 
   componentDidMount: function() {
-    ClassroomActions.getNewPokemon()
+    ClassroomActions.getNewPokemon(this.props.studentId);
   },
 
   markAttendance: function(attendance){

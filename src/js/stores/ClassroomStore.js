@@ -157,14 +157,22 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   }
 });
 
-var getNewPokemon = function(studentData) {
+var getNewPokemon = function(studentId) {
   console.log('trying to call api from store')
   pokemonAPIUtils.getRandomPokemon().then(function(pokemonData) {
-    console.dir(pokemonData)
-    console.log('inside store then', pokemonData);
-    // 
+    // console.log('inside store then', pokemonData, studentId); // WORKS
+    assignNewPokemon(pokemonData, studentId);
+    ClassroomStore.emit(CHANGE_EVENT);
   });
 };
+
+var assignNewPokemon = function(pokemonData, studentId) {
+  for (var listStudentId in _store.list) {
+    if (listStudentId === studentId) {
+      _store.list[listStudentId]._pokemonData = pokemonData
+    }
+  }
+}
 
 
 AppDispatcher.register(function(payload){

@@ -62,10 +62,10 @@ var ClassroomActions = {
       data: null
     });
   }
-  getNewPokemon: function() {
+  getNewPokemon: function(studentId) {
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.GET_NEW_POKEMON,
-      data: null
+      data: studentId
     })
   },
 };
