@@ -14,7 +14,7 @@ describe("ClassroomStore", function() {
     expect(ClassroomStore).to.be.an('object');
   });
 
-  it('should have a addChangeListener method', function(){
+  it('should have an addChangeListener method', function(){
     expect(ClassroomStore.addChangeListener).to.exist;
   });
   

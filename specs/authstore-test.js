@@ -5,22 +5,16 @@ var AppDispatcher = require('../src/js/dispatcher/AppDispatcher');
 describe("AuthStore", function() {
 
   beforeEach(function(){
-    sandbox = sinon.sandbox.create();
-
-    // stub some console methods
-    sandbox.stub(window.console, "log");
-    sandbox.stub(window.console, "error");
   });
 
   afterEach(function(){
-    sandbox.restore();
   });
 
   it("should be an object", function() {
     expect(AuthStore).to.be.an('object');
   });
 
-  it('should have a addChangeListener method', function(){
+  it('should have an addChangeListener method', function(){
     expect(AuthStore.addChangeListener).to.exist;
   });
   
@@ -48,8 +42,4 @@ describe("AuthStore", function() {
     expect(AuthStore.checkAuth()).to.be.null;
   });
 
-  xit('logout method should return error message when not logged in', function(){
-    AuthStore.logout()
-    sinon.assert.calledWithExactly(console.error, "Error logging out")
-  });
 });

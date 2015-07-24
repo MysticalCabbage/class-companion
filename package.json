@@ -44,6 +44,7 @@
     "reactify": "^1.1.1",
     "run-sequence": "^1.1.2",
     "sinon": "^1.15.4",
+    "supertest": "^1.0.1",
     "testdom": "^1.1.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.3"
