@@ -11,6 +11,7 @@ module.exports = {
   // if no specific pokemon API url was given
   // generate a random pokemon
   pokemonUrl = pokemonUrl || ("api/v1/pokemon/" + generateRandomOriginalPokemonNumber())
+  console.log('sending ajax to', pokemonUrl)
   return Q($.ajax({
       method: "GET",
       url: "http://pokeapi.co/" + pokemonUrl,

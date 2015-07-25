@@ -4,13 +4,15 @@ var pokemonAPIUtils = require('../utils/PokemonWebAPIUtils');
 var ClassroomStore = require('./ClassroomStore');
 
 
-var getNewPokemon = function(studentId, classId) {
+var getNewPokemon = function(studentId, classId, specificPokemonAPIUrl) {
+  // if no specific pokemon url was passed in, set the value to null
+  var specificspecificPokemonAPIUrl = specificPokemonAPIUrl || null
   var spriteUrl;
   var defaultPokemonProfile = {level: 1, currentExp: 1, expToNextLevel: 20}
   var pokemonDirectory = {};
   console.log('trying to get a pokemon for', studentId)
 
-  pokemonAPIUtils.getNewPokemonFromServer().then(function(pokemonData) {
+  pokemonAPIUtils.getNewPokemonFromServer(specificPokemonAPIUrl).then(function(pokemonData) {
     spriteUrl = pokemonData.sprites[0].resource_uri
     pokemonAPIUtils.getPokemonSprite(spriteUrl).then(function(pokemonSpriteData) {
       pokemonDirectory._pokemonData = pokemonData;
@@ -57,7 +59,7 @@ var addExperiencePoints = function(data, classId) {
       // if the pokemon needs to level up after adding the new experience points
       if (profileData.currentExp + numberOfExperiencePointsToAdd >= profileData.expToNextLevel) {
         // level up the pokemon
-        handleLevelUp(firebasePokemonDirectoryRef, numberOfExperiencePointsToAdd)
+        handleLevelUp(firebasePokemonDirectoryRef, numberOfExperiencePointsToAdd, classId, studentId)
       } 
       // else if the pokemon does not need to level up
       else {
@@ -80,7 +82,7 @@ var addExperiencePoints = function(data, classId) {
 }
 
 
-var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePointsToAdd, classId) {
+var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePointsToAdd, classId, studentId) {
   firebasePokemonDirectoryRef
     .once('value', function(pokemonDirectoryData){
       profileData = pokemonDirectoryData.val().profile;
@@ -91,8 +93,12 @@ var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePoin
       var amountOfLeftoverExp = accumulatedExp % (profileData.expToNextLevel * numberOfTimesToLevelUp)
       firebasePokemonDirectoryRef.child('profile').child('level').transaction(function(current_value) {
           var newLevel = current_value + numberOfTimesToLevelUp
-          checkIfNeedToEvolve(pokemonDirectoryData, newLevel)
-          return newLevel
+          var pokemonToEvolveToUrl = checkIfNeedToEvolve(pokemonDirectoryData)
+          if (pokemonToEvolveToUrl) {
+            getNewPokemon(studentId, classId, pokemonToEvolveToUrl)
+          } else {
+            return newLevel
+          }
       });
 
       firebasePokemonDirectoryRef.child('profile').child('currentExp').transaction(function(current_value) {
@@ -101,19 +107,30 @@ var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePoin
 
   });
 }
-
+// if the pokemon needs to evolve
+// then this function returns the URL of the pokemon to evolve to (truthy)
+// else if the pokemon does not need to evolve, return null (falsey)
 var checkIfNeedToEvolve = function(pokemonDirectoryData) {
 
   var currentLevel = pokemonDirectoryData.val().profile.level
   var evolutions = pokemonDirectoryData.val()._pokemonData.evolutions
 
+  // if the pokemon is capable of evolving into other pokemon
   if (evolutions.length) {
+    // for each evolution
     for (var i = 0; i < evolutions.length; i++) {
+      // if the current pokemon should evolve into the new pokemon by leveling up
       if (currentLevel >= evolutions[i].level && evolutions[i].method === "level_up") {
-        console.log('NEED TO EVOLVE TO', evolutions[i].to)
+        // return the api uri call for the new pokemon
+        console.log('evolving to', evolutions[i].resource_uri)
+        return evolutions[i].resource_uri
       }
     }
   }
+  // if the pokemon is not capable of evolving into other pokemon
+  // or should not currently level up
+  // return null
+  return null;
 }
 
 module.exports = {
