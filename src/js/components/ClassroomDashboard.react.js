@@ -147,21 +147,22 @@ var ClassroomDashboard = React.createClass({
       pokemonDirectory = studentNode.pokemon
     } // else if the student node does not have a pokemon directory object
     else {
-      // create a dummy object with empty strings so the view can load without error
+      /*
+        create a dummy object with empty strings so the view can load without error
+        NOTE: this is necessary because after we create a student, we need
+        to wait for the async call to return and update the student data on the server
+        NOTE: anytime we reference a property in the ClassroomStudent view, we must
+        include a corresponding empty string value into this dummy directory to prevent an error
+        If the console shows a "cannot read property X of undefined" in the ClassroomStudent view,
+        it is likely because this needs an empty string in the corresponding property 
+      */
       pokemonDirectory = {
         _pokemonData: {name: ''}, 
         _spriteUrl: '',
-        profile: {currentExp: '', level: '', expToNextLevel: ''}};
+        profile: {currentExp: '', level: '', expToNextLevel: ''},
+        hasAPokemon: false,
+      }
     }
-    /*
-                <h5>Current Exp: {this.props.pokemon.profile.currentExp}</h5>
-          </div>
-          <div>
-            <h5>Current Level: {this.props.pokemon.profile.level}</h5>
-          </div>
-          <div>
-            <h5>Exp to next Level: {this.props.pokemon.profile.expToNextLevel}</h5>
-            */
     return pokemonDirectory;
   },
 

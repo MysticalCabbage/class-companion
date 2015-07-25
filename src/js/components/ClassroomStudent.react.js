@@ -30,7 +30,8 @@ var ClassroomStudent = React.createClass({
 
   componentWillMount: function() {
     // if the current student does not have a pokemon
-    if (!this.props.pokemon.profile.level) {
+    // NOTE: This needs to be updated if 
+    if (!this.props.pokemon.hasAPokemon) {
       // get a new pokemon for this student
       ClassroomActions.getNewPokemon(this.props.studentId);
     }

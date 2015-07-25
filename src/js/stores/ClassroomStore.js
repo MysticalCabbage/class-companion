@@ -167,6 +167,7 @@ var getNewPokemon = function(studentId) {
       pokemonDirectory._spriteData = pokemonSpriteData;
       pokemonDirectory._spriteUrl = "http://pokeapi.co" + pokemonSpriteData.image
       pokemonDirectory.profile = defaultPokemonProfile;
+      pokemonDirectory.hasAPokemon = true;
       sendServerPokemon(studentId, pokemonDirectory);
     })
   });
@@ -197,7 +198,7 @@ var addExperiencePoints = function(data) {
   firebasePokemonProfileRef
     .once('value', function(data){
       profileData = data.val();
-      // if the pokemon needs to level up
+      // if the pokemon needs to level up after adding the new experience points
       if (profileData.currentExp + numberOfExperiencePointsToAdd >= profileData.expToNextLevel) {
         // level up the pokemon
         handleLevelUp(firebasePokemonProfileRef, numberOfExperiencePointsToAdd)
