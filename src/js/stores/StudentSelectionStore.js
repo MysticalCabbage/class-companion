@@ -77,10 +77,12 @@ var randGroup = function(){
   var students = ClassroomStore.getList();
   var keys = Object.keys(students);
   var shuffled = [], idx = 0;
+
   while(keys.length){
     idx = Math.floor(Math.random() * keys.length)
     shuffled.push(keys.splice(idx,1)[0]);
   }
+
   var bucketSize = 2;
   var bucket = [];
   var groups = [];
@@ -106,12 +108,15 @@ var StudentSelectionStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
     this.on(CHANGE_EVENT, cb);
   },
+
   removeChangeListener: function(cb){
     this.removeListener(CHANGE_EVENT, cb);
   },
+
   getRandom: function(){
     return _store.random;
   },
+
   getGroup: function(){
     return _store.groups;
   }
@@ -138,5 +143,3 @@ AppDispatcher.register(function(payload){
       return true;
   }
 });
-
-
