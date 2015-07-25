@@ -9,7 +9,6 @@ var Navbar = require('./Navbar.react');
 var TimerBar = require('./TimerBar.react.js');
 var ClassroomNavbar = require('./ClassroomNavbar.react');
 var AttendanceNavbar = require('./AttendanceNavbar.react');
-var StudentGroup = require('./StudentGroup.react');
 var StudentRandom = require('./StudentRandom.react');
 var StudentSelectionStore = require('../stores/StudentSelectionStore');
 var _ = require('underscore');
@@ -30,7 +29,7 @@ var ClassroomDashboard = React.createClass({
       showResults: false,
       addStudentModalIsOpen: false, 
       groupModal: false,
-      randomModal: false
+      randomModal: false,
       showBehavior: true
     }
   },
