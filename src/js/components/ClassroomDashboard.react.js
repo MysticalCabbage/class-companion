@@ -211,7 +211,7 @@ var ClassroomDashboard = React.createClass({
             {studentNodes}
             <div className="classroom col-md-3">
               <div className="well">
-                <a onClick={this.openAddStudentModal}>Add Student</a>
+                <a onClick={this.openAddStudentModal}>+ Add Student</a>
               </div>
             </div>
           </div>

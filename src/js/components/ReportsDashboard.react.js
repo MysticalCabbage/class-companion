@@ -16,7 +16,9 @@ var ReportsDashboard = React.createClass({
 	  	info: ClassroomStore.getInfo(),
 	    loggedIn: AuthStore.checkAuth(),
 	    reportType: 'Attendance',
-      classInfo: ClassroomStore.getList()
+      classInfo: ClassroomStore.getList(),
+      showAttendanceCalendar: true,
+      showBehaviorDashboard: false
 	  }
 	},
 
@@ -50,49 +52,18 @@ var ReportsDashboard = React.createClass({
     });
   },
 
-  studentClick: function(studentStats,behaviorTotal, studentId){
-    var chartData = [];
-    var total = 0;
-    for(var key in studentStats){
-       total += studentStats[key];
-    }
-
-    ClassroomActions.getBehaviors(studentStats, total);
-  },
-
   render: function(){
-    var studentClicked = this.studentClick;
-  	var studentNodes = _.map(this.state.list, function(studentNode,index){
-  	  return (
-  	  	<ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked} studentBehavior={studentNode.behavior} behaviorTotal={studentNode.behaviorTotal}/>
-  	  )
-  	});
+    
     return (
       <div className="reportsDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
-          <div className="row">
-          	<div className="col-md-2">
-          		<div className="panel panel-primary">
-          		  <div className="panel-heading">
-          		    <h3 className="panel-title">Students</h3>
-          		  </div>
-          		  {studentNodes}
-          		</div>
-          	</div>
-          	<div className="col-md-10">
-          		<div className="panel panel-primary">
-          		  <div className="panel-heading">
-          		    <h3 className="panel-title">{this.state.reportType}</h3>
-          		  </div>
-          		  <div className="panel-body">
-                  <div id="studentgraph"></div>
-                  <BehaviorDashboard who={this.state.who}/>
-          		    <AttendanceCalendar list={this.state.list} />
-          		  </div>
-          		</div>
-          	</div>
-          </div>
+          {this.state.showBehaviorDashboard? 
+            <BehaviorDashboard who={this.state.who} />
+          : null}
+          {this.state.showAttendanceCalendar ? 
+    		    <AttendanceCalendar list={this.state.list} />
+          : null}
         </div>
       </div>
     );

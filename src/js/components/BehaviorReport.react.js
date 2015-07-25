@@ -1,7 +1,9 @@
 var React = require('react');
-var ClassroomStore = require('../stores/ClassroomStore');
 var _ = require('underscore');
+var ClassroomActions = require('../actions/ClassroomActions');
+var ClassroomStore = require('../stores/ClassroomStore');
 var PieChart = require('react-d3/piechart').PieChart;
+var ReportsStudent = require('./ReportsStudent.react');
 
 var BehaviorDashboard = React.createClass({
   getInitialState: function(){
@@ -28,16 +30,54 @@ var BehaviorDashboard = React.createClass({
     ClassroomStore.removeChangeListener(this._onChange);
   },
 
+  studentClick: function(studentStats,behaviorTotal, studentId){
+    var chartData = [];
+    var total = 0;
+    for(var key in studentStats){
+       total += studentStats[key];
+    }
+
+    ClassroomActions.getBehaviors(studentStats, total);
+  },
+
   render: function(){
+    var studentClicked = this.studentClick;
+    var studentNodes = _.map(this.state.list, function(studentNode,index){
+      return (
+        <ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked} studentBehavior={studentNode.behavior} behaviorTotal={studentNode.behaviorTotal}/>
+      )
+    });
     return (
-          <PieChart
-      data={this.state.graph}
-      width={400}
-      height={400}
-      radius={100}
-      innerRadius={20}/>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-2">
+            <div className="panel panel-primary">
+              <div className="panel-heading">
+                <h3 className="panel-title">Students</h3>
+              </div>
+              {studentNodes}
+            </div>
+          </div>
+          <div className="col-md-10">
+            <div className="panel panel-primary">
+              <div className="panel-heading">
+                <h3 className="panel-title">Behavior</h3>
+              </div>
+              <div className="panel-body">
+                <PieChart
+                  data={this.state.graph}
+                  width={400}
+                  height={400}
+                  radius={100}
+                  innerRadius={20}/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 });
 
 module.exports = BehaviorDashboard;
+
