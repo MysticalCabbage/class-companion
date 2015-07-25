@@ -33,6 +33,11 @@ var ClassroomNavbar = React.createClass({
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
+                <a href={url}><i className="fa fa-pie-chart"><span> Reports</span></i></a>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
                 <a onClick={this.handleAttendance}><i className="fa fa-check-square-o"><span> Attendance</span></i></a>
               </li>
             </ul>
@@ -49,11 +54,6 @@ var ClassroomNavbar = React.createClass({
             <ul className="nav navbar-nav navbar-right">
               <li>
                 <a onClick={this.showTimerOptions}><i className="fa fa-clock-o"><span> Timer</span></i></a>
-              </li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <a href={url}><i className="fa fa-pie-chart"><span> Reports</span></i></a>
               </li>
             </ul>
           </div>
