@@ -24,7 +24,6 @@ var HomeworkDashboard = React.createClass({
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
-          <p>holla</p>
           <HomeworkForm classId={this.props.params.id}/>
         </div>
       </div>
