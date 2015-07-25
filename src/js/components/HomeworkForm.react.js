@@ -47,7 +47,6 @@ var HomeworkForm = React.createClass({
   },
 
   render: function(){
-    var todaysDate = new Date().toJSON().slice(0,10);
     return (
       <div className="homeworkForm">
         <div className="well">
@@ -58,7 +57,7 @@ var HomeworkForm = React.createClass({
             </div>
             <div className="form-group">
               <label for="exampleInputEmail2"></label>
-              <input type="date" className="form-control" id="dateinput" ref="duedate" value={todaysDate}/>
+              <input type="date" className="form-control" id="dateinput" ref="duedate"/>
             </div>
             <button type="submit" className="btn btn-default">Save</button>
           </form><br/>

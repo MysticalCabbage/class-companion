@@ -21,6 +21,8 @@ var addAssignment = function(assignment){
   var hwId = firebaseRef.child('classes/' + assignment.classId + '/assignments').push(assignment).key();
     console.log("hwid",hwId)
 
+  firebaseRef.child('classes/' + assignment.classId + '/homeworkFor/' + assignment.dueDate + '/' + hwId).set(hwId);
+
 };
 
 var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
