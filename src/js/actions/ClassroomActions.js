@@ -32,10 +32,10 @@ var ClassroomActions = {
       data: null
     });
   },
-  randGroup: function(){
+  randGroup: function(groupSize){
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.RAND_GROUP,
-      data: null
+      data: groupSize
     });
   },
   getBehaviors: function(chartData, totalCount){

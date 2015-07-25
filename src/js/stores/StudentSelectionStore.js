@@ -73,7 +73,7 @@ var randStudent = function(){
 // Select and place students into groups randomly
 // shuffles list of students
 // group adjacent students into groups of 2
-var randGroup = function(){
+var randGroup = function(groupSize){
   var students = ClassroomStore.getList();
   var keys = Object.keys(students);
   var shuffled = [], idx = 0;
@@ -83,7 +83,8 @@ var randGroup = function(){
     shuffled.push(keys.splice(idx,1)[0]);
   }
 
-  var bucketSize = 2;
+  var bucketSize = groupSize;
+  console.log(bucketSize)
   var bucket = [];
   var groups = [];
 
@@ -102,6 +103,7 @@ var randGroup = function(){
     groups.push(bucket)
   }
   _store.groups = groups;
+  console.log(_store.groups)
 };
 
 var StudentSelectionStore = objectAssign({}, EventEmitter.prototype, {
@@ -131,7 +133,7 @@ AppDispatcher.register(function(payload){
       randStudent();
       break;
     case ClassroomConstants.RAND_GROUP:
-      randGroup();
+      randGroup(action.data);
       break;
     case ClassroomConstants.INIT_QUERY:
       initQuery(action.data);
