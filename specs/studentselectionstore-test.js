@@ -31,7 +31,7 @@ describe("StudentSelectionStore", function() {
   });
 
   it('getRandom method should return a string', function(){
-    expect(StudentSelectionStore.getRandom()).to.equal('');
+    expect(StudentSelectionStore.getRandom()).to.be.null;
   });
   
   it('getGroup method should return an array', function(){
