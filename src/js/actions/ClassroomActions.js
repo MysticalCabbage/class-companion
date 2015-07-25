@@ -55,6 +55,12 @@ var ClassroomActions = {
       actionType: ClassroomConstants.END_QUERY,
       data: null
     });
+  },
+  endSelectQuery: function(){
+    AppDispatcher.handleAction({
+      actionType: ClassroomConstants.END_SELECT_QUERY,
+      data: null
+    });
   }
 };
 

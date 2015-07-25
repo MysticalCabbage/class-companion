@@ -11,6 +11,7 @@ var ClassroomNavbar = require('./ClassroomNavbar.react');
 var AttendanceNavbar = require('./AttendanceNavbar.react');
 var StudentGroup = require('./StudentGroup.react');
 var StudentRandom = require('./StudentRandom.react');
+var StudentSelectionStore = require('../stores/StudentSelectionStore');
 var _ = require('underscore');
 
 var appElement = document.getElementById('app');
@@ -45,12 +46,15 @@ var ClassroomDashboard = React.createClass({
   componentDidMount: function(){ 
     ClassroomActions.initQuery(this.props.params.id);
     ClassroomStore.addChangeListener(this._onChange);
+    StudentSelectionStore.addChangeListener(this.openRandomModal);
     AuthStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function(){
     ClassroomActions.endQuery();
+    ClassroomActions.endSelectQuery();
     ClassroomStore.removeChangeListener(this._onChange);
+    StudentSelectionStore.removeChangeListener(this.openRandomModal);
     AuthStore.removeChangeListener(this._onChange);
   },
 
@@ -111,10 +115,7 @@ var ClassroomDashboard = React.createClass({
   },
 
   randStudent: function(){
-    if(!this.state.showRandom){
-      ClassroomActions.randStudent();
-    }
-    this.openRandomModal();
+    ClassroomActions.randStudent();
   },
 
   randGroup: function(){
@@ -164,7 +165,7 @@ var ClassroomDashboard = React.createClass({
             <ClassroomForm closeAddStudentModal={this.closeAddStudentModal}/>
           </Modal>
           <Modal className="randomModal" isOpen={this.state.randomModal} onRequestClose={this.closeRandomModal}>
-            <StudentRandom closeRandomModal={this.closeRandomModal} />
+            <StudentRandom closeRandomModal={this.closeRandomModal}/>
           </Modal>
             {this.state.showGroup ? <StudentGroup/> : null }
           </div>
