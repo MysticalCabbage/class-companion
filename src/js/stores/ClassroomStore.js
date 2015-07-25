@@ -47,7 +47,9 @@ var markAttendance = function(data){
 };
 
 var behaviorClicked = function(data){
+  // add the experience poinst to the student's pokemon
   pokeFunctions.addExperiencePoints(data, _store.info.classId)
+  
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
     return current_value + 1;
   });

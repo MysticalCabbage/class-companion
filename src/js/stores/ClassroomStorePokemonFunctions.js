@@ -21,6 +21,7 @@ var getNewPokemon = function(studentId, classId, specificPokemonAPIUrl, currentL
       pokemonDirectory._spriteData = pokemonSpriteData;
       pokemonDirectory._spriteUrl = "http://pokeapi.co" + pokemonSpriteData.image
       pokemonDirectory.profile = defaultPokemonProfile;
+      // set hasAPokemon to true to indicate this isn't dummy data
       pokemonDirectory.hasAPokemon = true;
       sendServerPokemon(studentId, classId, pokemonDirectory);
     }, function(error) {

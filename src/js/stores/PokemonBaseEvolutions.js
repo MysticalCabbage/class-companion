@@ -99,7 +99,7 @@ var pokemonThatAreTheResultOfNonLevelEvolutions = {
   136: true,
 };
 
-// returns true if the given pokemon is a pokemon that is the result of a prior level evolution
+// returns true if the given pokemon is the result of a prior level evolution
 var checkIfPokemonIsAnEvolutionaryForm = function(pokemonNumber) {
   if (pokemonThatAreBaseEvolutions[pokemonNumber] 
       || pokemonThatAreNotEvolutionaryLine[pokemonNumber]
