@@ -1,5 +1,5 @@
 var $ = require('jquery')
-var Q = require('Q')
+var Q = require('q')
 var pokemonBaseEvolutions = require('../stores/PokemonBaseEvolutions')
 
 // finds a pokemon that is not a pokemon that is evolved into
