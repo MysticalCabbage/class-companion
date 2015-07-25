@@ -67,18 +67,18 @@ var ClassroomStudent = React.createClass({
 
     return (
       <div className="col-md-3" >
-          { this.props.attendance ? 
-          <div className="attendanceButton btn-group" role="group" aria-label="attendanceButtonBar">
-            { this.state.toggle === 'Present' ? 
-            <button type="button" onClick={this.markAttendance.bind(this, 'Late')} className="btn btn-success">Present</button>
-            : null }
-            { this.state.toggle === 'Late' ? 
-            <button type="button" onClick={this.markAttendance.bind(this, 'Absent')} className="btn btn-warning">Late</button>
-            : null }
-            { this.state.toggle === 'Absent' ? 
-            <button type="button" onClick={this.markAttendance.bind(this, 'Present')} className="btn btn-danger">Absent</button>
-            : null }
-          </div>
+        { this.props.attendance ? 
+        <div className="attendanceButton btn-group" role="group" aria-label="attendanceButtonBar">
+          { this.state.toggle === 'Present' ? 
+          <button type="button" onClick={this.markAttendance.bind(this, 'Late')} className="btn btn-success">Present</button>
+          : null }
+          { this.state.toggle === 'Late' ? 
+          <button type="button" onClick={this.markAttendance.bind(this, 'Absent')} className="btn btn-warning">Late</button>
+          : null }
+          { this.state.toggle === 'Absent' ? 
+          <button type="button" onClick={this.markAttendance.bind(this, 'Present')} className="btn btn-danger">Absent</button>
+          : null }
+        </div>
         : null }
         {this.props.showBehavior ? 
         <div className="image">

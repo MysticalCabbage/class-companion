@@ -7,8 +7,6 @@ var ClassroomActions = require('../actions/ClassroomActions');
 var Navbar = require('./Navbar.react');
 var BehaviorDashboard = require('./BehaviorReport.react');
 var _ = require('underscore');
-var Router = require('react-router');
-var Link = Router.Link;
 
 var ReportsDashboard = React.createClass({
 	getInitialState: function(){
@@ -69,7 +67,7 @@ var ReportsDashboard = React.createClass({
   },
 
   render: function(){
-    
+    var url = '#/classroomDashboard/' + this.props.classId;
     return (
       <div className="reportsDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
@@ -79,7 +77,7 @@ var ReportsDashboard = React.createClass({
               <div id="navbar" className="navbar-collapse collapsed">
                 <ul className="nav navbar-nav">
                   <li>
-                    <Link to="/"><i className="fa fa-arrow-left"> Back to classroom</i></Link>
+                    <a href={url}><i className="fa fa-arrow-left"> Back to classroom</i></a>
                   </li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
