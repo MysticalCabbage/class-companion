@@ -93,7 +93,7 @@ var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePoin
       var amountOfLeftoverExp = accumulatedExp % (profileData.expToNextLevel * numberOfTimesToLevelUp)
       firebasePokemonDirectoryRef.child('profile').child('level').transaction(function(current_value) {
           var newLevel = current_value + numberOfTimesToLevelUp
-          var pokemonToEvolveToUrl = checkIfNeedToEvolve(pokemonDirectoryData)
+          var pokemonToEvolveToUrl = checkIfNeedToEvolve(newLevel, pokemonDirectoryData)
           if (pokemonToEvolveToUrl) {
             getNewPokemon(studentId, classId, pokemonToEvolveToUrl)
           } else {
@@ -110,9 +110,7 @@ var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePoin
 // if the pokemon needs to evolve
 // then this function returns the URL of the pokemon to evolve to (truthy)
 // else if the pokemon does not need to evolve, return null (falsey)
-var checkIfNeedToEvolve = function(pokemonDirectoryData) {
-
-  var currentLevel = pokemonDirectoryData.val().profile.level
+var checkIfNeedToEvolve = function(newLevel, pokemonDirectoryData) {
   var evolutions = pokemonDirectoryData.val()._pokemonData.evolutions
 
   // if the pokemon is capable of evolving into other pokemon
@@ -122,7 +120,7 @@ var checkIfNeedToEvolve = function(pokemonDirectoryData) {
     // for each evolution
     for (var i = 0; i < evolutions.length; i++) {
       // if the current pokemon should evolve into the new pokemon by leveling up
-      if (currentLevel >= evolutions[i].level && evolutions[i].method === "level_up") {
+      if (newLevel >= evolutions[i].level && evolutions[i].method === "level_up") {
         // return the api uri call for the new pokemon
         return evolutions[i].resource_uri
       }

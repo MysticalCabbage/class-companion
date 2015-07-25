@@ -2,6 +2,7 @@ var $ = require('jquery')
 var Q = require('Q')
 var pokemonBaseEvolutions = require('../stores/PokemonBaseEvolutions')
 
+// finds a pokemon that is not a pokemon that is evolved into
 var generateRandomOriginalPokemonNumber = function() {
   var randomPokemonNumber;
   var baseEvolutionFound = false;

@@ -81,7 +81,7 @@ var pokemonThatAreBaseEvolutions = {
   140: true,
   147: true, 
 }
-
+// returns true if the given pokemon is a pokemon that is the result of a prior evolution
 var checkIfPokemonIsAnEvolutionaryForm = function(pokemonNumber) {
   if (pokemonThatAreBaseEvolutions[pokemonNumber] || pokemonThatAreNotEvolutionaryLine[pokemonNumber]) {
     return false;
