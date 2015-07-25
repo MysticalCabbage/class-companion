@@ -28,44 +28,43 @@ var AttendanceCalendar = React.createClass({
 
 	render: function() {
 		return (
-			<div className="panel panel-primary">
+			<div className="attendanceCalendar panel panel-primary">
 			  <div className="panel-heading">
 			    <h3 className="panel-title">Attendance</h3>
 			  </div>
 			  <div className="panel-body">
-			  	<div className="attendanceCalendar">
-			  		<nav>
-			  		  <ul className="pagination">
-			  		    <li>
-			  		      <a onClick={this.previous} aria-label="Previous">
-			  		        <span aria-hidden="true">&laquo;</span>
-			  		      </a>
-			  		    </li>
-			  		    {this.renderMonthLabel()}
-			  		    <li>
-			  		      <a onClick={this.next} aria-label="Next">
-			  		        <span aria-hidden="true">&raquo;</span>
-			  		      </a>
-			  		    </li>
-			  		  </ul>
-			  		</nav>
-			  		<table className="attendanceCalendar table table-bordered">
-			  			<thead>
-			  			  <tr>
-			  			    <th className="warning">Sunday</th>
-			  			    <th className="danger">Monday</th>
-			  			    <th className="info">Tuesday</th>
-			  			    <th className="warning">Wednesday</th>
-			  			    <th className="danger">Thursday</th>
-			  			    <th className="info">Friday</th>
-			  			    <th className="warning">Saturday</th>
-			  			  </tr>
-			  		  </thead>
-			  		  <tbody>
-			  		  {this.renderWeeks()}
-			  		  </tbody>
-			  		</table>
-			  	</div>
+			    <nav>
+			      <ul className="pagination">
+			        <li>
+			          <a onClick={this.previous} aria-label="Previous">
+			            <span aria-hidden="true">&laquo;</span>
+			          </a>
+			        </li>
+			        {this.renderMonthLabel()}
+			        <li>
+			          <a onClick={this.next} aria-label="Next">
+			            <span aria-hidden="true">&raquo;</span>
+			          </a>
+			        </li>
+			      </ul>
+			    </nav>
+		  		
+		  		<table className="attendanceCalendar table table-bordered">
+		  			<thead>
+		  			  <tr>
+		  			    <th className="warning">Sunday</th>
+		  			    <th className="danger">Monday</th>
+		  			    <th className="info">Tuesday</th>
+		  			    <th className="warning">Wednesday</th>
+		  			    <th className="danger">Thursday</th>
+		  			    <th className="info">Friday</th>
+		  			    <th className="warning">Saturday</th>
+		  			  </tr>
+		  		  </thead>
+		  		  <tbody>
+		  		  {this.renderWeeks()}
+		  		  </tbody>
+		  		</table>
 			  </div>
 			</div>
 		)

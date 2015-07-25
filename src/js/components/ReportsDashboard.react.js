@@ -7,6 +7,8 @@ var ClassroomActions = require('../actions/ClassroomActions');
 var Navbar = require('./Navbar.react');
 var BehaviorDashboard = require('./BehaviorReport.react');
 var _ = require('underscore');
+var Router = require('react-router');
+var Link = Router.Link;
 
 var ReportsDashboard = React.createClass({
 	getInitialState: function(){
@@ -52,12 +54,47 @@ var ReportsDashboard = React.createClass({
     });
   },
 
+  showAttendanceCalendar: function(){
+    this.setState({
+      showAttendanceCalendar: true,
+      showBehaviorDashboard: false
+    });
+  },
+
+  showBehaviorDashboard: function(){
+    this.setState({
+      showAttendanceCalendar: false,
+      showBehaviorDashboard: true
+    });
+  },
+
   render: function(){
     
     return (
       <div className="reportsDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
+          <nav className="classroomNavbar container navbar navbar-default">
+            <div className="container-fluid">
+              <div id="navbar" className="navbar-collapse collapsed">
+                <ul className="nav navbar-nav">
+                  <li>
+                    <Link to="/"><i className="fa fa-arrow-left"> Back to classroom</i></Link>
+                  </li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                  <li>
+                    <a onClick={this.showBehaviorDashboard}><i className="fa fa-star"><span> Student Behavior</span></i></a>
+                  </li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                  <li>
+                    <a onClick={this.showAttendanceCalendar}><i className="fa fa-calendar"><span> Attendance</span></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
           {this.state.showBehaviorDashboard? 
             <BehaviorDashboard who={this.state.who} />
           : null}

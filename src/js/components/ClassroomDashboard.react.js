@@ -192,7 +192,6 @@ var ClassroomDashboard = React.createClass({
       )
     });
     return (
-
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <ClassroomNavbar 

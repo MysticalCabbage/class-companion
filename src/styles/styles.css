@@ -38,6 +38,11 @@ a, a:visited, a:hover, a:active {
 	font-size: 11px;
 }
 
+.pagination{
+	float: right;
+	margin-top: 0;
+}
+
 /*AttendanceNavbar*/
 .attendanceNavbar{
 	margin-bottom: 15px;
