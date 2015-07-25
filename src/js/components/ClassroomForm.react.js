@@ -28,7 +28,6 @@ var ClassroomForm = React.createClass({
       setBehavior[key] = 0;
     }
     ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0  });
-    console.log("newstudentis",newStudent);
     React.findDOMNode(this.refs.newStudent).value = '';
     this.props.closeAddStudentModal();
   },
@@ -38,12 +37,12 @@ var ClassroomForm = React.createClass({
       <div className="classroomForm">
         <div className="well text-center">
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeAddStudentModal}><span aria-hidden="true">&times;</span></button>
-          <form>
-            <label htmlFor="">Add student</label>
+          <form onSubmit={this.handleAddStudent}> 
+            <label>Add student</label>
             <div className="form-group">
-              <input type="text" ref="newStudent" id="newStudent" className="form-control" placeholder="Example: Pikachu"  />
+              <input type="text" ref="newStudent" id="newStudent" className="form-control" placeholder="Example: Pikachu" required />
             </div>
-            <button type="submit" id="addNewStudent" onClick={this.handleAddStudent} className="btn btn-primary btn-block submit-button">Add student!</button>
+            <button type="submit" id="addNewStudent" className="btn btn-primary btn-block submit-button">Add student!</button>
           </form>
         </div> 
       </div>

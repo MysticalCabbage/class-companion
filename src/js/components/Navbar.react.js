@@ -13,7 +13,7 @@ var Navbar = React.createClass({
       <nav className="navbar navbar-default">
         <div className="container">
           <div className="navbar-header">
-            <Link to="/" className="navbar-brand">Mystical Cabbage</Link>
+            <Link to="/" className="navbar-brand">Class Companion</Link>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             { this.props.loggedIn ? 

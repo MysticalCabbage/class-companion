@@ -17,7 +17,8 @@ var gutil = require('gulp-util');
 gulp.task('watch', function() {
   // If something does change, run the copy task
   gulp.watch('src/index.html', ['copyHTML']);
-  gulp.watch('src/styles/*.css', ['copyStyles']);
+  gulp.watch('src/styles/*.css', ['copyCSS']);
+  gulp.watch('src/assets/*', ['copyAssets']);
 
   // Watchify will cache our files and watch for changes, only updating the necessary changes
   // Here we're passing browserify an object to set up the configurations for our browserify build
@@ -90,8 +91,8 @@ gulp.task('copyCSS',function() {
 });
 
 gulp.task('copyAssets',function() {
- gulp.src('src/assets')
-   .pipe(gulp.dest('dist/'));
+ gulp.src('src/assets/*')
+   .pipe(gulp.dest('dist/assets'));
 });
 
 gulp.task('build', function(){
@@ -112,3 +113,7 @@ gulp.task('default', function(){
 gulp.task('production', function(){
  runSequence('clean', 'copyAssets', 'copyCSS', 'build', 'replaceHTML');
 });
+
+gulp.task('heroku:production', function(){
+  runSeq('clean', 'build', 'minify')
+})

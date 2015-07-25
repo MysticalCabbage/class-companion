@@ -60,13 +60,16 @@ var ClassroomStudent = React.createClass({
             : null }
           </div>
         : null }
+        {this.props.showBehavior ? 
+        <div className="image">
+          <img className="behaviorImg" src="./assets/behaviorStar.png" alt="" />
+          <p className="behaviorPoints">{this.props.behavior}</p>
+        </div>
+        : null}
         <div className="well classroomStudent" onClick={this.openBehaviorModal}>
           <div>
             <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
           </div>
-          <div>
-            <span className="label label-default">{this.props.behavior}</span>
-          </div>  
           <div>
             <div>{this.props.studentTitle}</div>
           </div>
