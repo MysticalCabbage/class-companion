@@ -12,7 +12,6 @@ var getNewPokemon = function(studentId, classId, specificPokemonAPIUrl, currentL
   var spriteUrl;
   var defaultPokemonProfile = {level: currentLevel, currentExp: 1, expToNextLevel: 20}
   var pokemonDirectory = {};
-  console.log('trying to get a pokemon for', studentId)
 
   pokemonAPIUtils.getNewPokemonFromServer(specificPokemonAPIUrl).then(function(pokemonData) {
     spriteUrl = pokemonData.sprites[0].resource_uri

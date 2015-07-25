@@ -61,7 +61,7 @@ var ClassroomActions = {
       actionType: ClassroomConstants.END_SELECT_QUERY,
       data: null
     });
-  }
+  },
   getNewPokemon: function(studentId) {
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.GET_NEW_POKEMON,
