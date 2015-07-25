@@ -5,9 +5,7 @@ var TeacherStore = require('../stores/TeacherStore');
 var TeacherForm = require('./TeacherForm.react');
 var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
-var Router = require('react-router');
 var Modal = require('react-modal');
-var Link = Router.Link;
 var _ = require('underscore');
 
 var appElement = document.app;
@@ -85,7 +83,7 @@ var TeacherDashboard = React.createClass({
             {classNodes}
             <div className="teacherClass col-md-3">
               <div className="well">
-                <a onClick={this.openModal}>Add Class</a>
+                <a onClick={this.openModal}>+ Add Class</a>
               </div>
             </div>
             <Modal className="teacherModal" isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal}>

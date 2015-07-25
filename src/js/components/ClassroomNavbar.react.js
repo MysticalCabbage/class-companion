@@ -28,27 +28,32 @@ var ClassroomNavbar = React.createClass({
           <div id="navbar" className="navbar-collapse collapsed">
             <ul className="nav navbar-nav">
               <li>
-                <a onClick={this.handleAttendance}><i className="fa fa-check-square-o"><span> Attendance</span></i></a>
-              </li>
-            </ul>
-            <ul className="nav navbar-nav">
-              <li>
-                <a onClick={this.selectRandom}><i className="fa fa-random"><span> Random</span></i></a>
-              </li>
-            </ul>
-            <ul className="nav navbar-nav">
-              <li>
-                <a onClick={this.selectGroup}><i className="fa fa-users"><span> Group</span></i></a>
-              </li>
-            </ul>
-            <ul className="nav navbar-nav">
-              <li>
-                <a onClick={this.showTimerOptions}><i className="fa fa-clock-o"><span> Timer</span></i></a>
+                <a href={'#/teacherDashboard/'}><i className="fa fa-arrow-left"> Back to classes</i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
                 <a href={url}><i className="fa fa-pie-chart"><span> Reports</span></i></a>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a onClick={this.handleAttendance}><i className="fa fa-check-square-o"><span> Attendance</span></i></a>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a onClick={this.selectRandom}><i className="fa fa-random"><span> Random</span></i></a>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a onClick={this.selectGroup}><i className="fa fa-users"><span> Group</span></i></a>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a onClick={this.showTimerOptions}><i className="fa fa-clock-o"><span> Timer</span></i></a>
               </li>
             </ul>
           </div>
