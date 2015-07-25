@@ -61,7 +61,7 @@ var ClassroomStudent = React.createClass({
     var level = this.props.pokemon.profile.level;
     var currentExpPercentage = Math.floor((currentExp / expToNextLevel) * 100)
     var progressBarStyle = {
-      'min-width': '2em',
+      'min-width': '3em',
       width: currentExpPercentage + '%'
     }
 
@@ -111,7 +111,7 @@ var ClassroomStudent = React.createClass({
           <div>
             <div className="progress">
               <div className="progress-bar" role="progressbar" aria-valuenow={currentExpPercentage} aria-valuemin="0" aria-valuemax={expToNextLevel} style={progressBarStyle}>
-                {currentExpPercentage}%
+                {currentExp}
               </div>
             </div>
           </div>
