@@ -38,31 +38,31 @@ var Signup = React.createClass({
           <h2>Signup</h2>
           <form className="form-horizontal" id="frmSignup" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label for="txtPrefix" className="col-sm-3 control-label">Prefix</label>
+              <label htmlFor="txtPrefix" className="col-sm-3 control-label">Prefix</label>
               <div className="col-sm-9">
                 <input type="text" className="form-control" id="txtPrefix" placeholder="Mr/Ms/Mrs" ref="prefix" required/>
               </div>
             </div>
             <div className="form-group">
-              <label for="txtFirstName" className="col-sm-3 control-label">First Name</label>
+              <label htmlFor="txtFirstName" className="col-sm-3 control-label">First Name</label>
               <div className="col-sm-9">
                 <input type="text" className="form-control" placeholder="First Name" ref="firstName" required/>
               </div>
             </div>
             <div className="form-group">
-              <label for="txtLastName" className="col-sm-3 control-label">Last Name</label>
+              <label htmlFor="txtLastName" className="col-sm-3 control-label">Last Name</label>
               <div className="col-sm-9">
                 <input type="text" className="form-control" placeholder="Last Name" ref="lastName" required/>
               </div>
             </div>
             <div className="form-group">
-              <label for="txtRegEmail" className="col-sm-3 control-label">Email</label>
+              <label htmlFor="txtRegEmail" className="col-sm-3 control-label">Email</label>
               <div className="col-sm-9">
                 <input type="email" className="form-control" id="txtEmail" placeholder="Enter email" ref="email" required/>
               </div>
             </div>
             <div className="form-group">
-              <label for="txtRegPass" className="col-sm-3 control-label">Password</label>
+              <label htmlFor="txtRegPass" className="col-sm-3 control-label">Password</label>
               <div className="col-sm-9">
                 <input type="password" className="form-control" id="txtPass" placeholder="Password" ref="password" required/>
               </div>

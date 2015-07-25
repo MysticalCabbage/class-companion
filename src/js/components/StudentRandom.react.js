@@ -13,7 +13,7 @@ var StudentRandom = React.createClass({
       <div className="panel panel-info StudentRandom">
         <div className="panel-heading">
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeRandomModal}><span aria-hidden="true">&times;</span></button>
-          <h3 className="panel-title">Random Pick</h3>
+          <h3 className="panel-title">Selected Student</h3>
         </div>
         <div className="panel-body">
           <div className="row">

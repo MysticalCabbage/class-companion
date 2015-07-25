@@ -39,7 +39,7 @@ var ClassroomForm = React.createClass({
         <div className="well text-center">
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeAddStudentModal}><span aria-hidden="true">&times;</span></button>
           <form>
-            <label for="">Add student</label>
+            <label htmlFor="">Add student</label>
             <div className="form-group">
               <input type="text" ref="newStudent" id="newStudent" className="form-control" placeholder="Example: Pikachu"  />
             </div>

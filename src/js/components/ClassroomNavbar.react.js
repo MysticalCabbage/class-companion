@@ -12,12 +12,12 @@ var ClassroomNavbar = React.createClass({
     this.props.showTimerOptions();
   },
 
-  pickRandom: function(){
+  selectRandom: function(){
     this.props.randStudent();
   },
 
-  pickGroup: function(){
-    this.props.randGroup();
+  selectGroup: function(){
+    this.props.openGroupModal();
   },
 
   render: function() {
@@ -33,12 +33,12 @@ var ClassroomNavbar = React.createClass({
             </ul>
             <ul className="nav navbar-nav">
               <li>
-                <a onClick={this.pickRandom}><i className="fa fa-random"> Random</i></a>
+                <a onClick={this.selectRandom}><i className="fa fa-random"> Random</i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav">
               <li>
-                <a onClick={this.pickGroup}><i className="fa fa-users"> Group</i></a>
+                <a onClick={this.selectGroup}><i className="fa fa-users"> Group</i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav">

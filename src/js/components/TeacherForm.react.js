@@ -31,7 +31,7 @@ var TeacherForm = React.createClass({
         <div className="well text-center">
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeModal}><span aria-hidden="true">&times;</span></button>
           <form onSubmit={this.handleAddClass}>
-            <label for="">Give your class a name</label>
+            <label htmlFor="">Give your class a name</label>
             <div className="form-group">
               <input type="text" ref="newClass" id="newClass" className="form-control" placeholder="Example: JD's English Class" />
             </div>

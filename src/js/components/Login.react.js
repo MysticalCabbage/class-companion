@@ -35,13 +35,13 @@ var Login = React.createClass({
           <h2>Login</h2>
           <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label for="txtEmail" className="col-sm-3 control-label">Email</label>
+              <label htmlFor="txtEmail" className="col-sm-3 control-label">Email</label>
               <div className="col-sm-9">
                 <input type="email" className="form-control" id="txtEmail" placeholder="Enter email" ref="email" required/>
               </div>
             </div>
             <div className="form-group">
-              <label for="txtPass" className="col-sm-3 control-label">Password</label>
+              <label htmlFor="txtPass" className="col-sm-3 control-label">Password</label>
               <div className="col-sm-9">
                 <input type="password" className="form-control" id="txtPass" placeholder="Password" ref="password" required/>
               </div>

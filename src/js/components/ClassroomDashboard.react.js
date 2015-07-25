@@ -28,8 +28,8 @@ var ClassroomDashboard = React.createClass({
       loggedIn: AuthStore.checkAuth(),
       showAttendance: false,
       showResults: false,
-      showGroup: false,
       addStudentModalIsOpen: false, 
+      groupModal: false,
       randomModal: false
     }
   },
@@ -83,6 +83,14 @@ var ClassroomDashboard = React.createClass({
     this.setState({randomModal: false});
   },
 
+  openGroupModal: function(){
+    this.setState({groupModal: true});
+  },
+
+  closeGroupModal: function() {
+    this.setState({groupModal: false});
+  },
+
   handleAttendance: function(){
     this.setState({
       showAttendance: !this.state.showAttendance,
@@ -118,11 +126,16 @@ var ClassroomDashboard = React.createClass({
     ClassroomActions.randStudent();
   },
 
-  randGroup: function(){
-    if(!this.state.showGroup){
-      ClassroomActions.randGroup();
-    }
-    this.setState({showGroup : !this.state.showGroup});
+  randGroup: function(e){
+    e.preventDefault();
+
+    var groupSizeNode = React.findDOMNode(this.refs.groupSize);
+    var groupSize = groupSizeNode.value;
+    groupSizeNode.value = '';
+
+    ClassroomActions.randGroup(groupSize);
+
+    this.closeGroupModal();
   },
 
   render: function(){
@@ -148,7 +161,7 @@ var ClassroomDashboard = React.createClass({
           onAttendanceClick={this.handleAttendance} 
           showTimerOptions={this.showTimerOptions} 
           randStudent={this.randStudent} 
-          randGroup={this.randGroup} />
+          openGroupModal={this.openGroupModal} />
         {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
         <div className="container">
           <div className="row">
@@ -167,7 +180,16 @@ var ClassroomDashboard = React.createClass({
           <Modal className="randomModal" isOpen={this.state.randomModal} onRequestClose={this.closeRandomModal}>
             <StudentRandom closeRandomModal={this.closeRandomModal}/>
           </Modal>
-            {this.state.showGroup ? <StudentGroup/> : null }
+          <Modal className="groupModal" isOpen={this.state.groupModal} onRequestClose={this.closeGroupModal}>
+            <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.randGroup}>
+              <div className="form-group">
+                <label htmlFor="txtGroupSize" className="col-sm-3 control-label">Group Size</label>
+                <div className="col-sm-9">
+                  <input pattern="[0-9]*" className="form-control" placeholder="Group Size" ref="groupSize" required/>
+                </div>
+              </div>
+            </form>
+          </Modal>
           </div>
         </div>
       </div>

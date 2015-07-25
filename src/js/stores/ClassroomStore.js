@@ -137,6 +137,7 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   getToday: function(){
     return _store.today;
   },
+
   getGraph: function(){
     return _store.graph;
   }
