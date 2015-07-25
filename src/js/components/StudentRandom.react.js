@@ -1,29 +1,12 @@
 var React = require('react');
 var StudentSelectionStore = require('../stores/StudentSelectionStore');
+var ClassroomStore = require('../stores/ClassroomStore');
 
 var StudentRandom = React.createClass({
   getInitialState: function(){
     return {
-      random: StudentSelectionStore.getRandom()
+      random: ClassroomStore.getList()[StudentSelectionStore.getRandom()]
     }
-  },
-
-  componentDidMount: function(){ 
-    StudentSelectionStore.addChangeListener(this._onChange);
-  },
-
-  componentWillUnmount: function(){
-    StudentSelectionStore.removeChangeListener(this._onChange);
-  },
-
-  _onChange: function(){
-    this.setState({
-      random: StudentSelectionStore.getRandom()
-    });
-  },
-
-  closeModal: function(){
-    console.log('close');
   },
   render: function(){
     return (
@@ -34,7 +17,7 @@ var StudentRandom = React.createClass({
         </div>
         <div className="panel-body">
           <div className="row">
-            {this.state.random.studentTitle}
+            {this.state.random ? this.state.random.studentTitle : null}
           </div>
         </div>
       </div>
