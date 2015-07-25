@@ -61,7 +61,7 @@ var ClassroomStudent = React.createClass({
           </div>
         : null }
         <div className="image">
-          <img className="img" src="./assets/behaviorStar.png" alt="" />
+          <img className="behaviorImg" src="./assets/behaviorStar.png" alt="" />
           <p className="behaviorPoints">{this.props.behavior}</p>
         </div>  
         <div className="well classroomStudent" onClick={this.openBehaviorModal}>

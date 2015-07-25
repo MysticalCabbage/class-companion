@@ -167,11 +167,13 @@ var ClassroomDashboard = React.createClass({
           <div className="row">
             {this.state.showResults ? <TimerBar/> : null}
           </div>
+
           <div className="row">
-          {studentNodes}
-          <div className="classroom col-md-3">
-            <div className="well">
-              <a onClick={this.openAddStudentModal}>Add Student</a>
+            {studentNodes}
+            <div className="classroom col-md-3">
+              <div className="well">
+                <a onClick={this.openAddStudentModal}>Add Student</a>
+              </div>
             </div>
           </div>
           <Modal className="classModal" isOpen={this.state.addStudentModalIsOpen} onRequestClose={this.closeAddStudentModal}>
