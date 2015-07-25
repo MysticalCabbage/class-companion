@@ -4,11 +4,13 @@ var pokemonAPIUtils = require('../utils/PokemonWebAPIUtils');
 var ClassroomStore = require('./ClassroomStore');
 
 
-var getNewPokemon = function(studentId, classId, specificPokemonAPIUrl) {
+var getNewPokemon = function(studentId, classId, specificPokemonAPIUrl, currentLevel) {
   // if no specific pokemon url was passed in, set the value to null
   var specificspecificPokemonAPIUrl = specificPokemonAPIUrl || null
+  // if no level was passed in (if this call is not the result of evolving) set level to 1
+  var currentLevel = currentLevel || 1;
   var spriteUrl;
-  var defaultPokemonProfile = {level: 1, currentExp: 1, expToNextLevel: 20}
+  var defaultPokemonProfile = {level: currentLevel, currentExp: 1, expToNextLevel: 20}
   var pokemonDirectory = {};
   console.log('trying to get a pokemon for', studentId)
 
@@ -95,7 +97,7 @@ var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePoin
           var newLevel = current_value + numberOfTimesToLevelUp
           var pokemonToEvolveToUrl = checkIfNeedToEvolve(newLevel, pokemonDirectoryData)
           if (pokemonToEvolveToUrl) {
-            getNewPokemon(studentId, classId, pokemonToEvolveToUrl)
+            getNewPokemon(studentId, classId, pokemonToEvolveToUrl, newLevel)
             // eject from the function so the pokemon doesn't evolve twice
             return
           } else {
