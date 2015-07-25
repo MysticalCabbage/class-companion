@@ -36,11 +36,6 @@ var ClassroomStudent = React.createClass({
     }
   },
 
-  debugAddExperiencePoints: function() {
-    var expPointsToAdd = this.state.expInput || 1
-    ClassroomActions.behaviorClicked(this.props.studentId, 0, expPointsToAdd)
-  },
-
 
   markAttendance: function(attendance){
     this.props.markAttendance(this.props.studentId, attendance);
@@ -94,7 +89,13 @@ var ClassroomStudent = React.createClass({
             <img src={this.props.pokemon._spriteUrl} />
           </div>
           <div>
-            <div>{this.props.pokemon.profile.currentExp}</div>
+            <h5>Current Exp: {this.props.pokemon.profile.currentExp}</h5>
+          </div>
+          <div>
+            <h5>Current Level: {this.props.pokemon.profile.level}</h5>
+          </div>
+          <div>
+            <h5>Exp to next Level: {this.props.pokemon.profile.expToNextLevel}</h5>
           </div>
           <Modal className="behaviorModal" isOpen={this.state.behaviorModalIsOpen} onRequestClose={this.closeBehaviorModal}>
             <BehaviorButtons studentId={this.props.studentId} studentTitle={this.props.studentTitle} closeBehaviorModal={this.closeBehaviorModal} />

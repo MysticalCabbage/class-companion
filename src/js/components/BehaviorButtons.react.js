@@ -18,7 +18,6 @@ var BehaviorButtons = React.createClass({
 
 
   debugAddExperiencePoints: function() {
-    console.log('state', this.state)
     var expPointsToAdd = this.state.expInputValue || 1
     ClassroomActions.behaviorClicked(this.props.studentId, 0, expPointsToAdd)
   },
@@ -48,12 +47,14 @@ var BehaviorButtons = React.createClass({
           <div className="row">
             {studentBehaviors}
           </div>
+          // DEBUG SECTION
           <div>
             <button onClick={this.debugAddExperiencePoints}>Add Points</button>
           </div>
           <div>
             <input type="text" value={this.state.value} onChange={this.debugHandleInputChange}></input>
           </div>
+          // END DEBUG SECTION
         </div>
       </div>
     );

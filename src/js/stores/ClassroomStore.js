@@ -48,6 +48,7 @@ var markAttendance = function(data){
 
 var behaviorClicked = function(data){
   console.log('behavior clicked', data)
+  addExperiencePoints(data)
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
     return current_value + 1;
   });
@@ -99,15 +100,6 @@ var initQuery = function(classId){
       studentsArray.push(newObj);
     }
     _store.graph = studentsArray || [];
-
-    // TEST: add hardcoded pokemon name
-    // for (var student in _store.list) {
-    //   _store.list[student].pokemonName = "Charmander"
-    // }
-    // console.dir(students)
-
-    // TEST: AJAX CALL
-
 
     ClassroomStore.emit(CHANGE_EVENT);
 
@@ -191,39 +183,55 @@ var sendServerPokemon = function(studentId, pokemonDirectory) {
                     .set(pokemonDirectory);
 }
 
-var addExperiencePoint = function(studentId, numberOfExperiencePointsToAdd) {
-   firebaseRef.child('classes/' 
-                    + _store.info.classId 
-                    + '/students/' 
-                    + studentId
-                    + '/pokemon/'
-                    + 'currentExp/'
-                    )
-                    .transaction(function(current_value){
-                      return current_value + numberOfExperiencePointsToAdd;
-                    });  
+var addExperiencePoints = function(data) {
+  var studentId = data.studentId
+  var numberOfExperiencePointsToAdd = data.behaviorValue;
+  var firebasePokemonProfileRef = firebaseRef.child('classes/' 
+                            + _store.info.classId 
+                            + '/students/' 
+                            + studentId
+                            + '/pokemon/'
+                            + 'profile/'
+                            )
+  var profileData;
+  firebasePokemonProfileRef
+    .once('value', function(data){
+      profileData = data.val();
+      // if the pokemon needs to level up
+      if (profileData.currentExp + numberOfExperiencePointsToAdd >= profileData.expToNextLevel) {
+        // level up the pokemon
+        handleLevelUp(firebasePokemonProfileRef, numberOfExperiencePointsToAdd)
+      } 
+      // else if the pokemon does not need to level up
+      else {
+        // increase its experience points by the specified amount
+        firebasePokemonProfileRef.child('currentExp').transaction(function(current_value) {
+          return current_value + numberOfExperiencePointsToAdd
+        });
+      }
+  });
+
 }
 
-var handleLevelUp = function(studentId) {
 
-  var firebasePokemonProfileRef = firebaseRef.child('classes/' 
-                    + _store.info.classId 
-                    + '/students/' 
-                    + studentId
-                    + '/pokemon/'
-                    + 'profile/'
-                    )
+var handleLevelUp = function(firebasePokemonProfileRef, numberOfExperiencePointsToAdd) {
 
   firebasePokemonProfileRef
-    .child('currentExp')
-    .transaction(function(current_value){
-      return 1;
-    });
-  firebasePokemonProfileRef
-    .child('level')
-    .transaction(function(current_value){
-      return current_value + 1;
-    });
+    .once('value', function(data){
+      profileData = data.val();
+      debugger;
+      var accumulatedExp = profileData.currentExp + numberOfExperiencePointsToAdd 
+      var numberOfTimesToLevelUp = Math.floor(accumulatedExp / profileData.expToNextLevel)
+      var amountOfLeftoverExp = accumulatedExp % (profileData.expToNextLevel * numberOfTimesToLevelUp)
+      console.log(accumulatedExp, numberOfTimesToLevelUp, amountOfLeftoverExp)
+      firebasePokemonProfileRef.child('level').transaction(function(current_value) {
+          return current_value + numberOfTimesToLevelUp
+      });
+
+      firebasePokemonProfileRef.child('currentExp').transaction(function(current_value) {
+          return amountOfLeftoverExp
+      });
+  });
 
 }
 
