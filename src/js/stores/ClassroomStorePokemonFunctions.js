@@ -119,8 +119,6 @@ var checkIfNeedToEvolve = function(newLevel, pokemonDirectoryData) {
 
   // if the pokemon is capable of evolving into other pokemon
   if (evolutions) {
-    console.log(evolutions)
-
     // for each evolution
     for (var i = 0; i < evolutions.length; i++) {
       // if the current pokemon should evolve into the new pokemon by leveling up
