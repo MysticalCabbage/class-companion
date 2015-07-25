@@ -204,7 +204,6 @@ var ClassroomDashboard = React.createClass({
               </div>
             </form>
           </Modal>
-          </div>
         </div>
       </div>
     );
