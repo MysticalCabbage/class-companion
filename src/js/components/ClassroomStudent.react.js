@@ -28,7 +28,7 @@ var ClassroomStudent = React.createClass({
     this.setState({behaviorModalIsOpen: false});
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     // if the current student does not have a pokemon
     if (!this.props.pokemon.hasAPokemon) {
       // get a new pokemon for this student
@@ -61,7 +61,7 @@ var ClassroomStudent = React.createClass({
     var level = this.props.pokemon.profile.level;
     var currentExpPercentage = Math.floor((currentExp / expToNextLevel) * 100)
     var progressBarStyle = {
-      'min-width': '3em',
+      'min-width': '2em',
       width: currentExpPercentage + '%'
     }
 
