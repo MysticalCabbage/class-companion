@@ -7,11 +7,13 @@ var generateRandomOriginalPokemonNumber = function() {
 
 
 module.exports = {
-  getRandomPokemon: function() {
-  var pokemonNumber = generateRandomOriginalPokemonNumber()
+  getNewPokemonFromServer: function(pokemonUrl) {
+  // if no specific pokemon API url was given
+  // generate a random pokemon
+  pokemonUrl = pokemonUrl || ("api/v1/pokemon/" + generateRandomOriginalPokemonNumber())
   return Q($.ajax({
       method: "GET",
-      url: "http://pokeapi.co/api/v1/pokemon/" + pokemonNumber,
+      url: "http://pokeapi.co/" + pokemonUrl,
       dataType: "json"
     }));
   },
