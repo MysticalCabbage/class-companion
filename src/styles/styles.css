@@ -137,4 +137,9 @@ a, a:visited, a:hover, a:active {
 /*TimeBar*/
 .timeBar{
 	margin-bottom: 30px;
+	margin-bottom: 15px;
+}
+
+#exampleInputName2 {
+  width:500px;
 }
