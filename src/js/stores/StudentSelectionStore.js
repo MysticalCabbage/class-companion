@@ -91,7 +91,7 @@ var randGroup = function(groupSize){
   var count = 0;
   _.each(shuffled, function(key){
     count++;
-    bucket.push(students[key])
+    bucket.push(key)
 
     if(count%bucketSize === 0){
       groups.push(bucket.slice());

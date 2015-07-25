@@ -183,7 +183,7 @@ var ClassroomDashboard = React.createClass({
           <Modal className="groupModal" isOpen={this.state.groupModal} onRequestClose={this.closeGroupModal}>
             <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.randGroup}>
               <div className="form-group">
-                <label for="txtGroupSize" className="col-sm-3 control-label">Group Size</label>
+                <label htmlFor="txtGroupSize" className="col-sm-3 control-label">Group Size</label>
                 <div className="col-sm-9">
                   <input pattern="[0-9]*" className="form-control" placeholder="Group Size" ref="groupSize" required/>
                 </div>
