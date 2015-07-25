@@ -96,6 +96,8 @@ var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePoin
           var pokemonToEvolveToUrl = checkIfNeedToEvolve(newLevel, pokemonDirectoryData)
           if (pokemonToEvolveToUrl) {
             getNewPokemon(studentId, classId, pokemonToEvolveToUrl)
+            // eject from the function so the pokemon doesn't evolve twice
+            return
           } else {
             return newLevel
           }

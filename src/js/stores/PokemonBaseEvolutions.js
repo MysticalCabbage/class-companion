@@ -14,6 +14,7 @@ var pokemonThatAreNotEvolutionaryLine = {
   126: true,
   128: true,
   131: true,
+  133: true,
   137: true,
   142: true,
   143: true,
@@ -80,10 +81,29 @@ var pokemonThatAreBaseEvolutions = {
   138: true,
   140: true,
   147: true, 
-}
-// returns true if the given pokemon is a pokemon that is the result of a prior evolution
+};
+
+var pokemonThatAreTheResultOfNonLevelEvolutions = {
+  26: true,
+  31: true,
+  34: true,
+  40: true,
+  45: true,
+  59: true,
+  62: true,
+  71: true,
+  91: true,
+  103: true,
+  134: true,
+  135: true,
+  136: true,
+};
+
+// returns true if the given pokemon is a pokemon that is the result of a prior level evolution
 var checkIfPokemonIsAnEvolutionaryForm = function(pokemonNumber) {
-  if (pokemonThatAreBaseEvolutions[pokemonNumber] || pokemonThatAreNotEvolutionaryLine[pokemonNumber]) {
+  if (pokemonThatAreBaseEvolutions[pokemonNumber] 
+      || pokemonThatAreNotEvolutionaryLine[pokemonNumber]
+      || pokemonThatAreTheResultOfNonLevelEvolutions[pokemonNumber]) {
     return false;
   } else {
     return true;
