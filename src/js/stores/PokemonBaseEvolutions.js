@@ -108,8 +108,8 @@ var checkIfPokemonIsAnEvolutionaryForm = function(pokemonNumber) {
   } else {
     return true;
   }
-}
+};
 
 module.exports = {
   'checkIfPokemonIsAnEvolutionaryForm': checkIfPokemonIsAnEvolutionaryForm
-}
+};
