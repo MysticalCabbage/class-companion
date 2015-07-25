@@ -150,8 +150,18 @@ var ClassroomDashboard = React.createClass({
       // create a dummy object with empty strings so the view can load without error
       pokemonDirectory = {
         _pokemonData: {name: ''}, 
-        _spriteUrl: ''};
+        _spriteUrl: '',
+        profile: {currentExp: '', level: '', expToNextLevel: ''}};
     }
+    /*
+                <h5>Current Exp: {this.props.pokemon.profile.currentExp}</h5>
+          </div>
+          <div>
+            <h5>Current Level: {this.props.pokemon.profile.level}</h5>
+          </div>
+          <div>
+            <h5>Exp to next Level: {this.props.pokemon.profile.expToNextLevel}</h5>
+            */
     return pokemonDirectory;
   },
 

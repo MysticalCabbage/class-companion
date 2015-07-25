@@ -156,7 +156,7 @@ var getNewPokemon = function(studentId) {
   var pokemonDirectory = {};
 
   pokemonAPIUtils.getRandomPokemon().then(function(pokemonData) {
-    // if there was an error and there was no pokemon data
+    // if there was an error and there was no pokemon data from the server
     if (!pokemonData) {
       // eject
       return;
