@@ -57,6 +57,11 @@ a, a:visited, a:hover, a:active {
 	height: 160px;
 }
 
+/*ClassroomDashboard*/
+.studentsContainer{
+	margin-top: 25px;
+}
+
 /*ClassroomStudent*/
 .classroomStudent{
 	cursor: pointer;
@@ -126,5 +131,5 @@ a, a:visited, a:hover, a:active {
 
 /*TimeBar*/
 .timeBar{
-	margin-bottom: 15px;
+	margin-bottom: 30px;
 }

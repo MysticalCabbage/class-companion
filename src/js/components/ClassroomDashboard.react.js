@@ -175,7 +175,7 @@ var ClassroomDashboard = React.createClass({
           randStudent={this.randStudent} 
           openGroupModal={this.openGroupModal} />
         {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
-        <div className="container">
+        <div className="studentsContainer container">
           <div className="row">
             {this.state.showResults ? <TimerBar/> : null}
           </div>
