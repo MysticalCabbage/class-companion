@@ -3,6 +3,7 @@ var ClassroomConstants = require('../constants/ClassroomConstants');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var FirebaseStore = require('./FirebaseStore');
+var pokeFunctions = require('./ClassroomStorePokemonFunctions');
 
 var CHANGE_EVENT = 'change';
 
@@ -46,6 +47,9 @@ var markAttendance = function(data){
 };
 
 var behaviorClicked = function(data){
+  // add the experience poinst to the student's pokemon
+  pokeFunctions.addExperiencePoints(data, _store.info.classId)
+  
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
     return current_value + 1;
   });
@@ -97,8 +101,10 @@ var initQuery = function(classId){
       studentsArray.push(newObj);
     }
     _store.graph = studentsArray || [];
+
     ClassroomStore.emit(CHANGE_EVENT);
-  });
+
+    });
 
   firebaseRef.child('timestamp')
     .set(Firebase.ServerValue.TIMESTAMP);
@@ -143,6 +149,9 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   }
 });
 
+
+
+
 AppDispatcher.register(function(payload){
   var action = payload.action;
   switch(action.actionType){
@@ -173,6 +182,8 @@ AppDispatcher.register(function(payload){
       break;
     case ClassroomConstants.GET_BEHAVIORS:
       behaviorChart(action.data);
+    case ClassroomConstants.GET_NEW_POKEMON:
+      pokeFunctions.getNewPokemon(action.data, _store.info.classId)
     default:
       return true;
   }
