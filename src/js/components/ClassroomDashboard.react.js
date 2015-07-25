@@ -138,6 +138,31 @@ var ClassroomDashboard = React.createClass({
 
     this.closeGroupModal();
   },
+  // returns pokemon data object for the view to render
+  makePokemonDirectory: function(studentNode) {
+    var pokemonDirectory;
+    // if the student node already has a pokemon data object
+    if (studentNode.pokemon) {
+      // store the current pokemon data in the pokemon directory object
+      pokemonDirectory = studentNode.pokemon
+    } // else if the student node does not have a pokemon directory object
+    else {
+      /*
+        create a dummy object with empty strings so the view can load without error
+        NOTE: this is necessary because after we create a student, we need
+        to wait for the async call to return and update the student data on the server
+        NOTE: If the console shows a "cannot read property X of undefined" in the ClassroomStudent view,
+        it is likely because this needs an empty string in the corresponding property 
+      */
+      pokemonDirectory = {
+        _pokemonData: {name: ''}, 
+        _spriteUrl: '',
+        profile: {currentExp: '', level: '', expToNextLevel: ''},
+        hasAPokemon: false,
+      }
+    }
+    return pokemonDirectory;
+  },
 
   render: function(){
     var attendance = this.state.showAttendance;
@@ -145,8 +170,10 @@ var ClassroomDashboard = React.createClass({
     var behaviorTypes = this.state.info.behavior;
     var markAttendance = this.markAttendance;
     var today = this.state.today;
+    var context = this;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       var status = null;
+      var pokemonDirectory = context.makePokemonDirectory(studentNode);
       if(studentNode.attendance){
         status = studentNode.attendance[today]
       };
@@ -160,7 +187,8 @@ var ClassroomDashboard = React.createClass({
           behavior={studentNode.behaviorTotal} 
           behaviorActions={behaviorTypes} 
           status={status}
-          showBehavior={showBehavior} />
+          showBehavior={showBehavior} 
+          pokemon={pokemonDirectory} />
       )
     });
     return (
