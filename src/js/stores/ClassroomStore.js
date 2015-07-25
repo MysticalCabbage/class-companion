@@ -3,7 +3,7 @@ var ClassroomConstants = require('../constants/ClassroomConstants');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var FirebaseStore = require('./FirebaseStore');
-var pokemonAPIUtils = require('../utils/PokemonWebAPIUtils')
+var pokeFunctions = require('./ClassroomStorePokemonFunctions');
 
 var CHANGE_EVENT = 'change';
 
@@ -48,7 +48,7 @@ var markAttendance = function(data){
 
 var behaviorClicked = function(data){
   console.log('behavior clicked', data)
-  addExperiencePoints(data)
+  pokeFunctions.addExperiencePoints(data, _store.info.classId)
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
     return current_value + 1;
   });
@@ -105,8 +105,6 @@ var initQuery = function(classId){
 
     });
 
-
-
   firebaseRef.child('timestamp')
     .set(Firebase.ServerValue.TIMESTAMP);
 
@@ -150,89 +148,7 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   }
 });
 
-var getNewPokemon = function(studentId) {
-  var spriteUrl;  
-  var defaultPokemonProfile = {level: 1, currentExp: 1, expToNextLevel: 20}
-  var pokemonDirectory = {};
 
-  pokemonAPIUtils.getRandomPokemon().then(function(pokemonData) {
-    // if there was an error and there was no pokemon data from the server
-    if (!pokemonData) {
-      // eject
-      return;
-    }
-    spriteUrl = pokemonData.sprites[0].resource_uri
-    pokemonAPIUtils.getPokemonSprite(spriteUrl).then(function(pokemonSpriteData) {
-      pokemonDirectory._pokemonData = pokemonData;
-      pokemonDirectory._spriteData = pokemonSpriteData;
-      pokemonDirectory._spriteUrl = "http://pokeapi.co" + pokemonSpriteData.image
-      pokemonDirectory.profile = defaultPokemonProfile;
-      pokemonDirectory.hasAPokemon = true;
-      sendServerPokemon(studentId, pokemonDirectory);
-    })
-  });
-};
-
-
-var sendServerPokemon = function(studentId, pokemonDirectory) {
-  firebaseRef.child('classes/' 
-                    + _store.info.classId 
-                    + '/students/' 
-                    + studentId 
-                    + '/pokemon/'
-                    )
-                    .set(pokemonDirectory);
-}
-
-var addExperiencePoints = function(data) {
-  var studentId = data.studentId
-  var numberOfExperiencePointsToAdd = data.behaviorValue;
-  var firebasePokemonProfileRef = firebaseRef.child('classes/' 
-                            + _store.info.classId 
-                            + '/students/' 
-                            + studentId
-                            + '/pokemon/'
-                            + 'profile/'
-                            )
-  var profileData;
-  firebasePokemonProfileRef
-    .once('value', function(data){
-      profileData = data.val();
-      // if the pokemon needs to level up after adding the new experience points
-      if (profileData.currentExp + numberOfExperiencePointsToAdd >= profileData.expToNextLevel) {
-        // level up the pokemon
-        handleLevelUp(firebasePokemonProfileRef, numberOfExperiencePointsToAdd)
-      } 
-      // else if the pokemon does not need to level up
-      else {
-        // increase its experience points by the specified amount
-        firebasePokemonProfileRef.child('currentExp').transaction(function(current_value) {
-          return current_value + numberOfExperiencePointsToAdd
-        });
-      }
-  });
-
-}
-
-
-var handleLevelUp = function(firebasePokemonProfileRef, numberOfExperiencePointsToAdd) {
-
-  firebasePokemonProfileRef
-    .once('value', function(data){
-      profileData = data.val();
-      var accumulatedExp = profileData.currentExp + numberOfExperiencePointsToAdd 
-      var numberOfTimesToLevelUp = Math.floor(accumulatedExp / profileData.expToNextLevel)
-      var amountOfLeftoverExp = accumulatedExp % (profileData.expToNextLevel * numberOfTimesToLevelUp)
-      firebasePokemonProfileRef.child('level').transaction(function(current_value) {
-          return current_value + numberOfTimesToLevelUp
-      });
-
-      firebasePokemonProfileRef.child('currentExp').transaction(function(current_value) {
-          return amountOfLeftoverExp
-      });
-  });
-
-}
 
 
 AppDispatcher.register(function(payload){
@@ -265,9 +181,8 @@ AppDispatcher.register(function(payload){
       break;
     case ClassroomConstants.GET_BEHAVIORS:
       behaviorChart(action.data);
-    // Pokemon Server Actions
     case ClassroomConstants.GET_NEW_POKEMON:
-      getNewPokemon(action.data)
+      pokeFunctions.getNewPokemon(action.data, _store.info.classId)
     default:
       return true;
   }

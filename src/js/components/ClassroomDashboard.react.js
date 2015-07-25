@@ -151,9 +151,7 @@ var ClassroomDashboard = React.createClass({
         create a dummy object with empty strings so the view can load without error
         NOTE: this is necessary because after we create a student, we need
         to wait for the async call to return and update the student data on the server
-        NOTE: anytime we reference a property in the ClassroomStudent view, we must
-        include a corresponding empty string value into this dummy directory to prevent an error
-        If the console shows a "cannot read property X of undefined" in the ClassroomStudent view,
+        NOTE: If the console shows a "cannot read property X of undefined" in the ClassroomStudent view,
         it is likely because this needs an empty string in the corresponding property 
       */
       pokemonDirectory = {
