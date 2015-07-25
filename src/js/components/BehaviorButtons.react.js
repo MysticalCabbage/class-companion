@@ -20,8 +20,8 @@ var BehaviorButtons = React.createClass({
     var buttonClicked = this.buttonClicked;
     var studentBehaviors = _.map(this.state.info.behavior, function(points, index){
       return (        
-        <div className="behaviorThumbnail col-xs-6">
-          <a className="thumbnail" key={index} onClick={buttonClicked.bind(null, points, index)}>
+        <div className="behaviorThumbnail col-xs-6" key={index}>
+          <a className="thumbnail" onClick={buttonClicked.bind(null, points, index)}>
             {index}
           </a>
         </div>
