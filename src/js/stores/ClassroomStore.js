@@ -47,6 +47,7 @@ var markAttendance = function(data){
 };
 
 var behaviorClicked = function(data){
+  console.log('behavior clicked', data)
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
     return current_value + 1;
   });
@@ -181,7 +182,6 @@ var getNewPokemon = function(studentId) {
 
 
 var sendServerPokemon = function(studentId, pokemonDirectory) {
-  console.log('trying to update server')
   firebaseRef.child('classes/' 
                     + _store.info.classId 
                     + '/students/' 
@@ -211,7 +211,8 @@ var handleLevelUp = function(studentId) {
                     + '/students/' 
                     + studentId
                     + '/pokemon/'
-                    + 'profile/')
+                    + 'profile/'
+                    )
 
   firebasePokemonProfileRef
     .child('currentExp')

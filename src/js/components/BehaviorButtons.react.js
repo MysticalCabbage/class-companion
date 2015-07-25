@@ -16,6 +16,17 @@ var BehaviorButtons = React.createClass({
     ClassroomActions.behaviorClicked(this.props.studentId, index, points)
   },
 
+
+  debugAddExperiencePoints: function() {
+    console.log('state', this.state)
+    var expPointsToAdd = this.state.expInputValue || 1
+    ClassroomActions.behaviorClicked(this.props.studentId, 0, expPointsToAdd)
+  },
+
+  debugHandleInputChange: function(event) {
+    this.setState({expInputValue: parseInt(event.target.value)})
+  },
+
   render: function() {
     var buttonClicked = this.buttonClicked;
     var studentBehaviors = _.map(this.state.info.behavior, function(points, index){
@@ -36,6 +47,12 @@ var BehaviorButtons = React.createClass({
         <div className="panel-body">
           <div className="row">
             {studentBehaviors}
+          </div>
+          <div>
+            <button onClick={this.debugAddExperiencePoints}>Add Points</button>
+          </div>
+          <div>
+            <input type="text" value={this.state.value} onChange={this.debugHandleInputChange}></input>
           </div>
         </div>
       </div>

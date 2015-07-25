@@ -162,10 +162,9 @@ var ClassroomDashboard = React.createClass({
     var markAttendance = this.markAttendance;
     var today = this.state.today;
     var context = this;
-    var pokemonDirectory;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       var status = null;
-      pokemonDirectory = context.makePokemonDirectory(studentNode);
+      var pokemonDirectory = context.makePokemonDirectory(studentNode);
       if(studentNode.attendance){
         status = studentNode.attendance[today]
       };
