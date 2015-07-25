@@ -64,7 +64,7 @@ var addExperiencePoints = function(data, classId) {
       // else if the pokemon does not need to level up
       else {
         // increase its experience points by the specified amount
-        firebasePokemonDirectoryRef.child('currentExp').transaction(function(current_value) {
+        firebasePokemonDirectoryRef.child('profile').child('currentExp').transaction(function(current_value) {
           // if we are trying to decrease the experience, and the result is below zero
           if (current_value + numberOfExperiencePointsToAdd < 0) {
             // return 0 to prevent exprience going into negative
@@ -116,13 +116,14 @@ var checkIfNeedToEvolve = function(pokemonDirectoryData) {
   var evolutions = pokemonDirectoryData.val()._pokemonData.evolutions
 
   // if the pokemon is capable of evolving into other pokemon
-  if (evolutions.length) {
+  if (evolutions) {
+    console.log(evolutions)
+
     // for each evolution
     for (var i = 0; i < evolutions.length; i++) {
       // if the current pokemon should evolve into the new pokemon by leveling up
       if (currentLevel >= evolutions[i].level && evolutions[i].method === "level_up") {
         // return the api uri call for the new pokemon
-        console.log('evolving to', evolutions[i].resource_uri)
         return evolutions[i].resource_uri
       }
     }

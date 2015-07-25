@@ -1,8 +1,19 @@
 var $ = require('jquery')
 var Q = require('Q')
+var pokemonBaseEvolutions = require('../stores/PokemonBaseEvolutions')
 
 var generateRandomOriginalPokemonNumber = function() {
-  return Math.floor(Math.random() * (152 - 1) + 1)
+  var randomPokemonNumber;
+  var baseEvolutionFound = false;
+  while (!baseEvolutionFound) {
+    randomPokemonNumber = Math.floor(Math.random() * (152 - 1) + 1);
+    if (pokemonBaseEvolutions.checkIfPokemonIsAnEvolutionaryForm(randomPokemonNumber)) {
+      continue;
+    } else {
+      baseEvolutionFound = true;
+    }
+  }
+  return randomPokemonNumber;
 };
 
 
