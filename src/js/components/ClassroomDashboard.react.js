@@ -187,7 +187,8 @@ var ClassroomDashboard = React.createClass({
           behavior={studentNode.behaviorTotal} 
           behaviorActions={behaviorTypes} 
           status={status}
-          showBehavior={showBehavior} />
+          showBehavior={showBehavior} 
+          pokemon={pokemonDirectory} />
       )
     });
     return (
