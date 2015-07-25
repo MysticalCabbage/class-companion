@@ -219,7 +219,6 @@ var handleLevelUp = function(firebasePokemonProfileRef, numberOfExperiencePoints
   firebasePokemonProfileRef
     .once('value', function(data){
       profileData = data.val();
-      debugger;
       var accumulatedExp = profileData.currentExp + numberOfExperiencePointsToAdd 
       var numberOfTimesToLevelUp = Math.floor(accumulatedExp / profileData.expToNextLevel)
       var amountOfLeftoverExp = accumulatedExp % (profileData.expToNextLevel * numberOfTimesToLevelUp)
