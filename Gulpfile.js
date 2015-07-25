@@ -16,7 +16,7 @@ var gutil = require('gulp-util');
 // Watch index.html for any changes
 gulp.task('watch', function() {
   // If something does change, run the copy task
-  gulp.watch('src/index.html', ['copy']);
+  gulp.watch('src/index.html', ['copyHTML']);
   gulp.watch('src/styles/*.css', ['copyStyles']);
 
   // Watchify will cache our files and watch for changes, only updating the necessary changes
