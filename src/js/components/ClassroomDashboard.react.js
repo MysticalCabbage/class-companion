@@ -218,7 +218,7 @@ var ClassroomDashboard = React.createClass({
 
     });
 
-    studentGroups = _.flatten(studentGroups);
+    var studentNodes = _.flatten(studentGroups);
 
     return (
       <div className="classroomDashboard">
@@ -236,7 +236,7 @@ var ClassroomDashboard = React.createClass({
           </div>
 
           <div className="row">
-            {studentGroups}
+            {studentNodes}
             <div className="classroom col-md-3">
               <div className="well">
                 <a onClick={this.openAddStudentModal}>+ Add Student</a>
