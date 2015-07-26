@@ -1,5 +1,6 @@
 var React = require('react');
 var Navbar = require('./Navbar.react');
+var AboutUs = require('./AboutUs.react');
 var Login = require('./Login.react');
 var Signup = require('./Signup.react');
 var AuthStore = require('../stores/AuthStore');
@@ -69,9 +70,7 @@ var Home = React.createClass({
     return (
       <div className="home">
       	<Navbar loggedIn={this.state.loggedIn} openLoginModal={this.openLoginModal} openSignupModal={this.openSignupModal} />
-	      <div className="container">
-	      	Hello! I am the home page! Please add content and make me pretty.
-	      </div>
+      	<AboutUs />
 	      <Modal className="loginModal" isOpen={this.state.loginModalIsOpen} onRequestClose={this.closeLoginModal}>
 	      	<Login closeLoginModal={this.closeLoginModal} switchModal={this.switchModal} />
 	      </Modal>
