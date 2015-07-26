@@ -1,21 +1,23 @@
 var React = require('react');
 var Modal = require('react-modal');
-var ClassroomStudent = require('./ClassroomStudent.react');
-var ClassroomActions = require('../actions/ClassroomActions');
-var ClassroomStore = require('../stores/ClassroomStore');
-var ClassroomForm = require('./ClassroomForm.react');
-var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
-var TimerBar = require('./TimerBar.react.js');
-var ClassroomNavbar = require('./ClassroomNavbar.react');
-var AttendanceNavbar = require('./AttendanceNavbar.react');
+var TimerBar = require('./TimerBar.react');
+var AuthStore = require('../stores/AuthStore');
 var StudentRandom = require('./StudentRandom.react');
+var ClassroomForm = require('./ClassroomForm.react');
+var ClassroomStore = require('../stores/ClassroomStore');
+var ClassroomNavbar = require('./ClassroomNavbar.react');
+var ClassroomStudent = require('./ClassroomStudent.react');
+var AttendanceNavbar = require('./AttendanceNavbar.react');
+var ClassroomActions = require('../actions/ClassroomActions');
 var StudentSelectionStore = require('../stores/StudentSelectionStore');
 var _ = require('underscore');
 
 var appElement = document.getElementById('app');
 Modal.setAppElement(appElement);
 Modal.injectCSS();
+
+var randomModalTimer;
 
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
@@ -77,9 +79,14 @@ var ClassroomDashboard = React.createClass({
 
   openRandomModal: function(){
     this.setState({randomModal: true});
+    
+    randomModalTimer = setTimeout(function(){
+      this.closeRandomModal();
+    }.bind(this), 5000);
   },
   
   closeRandomModal: function() {
+    clearTimeout(randomModalTimer);
     this.setState({randomModal: false});
   },
 

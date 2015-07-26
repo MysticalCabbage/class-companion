@@ -1,10 +1,10 @@
-var ClassroomConstants = require('../constants/ClassroomConstants');
-var ClassroomStore = require('./ClassroomStore');
-var AppDispatcher = require('../dispatcher/AppDispatcher');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
-var _ = require('underscore');
 var FirebaseStore = require('./FirebaseStore');
+var ClassroomStore = require('./ClassroomStore');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var ClassroomConstants = require('../constants/ClassroomConstants');
+var _ = require('underscore');
 
 var CHANGE_EVENT = 'change';
 
@@ -13,14 +13,20 @@ var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
   random: null,
-  groups: []
+  groups: [],
+  classId: ''
 };
 
 // Runs when ClassroomDashboard is mounted
 // Queries and listen to Firebase for changes in classes/<classId>/selection/currentSelection
 var initQuery = function(classId){
+  _store.classId = classId;
   var first = true;
-  firebaseRef.child('classes/'+classId+'/selection/currentSelection').on('value', function(snapshot){
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/selection/currentSelection'
+  ).on('value', function(snapshot){
     // ignore null when ClassroomDashboard first mounts
     // ignore previous selected value when page refreshes
     if(first){
@@ -35,14 +41,19 @@ var initQuery = function(classId){
 // Runs when ClassroomDashboard is umounted
 // Ends Firebase listener to /classes/<classId>/selection/currentSelection
 var endQuery = function(){
-  var classId = ClassroomStore.getInfo().classId;
-  // if classId is undefined for some reason, exit
-  if(!classId){
-    return;
-  }
   // Delete Selected student from database
-  firebaseRef.child('classes/'+classId+'/selection/currentSelection').set(null);
-  firebaseRef.child('classes/'+classId+'/selection/currentSelection').off();
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/selection/currentSelection'
+  ).set(null);
+  
+  // Remove listener to currentSelection in Firebase
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/selection/currentSelection'
+  ).off();
 }
 
 // Selects a random student
@@ -66,8 +77,11 @@ var randStudent = function(){
   }
 
   // set randomly selected student's ID to Firebase
-  var classId = ClassroomStore.getInfo().classId;
-  firebaseRef.child('classes/'+classId+'/selection/currentSelection').set(random);
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/selection/currentSelection'
+  ).set(random);
 };
 
 // Select and place students into groups randomly
