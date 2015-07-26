@@ -17,13 +17,18 @@ var _store = {
 };
 
 var addStudent = function(newStudent){
+  // add newStudent object to database and return its id
   var studentId = firebaseRef.child(
     'classes/'
     + _store.info.classId
     + '/students'
   ).push(newStudent).key();
   
-  //StudentSelectionStore.addStudentToGroup(studentId);
+  // StudentSelectionStore.addStudentToGroup(studentId);
+  // because of circular dependancy with stores
+  // adding student to group performed in ClassroomStore 
+
+  // student must also be added to groups with default group 0 
   firebaseRef.child(
     'classes/'
     + _store.info.classId
@@ -33,6 +38,8 @@ var addStudent = function(newStudent){
 };
 
 var removeStudent = function(studentId){
+  // remove student record from Firebase
+  // removing student from groups done in StudentSelectionStore
   firebaseRef.child(
     'classes/'
     + _store.info.classId

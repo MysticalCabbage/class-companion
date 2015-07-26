@@ -22,6 +22,7 @@ var _store = {
 var initQuery = function(classId){
   _store.classId = classId;
   
+  // flag used for ignoring first query
   var first = true;
   
   firebaseRef.child(
@@ -39,6 +40,7 @@ var initQuery = function(classId){
     }
   });
 
+  // listen to Firebase on groups of current class
   firebaseRef.child(
     'classes/'
     + classId
@@ -66,6 +68,7 @@ var endQuery = function(){
     + '/selection/currentSelection'
   ).off();
 
+  // Remove listener to groups in Firebase
   firebaseRef.child(
     'classes/'
     + _store.classId
@@ -81,6 +84,7 @@ var randStudent = function(){
   var random = prevRandom = _store.random;
   var loop = 0;
 
+  // randomly select a new student
   while(random === prevRandom){
     // break infinite loop after 100 tries to get unique selection
     if(loop >= 100){ break; }
@@ -90,6 +94,7 @@ var randStudent = function(){
         random = student;
       }
     }
+    // loop counter in case of infinte loop
     loop++;
   }
 
@@ -110,23 +115,25 @@ var randGroup = function(groupNum){
   var shuffled = [], idx = 0;
   var groups = {};
 
+  // shuffles an array with list of student ids
   while(keys.length){
     idx = Math.floor(Math.random() * keys.length)
     shuffled.push(keys.splice(idx,1)[0]);
   }
 
-  var count = 0;
-  _.each(shuffled, function(key, index){
-    if(index % groupNum === 0){
-      count++;
-    }
-    groups[key] = count;
+  // push into groups key studentId and value group number
+  var count = 1;
+  _.each(shuffled, function(studentId, index){
+    groups[studentId] = count;
+    count = (count < groupNum) ? count+1 : 1;
   });
 
   return groups;
 };
 
 var setGroup = function(groupNum){
+  // calls the random group generator function
+  // and pushes the group list into Firebase
   firebaseRef.child(
     'classes/'
     + _store.classId
@@ -135,6 +142,7 @@ var setGroup = function(groupNum){
 };
 
 var removeStudentFromGroups = function(studentId){
+  // remove student from group list when removing student from class
   firebaseRef.child(
     'classes/'
     + _store.classId
