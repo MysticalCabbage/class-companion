@@ -22,6 +22,7 @@ var ClassroomNavbar = React.createClass({
 
   render: function() {
     var url = '#/reportsDashboard/' + this.props.classId;
+    var hwUrl = '#/homeworkDashboard/' + this.props.classId;
     return (
       <nav className="classroomNavbar container navbar navbar-default">
         <div className="container-fluid">
@@ -34,6 +35,11 @@ var ClassroomNavbar = React.createClass({
             <ul className="nav navbar-nav navbar-right">
               <li>
                 <a href={url}><i className="fa fa-pie-chart"><span> Reports</span></i></a>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a href={hwUrl}><i className="fa fa-book"> Homework</i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
