@@ -41,7 +41,6 @@ var HomeworkForm = React.createClass({
     var homeworkAssignment = React.findDOMNode(this.refs.homeworktitle).value;
     var dueDate = React.findDOMNode(this.refs.duedate).value.split("-");
     var formattedDate = dueDate[1] + "-" + dueDate[2] + "-" + dueDate[0];
-    console.log("duedate", formattedDate);
     HomeworkActions.addAssignment({ assignment: homeworkAssignment, dueDate: formattedDate, classId: this.props.classId});
     React.findDOMNode(this.refs.homeworktitle).value = "";
   },

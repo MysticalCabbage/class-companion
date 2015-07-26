@@ -13,7 +13,8 @@ var _store = {
   list: {},
   info: {},
   today: '',
-  graph: []
+  graph: [],
+  assignments: {}
 };
 
 var addStudent = function(newStudent){
@@ -100,6 +101,7 @@ var initQuery = function(classId){
     var classData = snapshot.val();
     _store.info = classData.info;
     _store.list = classData.students || {};
+    _store.assignments = classData.assignments || {};
 
     //this is for grabbing behaviorTotal of all students for graphs
     var students = classData.students;
@@ -166,6 +168,10 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 
   getGraph: function(){
     return _store.graph;
+  },
+
+  getAssignments: function(){
+    return _store.assignments;
   }
 });
 

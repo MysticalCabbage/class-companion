@@ -11,7 +11,8 @@ var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
   list: {},
-  info: {}
+  info: {},
+  assignments: {}
 };
 
 // var initQuery = function()
@@ -22,7 +23,15 @@ var addAssignment = function(assignment){
     console.log("hwid",hwId)
 
   firebaseRef.child('classes/' + assignment.classId + '/homeworkFor/' + assignment.dueDate + '/' + hwId).set(hwId);
+};
 
+var initQuery = function(classId){
+  firebaseRef.child('classes/' + classId).on('value', function(snapshot){
+    var classData = snapshot.val();
+    _store.info = classData.info || {};
+    _store.list = classData.list || {};
+    _store.assignments = classData.assignments || {};
+  });
 };
 
 var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
@@ -41,6 +50,9 @@ AppDispatcher.register(function(payload){
   switch(action.actionType){
     case HomeworkConstants.ADD_ASSIGNMENT:
       addAssignment(action.data);
+      HomeworkStore.emit(CHANGE_EVENT);
+    case HomeworkConstants.INIT_QUERY:
+      initQuery(action.data);
       HomeworkStore.emit(CHANGE_EVENT);
     default:
       return true;
