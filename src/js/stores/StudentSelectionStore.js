@@ -21,7 +21,9 @@ var _store = {
 // Queries and listen to Firebase for changes in classes/<classId>/selection/currentSelection
 var initQuery = function(classId){
   _store.classId = classId;
+  
   var first = true;
+  
   firebaseRef.child(
     'classes/'
     + _store.classId
@@ -35,6 +37,15 @@ var initQuery = function(classId){
       _store.random = snapshot.val();
       StudentSelectionStore.emit(CHANGE_EVENT);
     }
+  });
+
+  firebaseRef.child(
+    'classes/'
+    + classId
+    + '/groups'
+  ).on('value', function(snapshot){
+    _store.groups = snapshot.val() || {};
+    ClassroomStore.emit(CHANGE_EVENT);
   });
 }
 
@@ -53,6 +64,12 @@ var endQuery = function(){
     'classes/'
     + _store.classId
     + '/selection/currentSelection'
+  ).off();
+
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/groups'
   ).off();
 }
 
@@ -92,32 +109,37 @@ var randGroup = function(groupSize){
   var keys = Object.keys(students);
   var shuffled = [], idx = 0;
 
+  var groupCount = Math.ceil(keys.length/groupSize);
+  var groups = {};
+  var group = 1;
+
   while(keys.length){
     idx = Math.floor(Math.random() * keys.length)
     shuffled.push(keys.splice(idx,1)[0]);
   }
 
-  var bucketSize = groupSize;
-  console.log(bucketSize)
-  var bucket = [];
-  var groups = [];
+  _.each(shuffled, function(key, index){
+    groups[key] = group;
+  });
 
-  var count = 0;
-  _.each(shuffled, function(key){
-    count++;
-    bucket.push(key)
+  return groups;
+};
 
-    if(count%bucketSize === 0){
-      groups.push(bucket.slice());
-      bucket = [];
-    }
-  }.bind(this));
-  
-  if(bucket.length > 0){
-    groups.push(bucket)
-  }
-  _store.groups = groups;
-  console.log(_store.groups)
+var setGroup = function(groupSize){
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/groups'
+  ).set(randGroup(groupSize));
+};
+
+var removeStudentFromGroups = function(studentId){
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/groups/'
+    + studentId
+  ).remove()
 };
 
 var StudentSelectionStore = objectAssign({}, EventEmitter.prototype, {
@@ -128,7 +150,7 @@ var StudentSelectionStore = objectAssign({}, EventEmitter.prototype, {
   removeChangeListener: function(cb){
     this.removeListener(CHANGE_EVENT, cb);
   },
-
+  
   getRandom: function(){
     return _store.random;
   },
@@ -147,13 +169,16 @@ AppDispatcher.register(function(payload){
       randStudent();
       break;
     case ClassroomConstants.RAND_GROUP:
-      randGroup(action.data);
+      setGroup(action.data);
       break;
     case ClassroomConstants.INIT_QUERY:
       initQuery(action.data);
       break;
     case ClassroomConstants.END_SELECT_QUERY:
       endQuery();
+      break;
+    case ClassroomConstants.REMOVE_STUDENT:
+      removeStudentFromGroups(action.data);
       break;
     default:
       return true;
