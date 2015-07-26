@@ -33,6 +33,33 @@ a, a:visited, a:hover, a:active {
 	overflow: visible;
 }
 
+/*About Us*/
+.about-us-container {
+  font-size: 16px;
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+}
+
+.profile-name {
+  margin-top: 10px;
+  color: rgb(90, 82, 82);
+  font-size: 16px;
+}
+
+.about-us-nav {
+  float: none;
+  text-align: center;
+  display: inline-block;
+  font-size: 22px;
+}
+
+.attribution {
+  margin-top: 40px;
+}
+
 /*AttendanceCalendar*/
 .attendanceCalendar td{
 	font-size: 11px;
