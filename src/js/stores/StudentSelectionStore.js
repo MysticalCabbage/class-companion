@@ -104,33 +104,34 @@ var randStudent = function(){
 // Select and place students into groups randomly
 // shuffles list of students
 // group adjacent students into groups of 2
-var randGroup = function(groupSize){
+var randGroup = function(groupNum){
   var students = ClassroomStore.getList();
   var keys = Object.keys(students);
   var shuffled = [], idx = 0;
-
-  var groupCount = Math.ceil(keys.length/groupSize);
   var groups = {};
-  var group = 1;
 
   while(keys.length){
     idx = Math.floor(Math.random() * keys.length)
     shuffled.push(keys.splice(idx,1)[0]);
   }
 
+  var count = 0;
   _.each(shuffled, function(key, index){
-    groups[key] = group;
+    if(index % groupNum === 0){
+      count++;
+    }
+    groups[key] = count;
   });
 
   return groups;
 };
 
-var setGroup = function(groupSize){
+var setGroup = function(groupNum){
   firebaseRef.child(
     'classes/'
     + _store.classId
     + '/groups'
-  ).set(randGroup(groupSize));
+  ).set(randGroup(groupNum));
 };
 
 var removeStudentFromGroups = function(studentId){

@@ -187,7 +187,8 @@ var ClassroomDashboard = React.createClass({
     groupSize = _.reduce(groupList, function(max, cur){
       return Math.max(max, cur)
     }, 0);
-    var isGrouped = (groupCount === groupSize) ? false : true;
+
+    var isGrouped = (groupSize === 0 || groupSize === 1 || groupCount === groupSize) ? false : true;
 
     // iterate over list of students in the order of this.state.groups
     _.each(groupList, function(group, studentId){
@@ -219,26 +220,6 @@ var ClassroomDashboard = React.createClass({
 
     studentGroups = _.flatten(studentGroups);
 
-/*    var studentNodes = _.map(this.state.list, function(studentNode,index){
-      var status = null;
-      var pokemonDirectory = context.makePokemonDirectory(studentNode);
-      if(studentNode.attendance){
-        status = studentNode.attendance[today]
-      };
-      return (
-        <ClassroomStudent 
-          key={index} 
-          studentId={index} 
-          markAttendance={markAttendance} 
-          attendance={attendance} 
-          studentTitle={studentNode.studentTitle} 
-          behavior={studentNode.behaviorTotal} 
-          behaviorActions={behaviorTypes} 
-          status={status}
-          showBehavior={showBehavior} 
-          pokemon={pokemonDirectory} />
-      )
-    });*/
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
@@ -253,7 +234,7 @@ var ClassroomDashboard = React.createClass({
           <div className="row">
             {this.state.showResults ? <TimerBar/> : null}
           </div>
-          
+
           <div className="row">
             {studentGroups}
             <div className="classroom col-md-3">
