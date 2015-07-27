@@ -71,6 +71,7 @@ var HomeworkDashboard = React.createClass({
   },
 
   render: function(){
+    var url = '#/classroomDashboard/' + this.props.classId;
     var remove = this.removeHW;
     var assignments = _.map(this.state.assignments, function(assignment, index){
       console.log("index",index, assignment);
@@ -88,6 +89,22 @@ var HomeworkDashboard = React.createClass({
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
+        <nav className="classroomNavbar container navbar navbar-default">
+            <div className="container-fluid">
+              <div id="navbar" className="navbar-collapse collapsed">
+                <ul className="nav navbar-nav">
+                  <li>
+                    <a href={url}><i className="fa fa-arrow-left"> Back to classroom</i></a>
+                  </li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                  <li>
+                    <a ><i className="fa fa-archive"><span> View Past Assignments</span></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
           <table className="table" id="homeworktable">
             <thead>
             <tr>
