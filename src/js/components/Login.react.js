@@ -15,9 +15,14 @@ var Login = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
 
+    // clear previous error message upon retry
+    this.setState({authError: false});
+
     var spinnerEl = document.getElementById('spinner');
     var spinner = new Spinner().spin(spinnerEl)
     
+    // callback when successful closes login modal
+    // callback when error to stop spinner and display error message
     var authCb = function(err, success){
       if(err){
         spinner.stop();
@@ -38,7 +43,6 @@ var Login = React.createClass({
     
     emailNode.value = '';
     passwordNode.value = '';
-    this.setState({authError: false});
   },
   
   render: function() {

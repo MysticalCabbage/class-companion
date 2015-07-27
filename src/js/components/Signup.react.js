@@ -5,10 +5,33 @@ var Navbar = require('./Navbar.react');
 var Spinner = require('spin');
 
 var Signup = React.createClass({
+  getInitialState: function () {
+    return {
+      error: false,
+      authError: false
+    };
+  },
+
   handleSubmit: function(e){
     e.preventDefault();
 
-    this.props.closeSignupModal();
+    // clear previous error message upon retry
+    this.setState({authError: false});
+
+    var spinnerEl = document.getElementById('spinner');
+    var spinner = new Spinner().spin(spinnerEl)
+
+    // callback when successful to close signup modal
+    // callback when error to stop spinner and display error message
+    var authCb = function(err, success){
+      if(err){
+        spinner.stop();
+        this.setState({authError: true});
+      } else {
+        this.props.closeLoginModal();
+        spinner.stop();
+      }
+    }.bind(this);
 
     var prefixNode = React.findDOMNode(this.refs.prefix);
     var firstNameNode = React.findDOMNode(this.refs.firstName);
@@ -22,7 +45,7 @@ var Signup = React.createClass({
       prefix: prefixNode.value,
       firstName: firstNameNode.value,
       lastName: lastNameNode.value
-    });
+    }, authCb);
 
     emailNode.value = '';
     passwordNode.value = '';
@@ -37,6 +60,8 @@ var Signup = React.createClass({
         <div className="well">
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeSignupModal}><span aria-hidden="true">&times;</span></button>
           <h2>Signup</h2>
+          <div id="spinner"/>
+          {this.state.authError ? <div className="authErrMsg">Email already taken.</div> : null}
           <form className="form-horizontal" id="frmSignup" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="txtPrefix" className="col-sm-3 control-label">Prefix</label>

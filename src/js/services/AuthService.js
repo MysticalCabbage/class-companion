@@ -1,9 +1,9 @@
 var React = require('react');
-var AuthActions = require('../actions/AuthActions');
 var Router = require('react-router');
-var Link = Router.Link;
 var objectAssign = require('object-assign');
+var AuthActions = require('../actions/AuthActions');
 var FirebaseStore = require('../stores/FirebaseStore');
+var Link = Router.Link;
 var Q = require('q');
 
 // set ref to firebase database
@@ -11,11 +11,11 @@ var firebaseRef = FirebaseStore.getDb();
 var teacherRef = firebaseRef.child('teachers');
 
 var AuthService = {
-
 	// firebase email/password authentication
-	// returns a promise
+	// returns a promise with AuthData
 	authWithPassword: function(userObj) {
 	  var deferred = Q.defer();
+
 	  firebaseRef.authWithPassword(userObj, function onAuth(err, user) {
 	    if (err) {
 	      deferred.reject(err);
@@ -24,20 +24,26 @@ var AuthService = {
 	      deferred.resolve(user);
 	    }
 	  });
+
 	  return deferred.promise;
 	},
 
-	// login a user
+	// login a user with email and password
+	// callback when successful closes login modal
+	// callback when error to stop spinner and display error message
 	login: function(credentials, cb){
 	  this.authWithPassword(credentials)
 	    .then(function(authData) {
-	      console.log('sucessfully logged in');
 	      AuthActions.login(credentials, AuthService.checkAuth());
-	      cb(null, authData);
+	      //cb(null, authData);
 	    })
 	    .catch(function(err) {
 	      //console.error(err);
-	      cb(err, null);
+	      if(err){
+					cb(err, null);
+				} else {
+					cb(null, true);
+				}
 	    });
 	},
 
@@ -58,7 +64,6 @@ var AuthService = {
 	// create a user and then log in
 	// returns a promise
 	createUserAndLogin: function(userObj) {
-		console.log('Signing up');
 	  return this.createUser(userObj)
 	    .then(function () {
 	      return AuthService.authWithPassword(userObj);
@@ -66,32 +71,41 @@ var AuthService = {
 	},
 
 	// sign up a user and then log in
-	signup: function(data){
+	// callback when successful to close signup modal
+	// callback when error to stop spinner and display error message
+	signup: function(data, cb){
 	  var credentials = {
 	    email: data.email,
 	    password: data.password
 	  };
+
 	  var info = {
 	    email: data.email,
 	    prefix: data.prefix,
 	    firstName: data.firstName,
 	    lastName: data.lastName
 	  };
+
 	  this.createUserAndLogin(credentials)
 	    .then(function(authData) {
-	      console.log('succesfully signed up');
 	      info.uid = authData.uid;
 	      return AuthService.createTeacher(info);
 	    }).then(function(){
 	      AuthActions.signup(credentials, AuthService.checkAuth());
 	    })
-/*	    .catch(function(err) {
-	      console.error(err);
-	    });*/
+	    .catch(function(err) {
+	      //console.error(err);
+				if(err){
+					cb(err, null);
+				} else {
+					cb(null, true);
+				}
+	    });
 	},
 
+	// after signing up, creates a record with info
+	// info contains email, prefix, first and last name
 	createTeacher: function(info){
-	  console.log('new Teacher: ', info.uid);
 	  var deferred = new Q.defer();
 
 	  teacherRef.child(info.uid).set({info: info}, function(err){

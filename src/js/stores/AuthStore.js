@@ -32,9 +32,7 @@ var AuthStore = objectAssign({}, EventEmitter.prototype, {
   logout: function() {
     firebaseRef.unauth();
     
-    if(!this.checkAuth()){
-      console.log('sucessfully logged out');
-    } else {
+    if(this.checkAuth()){
       console.error('Error logging out')
     }
   },
