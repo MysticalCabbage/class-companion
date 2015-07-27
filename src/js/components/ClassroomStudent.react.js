@@ -90,31 +90,23 @@ var ClassroomStudent = React.createClass({
           <div>
             <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
           </div>
+          <div className="studentTitle">
+            {this.props.studentTitle}
+          </div>
           {this.props.isGrouped ? <div>group: {this.props.groupNum}</div> : null}
           <div>
-            <div>{this.props.studentTitle}</div>
+            <img className="avatar" src={spriteUrl} />
           </div>
-          <div>
-            <div>{pokemonName}</div>
-          </div>
-          <div>
-            <img src={spriteUrl} />
-          </div>
-          <div>
-            <h5>Current Exp: {currentExp}</h5>
-          </div>
-          <div>
-            <h5>Current Level: {level}</h5>
-          </div>
-          <div>
-            <h5>Exp to next Level: {expToNextLevel}</h5>
-          </div>
-          <div>
-            <div className="progress">
-              <div className="progress-bar" role="progressbar" aria-valuenow={currentExpPercentage} aria-valuemin="0" aria-valuemax={expToNextLevel} style={progressBarStyle}>
-                {currentExp}
+          <div className="pokemonSpecs">
+            <div className="pokemonName">{pokemonName}</div><div className="pokemonLevel">Lv {level}</div>
+            <div className="hpBar">
+              <div className="hp">HP</div>
+              <div className="progress">
+                <div className="progress-bar" role="progressbar" aria-valuenow={currentExpPercentage} aria-valuemin="0" aria-valuemax={expToNextLevel} style={progressBarStyle}>
+                </div>
               </div>
             </div>
+            <div className="pokemonExp">{currentExp}/20</div>
           </div>
           <Modal className="behaviorModal" isOpen={this.state.behaviorModalIsOpen} onRequestClose={this.closeBehaviorModal}>
             <BehaviorButtons studentId={this.props.studentId} studentTitle={this.props.studentTitle} closeBehaviorModal={this.closeBehaviorModal} />
