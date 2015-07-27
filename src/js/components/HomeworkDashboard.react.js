@@ -7,6 +7,7 @@ var Navbar = require('./Navbar.react');
 var AuthStore = require('../stores/AuthStore');
 var _ = require('underscore');
 
+
 var HomeworkDashboard = React.createClass({
   getInitialState: function(){
     return {
@@ -42,14 +43,21 @@ var HomeworkDashboard = React.createClass({
       homeworkFor: HomeworkStore.getHomeworkFor()
     });
   },
+  removeHW: function(e){
+    console.log("this",this.props);
+    // HomeworkActions.removeHW(this.props)
+  },
 
   render: function(){
-    var assignments = _.map(this.state.assignments, function(assignment){
+    var remove = this.removeHW();
+    var assignments = _.map(this.state.assignments, function(assignment, index){
       return (
         <tr>
           <th>{assignment.assignment}</th>
           <th>{assignment.dueDate}</th>
+          <th><button type="button" className="close" aria-label="Close" onClick={remove} key={index}><span aria-hidden="true">&times;</span></button></th>
         </tr>
+
       );
     });
     return (
@@ -58,8 +66,9 @@ var HomeworkDashboard = React.createClass({
         <div className="container">
           <table className="table">
             <tr>
-              <th>Assignment</th>
-              <th>Due Date</th>
+              <th><h4>Assignment</h4></th>
+              <th><h4>Due Date</h4></th>
+              <th></th>
             </tr>
             {assignments}
           </table>
