@@ -23,6 +23,7 @@ var addAssignment = function(assignment){
   var hwId = firebaseRef.child('classes/' + assignment.classId + '/assignments').push(assignment).key();
 
   firebaseRef.child('classes/' + assignment.classId + '/homeworkFor/' + assignment.dueDate + '/' + hwId).set(hwId);
+  console.log(assignment);
 };
 
 var initQuery = function(classId){

@@ -11,6 +11,7 @@ var HomeworkAssignment = React.createClass({
     return (
       <tr>
           <th>{this.props.title}</th>
+          <th>{this.props.assignedOn}</th>
           <th>{this.props.dueDate}</th>
           <th><button type="button" className="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></th>
         </tr>
@@ -72,7 +73,8 @@ var HomeworkDashboard = React.createClass({
           key={index}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
-          classId = {assignment.classId} />
+          classId = {assignment.classId} 
+          assignedOn = {assignment.assignedOn}/>
       );
     });
     return (
@@ -83,6 +85,7 @@ var HomeworkDashboard = React.createClass({
             <tr>
               <th><h4>Assignment</h4></th>
               <th><h4>Due Date</h4></th>
+              <th><h4>Assigned On</h4></th>
               <th></th>
             </tr>
             {assignments}
