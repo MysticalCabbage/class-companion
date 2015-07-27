@@ -21,6 +21,7 @@ var HomeworkAssignment = React.createClass({
 var HomeworkDashboard = React.createClass({
   getInitialState: function(){
     return {
+      loggedIn: AuthStore.checkAuth(),
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
       homeworkFor: HomeworkStore.getHomeworkFor()
@@ -36,7 +37,10 @@ var HomeworkDashboard = React.createClass({
   },
 
   componentDidMount: function(){ 
-    HomeworkActions.initQuery(this.props.params.id);
+    var authData = AuthStore.checkAuth();
+    if(authData){
+      HomeworkActions.initQuery(this.props.params.id);
+    }
     HomeworkStore.addChangeListener(this._onChange);
     AuthStore.addChangeListener(this._onChange);
   },
@@ -50,7 +54,8 @@ var HomeworkDashboard = React.createClass({
     this.setState({
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
-      homeworkFor: HomeworkStore.getHomeworkFor()
+      homeworkFor: HomeworkStore.getHomeworkFor(),
+      loggedIn: AuthStore.checkAuth()
     });
   },
   removeHW: function(e){

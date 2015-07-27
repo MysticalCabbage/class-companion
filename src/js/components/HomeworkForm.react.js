@@ -55,7 +55,7 @@ var HomeworkForm = React.createClass({
             </div>
             <div className="form-group">
               <label for="exampleInputEmail2"></label>
-              <input type="date" className="form-control" id="dateinput" ref="duedate"/>
+              <input type="date" className="form-control" id="dateinput" ref="duedate" required/>
             </div>
             <button type="submit" className="btn btn-default">Save</button>
           </form><br/>
