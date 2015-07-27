@@ -28,16 +28,18 @@ var AuthService = {
 	},
 
 	// login a user
-	login: function(credentials){
+	login: function(credentials, cb){
 	  this.authWithPassword(credentials)
 	    .then(function(authData) {
 	      console.log('sucessfully logged in');
 	      AuthActions.login(credentials, AuthService.checkAuth());
+	      cb(null, authData);
 	    })
-	    // .catch(function(err) {
-	    //   // login fail, redirect/display
-	    //   console.error(err);
-	    // });
+	    .catch(function(err) {
+	      // login fail, redirect/display
+	      console.error(err);
+	      cb(err, null);
+	    });
 	},
 
 	// create a user but not log in

@@ -55,11 +55,11 @@ var initQuery = function(classId){
 // Ends Firebase listener to /classes/<classId>/selection/currentSelection
 var endQuery = function(){
   // Delete Selected student from database
-  firebaseRef.child(
+/*  firebaseRef.child(
     'classes/'
     + _store.classId
     + '/selection/currentSelection'
-  ).set(null);
+  ).set(null);*/
   
   // Remove listener to currentSelection in Firebase
   firebaseRef.child(
