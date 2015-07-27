@@ -92,10 +92,10 @@ var ClassroomStudent = React.createClass({
           </div>
           {this.props.isGrouped ? <div>group: {this.props.groupNum}</div> : null}
           <div className="row studentInfo">
-            <div className="col-md-6">
-              <img className="avatar" src={spriteUrl} />
+            <div className="avatar col-md-5">
+              <img src={spriteUrl} />
             </div>
-            <div className="studentTitle col-md-6">
+            <div className="studentTitle col-md-7">
               {this.props.studentTitle}
             </div>
           </div>

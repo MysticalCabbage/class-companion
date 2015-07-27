@@ -1,8 +1,9 @@
 body{
 	/*font-family: 'Press Start 2P', cursive;*/
-	background-image: url("../assets/background.png");
-	background-repeat: no-repeat;
+/*	background-image: url("../assets/background.png");
+	background-repeat: no-repeat;*/
 	background-size: cover;
+	background: url("../assets/background.png") no-repeat center center fixed;
 }
 
 /*i span{
@@ -142,6 +143,7 @@ a, a:visited, a:hover, a:active {
 
 .avatar{
 	max-height: 100px;
+	padding: 0;
 	/*float: left;*/
 }
 
