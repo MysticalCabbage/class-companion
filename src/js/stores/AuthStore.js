@@ -65,18 +65,19 @@ AppDispatcher.register(function(payload){
       _user = action.data;
       _loggedIn = action.loggedIn;
       redirect();
-      this.emit('change');
+      AuthStore.emit('change');
       break;
     case AuthConstants.LOGIN:
       // login(action.data);
       _user = action.data;
       _loggedIn = action.loggedIn;
       redirect();
-      this.emit('change');
+      AuthStore.emit('change');
       break;
     case AuthConstants.LOGOUT:
       AuthStore.logout();
-      RouterContainer.get().transitionTo('/home');
+      _loggedIn = null;
+      RouterContainer.get().transitionTo('/');
       break;
     default:
       return true;

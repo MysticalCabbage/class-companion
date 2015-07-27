@@ -12,16 +12,24 @@ var Login = React.createClass({
 
   handleSubmit: function(e){
     e.preventDefault();
+    var closeLoginModal = this.props.closeLoginModal;
     
-    this.props.closeLoginModal();
-
+    console.log('start spinner');
+    var authCb = function(err, success){
+      if(err){
+        console.log('error loggin in')
+      } else {
+        closeLoginModal();
+        console.log('successfuly logged in')
+      }
+    }
     var emailNode = React.findDOMNode(this.refs.email);
     var passwordNode = React.findDOMNode(this.refs.password);
 
     Auth.login({
       email: emailNode.value, 
       password: passwordNode.value
-    });
+    }, authCb);
     
     emailNode.value = '';
     passwordNode.value = '';
