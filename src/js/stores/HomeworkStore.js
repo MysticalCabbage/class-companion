@@ -26,7 +26,6 @@ var addAssignment = function(assignment){
 };
 
 var initQuery = function(classId){
-  console.log(classId);
   firebaseRef.child('classes/' + classId).on('value', function(snapshot){
     var classData = snapshot.val();
     _store.info = classData.info;

@@ -1,5 +1,4 @@
 var React = require('react');
-var ClassroomStore = require('../stores/ClassroomStore');
 var HomeworkForm = require('./HomeworkForm.react');
 var HomeworkActions = require('../actions/HomeworkActions');
 var HomeworkStore = require('../stores/HomeworkStore');
@@ -7,6 +6,17 @@ var Navbar = require('./Navbar.react');
 var AuthStore = require('../stores/AuthStore');
 var _ = require('underscore');
 
+var HomeworkAssignment = React.createClass({
+  render: function(){
+    return (
+      <tr>
+          <th>{this.props.title}</th>
+          <th>{this.props.dueDate}</th>
+          <th><button type="button" className="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></th>
+        </tr>
+    );
+  }
+});
 
 var HomeworkDashboard = React.createClass({
   getInitialState: function(){
@@ -44,20 +54,20 @@ var HomeworkDashboard = React.createClass({
     });
   },
   removeHW: function(e){
-    console.log("this",this.props);
     // HomeworkActions.removeHW(this.props)
+    console.log("clicked", this.props);
   },
 
   render: function(){
-    var remove = this.removeHW();
+    var remove = this.removeHW;
     var assignments = _.map(this.state.assignments, function(assignment, index){
+      console.log("index",index, assignment);
       return (
-        <tr>
-          <th>{assignment.assignment}</th>
-          <th>{assignment.dueDate}</th>
-          <th><button type="button" className="close" aria-label="Close" onClick={remove} key={index}><span aria-hidden="true">&times;</span></button></th>
-        </tr>
-
+        <HomeworkAssignment 
+          key={index}
+          title = {assignment.assignment}
+          dueDate = {assignment.dueDate}
+          classId = {assignment.classId} />
       );
     });
     return (
