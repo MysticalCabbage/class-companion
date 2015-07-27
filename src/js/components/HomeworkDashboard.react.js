@@ -17,8 +17,8 @@ var HomeworkAssignment = React.createClass({
     return (
       <tr>
           <th>{this.props.title}</th>
-          <th>{this.props.assignedOn}</th>
           <th>{this.props.dueDate}</th>
+          <th>{this.props.assignedOn}</th>
           <th><button type="button" className="close" aria-label="Close" onClick={this.removeHW}><span aria-hidden="true">&times;</span></button></th>
         </tr>
     );
@@ -88,7 +88,7 @@ var HomeworkDashboard = React.createClass({
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
-          <table className="table">
+          <table className="table" id="homeworktable">
             <thead>
             <tr>
               <th><h4>Assignment</h4></th>

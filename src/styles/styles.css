@@ -254,6 +254,10 @@ a, a:visited, a:hover, a:active {
   width:500px;
 }
 
+#homeworktable {
+  background-color: white;
+  border-radius: 5px;
+}
 .authErrMsg {
   color: red;
 }
