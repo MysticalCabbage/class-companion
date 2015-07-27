@@ -8,6 +8,19 @@ var StudentRandom = React.createClass({
       random: ClassroomStore.getList()[StudentSelectionStore.getRandom()]
     }
   },
+
+  componentDidMount: function(){
+    StudentSelectionStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnMount: function(){
+    StudentSelectionStore.removeChangeListener(this._onChange);
+  },
+
+  _onChange: function(){
+    this.setState({random: ClassroomStore.getList()[StudentSelectionStore.getRandom()]})
+  },
+
   render: function(){
     return (
       <div className="panel panel-info StudentRandom">

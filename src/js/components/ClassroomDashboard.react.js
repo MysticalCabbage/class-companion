@@ -81,11 +81,18 @@ var ClassroomDashboard = React.createClass({
   },
 
   openRandomModal: function(){
-    this.setState({randomModal: true});
+    if(this.state.randomModal){
+      clearTimeout(randomModalTimer);
+      randomModalTimer = setTimeout(function(){
+        this.closeRandomModal();
+      }.bind(this), 5000);
+    } else {
+      this.setState({randomModal: true});
+      randomModalTimer = setTimeout(function(){
+        this.closeRandomModal();
+      }.bind(this), 5000);
+    }
     
-    randomModalTimer = setTimeout(function(){
-      this.closeRandomModal();
-    }.bind(this), 5000);
   },
   
   closeRandomModal: function() {
