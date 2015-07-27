@@ -1,6 +1,4 @@
 var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
 
 
 var ClassroomNavbar = React.createClass({
@@ -44,7 +42,7 @@ var ClassroomNavbar = React.createClass({
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a onClick={this.handleAttendance}><i className="fa fa-check-square-o"><span> Attendance</span></i></a>
+                <a onClick={this.showTimerOptions}><i className="fa fa-clock-o"><span> Timer</span></i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
@@ -59,7 +57,7 @@ var ClassroomNavbar = React.createClass({
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a onClick={this.showTimerOptions}><i className="fa fa-clock-o"><span> Timer</span></i></a>
+                <a onClick={this.handleAttendance}><i className="fa fa-check-square-o"><span> Attendance</span></i></a>
               </li>
             </ul>
           </div>

@@ -106,25 +106,23 @@ a, a:visited, a:hover, a:active {
 }
 .image { 
 	position: absolute; 
-	top: -18px;
-	left: -3px;
+	top: -25px;
+	left: -13px;
 }
 
 .behaviorImg{
   height: auto;
   width: auto;
-  max-width: 43px;
-  max-height: 43px;
+  max-height: 60px;
 }
 
 .behaviorPoints { 
   color: red;
   position: absolute;
-  top: 12px;
-  left: 15px;
+  top: 22px;
+  left: 19px;
   width: 32%;
   font-weight: bold;
-  background-color: #FFF400;
   text-align: center;
 }
 
