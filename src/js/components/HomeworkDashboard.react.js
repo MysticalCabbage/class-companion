@@ -16,7 +16,7 @@ var HomeworkAssignment = React.createClass({
   render: function(){
     return (
       <tr>
-          <th>{this.props.title}</th>
+          <th> {this.props.title}</th>
           <th>{this.props.dueDate}</th>
           <th>{this.props.assignedOn}</th>
           <th><button type="button" className="close" aria-label="Close" onClick={this.removeHW}><span aria-hidden="true">&times;</span></button></th>
@@ -25,13 +25,25 @@ var HomeworkAssignment = React.createClass({
   }
 });
 
+var PastAssignments = React.createClass({
+  getInitialState: function(){
+    return null
+  },
+  render: function(){
+    return null
+  }
+
+});
+
 var HomeworkDashboard = React.createClass({
   getInitialState: function(){
     return {
       loggedIn: AuthStore.checkAuth(),
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
-      homeworkFor: HomeworkStore.getHomeworkFor()
+      homeworkFor: HomeworkStore.getHomeworkFor(),
+      showPastAssignments: false,
+      showCurrentAssignments: true
     }
   },
   componentWillMount: function(){
@@ -57,6 +69,7 @@ var HomeworkDashboard = React.createClass({
     HomeworkStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
   },
+
     _onChange: function(){
     this.setState({
       list: HomeworkStore.getList(),
@@ -65,9 +78,12 @@ var HomeworkDashboard = React.createClass({
       loggedIn: AuthStore.checkAuth()
     });
   },
-  removeHW: function(e){
-    // HomeworkActions.removeHW(this.props)
-    console.log("clicked", this.props);
+
+  showPastAssignments: function(){
+    this.setState({
+      showPastAssignments: true,
+      showCurrentAssignments: false
+    });
   },
 
   render: function(){
@@ -99,7 +115,7 @@ var HomeworkDashboard = React.createClass({
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li>
-                    <a ><i className="fa fa-archive"><span> View Past Assignments</span></i></a>
+                    <a onClick={this.showPastAssignments}><i className="fa fa-archive"><span> View Past Assignments</span></i></a>
                   </li>
                 </ul>
               </div>
@@ -115,10 +131,11 @@ var HomeworkDashboard = React.createClass({
             </tr>
             </thead>
             <tbody>
-            {assignments}
+            {this.state.showCurrentAssignments ? {assignments} : null}
             </tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
+
         </div>
       </div>
     );
