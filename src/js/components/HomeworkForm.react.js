@@ -7,9 +7,7 @@ var AuthStore = require('../stores/AuthStore');
 
 var HomeworkForm = React.createClass({
   getInitialState: function(){
-    return {
-      info: ClassroomStore.getInfo()
-    }
+    return null
   },
 
   componentWillMount: function(){
@@ -22,13 +20,13 @@ var HomeworkForm = React.createClass({
   },
 
   componentDidMount: function(){ 
-    ClassroomActions.initQuery(this.props.classId);
+    HomeworkActions.initQuery(this.props.classId);
     HomeworkStore.addChangeListener(this._onChange);
     AuthStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function(){
-    ClassroomActions.endQuery();
+    HomeworkActions.endQuery();
     HomeworkStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
   },
@@ -37,7 +35,8 @@ var HomeworkForm = React.createClass({
    
   },
 
-  homeworkSubmit: function(){
+  homeworkSubmit: function(e){
+    e.preventDefault();
     var homeworkAssignment = React.findDOMNode(this.refs.homeworktitle).value;
     var dueDate = React.findDOMNode(this.refs.duedate).value.split("-");
     var formattedDate = dueDate[1] + "-" + dueDate[2] + "-" + dueDate[0];

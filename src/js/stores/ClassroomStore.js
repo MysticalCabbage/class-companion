@@ -168,10 +168,6 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 
   getGraph: function(){
     return _store.graph;
-  },
-
-  getAssignments: function(){
-    return _store.assignments;
   }
 });
 

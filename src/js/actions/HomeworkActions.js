@@ -8,12 +8,18 @@ var HomeworkActions = {
       data: assignment
     });
   },
-    initQuery: function(classId){
+  initQuery: function(classId){
     AppDispatcher.handleAction({
       actionType: HomeworkConstants.INIT_QUERY,
       data: classId
     });
   },
+  endQuery: function(){
+    AppDispatcher.handleAction({
+      actionType: HomeworkConstants.END_QUERY,
+      data: null
+    });
+  }
 };
 
 module.exports = HomeworkActions;
