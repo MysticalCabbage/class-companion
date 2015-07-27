@@ -7,6 +7,18 @@ var HomeworkActions = {
       actionType: HomeworkConstants.ADD_ASSIGNMENT,
       data: assignment
     });
+  },
+  initQuery: function(classId){
+    AppDispatcher.handleAction({
+      actionType: HomeworkConstants.INIT_QUERY,
+      data: classId
+    });
+  },
+  endQuery: function(){
+    AppDispatcher.handleAction({
+      actionType: HomeworkConstants.END_QUERY,
+      data: null
+    });
   }
 };
 

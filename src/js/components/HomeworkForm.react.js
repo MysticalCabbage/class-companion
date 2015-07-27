@@ -7,9 +7,7 @@ var AuthStore = require('../stores/AuthStore');
 
 var HomeworkForm = React.createClass({
   getInitialState: function(){
-    return {
-      info: ClassroomStore.getInfo()
-    }
+    return null
   },
 
   componentWillMount: function(){
@@ -22,13 +20,13 @@ var HomeworkForm = React.createClass({
   },
 
   componentDidMount: function(){ 
-    ClassroomActions.initQuery(this.props.classId);
+    HomeworkActions.initQuery(this.props.classId);
     HomeworkStore.addChangeListener(this._onChange);
     AuthStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function(){
-    ClassroomActions.endQuery();
+    HomeworkActions.endQuery();
     HomeworkStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
   },
@@ -37,11 +35,11 @@ var HomeworkForm = React.createClass({
    
   },
 
-  homeworkSubmit: function(){
+  homeworkSubmit: function(e){
+    e.preventDefault();
     var homeworkAssignment = React.findDOMNode(this.refs.homeworktitle).value;
     var dueDate = React.findDOMNode(this.refs.duedate).value.split("-");
     var formattedDate = dueDate[1] + "-" + dueDate[2] + "-" + dueDate[0];
-    console.log("duedate", formattedDate);
     HomeworkActions.addAssignment({ assignment: homeworkAssignment, dueDate: formattedDate, classId: this.props.classId});
     React.findDOMNode(this.refs.homeworktitle).value = "";
   },
@@ -57,7 +55,7 @@ var HomeworkForm = React.createClass({
             </div>
             <div className="form-group">
               <label for="exampleInputEmail2"></label>
-              <input type="date" className="form-control" id="dateinput" ref="duedate"/>
+              <input type="date" className="form-control" id="dateinput" ref="duedate" required/>
             </div>
             <button type="submit" className="btn btn-default">Save</button>
           </form><br/>

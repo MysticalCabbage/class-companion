@@ -11,7 +11,9 @@ var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
   list: {},
-  info: {}
+  info: {},
+  assignments: {},
+  homeworkFor : {}
 };
 
 // var initQuery = function()
@@ -19,10 +21,22 @@ var _store = {
 var addAssignment = function(assignment){
   console.log(assignment);
   var hwId = firebaseRef.child('classes/' + assignment.classId + '/assignments').push(assignment).key();
-    console.log("hwid",hwId)
 
   firebaseRef.child('classes/' + assignment.classId + '/homeworkFor/' + assignment.dueDate + '/' + hwId).set(hwId);
+};
 
+var initQuery = function(classId){
+  firebaseRef.child('classes/' + classId).on('value', function(snapshot){
+    var classData = snapshot.val();
+    _store.info = classData.info;
+    _store.assignments = classData.assignments;
+    _store.homeworkFor = classData.homeworkFor;
+  });
+  HomeworkStore.emit(CHANGE_EVENT);
+};
+
+var endQuery = function(){
+  firebaseRef.child('classes/'+_store.info.classId).off();
 };
 
 var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
@@ -33,6 +47,19 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
 
   removeChangeListener: function(cb){
     this.removeListener(CHANGE_EVENT, cb);
+  },
+
+  getInfo: function(){
+    return _store.info;
+  },
+  getAssignments: function(){
+    return _store.assignments;
+  },
+  getList: function(){
+    return _store.list;
+  },
+  getHomeworkFor: function(){
+    return _store.homeworkFor;
   }
 });
 
@@ -42,6 +69,15 @@ AppDispatcher.register(function(payload){
     case HomeworkConstants.ADD_ASSIGNMENT:
       addAssignment(action.data);
       HomeworkStore.emit(CHANGE_EVENT);
+      break;
+    case HomeworkConstants.INIT_QUERY:
+      initQuery(action.data);
+      HomeworkStore.emit(CHANGE_EVENT);
+      break;
+    case HomeworkConstants.END_QUERY:
+      endQuery();
+      HomeworkStore.emit(CHANGE_EVENT);
+      break;
     default:
       return true;
   }
