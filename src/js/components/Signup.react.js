@@ -2,6 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 var Auth = require('../services/AuthService');
 var Navbar = require('./Navbar.react');
+var Spinner = require('spin');
 
 var Signup = React.createClass({
   handleSubmit: function(e){

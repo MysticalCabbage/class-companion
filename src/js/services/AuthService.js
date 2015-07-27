@@ -36,8 +36,7 @@ var AuthService = {
 	      cb(null, authData);
 	    })
 	    .catch(function(err) {
-	      // login fail, redirect/display
-	      console.error(err);
+	      //console.error(err);
 	      cb(err, null);
 	    });
 	},

@@ -2,27 +2,32 @@ var React = require('react');
 var Router = require('react-router');
 var Auth = require('../services/AuthService');
 var Navbar = require('./Navbar.react');
+var Spinner = require('spin');
 
 var Login = React.createClass({ 
   getInitialState: function () {
     return {
-      error: false
+      error: false,
+      authError: false
     };
   },
 
   handleSubmit: function(e){
     e.preventDefault();
-    var closeLoginModal = this.props.closeLoginModal;
+
+    var spinnerEl = document.getElementById('spinner');
+    var spinner = new Spinner().spin(spinnerEl)
     
-    console.log('start spinner');
     var authCb = function(err, success){
       if(err){
-        console.log('error loggin in')
+        spinner.stop();
+        this.setState({authError: true});
       } else {
-        closeLoginModal();
-        console.log('successfuly logged in')
+        this.props.closeLoginModal();
+        spinner.stop();
       }
-    }
+    }.bind(this);
+
     var emailNode = React.findDOMNode(this.refs.email);
     var passwordNode = React.findDOMNode(this.refs.password);
 
@@ -33,6 +38,7 @@ var Login = React.createClass({
     
     emailNode.value = '';
     passwordNode.value = '';
+    this.setState({authError: false});
   },
   
   render: function() {
@@ -41,6 +47,8 @@ var Login = React.createClass({
         <div className="well">
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeLoginModal}><span aria-hidden="true">&times;</span></button>
           <h2>Login</h2>
+          <div id="spinner"/>
+          {this.state.authError ? <div className="authErrMsg">Invalid Email or Password</div> : null}
           <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="txtEmail" className="col-sm-3 control-label">Email</label>
