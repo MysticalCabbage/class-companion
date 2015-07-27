@@ -98,6 +98,12 @@ a, a:visited, a:hover, a:active {
 .classroomStudent{
 	cursor: pointer;
 	border: 0;
+	padding: 7px;
+	background-color: white;
+}
+
+.studentInfo{
+	margin: 0;
 }
 
 .attendanceButton{
@@ -128,22 +134,25 @@ a, a:visited, a:hover, a:active {
 }
 
 .studentTitle{
-	margin: 0;
+	margin: 7% 0 0 0;
 	font-size: 20px;
 	font-weight: bolder;
+  text-align: center;
 }
 
 .avatar{
 	max-height: 100px;
+	/*float: left;*/
 }
 
 .pokemonSpecs{
-	border: #000800 solid 2px;
+	/*border: #000800 solid 2px;*/
 	border-radius: 13px 5px;
-	background-color: #F8F8D8;
+	/*background-color: #F8F8D8;*/
 	padding: 0px 8px;
-	font-weight: 700
-	;
+	font-weight: 700;
+	clear: both;
+	font-size: 12px;
 }
 
 .pokemonName{
