@@ -1,6 +1,6 @@
 var React = require('react');
-var StudentSelectionStore = require('../stores/StudentSelectionStore');
 var ClassroomStore = require('../stores/ClassroomStore');
+var StudentSelectionStore = require('../stores/StudentSelectionStore');
 
 var StudentRandom = React.createClass({
   getInitialState: function(){

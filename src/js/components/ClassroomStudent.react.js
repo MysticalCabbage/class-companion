@@ -1,7 +1,7 @@
 var React = require('react');
-var ClassroomActions = require('../actions/ClassroomActions');
 var BehaviorButtons = require('./BehaviorButtons.react');
 var ClassroomStore = require('../stores/ClassroomStore');
+var ClassroomActions = require('../actions/ClassroomActions');
 var Modal = require('react-modal');
 
 var appElement = document.getElementById('app');
@@ -90,6 +90,7 @@ var ClassroomStudent = React.createClass({
           <div>
             <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
           </div>
+          {this.props.isGrouped ? <div>group: {this.props.groupNum}</div> : null}
           <div>
             <div>{this.props.studentTitle}</div>
           </div>

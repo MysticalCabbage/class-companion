@@ -1,15 +1,16 @@
 var React = require('react');
 var Modal = require('react-modal');
-var ClassroomStudent = require('./ClassroomStudent.react');
-var ClassroomActions = require('../actions/ClassroomActions');
-var ClassroomStore = require('../stores/ClassroomStore');
-var ClassroomForm = require('./ClassroomForm.react');
-var AuthStore = require('../stores/AuthStore');
 var Navbar = require('./Navbar.react');
-var TimerBar = require('./TimerBar.react.js');
-var ClassroomNavbar = require('./ClassroomNavbar.react');
-var AttendanceNavbar = require('./AttendanceNavbar.react');
+var TimerBar = require('./TimerBar.react');
+var AuthStore = require('../stores/AuthStore');
 var StudentRandom = require('./StudentRandom.react');
+var ClassroomForm = require('./ClassroomForm.react');
+var ClassroomStore = require('../stores/ClassroomStore');
+var ClassroomNavbar = require('./ClassroomNavbar.react');
+var ClassroomStudent = require('./ClassroomStudent.react');
+var AttendanceNavbar = require('./AttendanceNavbar.react');
+var StudentGroupForm = require('./StudentGroupForm.react');
+var ClassroomActions = require('../actions/ClassroomActions');
 var StudentSelectionStore = require('../stores/StudentSelectionStore');
 var _ = require('underscore');
 
@@ -17,12 +18,15 @@ var appElement = document.getElementById('app');
 Modal.setAppElement(appElement);
 Modal.injectCSS();
 
+var randomModalTimer;
+
 var ClassroomDashboard = React.createClass({
   getInitialState: function(){
     //set list upon initialstate w/ ClassroomStore.getList
     return {
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
+      groups: StudentSelectionStore.getGroup(),
       today: ClassroomStore.getToday(),
       loggedIn: AuthStore.checkAuth(),
       showAttendance: false,
@@ -63,7 +67,8 @@ var ClassroomDashboard = React.createClass({
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
       loggedIn: AuthStore.checkAuth(),
-      today: ClassroomStore.getToday()
+      today: ClassroomStore.getToday(),
+      groups: StudentSelectionStore.getGroup()
     });
   },
 
@@ -77,9 +82,14 @@ var ClassroomDashboard = React.createClass({
 
   openRandomModal: function(){
     this.setState({randomModal: true});
+    
+    randomModalTimer = setTimeout(function(){
+      this.closeRandomModal();
+    }.bind(this), 5000);
   },
   
   closeRandomModal: function() {
+    clearTimeout(randomModalTimer);
     this.setState({randomModal: false});
   },
 
@@ -127,17 +137,6 @@ var ClassroomDashboard = React.createClass({
     ClassroomActions.randStudent();
   },
 
-  randGroup: function(e){
-    e.preventDefault();
-
-    var groupSizeNode = React.findDOMNode(this.refs.groupSize);
-    var groupSize = groupSizeNode.value;
-    groupSizeNode.value = '';
-
-    ClassroomActions.randGroup(groupSize);
-
-    this.closeGroupModal();
-  },
   // returns pokemon data object for the view to render
   makePokemonDirectory: function(studentNode) {
     var pokemonDirectory;
@@ -170,27 +169,57 @@ var ClassroomDashboard = React.createClass({
     var behaviorTypes = this.state.info.behavior;
     var markAttendance = this.markAttendance;
     var today = this.state.today;
+    var list = this.state.list;
     var context = this;
-    var studentNodes = _.map(this.state.list, function(studentNode,index){
-      var status = null;
+
+    var studentGroups = [];
+    var studentCount = Object.keys(list).length
+    var groupCount = Object.keys(this.state.groups).length
+    var groupSize = 0;
+    // prevent error during initial mounting
+    // list and group are empty objects when component mounts
+    if(groupCount > 0 && studentCount > 0 ){
+      groupList = this.state.groups;
+    } else {
+      groupList = {};
+    }
+
+    groupSize = _.reduce(groupList, function(max, cur){
+      return Math.max(max, cur)
+    }, 0);
+
+    var isGrouped = (groupSize === 0 || groupSize === 1 || groupCount === groupSize) ? false : true;
+
+    // iterate over list of students in the order of this.state.groups
+    _.each(groupList, function(group, studentId){
+      var studentNode = list[studentId];
+      var status = studentNode.attendance ? studentNode.attendance[today] : null;
       var pokemonDirectory = context.makePokemonDirectory(studentNode);
-      if(studentNode.attendance){
-        status = studentNode.attendance[today]
-      };
-      return (
+
+      if(!studentGroups[group]){
+        studentGroups[group] = [];
+      }
+
+      studentGroups[group].push((
         <ClassroomStudent 
-          key={index} 
-          studentId={index} 
+          key={studentId} 
+          studentId={studentId} 
           markAttendance={markAttendance} 
           attendance={attendance} 
           studentTitle={studentNode.studentTitle} 
           behavior={studentNode.behaviorTotal} 
           behaviorActions={behaviorTypes} 
           status={status}
-          showBehavior={showBehavior} 
-          pokemon={pokemonDirectory} />
-      )
+          showBehavior={showBehavior}
+          pokemon={pokemonDirectory} 
+          groupNum={group}
+          isGrouped={isGrouped} />
+      ));
+
     });
+
+    var studentNodes = _.flatten(studentGroups);
+
     return (
       <div className="classroomDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
@@ -214,28 +243,25 @@ var ClassroomDashboard = React.createClass({
               </div>
             </div>
           </div>
-          <Modal className="classModal" isOpen={this.state.addStudentModalIsOpen} onRequestClose={this.closeAddStudentModal}>
+          <Modal className="classModal" 
+            isOpen={this.state.addStudentModalIsOpen} 
+            onRequestClose={this.closeAddStudentModal}>
             <ClassroomForm closeAddStudentModal={this.closeAddStudentModal}/>
           </Modal>
-          <Modal className="randomModal" isOpen={this.state.randomModal} onRequestClose={this.closeRandomModal}>
+          <Modal className="randomModal" 
+            isOpen={this.state.randomModal} 
+            onRequestClose={this.closeRandomModal}>
             <StudentRandom closeRandomModal={this.closeRandomModal}/>
           </Modal>
-          <Modal className="groupModal" isOpen={this.state.groupModal} onRequestClose={this.closeGroupModal}>
-            <form className="form-horizontal" id="frmLogin" role="form" onSubmit={this.randGroup}>
-              <div className="form-group">
-                <label htmlFor="txtGroupSize" className="col-sm-3 control-label">Group Size</label>
-                <div className="col-sm-9">
-                  <input pattern="[0-9]*" className="form-control" placeholder="Group Size" ref="groupSize" required/>
-                </div>
-              </div>
-            </form>
+          <Modal className="groupModal" 
+            isOpen={this.state.groupModal} 
+            onRequestClose={this.closeGroupModal}>
+            <StudentGroupForm closeModal={this.closeGroupModal}/>
           </Modal>
         </div>
       </div>
     );
   }
 });
-
-
 
 module.exports = ClassroomDashboard;

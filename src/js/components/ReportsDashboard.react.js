@@ -1,11 +1,11 @@
 var React = require('react');
+var Navbar = require('./Navbar.react');
 var AuthStore = require('../stores/AuthStore');
 var ReportsStudent = require('./ReportsStudent.react');
-var AttendanceCalendar = require('./AttendanceCalendar.react');
 var ClassroomStore = require('../stores/ClassroomStore');
-var ClassroomActions = require('../actions/ClassroomActions');
-var Navbar = require('./Navbar.react');
 var BehaviorDashboard = require('./BehaviorReport.react');
+var ClassroomActions = require('../actions/ClassroomActions');
+var AttendanceCalendar = require('./AttendanceCalendar.react');
 var _ = require('underscore');
 
 var ReportsDashboard = React.createClass({

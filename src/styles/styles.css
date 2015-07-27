@@ -161,6 +161,13 @@ a, a:visited, a:hover, a:active {
 	height: 150px;
 }
 
+/*StudentGroupForm*/
+.StudenGroupForm, .groupModal{
+  width: 250px;
+  height: 100px;
+  text-align: center;
+}
+
 /*TimeBar*/
 .timeBar{
 	margin-bottom: 30px;

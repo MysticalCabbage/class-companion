@@ -1,9 +1,9 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var ClassroomConstants = require('../constants/ClassroomConstants');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var FirebaseStore = require('./FirebaseStore');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 var pokeFunctions = require('./ClassroomStorePokemonFunctions');
+var ClassroomConstants = require('../constants/ClassroomConstants');
 
 var CHANGE_EVENT = 'change';
 
@@ -17,15 +17,35 @@ var _store = {
 };
 
 var addStudent = function(newStudent){
-  firebaseRef.child('classes/' + _store.info.classId + '/students').push(newStudent);
+  // add newStudent object to database and return its id
+  var studentId = firebaseRef.child(
+    'classes/'
+    + _store.info.classId
+    + '/students'
+  ).push(newStudent).key();
+  
+  // StudentSelectionStore.addStudentToGroup(studentId);
+  // because of circular dependancy with stores
+  // adding student to group performed in ClassroomStore 
+
+  // student must also be added to groups with default group 0 
+  firebaseRef.child(
+    'classes/'
+    + _store.info.classId
+    + '/groups/'
+    + studentId
+  ).set(0);
 };
 
 var removeStudent = function(studentId){
-  firebaseRef.child('classes/' + _store.info.classId + '/students/' + studentId).remove();
-};
-
-var subtractPoint = function(data){
-  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior').set(data.behavior-1);
+  // remove student record from Firebase
+  // removing student from groups done in StudentSelectionStore
+  firebaseRef.child(
+    'classes/'
+    + _store.info.classId
+    + '/students/'
+    + studentId
+  ).remove();
 };
 
 var markAttendance = function(data){

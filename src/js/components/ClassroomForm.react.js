@@ -1,7 +1,7 @@
 var React = require('react');
-var ClassroomActions = require('../actions/ClassroomActions');
 var AuthStore = require('../stores/AuthStore');
 var ClassroomStore = require('../stores/ClassroomStore');
+var ClassroomActions = require('../actions/ClassroomActions');
 
 var ClassroomForm = React.createClass({
   getInitialState: function(){

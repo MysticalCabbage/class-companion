@@ -1,10 +1,10 @@
-var ClassroomConstants = require('../constants/ClassroomConstants');
-var ClassroomStore = require('./ClassroomStore');
-var AppDispatcher = require('../dispatcher/AppDispatcher');
 var objectAssign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
-var _ = require('underscore');
 var FirebaseStore = require('./FirebaseStore');
+var ClassroomStore = require('./ClassroomStore');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var ClassroomConstants = require('../constants/ClassroomConstants');
+var _ = require('underscore');
 
 var CHANGE_EVENT = 'change';
 
@@ -13,14 +13,23 @@ var firebaseRef = FirebaseStore.getDb();
 
 var _store = {
   random: null,
-  groups: []
+  groups: [],
+  classId: ''
 };
 
 // Runs when ClassroomDashboard is mounted
 // Queries and listen to Firebase for changes in classes/<classId>/selection/currentSelection
 var initQuery = function(classId){
+  _store.classId = classId;
+  
+  // flag used for ignoring first query
   var first = true;
-  firebaseRef.child('classes/'+classId+'/selection/currentSelection').on('value', function(snapshot){
+  
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/selection/currentSelection'
+  ).on('value', function(snapshot){
     // ignore null when ClassroomDashboard first mounts
     // ignore previous selected value when page refreshes
     if(first){
@@ -30,19 +39,41 @@ var initQuery = function(classId){
       StudentSelectionStore.emit(CHANGE_EVENT);
     }
   });
+
+  // listen to Firebase on groups of current class
+  firebaseRef.child(
+    'classes/'
+    + classId
+    + '/groups'
+  ).on('value', function(snapshot){
+    _store.groups = snapshot.val() || {};
+    ClassroomStore.emit(CHANGE_EVENT);
+  });
 }
 
 // Runs when ClassroomDashboard is umounted
 // Ends Firebase listener to /classes/<classId>/selection/currentSelection
 var endQuery = function(){
-  var classId = ClassroomStore.getInfo().classId;
-  // if classId is undefined for some reason, exit
-  if(!classId){
-    return;
-  }
   // Delete Selected student from database
-  firebaseRef.child('classes/'+classId+'/selection/currentSelection').set(null);
-  firebaseRef.child('classes/'+classId+'/selection/currentSelection').off();
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/selection/currentSelection'
+  ).set(null);
+  
+  // Remove listener to currentSelection in Firebase
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/selection/currentSelection'
+  ).off();
+
+  // Remove listener to groups in Firebase
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/groups'
+  ).off();
 }
 
 // Selects a random student
@@ -53,6 +84,7 @@ var randStudent = function(){
   var random = prevRandom = _store.random;
   var loop = 0;
 
+  // randomly select a new student
   while(random === prevRandom){
     // break infinite loop after 100 tries to get unique selection
     if(loop >= 100){ break; }
@@ -62,48 +94,61 @@ var randStudent = function(){
         random = student;
       }
     }
+    // loop counter in case of infinte loop
     loop++;
   }
 
   // set randomly selected student's ID to Firebase
-  var classId = ClassroomStore.getInfo().classId;
-  firebaseRef.child('classes/'+classId+'/selection/currentSelection').set(random);
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/selection/currentSelection'
+  ).set(random);
 };
 
 // Select and place students into groups randomly
 // shuffles list of students
 // group adjacent students into groups of 2
-var randGroup = function(groupSize){
+var randGroup = function(groupNum){
   var students = ClassroomStore.getList();
   var keys = Object.keys(students);
   var shuffled = [], idx = 0;
+  var groups = {};
 
+  // shuffles an array with list of student ids
   while(keys.length){
     idx = Math.floor(Math.random() * keys.length)
     shuffled.push(keys.splice(idx,1)[0]);
   }
 
-  var bucketSize = groupSize;
-  console.log(bucketSize)
-  var bucket = [];
-  var groups = [];
+  // push into groups key studentId and value group number
+  var count = 1;
+  _.each(shuffled, function(studentId, index){
+    groups[studentId] = count;
+    count = (count < groupNum) ? count+1 : 1;
+  });
 
-  var count = 0;
-  _.each(shuffled, function(key){
-    count++;
-    bucket.push(key)
+  return groups;
+};
 
-    if(count%bucketSize === 0){
-      groups.push(bucket.slice());
-      bucket = [];
-    }
-  }.bind(this));
-  
-  if(bucket.length > 0){
-    groups.push(bucket)
-  }
-  _store.groups = groups;
-  console.log(_store.groups)
+var setGroup = function(groupNum){
+  // calls the random group generator function
+  // and pushes the group list into Firebase
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/groups'
+  ).set(randGroup(groupNum));
+};
+
+var removeStudentFromGroups = function(studentId){
+  // remove student from group list when removing student from class
+  firebaseRef.child(
+    'classes/'
+    + _store.classId
+    + '/groups/'
+    + studentId
+  ).remove()
 };
 
 var StudentSelectionStore = objectAssign({}, EventEmitter.prototype, {
@@ -114,7 +159,7 @@ var StudentSelectionStore = objectAssign({}, EventEmitter.prototype, {
   removeChangeListener: function(cb){
     this.removeListener(CHANGE_EVENT, cb);
   },
-
+  
   getRandom: function(){
     return _store.random;
   },
@@ -133,13 +178,16 @@ AppDispatcher.register(function(payload){
       randStudent();
       break;
     case ClassroomConstants.RAND_GROUP:
-      randGroup(action.data);
+      setGroup(action.data);
       break;
     case ClassroomConstants.INIT_QUERY:
       initQuery(action.data);
       break;
     case ClassroomConstants.END_SELECT_QUERY:
       endQuery();
+      break;
+    case ClassroomConstants.REMOVE_STUDENT:
+      removeStudentFromGroups(action.data);
       break;
     default:
       return true;
