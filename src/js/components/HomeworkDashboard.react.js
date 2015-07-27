@@ -7,13 +7,19 @@ var AuthStore = require('../stores/AuthStore');
 var _ = require('underscore');
 
 var HomeworkAssignment = React.createClass({
+  getInitialState: function(){
+    return null
+  },
+  removeHW: function(){
+    HomeworkActions.removeAssignment(this.props.hwId)
+  },
   render: function(){
     return (
       <tr>
           <th>{this.props.title}</th>
           <th>{this.props.assignedOn}</th>
           <th>{this.props.dueDate}</th>
-          <th><button type="button" className="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></th>
+          <th><button type="button" className="close" aria-label="Close" onClick={this.removeHW}><span aria-hidden="true">&times;</span></button></th>
         </tr>
     );
   }
@@ -70,6 +76,7 @@ var HomeworkDashboard = React.createClass({
       console.log("index",index, assignment);
       return (
         <HomeworkAssignment 
+          hwId={index}
           key={index}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
@@ -82,13 +89,17 @@ var HomeworkDashboard = React.createClass({
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
           <table className="table">
+            <thead>
             <tr>
               <th><h4>Assignment</h4></th>
               <th><h4>Due Date</h4></th>
               <th><h4>Assigned On</h4></th>
               <th></th>
             </tr>
+            </thead>
+            <tbody>
             {assignments}
+            </tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
         </div>

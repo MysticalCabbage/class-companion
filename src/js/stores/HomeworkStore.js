@@ -40,6 +40,10 @@ var endQuery = function(){
   firebaseRef.child('classes/'+_store.info.classId).off();
 };
 
+var removeAssignment = function(hwId){
+  firebaseRef.child('classes/' + _store.info.classId + '/assignments/' + hwId ).remove();
+};
+
 var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   // Invoke the callback function (ie. the _onChange function in TeacherDashboard) whenever it hears a change event
   addChangeListener: function(cb){
@@ -79,6 +83,9 @@ AppDispatcher.register(function(payload){
       endQuery();
       HomeworkStore.emit(CHANGE_EVENT);
       break;
+    case HomeworkConstants.REMOVE_ASSIGNMENT:
+      removeAssignment(action.data);
+      HomeworkStore.emit(CHANGE_EVENT);
     default:
       return true;
   }
