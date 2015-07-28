@@ -15,7 +15,8 @@ var _store = {
   info: {},
   assignments: {},
   homeworkFor : {},
-  pastAssignments: {}
+  pastAssignments: {},
+  monthAssignments : {}
 };
 
 var addAssignment = function(assignment){
@@ -66,13 +67,12 @@ var setPastAssignments = function(){
 var selectMonth = function(month){
   var monthObj = {};
   for(var key in _store.assignments){
-
-    if(_store.assigments[key]["monthYear"][0] === month){
-      // monthObj[key] = _store.assignments[key];
-      console.log("it got one", key);
+    if(month === _store.assignments[key]["monthYear"][0]){
+      monthObj[key] = _store.assignments[key];
     }
   }
-  console.log(monthObj);
+  _store.monthAssignments = monthObj;
+  HomeworkStore.emit(CHANGE_EVENT);
 };
 
 
@@ -112,6 +112,9 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
       }
     }
     return pastAssignments;
+  },
+  getMonthAssignments: function(){
+    return _store.monthAssignments;
   }
 });
 
@@ -140,7 +143,6 @@ AppDispatcher.register(function(payload){
       break;
     case HomeworkConstants.MONTH_SELECTED:
       selectMonth(action.data);
-      HomeworkStore.emit(CHANGE_EVENT);
     default:
       return true;
   }

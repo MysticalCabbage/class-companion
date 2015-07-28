@@ -33,9 +33,10 @@ var HomeworkDashboard = React.createClass({
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
       pastAssignments: HomeworkStore.getPastAssignments(),
+      monthAssignments: HomeworkStore.getMonthAssignments,
       showPastAssignments: false,
       showCurrentAssignments: true,
-      selectedMonthAssignments: {}
+      showMonthAssignments: false
     }
   },
   componentWillMount: function(){
@@ -67,7 +68,8 @@ var HomeworkDashboard = React.createClass({
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
       loggedIn: AuthStore.checkAuth(),
-      pastAssignments: HomeworkStore.getPastAssignments()
+      pastAssignments: HomeworkStore.getPastAssignments(),
+      monthAssignments: HomeworkStore.getMonthAssignments()
     });
   },
 
@@ -88,6 +90,11 @@ var HomeworkDashboard = React.createClass({
   monthSelect: function(e){
     var month = document.getElementById('dropdown').value;
     HomeworkActions.monthSelected(month);
+    this.setState({
+      showMonthAssignments: true,
+      showPastAssignments: false,
+      showCurrentAssignments: false,
+    });
   },
 
   render: function(){
@@ -131,10 +138,19 @@ var HomeworkDashboard = React.createClass({
       );
     });
 
-    // var monthOldAssignment = _.filter(this.state.pastAssignments, function(assignment,index){
-    //   console.log("heres the month",assignment.month, this.state.selectedMonth);
-    //   return assignment.month === this.state.selectedMonth;
-    // });
+    var monthAssignments = _.map(this.state.monthAssignments, function(assignment,index){
+      return (
+        <HomeworkAssignment
+          hwId={index}
+          key={index}
+          status={"./assets/greatball.png"}
+          title = {assignment.assignment}
+          dueDate = {assignment.dueDate}
+          classId = {assignment.classId} 
+          assignedOn = {assignment.assignedOn}/>
+      );
+    });
+
     return (
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
@@ -187,6 +203,7 @@ var HomeworkDashboard = React.createClass({
             <tbody>
             {this.state.showCurrentAssignments ? {assignments} : null}
             {this.state.showPastAssignments ? {oldAssignments} : null}
+            {this.state.showMonthAssignments ? {monthAssignments} : null}
             </tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
