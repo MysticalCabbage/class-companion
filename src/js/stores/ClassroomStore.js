@@ -211,8 +211,10 @@ AppDispatcher.register(function(payload){
       break;
     case ClassroomConstants.GET_BEHAVIORS:
       behaviorChart(action.data);
+      break;
     case ClassroomConstants.GET_NEW_POKEMON:
       pokeFunctions.getNewPokemon(action.data, _store.info.classId)
+      break;
     default:
       return true;
   }
