@@ -67,7 +67,7 @@ var setPastAssignments = function(){
 var selectMonth = function(month){
   var monthObj = {};
   for(var key in _store.assignments){
-    if(month === _store.assignments[key]["monthYear"][0]){
+    if(month.toString() === _store.assignments[key]["monthYear"][0]){
       monthObj[key] = _store.assignments[key];
     }
   }

@@ -116,8 +116,8 @@ var HomeworkDashboard = React.createClass({
     var assignments = _.map(currentAssignments, function(assignment, index){
       return (
         <HomeworkAssignment 
-          hwId={index}
           key={index}
+          hwId={index}
           status={"./assets/smallpokeball.png"}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
@@ -128,8 +128,8 @@ var HomeworkDashboard = React.createClass({
     var oldAssignments = _.map(this.state.pastAssignments, function(assignment,index){
       return (
         <HomeworkAssignment
-          hwId={index}
           key={index}
+          hwId={index}
           status={"./assets/masterball.png"}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
@@ -141,8 +141,8 @@ var HomeworkDashboard = React.createClass({
     var monthAssignments = _.map(this.state.monthAssignments, function(assignment,index){
       return (
         <HomeworkAssignment
-          hwId={index}
           key={index}
+          hwId={index}
           status={"./assets/greatball.png"}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
@@ -207,10 +207,6 @@ var HomeworkDashboard = React.createClass({
             </tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
-          <div className="dropdown">
-            <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-            <span className="caret"></span></button>
-          </div>
         </div>
       </div>
     );
