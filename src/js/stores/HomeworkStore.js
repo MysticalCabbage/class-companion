@@ -17,8 +17,6 @@ var _store = {
   pastAssignments: {}
 };
 
-// var initQuery = function()
-
 var addAssignment = function(assignment){
   var hwId = firebaseRef.child('classes/' + assignment.classId + '/assignments').push(assignment).key();
 

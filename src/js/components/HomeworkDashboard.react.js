@@ -25,15 +25,6 @@ var HomeworkAssignment = React.createClass({
   }
 });
 
-var PastAssignments = React.createClass({
-  getInitialState: function(){
-    return null
-  },
-  render: function(){
-    return null
-  }
-});
-
 var HomeworkDashboard = React.createClass({
   getInitialState: function(){
     return {
@@ -93,7 +84,6 @@ var HomeworkDashboard = React.createClass({
   },
 
   render: function(){
-    console.log("woo", this.state.assignments);
     var url = '#/classroomDashboard/' + this.props.params.id;
     var remove = this.removeHW;
     var currentAssignments = {};
