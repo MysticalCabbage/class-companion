@@ -1,10 +1,10 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var AuthConstants = require('../constants/AuthConstants');
 var objectAssign = require('object-assign');
+var EventEmitter = require('events').EventEmitter;
 var FirebaseStore = require('./FirebaseStore');
-var Q = require('q');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AuthConstants = require('../constants/AuthConstants');
 var RouterContainer = require('../services/RouterContainer');
+var Q = require('q');
 
 var CHANGE_EVENT = 'change';
 
@@ -34,6 +34,8 @@ var AuthStore = objectAssign({}, EventEmitter.prototype, {
     
     if(this.checkAuth()){
       console.error('Error logging out')
+    } else {
+      _loggedIn = null;
     }
   },
 
@@ -74,8 +76,8 @@ AppDispatcher.register(function(payload){
       break;
     case AuthConstants.LOGOUT:
       AuthStore.logout();
-      _loggedIn = null;
       RouterContainer.get().transitionTo('/');
+      AuthStore.emit('change');
       break;
     default:
       return true;

@@ -2,6 +2,12 @@ var React = require('react');
 var ClassroomActions = require('../actions/ClassroomActions');
 
 var StudentGroupForm = React.createClass({
+  componentDidMount: function(){
+  },
+
+  componentWillUnmount: function(){
+  },
+
   handleSubmit: function(e){
     e.preventDefault();
 

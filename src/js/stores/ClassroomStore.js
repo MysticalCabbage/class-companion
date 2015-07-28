@@ -29,13 +29,13 @@ var addStudent = function(newStudent){
   // because of circular dependancy with stores
   // adding student to group performed in ClassroomStore 
 
-  // student must also be added to groups with default group 0 
+  // student must also be added to groups with default group 1
   firebaseRef.child(
     'classes/'
     + _store.info.classId
     + '/groups/'
     + studentId
-  ).set(0);
+  ).set(1);
 };
 
 var removeStudent = function(studentId){
@@ -142,6 +142,15 @@ var initQuery = function(classId){
 
 var endQuery = function(){
   firebaseRef.child('classes/'+_store.info.classId).off();
+
+  // reset singleton store when ClassroomDashboard unmounts
+  _store = {
+    list: {},
+    info: {},
+    today: '',
+    graph: [],
+    assignments: {}
+  };
 };
 
 var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
@@ -170,8 +179,6 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
     return _store.graph;
   }
 });
-
-
 
 
 AppDispatcher.register(function(payload){

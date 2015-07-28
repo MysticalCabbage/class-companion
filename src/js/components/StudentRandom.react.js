@@ -13,7 +13,7 @@ var StudentRandom = React.createClass({
     StudentSelectionStore.addChangeListener(this._onChange);
   },
 
-  componentWillUnMount: function(){
+  componentWillUnmount: function(){
     StudentSelectionStore.removeChangeListener(this._onChange);
   },
 
