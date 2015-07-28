@@ -36,7 +36,6 @@ var initQuery = function(classId){
       first = false;
     } else {
       _store.random = snapshot.val();
-      console.log(_store.random)
       StudentSelectionStore.emit(CHANGE_EVENT);
     }
   });

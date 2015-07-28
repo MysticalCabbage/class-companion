@@ -29,7 +29,7 @@ var addStudent = function(newStudent){
   // because of circular dependancy with stores
   // adding student to group performed in ClassroomStore 
 
-  // student must also be added to groups with default group 0 
+  // student must also be added to groups with default group 1
   firebaseRef.child(
     'classes/'
     + _store.info.classId
