@@ -32,7 +32,6 @@ var PastAssignments = React.createClass({
   render: function(){
     return null
   }
-
 });
 
 var HomeworkDashboard = React.createClass({
@@ -41,7 +40,7 @@ var HomeworkDashboard = React.createClass({
       loggedIn: AuthStore.checkAuth(),
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
-      homeworkFor: HomeworkStore.getHomeworkFor(),
+      pastAssignments: HomeworkStore.getPastAssignments(),
       showPastAssignments: false,
       showCurrentAssignments: true
     }
@@ -70,12 +69,12 @@ var HomeworkDashboard = React.createClass({
     AuthStore.removeChangeListener(this._onChange);
   },
 
-    _onChange: function(){
+  _onChange: function(){
     this.setState({
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
-      homeworkFor: HomeworkStore.getHomeworkFor(),
-      loggedIn: AuthStore.checkAuth()
+      loggedIn: AuthStore.checkAuth(),
+
     });
   },
 
@@ -84,13 +83,14 @@ var HomeworkDashboard = React.createClass({
       showPastAssignments: true,
       showCurrentAssignments: false
     });
+    console.log("do we have it already", this.state.pastAssignments)
+    // HomeworkActions.getPastAssignments();
   },
 
   render: function(){
     var url = '#/classroomDashboard/' + this.props.classId;
     var remove = this.removeHW;
     var assignments = _.map(this.state.assignments, function(assignment, index){
-      console.log("index",index, assignment);
       return (
         <HomeworkAssignment 
           hwId={index}
@@ -101,6 +101,7 @@ var HomeworkDashboard = React.createClass({
           assignedOn = {assignment.assignedOn}/>
       );
     });
+
     return (
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>

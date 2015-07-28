@@ -25,6 +25,12 @@ var HomeworkActions = {
       actionType: HomeworkConstants.REMOVE_ASSIGNMENT,
       data: hwId
     });
+  },
+  getPastAssignments: function(){
+    AppDispatcher.handleAction({
+      actionType: HomeworkConstants.PAST_ASSIGNMENTS,
+      data: null
+    });
   }
 };
 
