@@ -117,14 +117,22 @@ var randStudent = function(){
 // shuffles list of students
 // group adjacent students into groups of 2
 var randGroup = function(groupNum){
-  if(groupNum === 0){
-    groupNum = 1;
-  }
 
   var students = ClassroomStore.getList();
   var keys = Object.keys(students);
   var shuffled = [], idx = 0;
   var groups = {};
+
+  // if groupNum is 0, 1, or same as # of students,
+  // reset group number to 1
+  // this prevents random shuffling when removing groups
+  if(groupNum === 0 || groupNum === 1 || groupNum === keys.length){
+    _.each(students, function(student, studentId){
+      groups[studentId] = 1;
+    });
+
+    return groups;
+  }
 
   // shuffles an array with list of student ids
   while(keys.length){
@@ -199,6 +207,14 @@ AppDispatcher.register(function(payload){
       break;
     case ClassroomConstants.REMOVE_STUDENT:
       removeStudentFromGroups(action.data);
+      // reset groups when remove student
+      // prevents React from rendering empty holes
+      setGroup(1);
+      break;
+    case ClassroomConstants.ADD_STUDENT:
+      // reset groups when add student
+      // prevents React from rendering empty holes
+      setGroup(1);
       break;
     default:
       return true;

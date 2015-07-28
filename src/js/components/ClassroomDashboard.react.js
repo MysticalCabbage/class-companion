@@ -228,7 +228,9 @@ var ClassroomDashboard = React.createClass({
 
     });
 
-    var studentNodes = _.flatten(studentGroups);
+    var studentNodes = _.flatten(studentGroups, true);
+    // remove index 0 because no group No. 0 
+    studentNodes.shift();
 
     return (
       <div className="classroomDashboard">
