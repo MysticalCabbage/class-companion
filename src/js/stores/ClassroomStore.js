@@ -4,7 +4,6 @@ var FirebaseStore = require('./FirebaseStore');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var pokeFunctions = require('./ClassroomStorePokemonFunctions');
 var ClassroomConstants = require('../constants/ClassroomConstants');
-var ClassroomActions = require('../actions/ClassroomActions');
 
 var CHANGE_EVENT = 'change';
 
