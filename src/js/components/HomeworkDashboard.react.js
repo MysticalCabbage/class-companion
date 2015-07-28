@@ -74,7 +74,7 @@ var HomeworkDashboard = React.createClass({
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
       loggedIn: AuthStore.checkAuth(),
-
+      pastAssignments: HomeworkStore.getPastAssignments()
     });
   },
 
@@ -93,7 +93,8 @@ var HomeworkDashboard = React.createClass({
   },
 
   render: function(){
-    var url = '#/classroomDashboard/' + this.props.classId;
+    console.log("woo", this.state.assignments);
+    var url = '#/classroomDashboard/' + this.props.params.id;
     var remove = this.removeHW;
     var currentAssignments = {};
     var today = new Date();

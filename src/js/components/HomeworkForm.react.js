@@ -19,21 +19,17 @@ var HomeworkForm = React.createClass({
     }
   },
 
-  componentDidMount: function(){ 
-    HomeworkActions.initQuery(this.props.classId);
-    HomeworkStore.addChangeListener(this._onChange);
-    AuthStore.addChangeListener(this._onChange);
-  },
+  // componentDidMount: function(){ 
+  //   HomeworkActions.initQuery(this.props.classId);
+  //   HomeworkStore.addChangeListener(this._onChange);
+  //   AuthStore.addChangeListener(this._onChange);
+  // },
 
-  componentWillUnmount: function(){
-    HomeworkActions.endQuery();
-    HomeworkStore.removeChangeListener(this._onChange);
-    AuthStore.removeChangeListener(this._onChange);
-  },
-
-  _onChange: function(){
-   
-  },
+  // componentWillUnmount: function(){
+  //   HomeworkActions.endQuery();
+  //   HomeworkStore.removeChangeListener(this._onChange);
+  //   AuthStore.removeChangeListener(this._onChange);
+  // },
 
   homeworkSubmit: function(e){
     e.preventDefault();
