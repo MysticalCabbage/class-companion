@@ -1,13 +1,13 @@
 body{
-	/*font-family: 'Press Start 2P', cursive;*/
-/*	background-image: url("../assets/background.png");
-	background-repeat: no-repeat;*/
-	background-size: cover;
-	background: url("../assets/background.png") no-repeat center center fixed;
+  /*font-family: 'Press Start 2P', cursive;*/
+/*  background-image: url("../assets/background.png");
+  background-repeat: no-repeat;*/
+  background-size: cover;
+  background: url("../assets/background.png") no-repeat center center fixed;
 }
 
 /*i span{
-	font-family: 'Press Start 2P', cursive;
+  font-family: 'Press Start 2P', cursive;
 }*/
 
 a, a:visited, a:hover, a:active {
@@ -17,7 +17,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .well{
-	text-align: center;
+  text-align: center;
 }
 
 /*Modal*/
@@ -26,12 +26,12 @@ a, a:visited, a:hover, a:active {
 }
 
 .ReactModal__Content{
-	padding: 0;
+  padding: 0;
   margin-left: auto;
   margin-right: auto;
   top: 50%;
-	transform: translateY(-50%);
-	overflow: visible;
+  transform: translateY(-50%);
+  overflow: visible;
 }
 
 /*About Us*/
@@ -63,63 +63,63 @@ a, a:visited, a:hover, a:active {
 
 /*AttendanceCalendar*/
 .attendanceCalendar td{
-	font-size: 11px;
+  font-size: 11px;
 }
 
 .pagination{
-	float: right;
-	margin-top: 0;
+  float: right;
+  margin-top: 0;
 }
 
 /*AttendanceNavbar*/
 .attendanceNavbar{
-	margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .attendanceNavbar button{
-	float: right;
+  float: right;
 }
 
 /*BehaviorButtons*/
 .behaviorThumbnail{
-	text-align: center;
+  text-align: center;
 }
 
 .behaviorButtons, .behaviorModal{
-	width: 400px;
-	height: 160px;
+  width: 400px;
+  height: 160px;
 }
 
 /*ClassroomDashboard*/
 .studentsContainer{
-	margin-top: 25px;
+  margin-top: 25px;
 }
 
 /*ClassroomStudent*/
 .classroomStudent{
-	cursor: pointer;
-	border: 0;
-	padding: 7px;
-	background-color: white;
+  cursor: pointer;
+  border: 0;
+  padding: 7px;
+  background-color: white;
 }
 
 .studentSection{
-	margin: 0 0 11px 0;
+  margin: 0 0 11px 0;
 }
 
 .studentTitle{
-	font-size: 26px;
+  font-size: 26px;
 }
 
 .attendanceButton{
-	position: absolute;
-	top: -10px;
-	left: 0px;
+  position: absolute;
+  top: -10px;
+  left: 0px;
 }
 .image { 
-	position: absolute; 
-	top: -25px;
-	left: -13px;
+  position: absolute; 
+  top: -25px;
+  left: -13px;
 }
 
 .behaviorImg{
@@ -139,93 +139,93 @@ a, a:visited, a:hover, a:active {
 }
 
 .studentInfo{
-	margin: 3% 0 0 0;
-	font-size: 20px;
-	font-weight: bolder;
+  margin: 3% 0 0 0;
+  font-size: 20px;
+  font-weight: bolder;
   text-align: center;
 }
 
 .avatar{
-	padding: 0;
+  padding: 0;
 }
 
 .avatarImg{
-	max-height: 100px;
+  max-height: 100px;
 }
 
 .studentGroup{
-	font-size: 15px;
+  font-size: 15px;
 }
 
 .pokemonSpecs{
-	/*border: #000800 solid 2px;*/
-	border-radius: 13px 5px;
-	/*background-color: #F8F8D8;*/
-	padding: 0px 8px;
-	font-weight: 700;
-	clear: both;
-	font-size: 12px;
+  /*border: #000800 solid 2px;*/
+  border-radius: 13px 5px;
+  /*background-color: #F8F8D8;*/
+  padding: 0px 8px;
+  font-weight: 700;
+  clear: both;
+  font-size: 12px;
 }
 
 .pokemonName{
-	float: left;
-	text-transform: uppercase;
+  float: left;
+  text-transform: uppercase;
 }
 
 .pokemonLevel{
-	float: right;
+  float: right;
 }
 
 .progress{
-	width: 75%;
-	/*border-radius: 10px;*/
-	margin: 0px;
+  width: 75%;
+  /*border-radius: 10px;*/
+  margin: 0px;
 }
 
 .pokemonExp{
-	text-align: right;
+  text-align: right;
 }
 
 .hpBar{
-	background-color: cornflowerblue;
-	clear: both;
-	/*border-radius: 15px;*/
-	padding: 1%;
+  background-color: cornflowerblue;
+  clear: both;
+  /*border-radius: 15px;*/
+  padding: 1%;
 }
 
 .hp{
-	color: azure;
-	width: 25%;
-	float: left;
-	font-weight: bolder;
+  color: azure;
+  width: 25%;
+  float: left;
+  font-weight: bolder;
 }
 
 .progress-bar{
-	background-color: paleturquoise;
+  background-color: paleturquoise;
 }
 
 /*Login*/
 .loginForm, .loginModal{
-	width: 500px;
-	height: 285px;
+  width: 500px;
+  height: 285px;
 }
 
 /*Signup*/
 .signupForm, .signupModal{
-	width: 500px;
-	height: 433px;
+  width: 500px;
+  height: 433px;
 }
 
 /*StudentRandom*/
 .StudentRandom, .randomModal{
-	width: 250px;
-	height: 100px;
-	text-align: center;
+  width: 250px;
+  height: 100px;
+  text-align: center;
 }
 
 /*TeacherClass*/
 .classImg{
-	height: auto;
+  height: auto;
   width: auto;
   max-width: 60px;
   max-height: 60px;
@@ -233,8 +233,8 @@ a, a:visited, a:hover, a:active {
 
 /*TeacherForm & ClassroomForm*/
 .teacherForm, .teacherModal, .classroomForm, .classModal{
-	width: 586px;
-	height: 150px;
+  width: 586px;
+  height: 150px;
 }
 
 /*StudentGroupForm*/
@@ -246,8 +246,8 @@ a, a:visited, a:hover, a:active {
 
 /*TimeBar*/
 .timeBar{
-	margin-bottom: 30px;
-	margin-bottom: 15px;
+  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 #exampleInputName2 {
