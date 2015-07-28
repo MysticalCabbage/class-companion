@@ -109,7 +109,7 @@ var HomeworkDashboard = React.createClass({
     if(mm<10){mm='0'+mm} 
     var todaysDate = mm + '-' + dd;
     for(var assignment in this.state.assignments){
-      if((this.state.assignments[assignment].dueDate.slice(0,5) > todaysDate) && (yyyy <= this.state.assignments[assignment].dueDate.slice(6,10))){
+      if((this.state.assignments[assignment].dueDate.slice(0,5) >= todaysDate) && (yyyy <= this.state.assignments[assignment].dueDate.slice(6,10))){
           currentAssignments[assignment] = this.state.assignments[assignment];
       }
     }
@@ -177,7 +177,7 @@ var HomeworkDashboard = React.createClass({
             </div>
           </nav>
           <select id = "dropdown" onChange={this.monthSelect}>
-                <option value="N/A">Filter Due Date by Month</option>
+                <option value="N/A">Filter by Due Date</option>
                 <option value="01">January</option>
                 <option value="02">February</option>
                 <option value="03">March</option>
