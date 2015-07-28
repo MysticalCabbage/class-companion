@@ -18,7 +18,7 @@ var TeacherClass = React.createClass({
           <button type="button" className="close" aria-label="Close" onClick={this.removeClass}><span aria-hidden="true">&times;</span></button>
           <a href={url}>
             <div>
-              <img className="classImg" src="./assets/classIcon.gif" alt="" />
+              <img className="classImg" src="./assets/classIcon.png" alt="" />
             </div>
             {this.props.classTitle}
           </a>

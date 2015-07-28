@@ -67,7 +67,7 @@ var ReportsDashboard = React.createClass({
   },
 
   render: function(){
-    var url = '#/classroomDashboard/' + this.props.classId;
+    var url = '#/classroomDashboard/' + this.props.params.id;
     return (
       <div className="reportsDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>

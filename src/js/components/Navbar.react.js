@@ -23,6 +23,13 @@ var Navbar = React.createClass({
                 </li>
               </ul>
             : null }
+            { this.props.loggedIn ? 
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a href={'#/teacherDashboard/'}>Go to your class</a>
+              </li>
+            </ul>
+            : null }
             { this.props.loggedIn ? null :
               <ul className="nav navbar-nav navbar-right">
                 <li>
