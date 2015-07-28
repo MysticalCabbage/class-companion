@@ -7,14 +7,30 @@ var AuthStore = require('../stores/AuthStore');
 var _ = require('underscore');
 
 var HomeworkAssignment = React.createClass({
+  getInitialState: function(){
+    return null
+  },
+  removeHW: function(){
+    HomeworkActions.removeAssignment(this.props.hwId)
+  },
   render: function(){
     return (
       <tr>
-          <th>{this.props.title}</th>
+          <th><img className="behaviorImg" src={this.props.status} alt="" /> {this.props.title}</th>
           <th>{this.props.dueDate}</th>
-          <th><button type="button" className="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></th>
+          <th>{this.props.assignedOn}</th>
+          <th><button type="button" className="close" aria-label="Close" onClick={this.removeHW}><span aria-hidden="true">&times;</span></button></th>
         </tr>
     );
+  }
+});
+
+var PastAssignments = React.createClass({
+  getInitialState: function(){
+    return null
+  },
+  render: function(){
+    return null
   }
 });
 
@@ -24,7 +40,9 @@ var HomeworkDashboard = React.createClass({
       loggedIn: AuthStore.checkAuth(),
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
-      homeworkFor: HomeworkStore.getHomeworkFor()
+      pastAssignments: HomeworkStore.getPastAssignments(),
+      showPastAssignments: false,
+      showCurrentAssignments: true
     }
   },
   componentWillMount: function(){
@@ -50,44 +68,111 @@ var HomeworkDashboard = React.createClass({
     HomeworkStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
   },
-    _onChange: function(){
+
+  _onChange: function(){
     this.setState({
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
-      homeworkFor: HomeworkStore.getHomeworkFor(),
-      loggedIn: AuthStore.checkAuth()
+      loggedIn: AuthStore.checkAuth(),
+
     });
   },
-  removeHW: function(e){
-    // HomeworkActions.removeHW(this.props)
-    console.log("clicked", this.props);
+
+  showPastAssignments: function(){
+    this.setState({
+      showPastAssignments: true,
+      showCurrentAssignments: false
+    });
+  },
+
+  showCurrentAssignments: function(){
+    this.setState({
+      showPastAssignments: false,
+      showCurrentAssignments: true
+    });
   },
 
   render: function(){
+    var url = '#/classroomDashboard/' + this.props.classId;
     var remove = this.removeHW;
-    var assignments = _.map(this.state.assignments, function(assignment, index){
-      console.log("index",index, assignment);
+    var currentAssignments = {};
+    var today = new Date();
+    var dd = today.getDate(); 
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd} 
+    if(mm<10){mm='0'+mm} 
+    var todaysDate = mm + '-' + dd;
+    for(var assignment in this.state.assignments){
+      if((this.state.assignments[assignment].dueDate.slice(0,5) > todaysDate) && (yyyy <= this.state.assignments[assignment].dueDate.slice(6,10))){
+          currentAssignments[assignment] = this.state.assignments[assignment];
+      }
+    }
+    var assignments = _.map(currentAssignments, function(assignment, index){
       return (
         <HomeworkAssignment 
+          hwId={index}
           key={index}
+          status={"./assets/smallpokeball.png"}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
-          classId = {assignment.classId} />
+          classId = {assignment.classId} 
+          assignedOn = {assignment.assignedOn}/>
+      );
+    });
+    var oldAssignments = _.map(this.state.pastAssignments, function(assignment,index){
+      return (
+        <HomeworkAssignment
+          hwId={index}
+          key={index}
+          status={"./assets/masterball.png"}
+          title = {assignment.assignment}
+          dueDate = {assignment.dueDate}
+          classId = {assignment.classId} 
+          assignedOn = {assignment.assignedOn}/>
       );
     });
     return (
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
         <div className="container">
-          <table className="table">
+        <nav className="classroomNavbar container navbar navbar-default">
+            <div className="container-fluid">
+              <div id="navbar" className="navbar-collapse collapsed">
+                <ul className="nav navbar-nav">
+                  <li>
+                    <a href={url}><i className="fa fa-arrow-left"> Back to classroom</i></a>
+                  </li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                  <li>
+                    {this.state.showPastAssignments ? <a onClick={this.showCurrentAssignments}><i className="fa fa-pencil-square-o"><span> View Active Assignments</span></i></a> : null }
+                  </li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                  <li>
+                    {this.state.showCurrentAssignments ? <a onClick={this.showPastAssignments}><i className="fa fa-archive"><span> View Past Assignments</span></i></a> : null }
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <table className="table" id="homeworktable">
+            <thead>
             <tr>
               <th><h4>Assignment</h4></th>
               <th><h4>Due Date</h4></th>
+              <th><h4>Assigned On</h4></th>
               <th></th>
             </tr>
-            {assignments}
+            </thead>
+            <tbody>
+            {this.state.showCurrentAssignments ? {assignments} : null}
+            {this.state.showPastAssignments ? {oldAssignments} : null}
+            </tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
+
         </div>
       </div>
     );

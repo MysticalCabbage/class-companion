@@ -39,8 +39,15 @@ var HomeworkForm = React.createClass({
     e.preventDefault();
     var homeworkAssignment = React.findDOMNode(this.refs.homeworktitle).value;
     var dueDate = React.findDOMNode(this.refs.duedate).value.split("-");
+    var today = new Date();
+    var dd = today.getDate(); 
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd} 
+    if(mm<10){mm='0'+mm} 
+    var todaysDate = mm + '-' + dd + '-' + yyyy;
     var formattedDate = dueDate[1] + "-" + dueDate[2] + "-" + dueDate[0];
-    HomeworkActions.addAssignment({ assignment: homeworkAssignment, dueDate: formattedDate, classId: this.props.classId});
+    HomeworkActions.addAssignment({ assignment: homeworkAssignment, dueDate: formattedDate, classId: this.props.classId, assignedOn: todaysDate });
     React.findDOMNode(this.refs.homeworktitle).value = "";
   },
 
@@ -50,11 +57,11 @@ var HomeworkForm = React.createClass({
         <div className="well">
           <form className="form-inline" onSubmit={this.homeworkSubmit}>
             <div className="form-group">
-              <label for="exampleInputName2" ></label>
-              <input type="text" className="homeworkinput form-control" id="exampleInputName2" placeholder="Enter Assignment and Due Date" ref="homeworktitle"/>
+              <label htmlFor="exampleInputName2" ></label>
+              <input type="text" className="homeworkinput form-control" id="exampleInputName2" placeholder="Enter Assignment" ref="homeworktitle" required/>
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail2"></label>
+              <label htmlFor="exampleInputEmail2"></label>
               <input type="date" className="form-control" id="dateinput" ref="duedate" required/>
             </div>
             <button type="submit" className="btn btn-default">Save</button>

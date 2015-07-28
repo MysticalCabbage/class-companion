@@ -13,13 +13,13 @@ var _store = {
   list: {},
   info: {},
   assignments: {},
-  homeworkFor : {}
+  homeworkFor : {},
+  pastAssignments: {}
 };
 
 // var initQuery = function()
 
 var addAssignment = function(assignment){
-  console.log(assignment);
   var hwId = firebaseRef.child('classes/' + assignment.classId + '/assignments').push(assignment).key();
 
   firebaseRef.child('classes/' + assignment.classId + '/homeworkFor/' + assignment.dueDate + '/' + hwId).set(hwId);
@@ -38,6 +38,11 @@ var initQuery = function(classId){
 var endQuery = function(){
   firebaseRef.child('classes/'+_store.info.classId).off();
 };
+
+var removeAssignment = function(hwId){
+  firebaseRef.child('classes/' + _store.info.classId + '/assignments/' + hwId ).remove();
+};
+
 
 var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   // Invoke the callback function (ie. the _onChange function in TeacherDashboard) whenever it hears a change event
@@ -58,8 +63,23 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   getList: function(){
     return _store.list;
   },
-  getHomeworkFor: function(){
-    return _store.homeworkFor;
+  getPastAssignments: function(){
+    var pastAssignments = {};
+    //used to find today's date in MM/DD/YYYY
+    var today = new Date();
+    var dd = today.getDate(); 
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd} 
+    if(mm<10){mm='0'+mm} 
+    var todaysDate = mm + '-' + dd;
+    //loops through all assignments and filters ones that were due before today
+    for(var assignment in _store.assignments){
+      if((_store.assignments[assignment].dueDate.slice(0,5) < todaysDate) && (yyyy >= _store.assignments[assignment].dueDate.slice(6,10))){
+          pastAssignments[assignment] = _store.assignments[assignment];
+      }
+    }
+    return pastAssignments;
   }
 });
 
@@ -76,6 +96,14 @@ AppDispatcher.register(function(payload){
       break;
     case HomeworkConstants.END_QUERY:
       endQuery();
+      HomeworkStore.emit(CHANGE_EVENT);
+      break;
+    case HomeworkConstants.REMOVE_ASSIGNMENT:
+      removeAssignment(action.data);
+      HomeworkStore.emit(CHANGE_EVENT);
+      break;
+    case HomeworkConstants.PAST_ASSIGNMENTS:
+      getPastAssignments();
       HomeworkStore.emit(CHANGE_EVENT);
       break;
     default:
