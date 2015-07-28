@@ -16,7 +16,7 @@ var HomeworkAssignment = React.createClass({
   render: function(){
     return (
       <tr>
-          <th> {this.props.title}</th>
+          <th><img className="behaviorImg" src={this.props.status} alt="" /> {this.props.title}</th>
           <th>{this.props.dueDate}</th>
           <th>{this.props.assignedOn}</th>
           <th><button type="button" className="close" aria-label="Close" onClick={this.removeHW}><span aria-hidden="true">&times;</span></button></th>
@@ -85,6 +85,13 @@ var HomeworkDashboard = React.createClass({
     });
   },
 
+  showCurrentAssignments: function(){
+    this.setState({
+      showPastAssignments: false,
+      showCurrentAssignments: true
+    });
+  },
+
   render: function(){
     var url = '#/classroomDashboard/' + this.props.classId;
     var remove = this.removeHW;
@@ -106,6 +113,7 @@ var HomeworkDashboard = React.createClass({
         <HomeworkAssignment 
           hwId={index}
           key={index}
+          status={"./assets/smallpokeball.png"}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
           classId = {assignment.classId} 
@@ -117,6 +125,7 @@ var HomeworkDashboard = React.createClass({
         <HomeworkAssignment
           hwId={index}
           key={index}
+          status={"./assets/masterball.png"}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
           classId = {assignment.classId} 
@@ -137,7 +146,12 @@ var HomeworkDashboard = React.createClass({
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li>
-                    <a onClick={this.showPastAssignments}><i className="fa fa-archive"><span> View Past Assignments</span></i></a>
+                    {this.state.showPastAssignments ? <a onClick={this.showCurrentAssignments}><i className="fa fa-archive"><span> View Active Assignments</span></i></a> : null }
+                  </li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                  <li>
+                    {this.state.showCurrentAssignments ? <a onClick={this.showPastAssignments}><i className="fa fa-archive"><span> View Past Assignments</span></i></a> : null }
                   </li>
                 </ul>
               </div>
