@@ -31,14 +31,14 @@ var Home = React.createClass({
 	_onChange: function(){
 	  this.setState({
 	  	loggedIn: AuthStore.checkAuth()
-	  })
+	  });
 	},
 
 	openLoginModal: function(){
     this.setState({loginModalIsOpen: true});
   },
   
-  closeLoginModal: function() {
+  closeLoginModal: function(){
     this.setState({loginModalIsOpen: false});
   },
 
@@ -46,7 +46,7 @@ var Home = React.createClass({
     this.setState({signupModalIsOpen: true});
   },
   
-  closeSignupModal: function() {
+  closeSignupModal: function(){
     this.setState({signupModalIsOpen: false});
   },
 
@@ -54,7 +54,7 @@ var Home = React.createClass({
   	this.setState({
       loginModalIsOpen: !this.state.loginModalIsOpen,
       signupModalIsOpen: !this.state.signupModalIsOpen
-	  })
+	  });
   },
 
   render: function() {
