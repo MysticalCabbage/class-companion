@@ -177,3 +177,7 @@ a, a:visited, a:hover, a:active {
 #exampleInputName2 {
   width:500px;
 }
+
+.authErrMsg {
+  color: red;
+}

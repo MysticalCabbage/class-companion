@@ -18,6 +18,7 @@ var appElement = document.getElementById('app');
 Modal.setAppElement(appElement);
 Modal.injectCSS();
 
+// used for clearing random modal setTimeout
 var randomModalTimer;
 
 var ClassroomDashboard = React.createClass({
@@ -81,11 +82,20 @@ var ClassroomDashboard = React.createClass({
   },
 
   openRandomModal: function(){
-    this.setState({randomModal: true});
+    // if modal already open, restart setTimeout
+    // if not opened, open and setTimeout
+    if(this.state.randomModal){
+      clearTimeout(randomModalTimer);
+      randomModalTimer = setTimeout(function(){
+        this.closeRandomModal();
+      }.bind(this), 5000);
+    } else {
+      this.setState({randomModal: true});
+      randomModalTimer = setTimeout(function(){
+        this.closeRandomModal();
+      }.bind(this), 5000);
+    }
     
-    randomModalTimer = setTimeout(function(){
-      this.closeRandomModal();
-    }.bind(this), 5000);
   },
   
   closeRandomModal: function() {
