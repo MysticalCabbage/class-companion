@@ -4,6 +4,7 @@ var FirebaseStore = require('./FirebaseStore');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var FirebaseStore = require('./FirebaseStore');
+var _ = require('underscore');
 
 var CHANGE_EVENT = 'change';
 
@@ -14,15 +15,16 @@ var _store = {
   info: {},
   assignments: {},
   homeworkFor : {},
-  pastAssignments: {}
+  pastAssignments: {},
+  monthAssignments : {}
 };
-
-// var initQuery = function()
 
 var addAssignment = function(assignment){
   var hwId = firebaseRef.child('classes/' + assignment.classId + '/assignments').push(assignment).key();
 
   firebaseRef.child('classes/' + assignment.classId + '/homeworkFor/' + assignment.dueDate + '/' + hwId).set(hwId);
+  HomeworkStore.emit(CHANGE_EVENT);
+  setPastAssignments();
 };
 
 var initQuery = function(classId){
@@ -41,6 +43,36 @@ var endQuery = function(){
 
 var removeAssignment = function(hwId){
   firebaseRef.child('classes/' + _store.info.classId + '/assignments/' + hwId ).remove();
+};
+
+var setPastAssignments = function(){
+  var pastAssignments = {};
+    //used to find today's date in MM/DD/YYYY
+    var today = new Date();
+    var dd = today.getDate(); 
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd} 
+    if(mm<10){mm='0'+mm} 
+    var todaysDate = mm + '-' + dd;
+    //loops through all assignments and filters ones that were due before today
+    for(var assignment in _store.assignments){
+      if((_store.assignments[assignment].dueDate.slice(0,5) < todaysDate) && (yyyy >= _store.assignments[assignment].dueDate.slice(6,10))){
+          pastAssignments[assignment] = _store.assignments[assignment];
+      }
+    }
+    _store.pastAssignments = pastAssignments;
+};
+
+var selectMonth = function(month){
+  var monthObj = {};
+  for(var key in _store.assignments){
+    if(month.toString() === _store.assignments[key]["monthYear"][0]){
+      monthObj[key] = _store.assignments[key];
+    }
+  }
+  _store.monthAssignments = monthObj;
+  HomeworkStore.emit(CHANGE_EVENT);
 };
 
 
@@ -80,6 +112,9 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
       }
     }
     return pastAssignments;
+  },
+  getMonthAssignments: function(){
+    return _store.monthAssignments;
   }
 });
 
@@ -106,6 +141,8 @@ AppDispatcher.register(function(payload){
       getPastAssignments();
       HomeworkStore.emit(CHANGE_EVENT);
       break;
+    case HomeworkConstants.MONTH_SELECTED:
+      selectMonth(action.data);
     default:
       return true;
   }

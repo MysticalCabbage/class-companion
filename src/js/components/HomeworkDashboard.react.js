@@ -25,14 +25,6 @@ var HomeworkAssignment = React.createClass({
   }
 });
 
-var PastAssignments = React.createClass({
-  getInitialState: function(){
-    return null
-  },
-  render: function(){
-    return null
-  }
-});
 
 var HomeworkDashboard = React.createClass({
   getInitialState: function(){
@@ -41,8 +33,10 @@ var HomeworkDashboard = React.createClass({
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
       pastAssignments: HomeworkStore.getPastAssignments(),
+      monthAssignments: HomeworkStore.getMonthAssignments,
       showPastAssignments: false,
-      showCurrentAssignments: true
+      showCurrentAssignments: true,
+      showMonthAssignments: false
     }
   },
   componentWillMount: function(){
@@ -74,7 +68,8 @@ var HomeworkDashboard = React.createClass({
       list: HomeworkStore.getList(),
       assignments: HomeworkStore.getAssignments(),
       loggedIn: AuthStore.checkAuth(),
-
+      pastAssignments: HomeworkStore.getPastAssignments(),
+      monthAssignments: HomeworkStore.getMonthAssignments()
     });
   },
 
@@ -92,8 +87,18 @@ var HomeworkDashboard = React.createClass({
     });
   },
 
+  monthSelect: function(e){
+    var month = document.getElementById('dropdown').value;
+    HomeworkActions.monthSelected(month);
+    this.setState({
+      showMonthAssignments: true,
+      showPastAssignments: false,
+      showCurrentAssignments: false,
+    });
+  },
+
   render: function(){
-    var url = '#/classroomDashboard/' + this.props.classId;
+    var url = '#/classroomDashboard/' + this.props.params.id;
     var remove = this.removeHW;
     var currentAssignments = {};
     var today = new Date();
@@ -104,15 +109,15 @@ var HomeworkDashboard = React.createClass({
     if(mm<10){mm='0'+mm} 
     var todaysDate = mm + '-' + dd;
     for(var assignment in this.state.assignments){
-      if((this.state.assignments[assignment].dueDate.slice(0,5) > todaysDate) && (yyyy <= this.state.assignments[assignment].dueDate.slice(6,10))){
+      if((this.state.assignments[assignment].dueDate.slice(0,5) >= todaysDate) && (yyyy <= this.state.assignments[assignment].dueDate.slice(6,10))){
           currentAssignments[assignment] = this.state.assignments[assignment];
       }
     }
     var assignments = _.map(currentAssignments, function(assignment, index){
       return (
         <HomeworkAssignment 
-          hwId={index}
           key={index}
+          hwId={index}
           status={"./assets/smallpokeball.png"}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
@@ -123,8 +128,8 @@ var HomeworkDashboard = React.createClass({
     var oldAssignments = _.map(this.state.pastAssignments, function(assignment,index){
       return (
         <HomeworkAssignment
-          hwId={index}
           key={index}
+          hwId={index}
           status={"./assets/masterball.png"}
           title = {assignment.assignment}
           dueDate = {assignment.dueDate}
@@ -132,6 +137,20 @@ var HomeworkDashboard = React.createClass({
           assignedOn = {assignment.assignedOn}/>
       );
     });
+
+    var monthAssignments = _.map(this.state.monthAssignments, function(assignment,index){
+      return (
+        <HomeworkAssignment
+          key={index}
+          hwId={index}
+          status={"./assets/greatball.png"}
+          title = {assignment.assignment}
+          dueDate = {assignment.dueDate}
+          classId = {assignment.classId} 
+          assignedOn = {assignment.assignedOn}/>
+      );
+    });
+
     return (
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
@@ -157,6 +176,21 @@ var HomeworkDashboard = React.createClass({
               </div>
             </div>
           </nav>
+          <select id = "dropdown" onChange={this.monthSelect}>
+                <option value="N/A">Filter by Due Date</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
           <table className="table" id="homeworktable">
             <thead>
             <tr>
@@ -169,10 +203,10 @@ var HomeworkDashboard = React.createClass({
             <tbody>
             {this.state.showCurrentAssignments ? {assignments} : null}
             {this.state.showPastAssignments ? {oldAssignments} : null}
+            {this.state.showMonthAssignments ? {monthAssignments} : null}
             </tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
-
         </div>
       </div>
     );
