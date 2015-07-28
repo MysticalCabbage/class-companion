@@ -14,7 +14,7 @@ var _store = {
   info: {},
   assignments: {},
   homeworkFor : {},
-  pastAssignments: []
+  pastAssignments: {}
 };
 
 // var initQuery = function()
@@ -64,7 +64,7 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
     return _store.list;
   },
   getPastAssignments: function(){
-    var pastAssignments = [];
+    var pastAssignments = {};
     //used to find today's date in MM/DD/YYYY
     var today = new Date();
     var dd = today.getDate(); 
@@ -76,12 +76,11 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
     //loops through all assignments and filters ones that were due before today
     for(var assignment in _store.assignments){
       if((_store.assignments[assignment].dueDate.slice(0,5) < todaysDate) && (yyyy >= _store.assignments[assignment].dueDate.slice(6,10))){
-          pastAssignments.push(_store.assignments[assignment])
+          pastAssignments[assignment] = _store.assignments[assignment];
       }
     }
     return pastAssignments;
   }
-
 });
 
 AppDispatcher.register(function(payload){

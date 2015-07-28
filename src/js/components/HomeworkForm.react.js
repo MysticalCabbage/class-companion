@@ -57,11 +57,11 @@ var HomeworkForm = React.createClass({
         <div className="well">
           <form className="form-inline" onSubmit={this.homeworkSubmit}>
             <div className="form-group">
-              <label for="exampleInputName2" ></label>
+              <label htmlFor="exampleInputName2" ></label>
               <input type="text" className="homeworkinput form-control" id="exampleInputName2" placeholder="Enter Assignment" ref="homeworktitle" required/>
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail2"></label>
+              <label htmlFor="exampleInputEmail2"></label>
               <input type="date" className="form-control" id="dateinput" ref="duedate" required/>
             </div>
             <button type="submit" className="btn btn-default">Save</button>

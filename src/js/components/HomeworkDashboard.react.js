@@ -83,8 +83,6 @@ var HomeworkDashboard = React.createClass({
       showPastAssignments: true,
       showCurrentAssignments: false
     });
-    console.log("do we have it already", this.state.pastAssignments)
-    // HomeworkActions.getPastAssignments();
   },
 
   render: function(){
@@ -101,7 +99,17 @@ var HomeworkDashboard = React.createClass({
           assignedOn = {assignment.assignedOn}/>
       );
     });
-
+    var oldAssignments = _.map(this.state.pastAssignments, function(assignment,index){
+      return (
+        <HomeworkAssignment
+          hwId={index}
+          key={index}
+          title = {assignment.assignment}
+          dueDate = {assignment.dueDate}
+          classId = {assignment.classId} 
+          assignedOn = {assignment.assignedOn}/>
+      );
+    });
     return (
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
@@ -133,6 +141,7 @@ var HomeworkDashboard = React.createClass({
             </thead>
             <tbody>
             {this.state.showCurrentAssignments ? {assignments} : null}
+            {this.state.showPastAssignments ? {oldAssignments} : null}
             </tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
