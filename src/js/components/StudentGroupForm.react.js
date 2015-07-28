@@ -11,26 +11,36 @@ var StudentGroupForm = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
 
+    var groupNum;
     var groupNumNode = React.findDOMNode(this.refs.groupNum);
-    var groupNum = groupNumNode.value;
-    groupNumNode.value = '';
+
+    if(e.target.id === 'removeGroups'){
+      groupNum = 1;
+    } else {
+      groupNum = groupNumNode.value;
+      groupNumNode.value = '';
+    }
 
     ClassroomActions.randGroup(groupNum);
-
     this.props.closeModal();
   },
+
   render: function() {
     return (
       <div className="panel panel-info StudentGroupForm">
         <div className="panel-heading">
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeModal}><span aria-hidden="true">&times;</span></button>
-          <h3 className="panel-title">Enter # of Groups</h3>
+          <h3 className="panel-title">Groups</h3>
         </div>
+
         <form className="form-horizontal" id="frmGroup" role="form" onSubmit={this.handleSubmit}>
+        <div className="well text-center">
           <div className="panel-body">
-            <input pattern="[0-9]*" className="form-control" placeholder="0 or 1 to reset Groups" ref="groupNum" required/>
+            <input pattern="[0-9]*" className="form-control" placeholder="Enter # of Groups" ref="groupNum" required/>
           </div>
           <button type="submit" id="selectGroups" className="btn btn-primary btn-block submit-button">Group!</button>
+          <button type="button" id="removeGroups" className="btn btn-primary btn-block" onClick={this.handleSubmit}>Remove Groups</button>
+          </div>
         </form>
       </div>
     );

@@ -244,6 +244,10 @@ a, a:visited, a:hover, a:active {
   text-align: center;
 }
 
+.groupModal .well{
+  margin-bottom: 0px;
+}
+
 /*TimeBar*/
 .timeBar{
   margin-bottom: 30px;
