@@ -254,6 +254,55 @@ a, a:visited, a:hover, a:active {
   margin-bottom: 15px;
 }
 
+.timerContainer{
+  background-color: black;
+  width: 500px;
+  height: 250px;
+  padding: 90px;
+}
+
+.timerHour, .timerMinute, .timerSecond{
+  color: white;
+  text-align: center;
+  font-size: 60px;
+}
+
+.timerHour{
+  width: 33.33%;
+  float: left;
+}
+
+.timerMinute{
+  width: 33.33%;
+  float: left;
+}
+
+.timerSecond{
+  width: 33.33%;
+  float: right;
+}
+
+.timerHour .timerDigits{
+  background-color: #FD5355;
+}
+
+.timerMinute .timerDigits{
+  background-color: #1DCD71;
+}
+
+.timerSecond .timerDigits{
+  background-color: #F7BD4E;
+}
+
+.timerDigits{
+  padding: 12px;
+}
+
+.timerLabel{
+  font-size: 15px;
+  padding: 12px;
+}
+
 #exampleInputName2 {
   width:500px;
 }

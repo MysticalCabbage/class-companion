@@ -89,22 +89,35 @@ var Timer = React.createClass({
     if (this.props.formatFunc) {
       return this.props.formatFunc(milliseconds);
     }
+    var time = {};
     var totalSeconds = Math.round(milliseconds / 1000);
     var seconds = parseInt(totalSeconds % 60);
     var minutes = parseInt(totalSeconds / 60) % 60;
     var hours = parseInt(totalSeconds / 3600);
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    hours = hours < 10 ? '0' + hours : hours;
-    return hours + ':' + minutes + ':' + seconds;
+    time.seconds = seconds < 10 ? '0' + seconds : seconds;
+    time.minutes = minutes < 10 ? '0' + minutes : minutes;
+    time.hours = hours < 10 ? '0' + hours : hours;
+    // return hours + ':' + minutes + ':' + seconds;
+    return time;
   },
 
   render: function() {
     var timeRemaining = this.state.timeRemaining;
 
     return (
-      <div className='timer'>
-        {this.getFormattedTime(timeRemaining)}
+      <div className='timer timerContainer'>
+        <div className="timerHour">
+          <div className="timerDigits">{this.getFormattedTime(timeRemaining).hours}</div>
+          <div className="timerLabel">HOURS</div>
+        </div>
+        <div className="timerMinute">
+          <div className="timerDigits">{this.getFormattedTime(timeRemaining).minutes}</div>
+          <div className="timerLabel">MINUTES</div>
+        </div>
+        <div className="timerSecond">
+          <div className="timerDigits">{this.getFormattedTime(timeRemaining).seconds}</div>
+          <div className="timerLabel">SECONDS</div>
+        </div>
       </div>
     );
   }
