@@ -36,6 +36,7 @@ var initQuery = function(classId){
       first = false;
     } else {
       _store.random = snapshot.val();
+      console.log(_store.random)
       StudentSelectionStore.emit(CHANGE_EVENT);
     }
   });
@@ -74,7 +75,14 @@ var endQuery = function(){
     + _store.classId
     + '/groups'
   ).off();
-}
+
+  // reset singleton store when ClassroomDashboard unmounts
+  _store = {
+    random: null,
+    groups: [],
+    classId: ''
+  };
+};
 
 // Selects a random student
 // Random unweighted selection
@@ -110,6 +118,10 @@ var randStudent = function(){
 // shuffles list of students
 // group adjacent students into groups of 2
 var randGroup = function(groupNum){
+  if(groupNum === 0){
+    groupNum = 1;
+  }
+
   var students = ClassroomStore.getList();
   var keys = Object.keys(students);
   var shuffled = [], idx = 0;
@@ -148,7 +160,7 @@ var removeStudentFromGroups = function(studentId){
     + _store.classId
     + '/groups/'
     + studentId
-  ).remove()
+  ).remove();
 };
 
 var StudentSelectionStore = objectAssign({}, EventEmitter.prototype, {

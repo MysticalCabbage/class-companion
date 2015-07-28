@@ -35,7 +35,7 @@ var addStudent = function(newStudent){
     + _store.info.classId
     + '/groups/'
     + studentId
-  ).set(0);
+  ).set(1);
 };
 
 var removeStudent = function(studentId){
@@ -142,6 +142,15 @@ var initQuery = function(classId){
 
 var endQuery = function(){
   firebaseRef.child('classes/'+_store.info.classId).off();
+
+  // reset singleton store when ClassroomDashboard unmounts
+  _store = {
+    list: {},
+    info: {},
+    today: '',
+    graph: [],
+    assignments: {}
+  };
 };
 
 var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
@@ -170,8 +179,6 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
     return _store.graph;
   }
 });
-
-
 
 
 AppDispatcher.register(function(payload){
