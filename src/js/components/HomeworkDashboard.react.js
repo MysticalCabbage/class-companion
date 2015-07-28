@@ -146,7 +146,7 @@ var HomeworkDashboard = React.createClass({
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li>
-                    {this.state.showPastAssignments ? <a onClick={this.showCurrentAssignments}><i className="fa fa-archive"><span> View Active Assignments</span></i></a> : null }
+                    {this.state.showPastAssignments ? <a onClick={this.showCurrentAssignments}><i className="fa fa-pencil-square-o"><span> View Active Assignments</span></i></a> : null }
                   </li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
