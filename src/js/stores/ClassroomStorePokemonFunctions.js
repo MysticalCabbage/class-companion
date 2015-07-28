@@ -12,11 +12,16 @@ var getNewPokemon = function(studentId, classId, specificPokemonAPIUrl, currentL
   var spriteUrl;
   var defaultPokemonProfile = {level: currentLevel, currentExp: 1, expToNextLevel: 20}
   var pokemonDirectory = {};
-
   pokemonAPIUtils.getNewPokemonFromServer(specificPokemonAPIUrl).then(function(pokemonData) {
     spriteUrl = pokemonData.sprites[0].resource_uri
     pokemonAPIUtils.getPokemonSprite(spriteUrl).then(function(pokemonSpriteData) {
-      pokemonDirectory._pokemonData = pokemonData;
+      
+      // create a _pokemon data object and store only the necessary values
+      // if we need to access more values from the pokemon API, include them ehre
+      pokemonDirectory._pokemonData = {};
+      pokemonDirectory._pokemonData.name = pokemonData.name;
+      pokemonDirectory._pokemonData.evolutions = pokemonData.evolutions;
+      pokemonDirectory._pokemonData.resource_uri = pokemonData.resource_uri;
       pokemonDirectory._spriteData = pokemonSpriteData;
       pokemonDirectory._spriteUrl = "http://pokeapi.co" + pokemonSpriteData.image
       pokemonDirectory.profile = defaultPokemonProfile;
@@ -116,7 +121,6 @@ var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePoin
 // else if the pokemon does not need to evolve, return null (falsey)
 var checkIfNeedToEvolve = function(newLevel, pokemonDirectoryData) {
   var evolutions = pokemonDirectoryData.val()._pokemonData.evolutions
-
   // if the pokemon is capable of evolving into other pokemon
   if (evolutions) {
     // for each evolution
