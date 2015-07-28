@@ -90,13 +90,13 @@ var ClassroomStudent = React.createClass({
           <div>
             <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
           </div>
-          {this.props.isGrouped ? <div>group: {this.props.groupNum}</div> : null}
-          <div className="row studentInfo">
+          <div className="row studentSection">
             <div className="avatar col-md-5">
-              <img src={spriteUrl} />
+              <img className="avatarImg" src={spriteUrl} />
             </div>
-            <div className="studentTitle col-md-7">
-              {this.props.studentTitle}
+            <div className="studentInfo col-md-7">
+              <div className="studentTitle">{this.props.studentTitle}</div>
+              {this.props.isGrouped ? <div className="studentGroup">Group: {this.props.groupNum}</div> : null}
             </div>
           </div>
           <div className="pokemonSpecs">

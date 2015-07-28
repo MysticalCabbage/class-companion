@@ -103,8 +103,12 @@ a, a:visited, a:hover, a:active {
 	background-color: white;
 }
 
-.studentInfo{
-	margin: 0;
+.studentSection{
+	margin: 0 0 11px 0;
+}
+
+.studentTitle{
+	font-size: 26px;
 }
 
 .attendanceButton{
@@ -134,17 +138,23 @@ a, a:visited, a:hover, a:active {
   text-align: center;
 }
 
-.studentTitle{
-	margin: 7% 0 0 0;
+.studentInfo{
+	margin: 3% 0 0 0;
 	font-size: 20px;
 	font-weight: bolder;
   text-align: center;
 }
 
 .avatar{
-	max-height: 100px;
 	padding: 0;
-	/*float: left;*/
+}
+
+.avatarImg{
+	max-height: 100px;
+}
+
+.studentGroup{
+	font-size: 15px;
 }
 
 .pokemonSpecs{
@@ -168,7 +178,7 @@ a, a:visited, a:hover, a:active {
 
 .progress{
 	width: 75%;
-	border-radius: 10px;
+	/*border-radius: 10px;*/
 	margin: 0px;
 }
 
@@ -177,21 +187,21 @@ a, a:visited, a:hover, a:active {
 }
 
 .hpBar{
-	background-color: #506860;
+	background-color: cornflowerblue;
 	clear: both;
-	border-radius: 15px;
+	/*border-radius: 15px;*/
 	padding: 1%;
 }
 
 .hp{
-	color: #FDAF3C;
+	color: azure;
 	width: 25%;
 	float: left;
 	font-weight: bolder;
 }
 
 .progress-bar{
-	background-color: #FAE100
+	background-color: paleturquoise;
 }
 
 /*Login*/
