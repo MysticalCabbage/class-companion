@@ -21,7 +21,7 @@ var StudentGroupForm = React.createClass({
       groupNumNode.value = '';
     }
 
-    ClassroomActions.randGroup(groupNum);
+    ClassroomActions.randGroup(parseInt(groupNum, 10));
     this.props.closeModal();
   },
 

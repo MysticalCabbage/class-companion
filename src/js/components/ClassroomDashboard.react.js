@@ -88,12 +88,12 @@ var ClassroomDashboard = React.createClass({
       clearTimeout(randomModalTimer);
       randomModalTimer = setTimeout(function(){
         this.closeRandomModal();
-      }.bind(this), 5000);
+      }.bind(this), 3000);
     } else {
       this.setState({randomModal: true});
       randomModalTimer = setTimeout(function(){
         this.closeRandomModal();
-      }.bind(this), 5000);
+      }.bind(this), 3000);
     }
     
   },
@@ -228,7 +228,9 @@ var ClassroomDashboard = React.createClass({
 
     });
 
-    var studentNodes = _.flatten(studentGroups);
+    var studentNodes = _.flatten(studentGroups, true);
+    // remove index 0 because no group No. 0 
+    studentNodes.shift();
 
     return (
       <div className="classroomDashboard">
