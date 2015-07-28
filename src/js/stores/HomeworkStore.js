@@ -4,6 +4,7 @@ var FirebaseStore = require('./FirebaseStore');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var FirebaseStore = require('./FirebaseStore');
+var _ = require('underscore');
 
 var CHANGE_EVENT = 'change';
 
@@ -60,7 +61,19 @@ var setPastAssignments = function(){
       }
     }
     _store.pastAssignments = pastAssignments;
-}
+};
+
+var selectMonth = function(month){
+  var monthObj = {};
+  for(var key in _store.assignments){
+
+    if(_store.assigments[key]["monthYear"][0] === month){
+      // monthObj[key] = _store.assignments[key];
+      console.log("it got one", key);
+    }
+  }
+  console.log(monthObj);
+};
 
 
 var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
@@ -125,6 +138,9 @@ AppDispatcher.register(function(payload){
       getPastAssignments();
       HomeworkStore.emit(CHANGE_EVENT);
       break;
+    case HomeworkConstants.MONTH_SELECTED:
+      selectMonth(action.data);
+      HomeworkStore.emit(CHANGE_EVENT);
     default:
       return true;
   }

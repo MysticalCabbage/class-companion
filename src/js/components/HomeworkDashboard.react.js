@@ -25,6 +25,7 @@ var HomeworkAssignment = React.createClass({
   }
 });
 
+
 var HomeworkDashboard = React.createClass({
   getInitialState: function(){
     return {
@@ -33,7 +34,8 @@ var HomeworkDashboard = React.createClass({
       assignments: HomeworkStore.getAssignments(),
       pastAssignments: HomeworkStore.getPastAssignments(),
       showPastAssignments: false,
-      showCurrentAssignments: true
+      showCurrentAssignments: true,
+      selectedMonthAssignments: {}
     }
   },
   componentWillMount: function(){
@@ -83,6 +85,11 @@ var HomeworkDashboard = React.createClass({
     });
   },
 
+  monthSelect: function(e){
+    var month = document.getElementById('dropdown').value;
+    HomeworkActions.monthSelected(month);
+  },
+
   render: function(){
     var url = '#/classroomDashboard/' + this.props.params.id;
     var remove = this.removeHW;
@@ -123,6 +130,11 @@ var HomeworkDashboard = React.createClass({
           assignedOn = {assignment.assignedOn}/>
       );
     });
+
+    // var monthOldAssignment = _.filter(this.state.pastAssignments, function(assignment,index){
+    //   console.log("heres the month",assignment.month, this.state.selectedMonth);
+    //   return assignment.month === this.state.selectedMonth;
+    // });
     return (
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>
@@ -148,6 +160,21 @@ var HomeworkDashboard = React.createClass({
               </div>
             </div>
           </nav>
+          <select id = "dropdown" onChange={this.monthSelect}>
+                <option value="N/A">Filter Due Date by Month</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
           <table className="table" id="homeworktable">
             <thead>
             <tr>
@@ -163,7 +190,10 @@ var HomeworkDashboard = React.createClass({
             </tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
-
+          <div className="dropdown">
+            <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+            <span className="caret"></span></button>
+          </div>
         </div>
       </div>
     );

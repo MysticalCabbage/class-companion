@@ -31,6 +31,12 @@ var HomeworkActions = {
       actionType: HomeworkConstants.PAST_ASSIGNMENTS,
       data: null
     });
+  },
+  monthSelected: function(month){
+   AppDispatcher.handleAction({
+      actionType: HomeworkConstants.MONTH_SELECTED,
+      data: month
+    });
   }
 };
 
