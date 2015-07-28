@@ -88,7 +88,20 @@ var HomeworkDashboard = React.createClass({
   render: function(){
     var url = '#/classroomDashboard/' + this.props.classId;
     var remove = this.removeHW;
-    var assignments = _.map(this.state.assignments, function(assignment, index){
+    var currentAssignments = {};
+    var today = new Date();
+    var dd = today.getDate(); 
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd} 
+    if(mm<10){mm='0'+mm} 
+    var todaysDate = mm + '-' + dd;
+    for(var assignment in this.state.assignments){
+      if((this.state.assignments[assignment].dueDate.slice(0,5) > todaysDate) && (yyyy <= this.state.assignments[assignment].dueDate.slice(6,10))){
+          currentAssignments[assignment] = this.state.assignments[assignment];
+      }
+    }
+    var assignments = _.map(currentAssignments, function(assignment, index){
       return (
         <HomeworkAssignment 
           hwId={index}
