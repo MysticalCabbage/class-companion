@@ -4,7 +4,7 @@ var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var PieChart = require('react-d3/piechart').PieChart;
 var ReportsStudent = require('./ReportsStudent.react');
-var BehaviorChart = require('./BehaviorChart.react');
+var BehaviorHistoryChart = require('./BehaviorHistoryChart.react');
 
 var BehaviorDashboard = React.createClass({
   getInitialState: function(){
@@ -13,15 +13,17 @@ var BehaviorDashboard = React.createClass({
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
       graph: ClassroomStore.getGraph(),
-      student: ClassroomStore.getStudent()
+      student: ClassroomStore.getStudent(),
+      behaviorHistory: ClassroomStore.getBehaviorHistory()
     }
   },
 
   _onChange: function(){
     this.setState({
-      graph: ClassroomStore.getGraph(),
-      list: ClassroomStore.getList(),
-      student: ClassroomStore.getStudent()
+        graph: ClassroomStore.getGraph(),
+        list: ClassroomStore.getList(),
+        student: ClassroomStore.getStudent(),
+        behaviorHistory: ClassroomStore.getBehaviorHistory()
     });
   },
 
@@ -33,13 +35,13 @@ var BehaviorDashboard = React.createClass({
     ClassroomStore.removeChangeListener(this._onChange);
   },
 
-  studentClick: function(studentStats,behaviorTotal, studentTitle){
+  studentClick: function(studentStats,behaviorTotal, studentTitle, behaviorHistory){
     var chartData = [];
     var total = 0;
     for(var key in studentStats){
        total += studentStats[key];
     }
-    ClassroomActions.getBehaviors(studentStats, total, studentTitle);
+    ClassroomActions.getBehaviors(studentStats, total, studentTitle, behaviorHistory);
   },
 
   render: function(){
@@ -55,11 +57,13 @@ var BehaviorDashboard = React.createClass({
       var noBehavior = "";
     }
     // TODO: Access the behavior history after I make that property
-    
     var studentClicked = this.studentClick;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
+      // if there is no behavior history, set this to an empty object
+    var behaviorHistory = studentNode.behaviorHistory || {};
+
       return (
-        <ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked} studentBehavior={studentNode.behavior} behaviorTotal={studentNode.behaviorTotal}/>
+        <ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked} studentBehavior={studentNode.behavior} behaviorTotal={studentNode.behaviorTotal} behaviorHistory={behaviorHistory}/>
       )
     });
     return (
@@ -92,7 +96,7 @@ var BehaviorDashboard = React.createClass({
                 </div>
                 <div className="row">
                   <div className="col-md-12">
-                    <BehaviorChart studentData={this.state} />
+                    <BehaviorHistoryChart studentData={this.state.behaviorHistory} />
                   </div>
                 </div>
               </div>

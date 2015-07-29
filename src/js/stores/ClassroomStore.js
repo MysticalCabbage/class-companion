@@ -14,6 +14,7 @@ var _store = {
   info: {},
   today: '',
   graph: [],
+  behaviorHistory: {},
   assignments: {},
   student: ""
 };
@@ -103,9 +104,9 @@ var setBehaviorHistory = function(behaviorData) {
         // store the total change the specified behavior made on this specific day
         // for example:
         // Bullying: -5
-        //  in this situaiton, the student lost 5 points because of bullying
+        //  in this situaiton, the student lost 5 points that day because of bullying
         // Helping: 3
-        // the student gained 3 points by helping
+        // the student gained 3 points that day by helping
         return current_value + behaviorData.behaviorValue;
       });
   };
@@ -147,11 +148,12 @@ var behaviorChart = function(data){
     newObj["value"] = Math.ceil(((behaviors[key]/total)*100) * 100)/100;
     chartData.push(newObj);
   }
-  console.log('data in behavior chart', data);
   _store.graph = chartData;
   _store.student = student;
+  _store.behaviorHistory = data.behaviorHistory;
   ClassroomStore.emit(CHANGE_EVENT);
 };
+
 
 var initQuery = function(classId){
   firebaseRef.child('classes/'+classId).on('value', function(snapshot){
@@ -237,7 +239,10 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   },
   getStudent: function(){
     return _store.student;
-  }
+  },
+  getBehaviorHistory: function(){
+    return _store.behaviorHistory;
+  },
 });
 
 
