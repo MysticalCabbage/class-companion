@@ -4,6 +4,7 @@ var FirebaseStore = require('./FirebaseStore');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var pokeFunctions = require('./ClassroomStorePokemonFunctions');
 var ClassroomConstants = require('../constants/ClassroomConstants');
+var _ = require('underscore');
 
 var CHANGE_EVENT = 'change';
 
@@ -150,8 +151,24 @@ var behaviorChart = function(data){
   }
   _store.graph = chartData;
   _store.student = student;
-  _store.behaviorHistory = data.behaviorHistory;
+  _store.behaviorHistory = prepareBehaviorHistory(data.behaviorHistory);
   ClassroomStore.emit(CHANGE_EVENT);
+};
+
+var prepareBehaviorHistory = function(behaviorHistory) {
+  var organizedBehaviorHistory = {};
+  var behaviorSum;
+
+  _.each(behaviorHistory, function(behaviorList, date) {
+    behaviorSum = 0;
+    _.each(behaviorList, function(behaviorValue) {
+      behaviorSum += behaviorValue;
+    });
+    organizedBehaviorHistory[date] = behaviorSum;
+  });
+
+  return organizedBehaviorHistory;
+
 };
 
 
