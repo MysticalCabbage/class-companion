@@ -109,14 +109,19 @@ var Timer = React.createClass({
     var customMinute = React.findDOMNode(this.refs.customMinute).value;
     var customSecond = React.findDOMNode(this.refs.customSecond).value;
     var time = customHour * 3600000 + customMinute * 60000 + customSecond * 1000;
-    // var time = React.findDOMNode(this.refs.customMinute).value * 60000;
-    // React.findDOMNode(this.refs.customTime).value = '';
     customHour = '';
     customMinute = '';
     customSecond = '';
-    // this.setState({timeRemaining: time });
     this.setState({
       timeRemaining: time,
+      showForm: !this.state.showForm,
+      showTimer: !this.state.showTimer
+    });
+  },
+
+  resetTime: function(){
+    this.setState({
+      timeRemaining: 0,
       showForm: !this.state.showForm,
       showTimer: !this.state.showTimer
     });
@@ -166,7 +171,7 @@ var Timer = React.createClass({
         </div>
         <div className="timerButtonContainer">
           <button className="startBtn" onClick={this.customTime}>Start</button>
-          <button className="resetBtn">Reset</button>
+          <button className="resetBtn" onClick={this.resetTime}>Reset</button>
         </div>
       </div>
     );
