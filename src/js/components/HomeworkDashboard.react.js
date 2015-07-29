@@ -76,30 +76,39 @@ var HomeworkDashboard = React.createClass({
   showPastAssignments: function(){
     this.setState({
       showPastAssignments: true,
-      showCurrentAssignments: false
+      showCurrentAssignments: false,
+      showMonthAssignments: false
     });
   },
 
   showCurrentAssignments: function(){
     this.setState({
       showPastAssignments: false,
-      showCurrentAssignments: true
+      showCurrentAssignments: true,
+      showMonthAssignments: false
     });
   },
 
   monthSelect: function(e){
     var month = document.getElementById('dropdown').value;
-    HomeworkActions.monthSelected(month);
-    this.setState({
-      showMonthAssignments: true,
+    if(month === "N/A"){
+      this.setState({
+        showMonthAssignments: false,
       showPastAssignments: false,
-      showCurrentAssignments: false,
-    });
+      showCurrentAssignments: true,
+      });
+    } else {
+      HomeworkActions.monthSelected(month);
+      this.setState({
+        showMonthAssignments: true,
+        showPastAssignments: false,
+        showCurrentAssignments: false,
+      });
+    }
   },
 
   render: function(){
     var url = '#/classroomDashboard/' + this.props.params.id;
-    var remove = this.removeHW;
     var currentAssignments = {};
     var today = new Date();
     var dd = today.getDate(); 
@@ -113,7 +122,8 @@ var HomeworkDashboard = React.createClass({
           currentAssignments[assignment] = this.state.assignments[assignment];
       }
     }
-    var assignments = _.map(currentAssignments, function(assignment, index){
+    if(this.state.showCurrentAssignments){
+      var assignments = _.map(currentAssignments, function(assignment, index){
       return (
         <HomeworkAssignment 
           key={index}
@@ -123,33 +133,36 @@ var HomeworkDashboard = React.createClass({
           dueDate = {assignment.dueDate}
           classId = {assignment.classId} 
           assignedOn = {assignment.assignedOn}/>
-      );
-    });
-    var oldAssignments = _.map(this.state.pastAssignments, function(assignment,index){
-      return (
-        <HomeworkAssignment
-          key={index}
-          hwId={index}
-          status={"./assets/masterball.png"}
-          title = {assignment.assignment}
-          dueDate = {assignment.dueDate}
-          classId = {assignment.classId} 
-          assignedOn = {assignment.assignedOn}/>
-      );
-    });
+       );
+      });
+    } else if(this.state.showPastAssignments){
+      var assignments = _.map(this.state.pastAssignments, function(assignment,index){
+        return (
+          <HomeworkAssignment
+            key={index}
+            hwId={index}
+            status={"./assets/masterball.png"}
+            title = {assignment.assignment}
+            dueDate = {assignment.dueDate}
+            classId = {assignment.classId} 
+            assignedOn = {assignment.assignedOn}/>
+        );
+      });
+    } else if(this.state.showMonthAssignments){
+      var assignments = _.map(this.state.monthAssignments, function(assignment,index){
+        return (
+          <HomeworkAssignment
+            key={index}
+            hwId={index}
+            status={"./assets/greatball.png"}
+            title = {assignment.assignment}
+            dueDate = {assignment.dueDate}
+            classId = {assignment.classId} 
+            assignedOn = {assignment.assignedOn}/>
+        );
+      });
+    }
 
-    var monthAssignments = _.map(this.state.monthAssignments, function(assignment,index){
-      return (
-        <HomeworkAssignment
-          key={index}
-          hwId={index}
-          status={"./assets/greatball.png"}
-          title = {assignment.assignment}
-          dueDate = {assignment.dueDate}
-          classId = {assignment.classId} 
-          assignedOn = {assignment.assignedOn}/>
-      );
-    });
 
     return (
       <div className="homeworkDashboard">
@@ -165,7 +178,7 @@ var HomeworkDashboard = React.createClass({
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li>
-                    {this.state.showPastAssignments ? <a onClick={this.showCurrentAssignments}><i className="fa fa-pencil-square-o"><span> View Active Assignments</span></i></a> : null }
+                    {(this.state.showPastAssignments || this.state.showMonthAssignments ) ? <a onClick={this.showCurrentAssignments}><i className="fa fa-pencil-square-o"><span> View Active Assignments</span></i></a> : null }
                   </li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
@@ -200,9 +213,7 @@ var HomeworkDashboard = React.createClass({
               <th></th>
             </tr>
             </thead>
-            {this.state.showCurrentAssignments ? <tbody>{assignments}</tbody> : null}
-            {this.state.showPastAssignments ? <tbody>{oldAssignments}</tbody> : null}
-            {this.state.showMonthAssignments ? <tbody>{monthAssignments}</tbody> : null}
+            <tbody>{assignments}</tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
         </div>
