@@ -4,6 +4,7 @@ var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var PieChart = require('react-d3/piechart').PieChart;
 var ReportsStudent = require('./ReportsStudent.react');
+var BehaviorChart = require('./BehaviorReport.react');
 
 var BehaviorDashboard = React.createClass({
   getInitialState: function(){
@@ -77,12 +78,21 @@ var BehaviorDashboard = React.createClass({
               </div>
               <div className="panel-body">
                 <div>{noBehavior}</div>
-                <PieChart
-                  data={this.state.graph}
-                  width={400}
-                  height={400}
-                  radius={100}
-                  innerRadius={20}/>
+                <div className="row">
+                  <div className="col-md-12">
+                    <PieChart
+                      data={this.state.graph}
+                      width={400}
+                      height={400}
+                      radius={100}
+                      innerRadius={20}/>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <BehaviorChart />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
