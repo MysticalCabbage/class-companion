@@ -35,7 +35,8 @@ var ClassroomDashboard = React.createClass({
       addStudentModalIsOpen: false, 
       groupModal: false,
       randomModal: false,
-      showBehavior: true
+      showBehavior: true,
+      timerModal: false
     }
   },
 
@@ -109,6 +110,14 @@ var ClassroomDashboard = React.createClass({
 
   closeGroupModal: function() {
     this.setState({groupModal: false});
+  },
+
+  openTimerModal: function(){
+    this.setState({timerModal: true});
+  },
+
+  closeTimerModal: function() {
+    this.setState({timerModal: false});
   },
 
   handleAttendance: function(){
@@ -238,12 +247,16 @@ var ClassroomDashboard = React.createClass({
         <ClassroomNavbar 
           classId={this.state.info.classId} 
           onAttendanceClick={this.handleAttendance} 
-          showTimerOptions={this.showTimerOptions} 
+          openTimerModal={this.openTimerModal} 
           randStudent={this.randStudent} 
           openGroupModal={this.openGroupModal} />
         {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
         <div className="studentsContainer container">
-          {this.state.showResults ? <ClassroomTimer initialTimeRemaining={0}/> : null}
+          <Modal className="timerModal"
+            isOpen={this.state.timerModal} 
+            onRequestClose={this.closeTimerModal}>
+            <ClassroomTimer initialTimeRemaining={0} closeTimerModal={this.closeTimerModal} />
+          </Modal>
           <div className="row">
             {studentNodes}
             <div className="classroom col-md-3">

@@ -259,7 +259,14 @@ a, a:visited, a:hover, a:active {
   width: 500px;
   height: 250px;
   padding: 10px 40px;
-  opacity: 0.75;
+  opacity: 0.95;
+  border-radius: 25px;
+}
+
+.timerModal{
+  width: 500px;
+  height: 250px;
+  opacity: 0.95;
   border-radius: 25px;
 }
 

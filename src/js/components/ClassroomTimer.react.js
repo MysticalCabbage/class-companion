@@ -132,6 +132,7 @@ var Timer = React.createClass({
 
     return (
       <div className='timer timerContainer'>
+        <button type="button" className="close" aria-label="Close" onClick={this.props.closeTimerModal}><span aria-hidden="true">&times;</span></button>
         {this.state.showForm ? 
         <div className="timerTimer">
           <div className="timerHour">
