@@ -14,6 +14,11 @@ a, a:visited, a:hover, a:active {
 
 .well{
   text-align: center;
+  background-color: white;
+}
+
+.navbar-default {
+  background-color: white;
 }
 
 /*Modal*/
@@ -204,7 +209,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .progress-bar{
-  background-color: paleturquoise;
+  background-color: skyblue;
 }
 
 /*Login*/
