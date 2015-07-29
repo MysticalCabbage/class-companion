@@ -160,7 +160,7 @@ var setGroup = function(groupNum){
   ).set(randGroup(groupNum));
 };
 
-var removeStudentFromGroups = function(studentId){
+/*var removeStudentFromGroups = function(studentId){
   // remove student from group list when removing student from class
   firebaseRef.child(
     'classes/'
@@ -168,7 +168,7 @@ var removeStudentFromGroups = function(studentId){
     + '/groups/'
     + studentId
   ).remove();
-};
+};*/
 
 var StudentSelectionStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
@@ -205,12 +205,12 @@ AppDispatcher.register(function(payload){
     case ClassroomConstants.END_SELECT_QUERY:
       endQuery();
       break;
-    case ClassroomConstants.REMOVE_STUDENT:
+/*    case ClassroomConstants.REMOVE_STUDENT:
       removeStudentFromGroups(action.data);
       // reset groups when remove student
       // prevents React from rendering empty holes
       setGroup(1);
-      break;
+      break;*/
     case ClassroomConstants.ADD_STUDENT:
       // reset groups when add student
       // prevents React from rendering empty holes

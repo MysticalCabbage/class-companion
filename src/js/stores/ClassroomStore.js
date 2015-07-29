@@ -41,11 +41,18 @@ var addStudent = function(newStudent){
 
 var removeStudent = function(studentId){
   // remove student record from Firebase
-  // removing student from groups done in StudentSelectionStore
   firebaseRef.child(
     'classes/'
     + _store.info.classId
     + '/students/'
+    + studentId
+  ).remove();
+
+  // removing student from groups
+  firebaseRef.child(
+    'classes/'
+    + _store.info.classId
+    + '/groups/'
     + studentId
   ).remove();
 };
