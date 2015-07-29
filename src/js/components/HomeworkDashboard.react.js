@@ -200,11 +200,9 @@ var HomeworkDashboard = React.createClass({
               <th></th>
             </tr>
             </thead>
-            <tbody>
-            {this.state.showCurrentAssignments ? {assignments} : null}
-            {this.state.showPastAssignments ? {oldAssignments} : null}
-            {this.state.showMonthAssignments ? {monthAssignments} : null}
-            </tbody>
+            {this.state.showCurrentAssignments ? <tbody>{assignments}</tbody> : null}
+            {this.state.showPastAssignments ? <tbody>{oldAssignments}</tbody> : null}
+            {this.state.showMonthAssignments ? <tbody>{monthAssignments}</tbody> : null}
           </table>
           <HomeworkForm classId={this.props.params.id}/>
         </div>
