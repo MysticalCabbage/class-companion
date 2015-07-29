@@ -18,6 +18,10 @@ var ClassroomNavbar = React.createClass({
     this.props.openGroupModal();
   },
 
+  showTimer: function(){
+    this.props.openTimerModal();
+  },
+
   render: function() {
     var url = '#/reportsDashboard/' + this.props.classId;
     var hwUrl = '#/homeworkDashboard/' + this.props.classId;
@@ -42,7 +46,7 @@ var ClassroomNavbar = React.createClass({
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a onClick={this.showTimerOptions}><i className="fa fa-clock-o"><span> Timer</span></i></a>
+                <a onClick={this.showTimer}><i className="fa fa-clock-o"><span> Timer</span></i></a>
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
