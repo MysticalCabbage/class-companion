@@ -105,6 +105,8 @@ a, a:visited, a:hover, a:active {
 
 .studentTitle{
   font-size: 26px;
+  font-family: 'Roboto', sans-serif;
+  word-wrap: break-word;
 }
 
 .attendanceButton{
@@ -138,7 +140,8 @@ a, a:visited, a:hover, a:active {
   margin: 3% 0 0 0;
   font-size: 20px;
   font-weight: bolder;
-  text-align: center;
+  text-align: left;
+  height: 100px;
 }
 
 .avatar{
@@ -342,4 +345,8 @@ a, a:visited, a:hover, a:active {
 #homeworktable {
   background-color: white;
   border-radius: 5px;
+}
+
+.errMsg {
+  color: red;
 }
