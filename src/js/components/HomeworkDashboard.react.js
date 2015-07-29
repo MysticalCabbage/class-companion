@@ -98,6 +98,8 @@ var HomeworkDashboard = React.createClass({
   },
 
   render: function(){
+
+
     var url = '#/classroomDashboard/' + this.props.params.id;
     var currentAssignments = {};
     var today = new Date();
@@ -112,7 +114,8 @@ var HomeworkDashboard = React.createClass({
           currentAssignments[assignment] = this.state.assignments[assignment];
       }
     }
-    var assignments = _.map(currentAssignments, function(assignment, index){
+    if(this.state.showCurrentAssignments){
+      var assignments = _.map(currentAssignments, function(assignment, index){
       return (
         <HomeworkAssignment 
           key={index}
@@ -122,33 +125,36 @@ var HomeworkDashboard = React.createClass({
           dueDate = {assignment.dueDate}
           classId = {assignment.classId} 
           assignedOn = {assignment.assignedOn}/>
-      );
-    });
-    var oldAssignments = _.map(this.state.pastAssignments, function(assignment,index){
-      return (
-        <HomeworkAssignment
-          key={index}
-          hwId={index}
-          status={"./assets/masterball.png"}
-          title = {assignment.assignment}
-          dueDate = {assignment.dueDate}
-          classId = {assignment.classId} 
-          assignedOn = {assignment.assignedOn}/>
-      );
-    });
+       );
+      });
+    } else if(this.state.showPastAssignments){
+      var assignments = _.map(this.state.pastAssignments, function(assignment,index){
+        return (
+          <HomeworkAssignment
+            key={index}
+            hwId={index}
+            status={"./assets/masterball.png"}
+            title = {assignment.assignment}
+            dueDate = {assignment.dueDate}
+            classId = {assignment.classId} 
+            assignedOn = {assignment.assignedOn}/>
+        );
+      });
+    } else if(this.state.showMonthAssignments){
+      var assignments = _.map(this.state.monthAssignments, function(assignment,index){
+        return (
+          <HomeworkAssignment
+            key={index}
+            hwId={index}
+            status={"./assets/greatball.png"}
+            title = {assignment.assignment}
+            dueDate = {assignment.dueDate}
+            classId = {assignment.classId} 
+            assignedOn = {assignment.assignedOn}/>
+        );
+      });
+    }
 
-    var monthAssignments = _.map(this.state.monthAssignments, function(assignment,index){
-      return (
-        <HomeworkAssignment
-          key={index}
-          hwId={index}
-          status={"./assets/greatball.png"}
-          title = {assignment.assignment}
-          dueDate = {assignment.dueDate}
-          classId = {assignment.classId} 
-          assignedOn = {assignment.assignedOn}/>
-      );
-    });
 
     return (
       <div className="homeworkDashboard">
@@ -199,9 +205,7 @@ var HomeworkDashboard = React.createClass({
               <th></th>
             </tr>
             </thead>
-            {this.state.showCurrentAssignments ? <tbody>{assignments}</tbody> : null}
-            {this.state.showPastAssignments ? <tbody>{oldAssignments}</tbody> : null}
-            {this.state.showMonthAssignments ? <tbody>{monthAssignments}</tbody> : null}
+            <tbody>{assignments}</tbody>
           </table>
           <HomeworkForm classId={this.props.params.id}/>
         </div>
