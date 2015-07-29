@@ -14,7 +14,8 @@ var _store = {
   info: {},
   today: '',
   graph: [],
-  assignments: {}
+  assignments: {},
+  student: ""
 };
 
 var addStudent = function(newStudent){
@@ -81,7 +82,8 @@ var behaviorClicked = function(data){
 
 var behaviorChart = function(data){
   var total = data.total;
-  var behaviors = data.chartData
+  var behaviors = data.chartData;
+  var student = data.student;
   var chartData = [];
   for(var key in behaviors){
     newObj = {};
@@ -93,6 +95,7 @@ var behaviorChart = function(data){
     chartData.push(newObj);
   }
   _store.graph = chartData;
+  _store.student = student;
   ClassroomStore.emit(CHANGE_EVENT);
 };
 
@@ -177,6 +180,9 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
 
   getGraph: function(){
     return _store.graph;
+  },
+  getStudent: function(){
+    return _store.student;
   }
 });
 

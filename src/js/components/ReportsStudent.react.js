@@ -7,7 +7,7 @@ var ReportsStudent = React.createClass({
   render: function(){
     return (
     	<div className="panel-body">
-    	  <a onClick={this.props.studentClick.bind(null,this.props.studentBehavior, this.props.behaviorTotal, this.props.studentId)}>{this.props.studentTitle}</a>
+    	  <a onClick={this.props.studentClick.bind(null,this.props.studentBehavior, this.props.behaviorTotal, this.props.studentTitle)}>{this.props.studentTitle}</a>
     	</div>
     );
   }

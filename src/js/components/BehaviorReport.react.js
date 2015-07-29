@@ -11,14 +11,16 @@ var BehaviorDashboard = React.createClass({
     return {
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
-      graph: ClassroomStore.getGraph()
+      graph: ClassroomStore.getGraph(),
+      student: ClassroomStore.getStudent()
     }
   },
 
   _onChange: function(){
     this.setState({
         graph: ClassroomStore.getGraph(),
-        list: ClassroomStore.getList()
+        list: ClassroomStore.getList(),
+        student: ClassroomStore.getStudent()
     });
   },
 
@@ -30,17 +32,27 @@ var BehaviorDashboard = React.createClass({
     ClassroomStore.removeChangeListener(this._onChange);
   },
 
-  studentClick: function(studentStats,behaviorTotal, studentId){
+  studentClick: function(studentStats,behaviorTotal, studentTitle){
     var chartData = [];
     var total = 0;
     for(var key in studentStats){
        total += studentStats[key];
     }
-
-    ClassroomActions.getBehaviors(studentStats, total);
+    ClassroomActions.getBehaviors(studentStats, total, studentTitle);
   },
 
   render: function(){
+    if(this.state.student === ""){
+        //means no student selected
+        var studentState = "Class' Total Student Behavior Percentages";
+    } else if(this.state.student){
+        var studentState = this.state.student + "'s Behavior Percentages";
+    }
+    if(this.state.graph.length === 0){
+        var noBehavior = "This student has no behavior points!";
+    } else {
+        var noBehavior = "";
+    }
     var studentClicked = this.studentClick;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
@@ -64,6 +76,8 @@ var BehaviorDashboard = React.createClass({
                 <h3 className="panel-title">Behavior</h3>
               </div>
               <div className="panel-body">
+                <h2>{studentState}</h2>
+                <div>{noBehavior}</div>
                 <PieChart
                   data={this.state.graph}
                   width={400}
