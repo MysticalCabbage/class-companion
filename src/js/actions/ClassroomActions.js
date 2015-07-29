@@ -38,10 +38,10 @@ var ClassroomActions = {
       data: groupNum
     });
   },
-  getBehaviors: function(chartData, totalCount){
+  getBehaviors: function(chartData, totalCount, student){
     AppDispatcher.handleAction({
       actionType: ClassroomConstants.GET_BEHAVIORS,
-      data: {chartData: chartData, total: totalCount}
+      data: {chartData: chartData, total: totalCount, student: student}
     });
   },
   initQuery: function(classId){
