@@ -258,15 +258,16 @@ a, a:visited, a:hover, a:active {
   background-color: cornflowerblue;
   width: 500px;
   height: 250px;
-/*  padding: 30px;*/
+  padding: 10px 40px;
   opacity: 0.75;
+  border-radius: 25px;
 }
 
 .timerHour, .timerMinute, .timerSecond{
   color: white;
   text-align: center;
   font-size: 60px;
-  padding: 12px;
+  padding: 11px;
 }
 
 .timerHour{
@@ -309,6 +310,27 @@ a, a:visited, a:hover, a:active {
   border: solid 2px white;
   padding: 8px;
   border-radius: 8px;
+}
+
+.timerForm{
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  width: 100%;
+  padding: 0;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: white;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: white;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: white;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: white;
 }
 
 #exampleInputName2 {

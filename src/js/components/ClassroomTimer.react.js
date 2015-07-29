@@ -22,8 +22,9 @@ var Timer = React.createClass({
     return {
       timeoutId: undefined,
       prevTime: undefined,
-      showResults: false,
-      timeRemaining: 0
+      timeRemaining: 0,
+      showForm: false,
+      showTimer: true
     };
   },
 
@@ -47,7 +48,10 @@ var Timer = React.createClass({
   },
 
   handleClick: function(){
-    this.setState({showResults: !this.state.showResults});
+    this.setState({
+      showForm: !this.state.showForm,
+      showTimer: !this.state.showTimer
+    });
   },
 
   tick: function() {
@@ -97,14 +101,25 @@ var Timer = React.createClass({
     time.seconds = seconds < 10 ? '0' + seconds : seconds;
     time.minutes = minutes < 10 ? '0' + minutes : minutes;
     time.hours = hours < 10 ? '0' + hours : hours;
-    // return hours + ':' + minutes + ':' + seconds;
     return time;
   },
 
   customTime: function(){
-    var time = React.findDOMNode(this.refs.customTime).value * 60000;
-    this.setState({timeRemaining: time });
-    time.value = '';
+    var customHour = React.findDOMNode(this.refs.customHour).value;
+    var customMinute = React.findDOMNode(this.refs.customMinute).value;
+    var customSecond = React.findDOMNode(this.refs.customSecond).value;
+    var time = customHour * 3600000 + customMinute * 60000 + customSecond * 1000;
+    // var time = React.findDOMNode(this.refs.customMinute).value * 60000;
+    // React.findDOMNode(this.refs.customTime).value = '';
+    customHour = '';
+    customMinute = '';
+    customSecond = '';
+    // this.setState({timeRemaining: time });
+    this.setState({
+      timeRemaining: time,
+      showForm: !this.state.showForm,
+      showTimer: !this.state.showTimer
+    });
   },
 
   render: function() {
@@ -112,12 +127,21 @@ var Timer = React.createClass({
 
     return (
       <div className='timer timerContainer'>
-        <div className="btn-group" role="group">
-          <form onSubmit={this.customTime}>
-          <input type="text" className="btn btn-default" placeholder="Enter Minutes" ref="customTime" />
-          </form>
-        </div>
+        {this.state.showForm ? 
         <div className="timerTimer">
+          <div className="timerHour">
+            <input type="text" placeholder="00" className="timerForm" ref="customHour" />
+          </div>
+          <div className="timerMinute">
+            <input type="text" placeholder="00" className="timerForm" ref="customMinute" />
+          </div>
+          <div className="timerSecond">
+            <input type="text" placeholder="00" className="timerForm" ref="customSecond" />
+          </div>
+        </div>
+        : null}
+        {this.state.showTimer ? 
+        <div className="timerTimer" onClick={this.handleClick} >
           <div className="timerHour">
             {this.getFormattedTime(timeRemaining).hours}
           </div>
@@ -128,6 +152,7 @@ var Timer = React.createClass({
             {this.getFormattedTime(timeRemaining).seconds}
           </div>
         </div>
+        : null}
         <div className="timerLabelContainer">
           <div className="timerHour timerLabel">
             HOURS
