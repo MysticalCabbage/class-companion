@@ -14,16 +14,16 @@ var Timer = React.createClass({
       interval: 1000,
       formatFunc: undefined,
       tickCallback: undefined,
-      completeCallback: undefined
+      completeCallback: undefined,
     };
   },
 
   getInitialState: function() {
     return {
-      timeRemaining: this.props.initialTimeRemaining,
       timeoutId: undefined,
       prevTime: undefined,
-      showResults: false
+      showResults: false,
+      timeRemaining: 0
     };
   },
 
@@ -37,7 +37,7 @@ var Timer = React.createClass({
   },
 
   componentDidUpdate: function(){
-    if ((!this.state.prevTime) && this.state.timeRemaining > 0 && this.isMounted()) {
+    if ((!this.state.prevTime) && this.state.timeRemaining >= 0 && this.isMounted()) {
       this.tick();
     }
   },
@@ -68,7 +68,7 @@ var Timer = React.createClass({
     if (this.isMounted()){
       if (this.state.timeoutId) clearTimeout(this.state.timeoutId);
       this.setState({
-        timeoutId: countdownComplete ? undefined: setTimeout(this.tick, timeout),
+        timeoutId: setTimeout(this.tick, timeout),
         prevTime: currentTime,
         timeRemaining: timeRemaining
       });
@@ -101,22 +101,47 @@ var Timer = React.createClass({
     return time;
   },
 
+  customTime: function(){
+    var time = React.findDOMNode(this.refs.customTime).value * 60000;
+    this.setState({timeRemaining: time });
+    time.value = '';
+  },
+
   render: function() {
     var timeRemaining = this.state.timeRemaining;
 
     return (
       <div className='timer timerContainer'>
-        <div className="timerHour">
-          <div className="timerDigits">{this.getFormattedTime(timeRemaining).hours}</div>
-          <div className="timerLabel">HOURS</div>
+        <div className="btn-group" role="group">
+          <form onSubmit={this.customTime}>
+          <input type="text" className="btn btn-default" placeholder="Enter Minutes" ref="customTime" />
+          </form>
         </div>
-        <div className="timerMinute">
-          <div className="timerDigits">{this.getFormattedTime(timeRemaining).minutes}</div>
-          <div className="timerLabel">MINUTES</div>
+        <div className="timerTimer">
+          <div className="timerHour">
+            {this.getFormattedTime(timeRemaining).hours}
+          </div>
+          <div className="timerMinute">
+            {this.getFormattedTime(timeRemaining).minutes}
+          </div>
+          <div className="timerSecond">
+            {this.getFormattedTime(timeRemaining).seconds}
+          </div>
         </div>
-        <div className="timerSecond">
-          <div className="timerDigits">{this.getFormattedTime(timeRemaining).seconds}</div>
-          <div className="timerLabel">SECONDS</div>
+        <div className="timerLabelContainer">
+          <div className="timerHour timerLabel">
+            HOURS
+          </div>
+          <div className="timerMinute timerLabel">
+            MINUTES
+          </div>
+          <div className="timerSecond timerLabel">
+            SECONDS
+          </div>
+        </div>
+        <div className="timerButtonContainer">
+          <button className="startBtn" onClick={this.customTime}>Start</button>
+          <button className="resetBtn">Reset</button>
         </div>
       </div>
     );

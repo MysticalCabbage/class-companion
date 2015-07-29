@@ -1,7 +1,7 @@
 var React = require('react');
 var Modal = require('react-modal');
 var Navbar = require('./Navbar.react');
-var TimerBar = require('./TimerBar.react');
+var ClassroomTimer = require('./ClassroomTimer.react');
 var AuthStore = require('../stores/AuthStore');
 var StudentRandom = require('./StudentRandom.react');
 var ClassroomForm = require('./ClassroomForm.react');
@@ -243,10 +243,7 @@ var ClassroomDashboard = React.createClass({
           openGroupModal={this.openGroupModal} />
         {this.state.showAttendance ? <AttendanceNavbar saveAttendance={this.saveAttendance} /> : null}
         <div className="studentsContainer container">
-          <div className="row">
-            {this.state.showResults ? <TimerBar/> : null}
-          </div>
-
+          {this.state.showResults ? <ClassroomTimer initialTimeRemaining={0}/> : null}
           <div className="row">
             {studentNodes}
             <div className="classroom col-md-3">
