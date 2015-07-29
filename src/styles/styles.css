@@ -129,7 +129,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .behaviorPoints { 
-  color: red;
+  color: cornflowerblue;
   position: absolute;
   top: 17px;
   left: 17px;
@@ -255,19 +255,21 @@ a, a:visited, a:hover, a:active {
 }
 
 .timerContainer{
-  background-color: cornflowerblue;
+  /*background-color: lightblue;*/
+  background-color: skyblue;
   width: 500px;
   height: 250px;
   padding: 10px 40px;
-  opacity: 0.95;
-  border-radius: 25px;
+  /*opacity: 0.95;*/
+  border: 5px solid white;
+  /*border-radius: 25px;*/
 }
 
 .timerModal{
   width: 500px;
   height: 250px;
-  opacity: 0.95;
-  border-radius: 25px;
+  /*opacity: 0.95;*/
+  /*border-radius: 25px;*/
 }
 
 .timerHour, .timerMinute, .timerSecond{
@@ -297,7 +299,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .timerLabelContainer, .timerTimer{
-  margin: 0 80px;
+  margin: 0 75px;
 }
 
 .startBtn{
@@ -311,7 +313,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .startBtn, .resetBtn{
-  background-color: cornflowerblue ;
+  background-color: skyblue;
   text-align: center;
   color: white;
   border: solid 2px white;
