@@ -212,6 +212,18 @@ var ClassroomDashboard = React.createClass({
     // iterate over list of students in the order of this.state.groups
     _.each(groupList, function(group, studentId){
       var studentNode = list[studentId];
+
+      // handle error during data corruption
+      // ocassionally, data gets out of sync
+      // this is to prevent app from halting
+      // to repair, delete class and recreate class
+      if(studentNode === undefined){
+        //for now we'll just attemp to delete the student
+        console.log('Student with id ', studentId, ' does not exist');
+
+        return;
+      }
+
       var status = studentNode.attendance ? studentNode.attendance[today] : null;
       var pokemonDirectory = context.makePokemonDirectory(studentNode);
 
