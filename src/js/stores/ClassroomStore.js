@@ -98,8 +98,11 @@ var markAttendance = function(data){
 
 var setBehaviorHistory = function(behaviorData) {
   var setBehaviorHistoryOnDate = function(newDate) {
-    firebaseRef.child('classes/' + _store.info.classId + '/students/' + behaviorData.studentId + '/behaviorHistory/')
-      .child(newDate)
+    var firebaseBehaviorDateRef = firebaseRef.child('classes/' + _store.info.classId + '/students/' + behaviorData.studentId + '/behaviorHistory/')
+      .child(newDate);
+
+    firebaseBehaviorDateRef
+      .child("behaviors")
       .child(behaviorData.behaviorAction)
       .transaction(function(current_value){ 
         // store the total change the specified behavior made on this specific day
@@ -108,6 +111,14 @@ var setBehaviorHistory = function(behaviorData) {
         //  in this situaiton, the student lost 5 points that day because of bullying
         // Helping: 3
         // the student gained 3 points that day by helping
+        return current_value + behaviorData.behaviorValue;
+      });
+
+    firebaseBehaviorDateRef
+      .child('behaviorDailyTotal')
+      .child('behaviorSum')
+      .transaction(function(current_value){ 
+        // update the sum of behavior points for the specific day
         return current_value + behaviorData.behaviorValue;
       });
   };
@@ -151,23 +162,25 @@ var behaviorChart = function(data){
   }
   _store.graph = chartData;
   _store.student = student;
-  _store.behaviorHistory = prepareBehaviorHistory(data.behaviorHistory);
+  // _store.behaviorHistory = prepareBehaviorHistory(data.behaviorHistory);
+  _store.behaviorHistory = data.behaviorHistory;
+
   ClassroomStore.emit(CHANGE_EVENT);
 };
 
 var prepareBehaviorHistory = function(behaviorHistory) {
-  var organizedBehaviorHistory = {};
-  var behaviorSum;
+  // var organizedBehaviorHistory = {};
+  // var behaviorSum;
 
-  _.each(behaviorHistory, function(behaviorList, date) {
-    behaviorSum = 0;
-    _.each(behaviorList, function(behaviorValue) {
-      behaviorSum += behaviorValue;
-    });
-    organizedBehaviorHistory[date] = behaviorSum;
-  });
+  // _.each(behaviorHistory, function(behaviorList, date) {
+  //   behaviorSum = 0;
+  //   _.each(behaviorList, function(behaviorValue) {
+  //     behaviorSum += behaviorValue;
+  //   });
+  //   organizedBehaviorHistory[date].behaviorSu = behaviorSum;
+  // });
 
-  return organizedBehaviorHistory;
+  // return organizedBehaviorHistory;
 
 };
 
