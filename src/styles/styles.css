@@ -6,10 +6,6 @@ body{
   background: url("../assets/background.png") no-repeat center center fixed;
 }
 
-/*i span{
-  font-family: 'Press Start 2P', cursive;
-}*/
-
 a, a:visited, a:hover, a:active {
   color: #5e5e5e;
   text-decoration: none !important;
@@ -210,6 +206,10 @@ a, a:visited, a:hover, a:active {
   height: 285px;
 }
 
+.authErrMsg {
+  color: red;
+}
+
 /*Signup*/
 .signupForm, .signupModal{
   width: 500px;
@@ -255,21 +255,14 @@ a, a:visited, a:hover, a:active {
 }
 
 .timerContainer{
-  /*background-color: lightblue;*/
   background-color: skyblue;
-  width: 500px;
-  height: 250px;
   padding: 10px 40px;
-  /*opacity: 0.95;*/
   border: 5px solid white;
-  /*border-radius: 25px;*/
 }
 
-.timerModal{
+.timerContainer, .timerModal{
   width: 500px;
   height: 250px;
-  /*opacity: 0.95;*/
-  /*border-radius: 25px;*/
 }
 
 .timerHour, .timerMinute, .timerSecond{
@@ -329,18 +322,18 @@ a, a:visited, a:hover, a:active {
   padding: 0;
 }
 
-::-webkit-input-placeholder { /* WebKit browsers */
+/*::-webkit-input-placeholder {
   color: white;
 }
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+:-moz-placeholder {
   color: white;
 }
-::-moz-placeholder { /* Mozilla Firefox 19+ */
+::-moz-placeholder {
   color: white;
 }
-:-ms-input-placeholder { /* Internet Explorer 10+ */
+:-ms-input-placeholder {
   color: white;
-}
+}*/
 
 #exampleInputName2 {
   width:500px;
@@ -349,7 +342,4 @@ a, a:visited, a:hover, a:active {
 #homeworktable {
   background-color: white;
   border-radius: 5px;
-}
-.authErrMsg {
-  color: red;
 }
