@@ -100,7 +100,13 @@ var setBehaviorHistory = function(behaviorData) {
       .child(newDate)
       .child(behaviorData.behaviorAction)
       .transaction(function(current_value){ 
-        return current_value + 1;
+        // store the total change the specified behavior made on this specific day
+        // for example:
+        // Bullying: -5
+        //  in this situaiton, the student lost 5 points because of bullying
+        // Helping: 3
+        // the student gained 3 points by helping
+        return current_value + behaviorData.behaviorValue;
       });
   };
   handleFirebaseCallbackWithCurrentDate(setBehaviorHistoryOnDate)

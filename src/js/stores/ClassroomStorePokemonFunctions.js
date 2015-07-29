@@ -39,7 +39,7 @@ var getNewPokemon = function(studentId, classId, specificPokemonAPIUrl, currentL
   });
 };
 
-
+// send the pokemon data to the firebase server for a specified student
 var sendServerPokemon = function(studentId, classId, pokemonDirectory) {
   firebaseRef.child('classes/' 
                     + classId 
