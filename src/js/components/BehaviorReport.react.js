@@ -4,7 +4,7 @@ var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var PieChart = require('react-d3/piechart').PieChart;
 var ReportsStudent = require('./ReportsStudent.react');
-var BehaviorChart = require('./BehaviorReport.react');
+var BehaviorChart = require('./BehaviorChart.react');
 
 var BehaviorDashboard = React.createClass({
   getInitialState: function(){
@@ -54,6 +54,8 @@ var BehaviorDashboard = React.createClass({
     } else {
       var noBehavior = "";
     }
+    // TODO: Access the behavior history after I make that property
+    
     var studentClicked = this.studentClick;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       return (
@@ -90,7 +92,7 @@ var BehaviorDashboard = React.createClass({
                 </div>
                 <div className="row">
                   <div className="col-md-12">
-                    <BehaviorChart />
+                    <BehaviorChart studentData={this.state} />
                   </div>
                 </div>
               </div>

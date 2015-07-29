@@ -65,8 +65,10 @@ var removeStudent = function(studentId){
   ).remove();
 };
 
-var markAttendance = function(data){
-  // Recored the current timestamp based don the Firebase server
+
+
+var handleFirebaseCallbackWithCurrentDate = function(callback) {
+  // Recored the current timestamp based on the Firebase server
   firebaseRef.child('timestamp')
     .set(Firebase.ServerValue.TIMESTAMP);
 
@@ -77,10 +79,31 @@ var markAttendance = function(data){
     var date = new Date(current_server_time).toLocaleDateString();
     // Replace '/' with '-' so the database recognize date as one string and sets it as the param 
     var newDate = date.replace(/\//g, '-');
-    // Store student attendance for that date
+    // perform a callback using the new date string
+    callback(newDate)
+  });
+};
+
+var markAttendance = function(data){
+
+  var markAttendanceOnDate = function(newDate) {
     firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance/' + newDate)
       .set(data.attendance);
-  });
+  };
+
+  handleFirebaseCallbackWithCurrentDate(markAttendanceOnDate)
+};
+
+var setBehaviorHistory = function(behaviorData) {
+  var setBehaviorHistoryOnDate = function(newDate) {
+    firebaseRef.child('classes/' + _store.info.classId + '/students/' + behaviorData.studentId + '/behaviorHistory/')
+      .child(newDate)
+      .child(behaviorData.behaviorAction)
+      .transaction(function(current_value){ 
+        return current_value + 1;
+      });
+  };
+  handleFirebaseCallbackWithCurrentDate(setBehaviorHistoryOnDate)
 };
 
 var behaviorClicked = function(data){
@@ -96,6 +119,8 @@ var behaviorClicked = function(data){
   if(_store.info.isDemo && !data.behaviorAction){
     return;
   }
+
+  setBehaviorHistory(data)
 
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
     return current_value + 1;
@@ -116,6 +141,7 @@ var behaviorChart = function(data){
     newObj["value"] = Math.ceil(((behaviors[key]/total)*100) * 100)/100;
     chartData.push(newObj);
   }
+  console.log('data in behavior chart', data);
   _store.graph = chartData;
   _store.student = student;
   ClassroomStore.emit(CHANGE_EVENT);
