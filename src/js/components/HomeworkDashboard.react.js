@@ -76,30 +76,38 @@ var HomeworkDashboard = React.createClass({
   showPastAssignments: function(){
     this.setState({
       showPastAssignments: true,
-      showCurrentAssignments: false
+      showCurrentAssignments: false,
+      showMonthAssignments: false
     });
   },
 
   showCurrentAssignments: function(){
     this.setState({
       showPastAssignments: false,
-      showCurrentAssignments: true
+      showCurrentAssignments: true,
+      showMonthAssignments: false
     });
   },
 
   monthSelect: function(e){
     var month = document.getElementById('dropdown').value;
-    HomeworkActions.monthSelected(month);
-    this.setState({
-      showMonthAssignments: true,
+    if(month === "N/A"){
+      this.setState({
+        showMonthAssignments: false,
       showPastAssignments: false,
-      showCurrentAssignments: false,
-    });
+      showCurrentAssignments: true,
+      });
+    } else {
+      HomeworkActions.monthSelected(month);
+      this.setState({
+        showMonthAssignments: true,
+        showPastAssignments: false,
+        showCurrentAssignments: false,
+      });
+    }
   },
 
   render: function(){
-
-
     var url = '#/classroomDashboard/' + this.props.params.id;
     var currentAssignments = {};
     var today = new Date();
@@ -170,7 +178,7 @@ var HomeworkDashboard = React.createClass({
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li>
-                    {this.state.showPastAssignments ? <a onClick={this.showCurrentAssignments}><i className="fa fa-pencil-square-o"><span> View Active Assignments</span></i></a> : null }
+                    {(this.state.showPastAssignments || this.state.showMonthAssignments ) ? <a onClick={this.showCurrentAssignments}><i className="fa fa-pencil-square-o"><span> View Active Assignments</span></i></a> : null }
                   </li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
