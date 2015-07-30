@@ -16,7 +16,8 @@ var _store = {
   assignments: {},
   homeworkFor : {},
   pastAssignments: {},
-  monthAssignments : {}
+  monthAssignments : {},
+  emails: {}
 };
 
 var addAssignment = function(assignment){
@@ -33,6 +34,7 @@ var initQuery = function(classId){
     _store.info = classData.info;
     _store.assignments = classData.assignments;
     _store.homeworkFor = classData.homeworkFor;
+    _store.emails = classData.emails
   });
   HomeworkStore.emit(CHANGE_EVENT);
 };
@@ -76,8 +78,10 @@ var selectMonth = function(month){
 };
 
 var addStudentEmail = function(email){
-  console.log(email);
+  console.log("in store",email);
   firebaseRef.child('classes/' + email.classId + '/emails').push(email);
+
+  firebaseRef.child('classes/' + email.classId + '/students/' + email.studentId + '/emails').set({email: email.email});
   HomeworkStore.emit(CHANGE_EVENT);
 };
 
@@ -120,6 +124,9 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   },
   getMonthAssignments: function(){
     return _store.monthAssignments;
+  },
+  getEmails: function(){
+    return _store.emails;
   }
 });
 
@@ -151,6 +158,7 @@ AppDispatcher.register(function(payload){
       break;
     case HomeworkConstants.ADD_STUDENT_EMAIL:
       addStudentEmail(action.data);
+      HomeworkStore.emit(CHANGE_EVENT);
       break;
     default:
       return true;

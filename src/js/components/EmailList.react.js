@@ -25,7 +25,10 @@ var EmailForm = React.createClass({
    handleAddEmail: function(e){
     e.preventDefault();
     var newEmail = React.findDOMNode(this.refs.newEmail).value;
-    HomeworkActions.addStudentEmail({email: newEmail, studentId: this.props.studentId, classId: this.props.classId });
+    if(this.props.type === "parent"){
+
+    }
+    HomeworkActions.addStudentEmail({email: newEmail, studentId: this.props.studentId, classId: this.props.classId});
     React.findDOMNode(this.refs.newEmail).value = '';
     this.props.closeEmailModal();
   },
@@ -52,9 +55,10 @@ var Student = React.createClass({
   getInitialState: function(){
     return {
       info: ClassroomStore.getInfo(),
-      email: undefined,
+      emails: HomeworkStore.getEmails(),
       parentEmail: undefined,
-      emailModal: false
+      emailModal: false,
+      emailParentModal: false
     }
   },
 
@@ -78,11 +82,20 @@ var Student = React.createClass({
     this.setState({emailModal: false});
   },
 
+  openParentModal: function(){
+    this.setState({emailParentModal: true});
+  },
+
+  closeParentModal: function(){
+    this.setState({emailParentModal: false});
+  },
+
   render: function(){
-    if(this.props.email === undefined){
+    if(this.props.emails.email === undefined){
       var email = "No email added! Click here to add";
     } else {
-      var email = this.props.email;
+      var email = this.props.emails.email;
+
     }
     if(this.props.parentEmail === undefined){
       var parentEmail = "No Parent email added! Click here to add";
@@ -95,11 +108,14 @@ var Student = React.createClass({
         <td>{this.props.studentTitle}<Modal className="emailModal" 
             isOpen={this.state.emailModal} 
             onRequestClose={this.closeModal}>
-            <EmailForm closeEmailModal={this.closeModal} studentId={this.props.studentId} classId={this.state.info.classId}/>
-          </Modal></td>
+            <EmailForm closeEmailModal={this.closeModal} studentId={this.props.studentId} classId={this.state.info.classId} type="student"/>
+          </Modal><Modal className="emailParentModal" 
+            isOpen={this.state.emailParentModal} 
+            onRequestClose={this.closeParentModal}>
+            <EmailForm closeEmailModal={this.closeParentModal} studentId={this.props.studentId} classId={this.state.info.classId} type="parent"/></Modal></td>
         <td><a onClick={this.openModal}>{email}</a></td>
         <td><a className='fa fa-envelope-o' onClick={this.clicked}></a></td>
-        <td><a onClick={this.addParent}>{parentEmail}</a></td>
+        <td><a onClick={this.openParentModal}>{parentEmail}</a></td>
         <td><a className='fa fa-envelope-o' onClick={this.clicked}></a></td>
         </tr>    
 
@@ -112,29 +128,32 @@ var EmailList = React.createClass({
   getInitialState: function(){
     return {
       list: ClassroomStore.getList(),
-      info: ClassroomStore.getInfo()
+      info: ClassroomStore.getInfo(),
+      emails: HomeworkStore.getEmails()
     }
   },
   _onChange: function(){
     this.setState({
         list: ClassroomStore.getList(),
-        info: ClassroomStore.getInfo()
+        info: ClassroomStore.getInfo(),
+        emails: HomeworkStore.getEmails()
     });
   },
 
   componentDidMount: function(){
     ClassroomStore.addChangeListener(this._onChange);    
+    HomeworkStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function(){
     ClassroomStore.removeChangeListener(this._onChange);
+    HomeworkStore.removeChangeListener(this._onChange);
   },
 
   render: function(){
     var students = _.map(this.state.list, function(student,index,next){
-      
       return (
-        <Student key={index} studentId={index} studentTitle={student.studentTitle} />
+        <Student key={index} studentId={index} studentTitle={student.studentTitle} emails={student.emails}/>
       );
     });
     return (
@@ -160,8 +179,6 @@ var EmailList = React.createClass({
     );
   }
 });
-
-
 
 
 module.exports = EmailList;
