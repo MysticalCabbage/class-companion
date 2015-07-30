@@ -1,5 +1,6 @@
 var React = require('react');
 var BehaviorButtons = require('./BehaviorButtons.react');
+var DeleteConfirm = require('./DeleteConfirm.react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomActions = require('../actions/ClassroomActions');
 var Modal = require('react-modal');
@@ -12,7 +13,8 @@ var ClassroomStudent = React.createClass({
   getInitialState: function(){
     return {
       toggle: this.props.status || 'Present',
-      behaviorModalIsOpen: false 
+      behaviorModalIsOpen: false,
+      deleteConfirmModal: false
     }
   },
 
@@ -26,6 +28,14 @@ var ClassroomStudent = React.createClass({
   
   closeBehaviorModal: function() {
     this.setState({behaviorModalIsOpen: false});
+  },
+
+  openDeteleConfirmModal: function(){
+    this.setState({deleteConfirmModal: true});
+  },
+
+  closeDeleteConfirmModal: function(){
+    this.setState({deleteConfirmModal: false});
   },
 
   componentDidMount: function() {
@@ -86,11 +96,11 @@ var ClassroomStudent = React.createClass({
           <p className="behaviorPoints">{this.props.behavior}</p>
         </div>
         : null}
-        <div className="well classroomStudent" onClick={this.openBehaviorModal}>
+        <div className="well classroomStudent">
           <div>
-            <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
+            <button type="button" className="close" aria-label="Close" onClick={this.openDeteleConfirmModal}><span aria-hidden="true">&times;</span></button>
           </div>
-          <div className="row studentSection">
+          <div className="row studentSection" onClick={this.openBehaviorModal}>
             <div className="avatar col-md-5">
               <img className="avatarImg" src={spriteUrl} />
             </div>
@@ -112,6 +122,12 @@ var ClassroomStudent = React.createClass({
           </div>
           <Modal className="behaviorModal" isOpen={this.state.behaviorModalIsOpen} onRequestClose={this.closeBehaviorModal}>
             <BehaviorButtons studentId={this.props.studentId} studentTitle={this.props.studentTitle} closeBehaviorModal={this.closeBehaviorModal} />
+          </Modal>
+          <Modal className="deleteConfirmModal"
+            isOpen={this.state.deleteConfirmModal}
+            onRequestClose={this.closeDeleteConfirmModal}>
+            <DeleteConfirm closeDeleteConfirmModal={this.closeDeleteConfirmModal}
+              confirmDelete={this.removeStudent}/>
           </Modal>
         </div>
       </div>

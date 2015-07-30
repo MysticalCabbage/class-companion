@@ -226,6 +226,12 @@ a, a:visited, a:hover, a:active {
   text-align: center;
 }
 
+/*delete confirmation*/
+.deleteConfirmModal{
+  width: 250px;
+  height: 223px;
+}
+
 /*TeacherClass*/
 .classImg{
   height: auto;
@@ -243,7 +249,7 @@ a, a:visited, a:hover, a:active {
 /*StudentGroupForm*/
 .StudenGroupForm, .groupModal{
   width: 250px;
-  height: 100px;
+  height: 217px;
   text-align: center;
 }
 
