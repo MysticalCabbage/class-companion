@@ -1,5 +1,6 @@
 var React = require('react');
 var BehaviorButtons = require('./BehaviorButtons.react');
+var DeleteConfirm = require('./DeleteConfirm.react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var ClassroomActions = require('../actions/ClassroomActions');
 var Modal = require('react-modal');
@@ -12,7 +13,8 @@ var ClassroomStudent = React.createClass({
   getInitialState: function(){
     return {
       toggle: this.props.status || 'Present',
-      behaviorModalIsOpen: false 
+      behaviorModalIsOpen: false,
+      deleteConfirmModal: false
     }
   },
 
@@ -26,6 +28,14 @@ var ClassroomStudent = React.createClass({
   
   closeBehaviorModal: function() {
     this.setState({behaviorModalIsOpen: false});
+  },
+
+  openDeteleConfirmModal: function(){
+    this.setState({deleteConfirmModal: true});
+  },
+
+  closeDeleteConfirmModal: function(){
+    this.setState({deleteConfirmModal: false});
   },
 
   componentDidMount: function() {
@@ -64,7 +74,12 @@ var ClassroomStudent = React.createClass({
       minWidth: '2em',
       width: currentExpPercentage + '%'
     }
-
+    var studentTitle = this.props.studentTitle;
+    var idxSpace = studentTitle.indexOf(' ');
+    var studentFirstName = studentTitle.substr(0, idxSpace);
+    var studentLastName = studentTitle.substr(idxSpace + 1);
+    studentFirstName = (studentFirstName.length > 6) ? studentFirstName.slice(0,6) + '...' : studentFirstName;
+    studentLastName = (studentLastName.length > 6) ? studentLastName.slice(0,6) + '...' : studentLastName;
     return (
       <div className="col-md-3" >
         { this.props.attendance ? 
@@ -86,16 +101,17 @@ var ClassroomStudent = React.createClass({
           <p className="behaviorPoints">{this.props.behavior}</p>
         </div>
         : null}
-        <div className="well classroomStudent" onClick={this.openBehaviorModal}>
+        <div className="well classroomStudent">
           <div>
-            <button type="button" className="close" aria-label="Close" onClick={this.removeStudent}><span aria-hidden="true">&times;</span></button>
+            <button type="button" className="close" aria-label="Close" onClick={this.openDeteleConfirmModal}><span aria-hidden="true">&times;</span></button>
           </div>
-          <div className="row studentSection">
+          <div className="row studentSection" onClick={this.openBehaviorModal}>
             <div className="avatar col-md-5">
               <img className="avatarImg" src={spriteUrl} />
             </div>
             <div className="studentInfo col-md-7">
-              <div className="studentTitle">{this.props.studentTitle}</div>
+              <div className="studentTitle studentFirstName">{studentFirstName}</div>
+              <div className="studentTitle studentLastName">{studentLastName}</div>
               {this.props.isGrouped ? <div className="studentGroup">Group: {this.props.groupNum}</div> : null}
             </div>
           </div>
@@ -112,6 +128,13 @@ var ClassroomStudent = React.createClass({
           </div>
           <Modal className="behaviorModal" isOpen={this.state.behaviorModalIsOpen} onRequestClose={this.closeBehaviorModal}>
             <BehaviorButtons studentId={this.props.studentId} studentTitle={this.props.studentTitle} closeBehaviorModal={this.closeBehaviorModal} />
+          </Modal>
+          <Modal className="deleteConfirmModal"
+            isOpen={this.state.deleteConfirmModal}
+            onRequestClose={this.closeDeleteConfirmModal}>
+            <DeleteConfirm closeDeleteConfirmModal={this.closeDeleteConfirmModal}
+              confirmDelete={this.removeStudent}
+              toBeDeleted={this.props.studentTitle}/>
           </Modal>
         </div>
       </div>
