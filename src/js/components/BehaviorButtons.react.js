@@ -36,7 +36,8 @@ var BehaviorButtons = React.createClass({
           </a>
         </div>
       )
-    })
+    });
+
     return (
       <div className="panel panel-info behaviorButtons">
         <div className="panel-heading">
@@ -47,14 +48,13 @@ var BehaviorButtons = React.createClass({
           <div className="row">
             {studentBehaviors}
           </div>
-          // DEBUG SECTION
-          <div>
-            <button onClick={this.debugAddExperiencePoints}>Add Points</button>
-          </div>
-          <div>
-            <input type="text" value={this.state.value} onChange={this.debugHandleInputChange}></input>
-          </div>
-          // END DEBUG SECTION
+          {this.state.info.isDemo ?
+            <div className="well">
+              <div>Demo: quickly add behavior points and watch the pokemon evolve!</div>
+              <input type="text" placeholder="Try 1000" value={this.state.value} onChange={this.debugHandleInputChange}></input>
+              <button className="btn btn-success" onClick={this.debugAddExperiencePoints}>Add Points</button>
+            </div>
+           : null}
         </div>
       </div>
     );
