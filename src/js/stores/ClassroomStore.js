@@ -163,13 +163,13 @@ var behaviorChart = function(data){
   _store.student = student;
   // _store.behaviorHistory = prepareBehaviorHistory(data.behaviorHistory);
   // _store.behaviorHistory = data.behaviorHistory;
-  _store.behaviorHistory = prepareBehaviorHistory(data.behaviorHistory);
+  _store.behaviorHistory = prepareBehaviorHistory(generateRandomBehaviorHistory());
 
   ClassroomStore.emit(CHANGE_EVENT);
 };
 
 // DEBUG: Generate Random Behavior History
-var prepareBehaviorHistory = function(behaviorHistory) {
+var generateRandomBehaviorHistory = function() {
   var getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
@@ -198,20 +198,19 @@ var prepareBehaviorHistory = function(behaviorHistory) {
     generateRandomHistory("7-30-15")
     );
 
-  console.log(randomBehaviorHistory)
-  // var organizedBehaviorHistory = {};
-  // var behaviorSum;
-
-  // _.each(behaviorHistory, function(behaviorList, date) {
-  //   behaviorSum = 0;
-  //   _.each(behaviorList, function(behaviorValue) {
-  //     behaviorSum += behaviorValue;
-  //   });
-  //   organizedBehaviorHistory[date].behaviorSu = behaviorSum;
-  // });
-
   return randomBehaviorHistory;
+};
+// prepare given behavior history for use with D3
+var prepareBehaviorHistory = function(behaviorHistory) {
+  var studentDataForD3 = [{label: "", values: []}];
 
+  _.each(behaviorHistory, function(behaviorData, date) {
+    var dateObj = new Date(date);
+    var behaviorSum = behaviorData.behaviorDailyTotal;
+    studentDataForD3[0].values.push({x: dateObj, y: behaviorSum})
+  });
+
+  return studentDataForD3;
 };
 
 

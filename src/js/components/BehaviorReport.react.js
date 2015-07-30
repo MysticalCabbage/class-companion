@@ -56,6 +56,7 @@ var BehaviorDashboard = React.createClass({
     } else {
       var noBehavior = "";
     }
+    console.log(this.state.behaviorHistory)
     // TODO: Access the behavior history after I make that property
     var studentClicked = this.studentClick;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
