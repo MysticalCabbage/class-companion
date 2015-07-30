@@ -75,6 +75,11 @@ var selectMonth = function(month){
   HomeworkStore.emit(CHANGE_EVENT);
 };
 
+var addStudentEmail = function(email){
+  console.log(email);
+  firebaseRef.child('classes/' + email.classId + '/emails').push(email);
+  HomeworkStore.emit(CHANGE_EVENT);
+};
 
 var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   // Invoke the callback function (ie. the _onChange function in TeacherDashboard) whenever it hears a change event
@@ -143,6 +148,10 @@ AppDispatcher.register(function(payload){
       break;
     case HomeworkConstants.MONTH_SELECTED:
       selectMonth(action.data);
+      break;
+    case HomeworkConstants.ADD_STUDENT_EMAIL:
+      addStudentEmail(action.data);
+      break;
     default:
       return true;
   }

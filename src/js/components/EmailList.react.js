@@ -25,7 +25,7 @@ var EmailForm = React.createClass({
    handleAddEmail: function(e){
     e.preventDefault();
     var newEmail = React.findDOMNode(this.refs.newEmail).value;
-    // ClassroomActions.addEmail({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0  });
+    HomeworkActions.addStudentEmail({email: newEmail, studentId: this.props.studentId, classId: this.props.classId });
     React.findDOMNode(this.refs.newEmail).value = '';
     this.props.closeEmailModal();
   },
@@ -51,6 +51,7 @@ var EmailForm = React.createClass({
 var Student = React.createClass({
   getInitialState: function(){
     return {
+      info: ClassroomStore.getInfo(),
       email: undefined,
       parentEmail: undefined,
       emailModal: false
@@ -94,7 +95,7 @@ var Student = React.createClass({
         <td>{this.props.studentTitle}<Modal className="emailModal" 
             isOpen={this.state.emailModal} 
             onRequestClose={this.closeModal}>
-            <EmailForm closeEmailModal={this.closeModal}/>
+            <EmailForm closeEmailModal={this.closeModal} studentId={this.props.studentId} classId={this.state.info.classId}/>
           </Modal></td>
         <td><a onClick={this.openModal}>{email}</a></td>
         <td><a className='fa fa-envelope-o' onClick={this.clicked}></a></td>
@@ -110,12 +111,14 @@ var Student = React.createClass({
 var EmailList = React.createClass({
   getInitialState: function(){
     return {
-      list: ClassroomStore.getList()
+      list: ClassroomStore.getList(),
+      info: ClassroomStore.getInfo()
     }
   },
   _onChange: function(){
     this.setState({
         list: ClassroomStore.getList(),
+        info: ClassroomStore.getInfo()
     });
   },
 
@@ -128,10 +131,10 @@ var EmailList = React.createClass({
   },
 
   render: function(){
-    console.log(this.state.list);
-    var students = _.map(this.state.list, function(student,index){
+    var students = _.map(this.state.list, function(student,index,next){
+      
       return (
-        <Student key={index} studentId={index} studentTitle={student.studentTitle}/>
+        <Student key={index} studentId={index} studentTitle={student.studentTitle} />
       );
     });
     return (
