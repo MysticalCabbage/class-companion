@@ -64,7 +64,13 @@ var Student = React.createClass({
   },
 
   mailClicked: function(e){
+    e.preventDefault();
     var link = "mailto:"+this.props.email;
+    window.location.href = link;
+  },
+  parentMailClicked: function(e){
+    e.preventDefault();
+    var link = "mailto:"+this.props.parentEmail;
     window.location.href = link;
   },
 
@@ -109,7 +115,7 @@ var Student = React.createClass({
         <td><a onClick={this.openModal}>{email}</a></td>
         <td><a className='fa fa-envelope-o' onClick={this.mailClicked}></a></td>
         <td><a onClick={this.openParentModal}>{parentEmail}</a></td>
-        <td><a className='fa fa-envelope-o' onClick={this.clicked}></a></td>
+        <td><a className='fa fa-envelope-o' onClick={this.parentMailClicked}></a></td>
         </tr>    
 
     );
