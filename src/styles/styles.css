@@ -1,10 +1,8 @@
 .teacherDashboard, .classroomDashboard, .reportsDashboard{
-  /*font-family: 'Press Start 2P', cursive;*/
-/*  background-image: url("../assets/background.png");
-  background-repeat: no-repeat;*/
   background-size: cover;
   background: url("../assets/background.png") no-repeat center center fixed;
   height: 100vh;
+  overflow: scroll;
 }
 
 a, a:visited, a:hover, a:active {
