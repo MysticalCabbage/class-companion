@@ -75,8 +75,9 @@ var ClassroomStudent = React.createClass({
       width: currentExpPercentage + '%'
     }
     var studentTitle = this.props.studentTitle;
-    var studentFirstName = studentTitle.substr(0,studentTitle.indexOf(' '));
-    var studentLastName = studentTitle.substr(studentTitle.indexOf(' ')+1);
+    var idxSpace = studentTitle.indexOf(' ');
+    var studentFirstName = studentTitle.substr(0, idxSpace);
+    var studentLastName = studentTitle.substr(idxSpace + 1);
     studentFirstName = (studentFirstName.length > 6) ? studentFirstName.slice(0,6) + '...' : studentFirstName;
     studentLastName = (studentLastName.length > 6) ? studentLastName.slice(0,6) + '...' : studentLastName;
     return (
