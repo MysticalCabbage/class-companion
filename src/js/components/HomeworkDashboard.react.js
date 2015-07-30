@@ -4,6 +4,7 @@ var HomeworkActions = require('../actions/HomeworkActions');
 var HomeworkStore = require('../stores/HomeworkStore');
 var Navbar = require('./Navbar.react');
 var AuthStore = require('../stores/AuthStore');
+var EmailList = require('./EmailList.react')
 var _ = require('underscore');
 
 var HomeworkAssignment = React.createClass({
@@ -204,20 +205,27 @@ var HomeworkDashboard = React.createClass({
                 <option value="11">November</option>
                 <option value="12">December</option>
             </select>
+             <div className="panel panel-primary">
+              <div className="panel-heading">
+                <h3 className="panel-title">Homework</h3>
+              </div>
           <table className="table" id="homeworktable">
             <thead>
             <tr>
-              <th><h4>Assignment</h4></th>
-              <th><h4>Due Date</h4></th>
-              <th><h4>Assigned On</h4></th>
+              <th><h5>Assignment Name</h5></th>
+              <th><h5>Due Date</h5></th>
+              <th><h5>Assigned On</h5></th>
               <th></th>
             </tr>
             </thead>
             <tbody>{assignments}</tbody>
           </table>
+          </div>
           <HomeworkForm classId={this.props.params.id}/>
+          <EmailList />
         </div>
       </div>
+
     );
   }
 });
