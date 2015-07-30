@@ -256,6 +256,11 @@ a, a:visited, a:hover, a:active {
   height: 150px;
 }
 
+/*ClassroomForm*/
+.errMsg {
+  color: red;
+}
+
 /*StudentGroupForm*/
 .StudenGroupForm, .groupModal{
   width: 250px;
@@ -341,19 +346,6 @@ a, a:visited, a:hover, a:active {
   padding: 0;
 }
 
-/*::-webkit-input-placeholder {
-  color: white;
-}
-:-moz-placeholder {
-  color: white;
-}
-::-moz-placeholder {
-  color: white;
-}
-:-ms-input-placeholder {
-  color: white;
-}*/
-
 #exampleInputName2 {
   width:500px;
 }
@@ -363,6 +355,154 @@ a, a:visited, a:hover, a:active {
   border-radius: 5px;
 }
 
-.errMsg {
-  color: red;
+/*Home*/
+section {
+  padding: 80px 0;
+}
+
+.home{
+  background-color: #fff;
+}
+
+section h2.section-heading {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 40px;
+}
+
+section h3.section-subheading {
+  margin-bottom: 75px;
+  text-transform: none;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/*Home - Intro*/
+header {
+  text-align: center;
+  color: #fff;
+  background: #337ab7;
+}
+
+header .container {
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+header img {
+  display: block;
+  margin: 0 auto 20px;
+}
+
+header .intro-text .name {
+  display: block;
+  text-transform: uppercase;
+  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 2em;
+  font-weight: 700;
+}
+
+header .intro-text .skills {
+  font-size: 1.25em;
+  font-weight: 300;
+}
+
+hr.star-light,
+hr.star-primary {
+  margin: 25px auto 30px;
+  padding: 0;
+  max-width: 250px;
+  border: 0;
+  border-top: solid 5px;
+  text-align: center;
+}
+
+hr.star-light:after,
+hr.star-primary:after {
+  content: "\f005";
+  display: inline-block;
+  position: relative;
+  top: -.8em;
+  padding: 0 .25em;
+  font-family: FontAwesome;
+  font-size: 2em;
+}
+
+hr.star-light {
+  border-color: #fff;
+}
+
+hr.star-light:after {
+  color: #fff;
+  background-color: #337ab7;
+}
+
+hr.star-primary {
+  border-color: #2c3e50;
+}
+
+hr.star-primary:after {
+  color: #2c3e50;
+  background-color: #fff;
+}
+
+.favicon{
+  max-width: 12%;
+}
+
+/*Home - Team*/
+.bg-light-gray {
+  background-color: #f7f7f7;
+}
+
+.team-member {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.team-member img {
+  /*margin: 0 auto;*/
+  border: 7px solid #fff;
+}
+
+.team-member h4 {
+  margin-top: 25px;
+  margin-bottom: 0;
+  /*text-transform: none;*/
+}
+
+/*.team-member p {
+  margin-top: 0;
+}*/
+
+/*ul.social-buttons {
+    margin-bottom: 0;
+}
+*/
+
+ul.social-buttons li a {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  font-size: 20px;
+  line-height: 40px;
+  outline: 0;
+  color: #fff;
+  background-color: #222;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+}
+
+ul.social-buttons li a:hover,
+ul.social-buttons li a:focus,
+ul.social-buttons li a:active {
+  background-color: #fed136;
+}
+
+/*Home - About*/
+.about-heading {
+margin: 15px 0;
 }
