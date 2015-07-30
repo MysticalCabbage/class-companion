@@ -74,7 +74,11 @@ var ClassroomStudent = React.createClass({
       minWidth: '2em',
       width: currentExpPercentage + '%'
     }
-
+    var studentTitle = this.props.studentTitle;
+    var studentFirstName = studentTitle.substr(0,studentTitle.indexOf(' '));
+    var studentLastName = studentTitle.substr(studentTitle.indexOf(' ')+1);
+    studentFirstName = (studentFirstName.length > 6) ? studentFirstName.slice(0,6) + '...' : studentFirstName;
+    studentLastName = (studentLastName.length > 6) ? studentLastName.slice(0,6) + '...' : studentLastName;
     return (
       <div className="col-md-3" >
         { this.props.attendance ? 
@@ -105,7 +109,8 @@ var ClassroomStudent = React.createClass({
               <img className="avatarImg" src={spriteUrl} />
             </div>
             <div className="studentInfo col-md-7">
-              <div className="studentTitle">{this.props.studentTitle}</div>
+              <div className="studentTitle studentFirstName">{studentFirstName}</div>
+              <div className="studentTitle studentLastName">{studentLastName}</div>
               {this.props.isGrouped ? <div className="studentGroup">Group: {this.props.groupNum}</div> : null}
             </div>
           </div>

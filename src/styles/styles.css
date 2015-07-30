@@ -109,6 +109,10 @@ a, a:visited, a:hover, a:active {
   word-wrap: break-word;
 }
 
+.studentLastName{
+  font-size: 18px;
+}
+
 .attendanceButton{
   position: absolute;
   top: -10px;
