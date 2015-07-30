@@ -1,9 +1,10 @@
-body{
+.teacherDashboard, .classroomDashboard, .reportsDashboard{
   /*font-family: 'Press Start 2P', cursive;*/
 /*  background-image: url("../assets/background.png");
   background-repeat: no-repeat;*/
   background-size: cover;
   background: url("../assets/background.png") no-repeat center center fixed;
+  height: 100vh;
 }
 
 a, a:visited, a:hover, a:active {
@@ -150,7 +151,7 @@ a, a:visited, a:hover, a:active {
   font-size: 20px;
   font-weight: bolder;
   text-align: left;
-  height: 100px;
+  height: 85px;
 }
 
 .avatar{
@@ -162,7 +163,9 @@ a, a:visited, a:hover, a:active {
 }
 
 .studentGroup{
-  font-size: 15px;
+  font-size: 13px;
+  margin-top: 10px;
+  color: darkgrey;
 }
 
 .pokemonSpecs{
