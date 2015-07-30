@@ -20,6 +20,9 @@ var routes = (
   <Route handler={App}>
   	<DefaultRoute handler={Home}/>
     <Route path="/" handler={Home}/>
+    <Redirect from="about" to="/" />
+    <Redirect from="mobile" to="/" />
+    <Redirect from="team" to="/" />
     <Route path="teacherDashboard" handler={TeacherDashboard}/>
     <Route path="teacherForm" handler={TeacherForm}/>
     <Route path="classroomDashboard/:id" handler={ClassroomDashboard}/>
@@ -28,6 +31,7 @@ var routes = (
     <Route path="*" handler={TeacherDashboard} />
   </Route>
 );
+
 
 var router = Router.create({routes: routes});
 RouterContainer.set(router);

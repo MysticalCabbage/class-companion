@@ -5,6 +5,7 @@ var Login = require('./Login.react');
 var Signup = require('./Signup.react');
 var AuthStore = require('../stores/AuthStore');
 var Modal = require('react-modal');
+var Auth = require('../services/AuthService');
 
 var appElement = document.app;
 Modal.setAppElement(appElement);
@@ -57,6 +58,10 @@ var Home = React.createClass({
     });
   },
 
+  handleLogout: function(){
+    Auth.logout();
+  },
+
   render: function() {
     return (
       <div className="home">
@@ -79,14 +84,19 @@ var Home = React.createClass({
                   <a href="#page-top"></a>
                 </li>
                 <li className="page-scroll">
-                  <a href="#about">ABOUT</a>
+                  <a href="#about">LEARN MORE</a>
                 </li>
                 <li className="page-scroll">
-                  <a href="#mobile">MOBILE</a>
+                  <a href="#mobile">MOBILE APP</a>
                 </li>
                 <li className="page-scroll">
                   <a href="#team">TEAM</a>
                 </li>
+                { this.state.loggedIn ? 
+                <li>
+                  <a href={'#/teacherDashboard/'}>ENTER CLASSROOM</a>
+                </li>
+                : null }
                 { this.state.loggedIn ? 
                 <li className="page-scroll">
                   <a onClick={this.handleLogout}>LOGOUT</a>
@@ -94,7 +104,7 @@ var Home = React.createClass({
                 : null }
                 { this.state.loggedIn ? null :
                 <li className="page-scroll">
-                  <a onClick={this.openLoginModal}>OGIN</a>
+                  <a onClick={this.openLoginModal}>LOGIN</a>
                 </li>
                 }
               </ul>
@@ -109,7 +119,7 @@ var Home = React.createClass({
                 <div className="intro-text">
                   <span className="name">CLASS COMPANION</span>
                   <hr className="star-light" />
-                  <span className="skills">Classroom management tool for teachers</span>
+                  <span className="skills">A classroom management tool for teachers</span>
                 </div>
               </div>
             </div>
