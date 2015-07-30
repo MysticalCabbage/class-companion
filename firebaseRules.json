@@ -1,0 +1,30 @@
+{
+  "rules": {
+    "teachers": {
+      "$teacher_id" : {
+        ".write" : "auth !== null && auth.uid === $teacher_id",
+        ".read" : "auth !== null && auth.uid === $teacher_id"
+      }
+    }, 
+    "classes" : {
+      "$class_id": {
+        ".write" : "auth !== null && root.child('teachers/' + auth.uid + '/classes').hasChildren([$class_id])",
+        ".read" : "auth !== null && root.child('teachers/' + auth.uid + '/classes').hasChildren([$class_id])"
+      }
+    },
+    "students" : {
+      "$student_id" : {
+        ".write" : "auth !== null && auth.uid === $student_id",
+        ".read" : "auth !== null && auth.uid === $student_id"
+      }
+    },
+    "timestamp" : {
+      ".write" : "auth !== null",
+      ".read" : "auth !== null",
+      ".validate": "newData.val() === now"
+    },
+    "$other" : {
+      ".validate": false
+    }
+  }
+}

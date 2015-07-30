@@ -16,10 +16,9 @@ var BehaviorButtons = React.createClass({
     ClassroomActions.behaviorClicked(this.props.studentId, index, points)
   },
 
-
   debugAddExperiencePoints: function() {
     var expPointsToAdd = this.state.expInputValue || 1
-    ClassroomActions.behaviorClicked(this.props.studentId, 0, expPointsToAdd)
+    ClassroomActions.behaviorClicked(this.props.studentId, null, expPointsToAdd)
   },
 
   debugHandleInputChange: function(event) {
@@ -51,8 +50,8 @@ var BehaviorButtons = React.createClass({
           {this.state.info.isDemo ?
             <div className="well">
               <div>Demo: quickly add behavior points and watch the pokemon evolve!</div>
-              <input type="text" placeholder="Try 1000" value={this.state.value} onChange={this.debugHandleInputChange}></input>
               <button className="btn btn-success" onClick={this.debugAddExperiencePoints}>Add Points</button>
+              <input type="text" placeholder="Try 1000" value={this.state.value} onChange={this.debugHandleInputChange}></input>
             </div>
            : null}
         </div>
