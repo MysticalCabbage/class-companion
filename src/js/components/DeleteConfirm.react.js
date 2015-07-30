@@ -18,7 +18,7 @@ var DeleteConfirm = React.createClass({
           <h3 className="panel-title">Confirm Delete?</h3>
         </div>
         <div className="well text-center">
-          <div className="panel-body">Are you sure you want to delete?</div>
+          <div className="panel-body">Are you sure you want to delete {this.props.toBeDeleted}?</div>
           <button type="button" id="confirmDelete" className="btn btn-danger btn-block" onClick={this.handleSubmit}>Yes</button>
           <button type="button" id="cancelDelete" className="btn btn-primary btn-block" onClick={this.handleSubmit}>Cancel</button>
         </div>

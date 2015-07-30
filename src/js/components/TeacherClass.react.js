@@ -39,7 +39,8 @@ var TeacherClass = React.createClass({
           isOpen={this.state.deleteConfirmModal}
           onRequestClose={this.closeDeleteConfirmModal}>
           <DeleteConfirm closeDeleteConfirmModal={this.closeDeleteConfirmModal}
-            confirmDelete={this.removeClass}/>
+            confirmDelete={this.removeClass}
+            toBeDeleted={this.props.classTitle}/>
         </Modal>
       </div>
     );

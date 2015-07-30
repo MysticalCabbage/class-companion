@@ -132,7 +132,8 @@ var ClassroomStudent = React.createClass({
             isOpen={this.state.deleteConfirmModal}
             onRequestClose={this.closeDeleteConfirmModal}>
             <DeleteConfirm closeDeleteConfirmModal={this.closeDeleteConfirmModal}
-              confirmDelete={this.removeStudent}/>
+              confirmDelete={this.removeStudent}
+              toBeDeleted={this.props.studentTitle}/>
           </Modal>
         </div>
       </div>
