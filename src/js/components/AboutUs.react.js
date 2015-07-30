@@ -6,7 +6,7 @@ var AboutUs = React.createClass({
     return (
       <div className="row">
         <div className="col-md-10 col-md-offset-1 text-center" id="about-us-container">
-          <div className="row"><h2>About Us</h2></div>
+          <div className="row"><h2>WHO WE ARE</h2></div>
           <div className="member-profiles row text-left">
             <div className="member-profile col-xs-3" id="jack-profile">
               <img src="/assets/jd.jpeg" className="profile-image" />
