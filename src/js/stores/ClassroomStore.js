@@ -202,12 +202,12 @@ var generateRandomBehaviorHistory = function() {
 };
 // prepare given behavior history for use with D3
 var prepareBehaviorHistory = function(behaviorHistory) {
-  var studentDataForD3 = [{label: "", values: []}];
+  var studentDataForD3 = {label: "", values: []};
 
   _.each(behaviorHistory, function(behaviorData, date) {
     var dateObj = new Date(date);
     var behaviorSum = behaviorData.behaviorDailyTotal;
-    studentDataForD3[0].values.push({x: dateObj, y: behaviorSum})
+    studentDataForD3.values.push({x: dateObj, y: behaviorSum})
   });
 
   return studentDataForD3;
