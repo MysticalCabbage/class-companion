@@ -15,7 +15,7 @@ var _store = {
   info: {},
   today: '',
   graph: [],
-  behaviorHistory: {},
+  behaviorHistory: [],
   assignments: {},
   student: ""
 };
@@ -300,6 +300,9 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
     return _store.student;
   },
   getBehaviorHistory: function(){
+    if (_store.behaviorHistory === []) {
+      _store.behaviorHistory = prepareBehaviorHistory(generateRandomHistory)
+    }
     return _store.behaviorHistory;
   },
 });

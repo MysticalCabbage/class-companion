@@ -3,6 +3,8 @@ var _ = require('underscore');
 var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var PieChart = require('react-d3/piechart').PieChart;
+var LineChart = require('react-d3/linechart').LineChart;
+
 var ReportsStudent = require('./ReportsStudent.react');
 var BehaviorHistoryChart = require('./BehaviorHistoryChart.react');
 
@@ -97,7 +99,13 @@ var BehaviorDashboard = React.createClass({
                 </div>
                 <div className="row">
                   <div className="col-md-12">
-                    <BehaviorHistoryChart studentData={this.state.behaviorHistory} />
+                    <LineChart
+                      legend={true}
+                      data={this.state.behaviorHistory}
+                      width={800}
+                      height={300}
+                      xAxisTickInterval={{unit: 'month', interval: 1}}
+                      title="Line Chart" />
                   </div>
                 </div>
               </div>
