@@ -26,9 +26,10 @@ var EmailForm = React.createClass({
     e.preventDefault();
     var newEmail = React.findDOMNode(this.refs.newEmail).value;
     if(this.props.type === "parent"){
-
+      HomeworkActions.addParentEmail({email: newEmail, studentId: this.props.studentId, classId: this.props.classId});
+    } else {
+      HomeworkActions.addStudentEmail({email: newEmail, studentId: this.props.studentId, classId: this.props.classId});  
     }
-    HomeworkActions.addStudentEmail({email: newEmail, studentId: this.props.studentId, classId: this.props.classId});
     React.findDOMNode(this.refs.newEmail).value = '';
     this.props.closeEmailModal();
   },
@@ -56,22 +57,10 @@ var Student = React.createClass({
     return {
       info: ClassroomStore.getInfo(),
       emails: HomeworkStore.getEmails(),
-      parentEmail: undefined,
+      parentEmail: HomeworkStore.getParentEmails(),
       emailModal: false,
       emailParentModal: false
     }
-  },
-
-  clicked: function(){
-    console.log("clicked");
-  },  
-
-  addStudent: function(){
-    console.log("addstudent clicked");
-  },
-
-  addParent: function(){
-    console.log("add parent clicked");
   },
 
   openModal: function(){
@@ -91,10 +80,10 @@ var Student = React.createClass({
   },
 
   render: function(){
-    if(this.props.emails.email === undefined){
+    if(this.props.email === undefined){
       var email = "No email added! Click here to add";
     } else {
-      var email = this.props.emails.email;
+      var email = this.props.email;
 
     }
     if(this.props.parentEmail === undefined){
@@ -103,7 +92,6 @@ var Student = React.createClass({
       var parentEmail = this.props.parentEmail;
     }
     return (
-        
         <tr>
         <td>{this.props.studentTitle}<Modal className="emailModal" 
             isOpen={this.state.emailModal} 
@@ -129,14 +117,16 @@ var EmailList = React.createClass({
     return {
       list: ClassroomStore.getList(),
       info: ClassroomStore.getInfo(),
-      emails: HomeworkStore.getEmails()
+      emails: HomeworkStore.getEmails(),
+      parentEmails: HomeworkStore.getParentEmails()
     }
   },
   _onChange: function(){
     this.setState({
         list: ClassroomStore.getList(),
         info: ClassroomStore.getInfo(),
-        emails: HomeworkStore.getEmails()
+        emails: HomeworkStore.getEmails(),
+        parentEmails: HomeworkStore.getParentEmails()
     });
   },
 
@@ -153,7 +143,7 @@ var EmailList = React.createClass({
   render: function(){
     var students = _.map(this.state.list, function(student,index,next){
       return (
-        <Student key={index} studentId={index} studentTitle={student.studentTitle} emails={student.emails}/>
+        <Student key={index} studentId={index} studentTitle={student.studentTitle} email={student.email} parentEmail={student.parentEmail}/>
       );
     });
     return (
