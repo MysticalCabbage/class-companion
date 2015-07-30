@@ -300,9 +300,10 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
     return _store.student;
   },
   getBehaviorHistory: function(){
-    if (_store.behaviorHistory === []) {
-      _store.behaviorHistory = prepareBehaviorHistory(generateRandomHistory)
+    if (_store.behaviorHistory.length === 0) {
+      _store.behaviorHistory = prepareBehaviorHistory(generateRandomBehaviorHistory())
     }
+    console.log(_store.behaviorHistory)
     return _store.behaviorHistory;
   },
 });
