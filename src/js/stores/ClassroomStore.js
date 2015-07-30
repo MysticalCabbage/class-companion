@@ -138,7 +138,6 @@ var behaviorClicked = function(data){
   if(_store.info.isDemo && !data.behaviorAction){
     return;
   }
-
   setBehaviorHistory(data)
 
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
