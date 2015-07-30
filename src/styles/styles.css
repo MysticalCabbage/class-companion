@@ -230,6 +230,7 @@ a, a:visited, a:hover, a:active {
 .deleteConfirmModal{
   width: 250px;
   height: 223px;
+  text-align: center;
 }
 
 /*TeacherClass*/
