@@ -56,13 +56,19 @@ var DataSeries = React.createClass({
 
 
 var BehaviorHistoryChart = React.createClass({
+  getDefaultProps: function() {
+    return {
+      width: 600,
+      height: 300,
+    }
+  },
 
 
   render: function() {
     var data = this.props.data;
     var size = { width: this.props.width, height: this.props.height};
 
-    var maxHeight = 
+    var maxHeight;
 
     console.log('student data props', this.props.studentData)
     return (

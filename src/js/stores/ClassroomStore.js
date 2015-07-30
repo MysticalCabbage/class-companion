@@ -162,12 +162,43 @@ var behaviorChart = function(data){
   _store.graph = chartData;
   _store.student = student;
   // _store.behaviorHistory = prepareBehaviorHistory(data.behaviorHistory);
-  _store.behaviorHistory = data.behaviorHistory;
+  // _store.behaviorHistory = data.behaviorHistory;
+  _store.behaviorHistory = prepareBehaviorHistory(data.behaviorHistory);
 
   ClassroomStore.emit(CHANGE_EVENT);
 };
 
+// DEBUG: Generate Random Behavior History
 var prepareBehaviorHistory = function(behaviorHistory) {
+  var getRandomInt = function(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  var randomBehaviorHistory = {};
+
+  var generateRandomHistory = function(date) {
+    var randomBehaviorHistory= {};
+    var behaviorSum;
+    randomBehaviorHistory[date] = {behaviors: {}};
+    randomBehaviorHistory[date].behaviors["Bad Job"] = getRandomInt(-30, 0);
+    randomBehaviorHistory[date].behaviors["Bullying"] = getRandomInt(-30, 0);
+    randomBehaviorHistory[date].behaviors["Good Job"] = getRandomInt(0, 30);
+    randomBehaviorHistory[date].behaviors["Helping"] = getRandomInt(0, 30);
+    behaviorSum = _.reduce(randomBehaviorHistory[date].behaviors, function(memo, num) {return memo+num})
+    randomBehaviorHistory[date].behaviorDailyTotal = behaviorSum
+
+    return randomBehaviorHistory
+  };
+
+  _.extend(randomBehaviorHistory, 
+    generateRandomHistory("7-26-15"), 
+    generateRandomHistory("7-27-15"),
+    generateRandomHistory("7-28-15"),
+    generateRandomHistory("7-29-15"),
+    generateRandomHistory("7-30-15")
+    );
+
+  console.log(randomBehaviorHistory)
   // var organizedBehaviorHistory = {};
   // var behaviorSum;
 
@@ -179,7 +210,7 @@ var prepareBehaviorHistory = function(behaviorHistory) {
   //   organizedBehaviorHistory[date].behaviorSu = behaviorSum;
   // });
 
-  // return organizedBehaviorHistory;
+  return randomBehaviorHistory;
 
 };
 
