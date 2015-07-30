@@ -63,6 +63,11 @@ var Student = React.createClass({
     }
   },
 
+  mailClicked: function(e){
+    var link = "mailto:"+this.props.email;
+    window.location.href = link;
+  },
+
   openModal: function(){
     this.setState({emailModal: true});
   },
@@ -102,7 +107,7 @@ var Student = React.createClass({
             onRequestClose={this.closeParentModal}>
             <EmailForm closeEmailModal={this.closeParentModal} studentId={this.props.studentId} classId={this.state.info.classId} type="parent"/></Modal></td>
         <td><a onClick={this.openModal}>{email}</a></td>
-        <td><a className='fa fa-envelope-o' onClick={this.clicked}></a></td>
+        <td><a className='fa fa-envelope-o' onClick={this.mailClicked}></a></td>
         <td><a onClick={this.openParentModal}>{parentEmail}</a></td>
         <td><a className='fa fa-envelope-o' onClick={this.clicked}></a></td>
         </tr>    
