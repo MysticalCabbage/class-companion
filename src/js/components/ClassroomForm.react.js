@@ -68,7 +68,7 @@ var ClassroomForm = React.createClass({
             <label>Add student</label>
             {this.state.errMsg ? <div className="errMsg">{this.state.errMsg}</div> : null}
             <div className="form-group">
-              <input type="text" ref="newStudent" id="newStudent" className="form-control" placeholder="Format: First Name Middle Initial Last Name" required />
+              <input type="text" ref="newStudent" id="newStudent" className="form-control" placeholder="Example: John Doe" required />
             </div>
             <button type="submit" id="addNewStudent" className="btn btn-primary btn-block submit-button">Add student!</button>
           </form>
