@@ -240,7 +240,7 @@ var prepareBehaviorHistory = function(behaviorHistory) {
       behaviorData: behaviorData
     });
   });
-
+  // sorts the values by date in ascending order
   studentDataForD3.behaviorData.values = studentDataForD3.behaviorData.values.sort(function(a, b) {
     return a.x - b.x;
   });

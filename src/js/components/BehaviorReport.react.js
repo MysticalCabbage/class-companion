@@ -60,8 +60,6 @@ var BehaviorDashboard = React.createClass({
     }
     if(!this.state.graph.pieChart || this.state.graph.pieChart.length === 0){
       var noBehavior = "This student has no behavior points!";
-        // var noBehavior = "This student has no behavior points!";
-        // return (<div/>)
     } else {
       var noBehavior = "";
     }
@@ -74,12 +72,15 @@ var BehaviorDashboard = React.createClass({
       // store the behavior line chart D3 options
       var ticksInterval;
       var numDates = this.state.behaviorHistory.behaviorData.values.length;
+      // if there are less than 5 dates
       if (numDates < 5) {
+        // assign a tick for every date
         ticksInterval = 1
-      } else {
+      } // else if there are more than 5 dates
+      else {
+        // set the tick intervals to be 5 ticks long
         ticksInterval = Math.ceil(numDates / 4);
       }
-      console.log('numdates', numDates, 'ticksInterval', ticksInterval)
       var chartVars = this.state.behaviorHistory.d3ChartVars;
       var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 520]);
       var xAxis = {tickValues: xScale.ticks(d3.time.day, ticksInterval), tickFormat: d3.time.format("%m/%d"), label: "date"};
