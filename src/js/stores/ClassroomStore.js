@@ -212,30 +212,29 @@ var prepareBehaviorHistory = function(behaviorHistory) {
     studentDataForD3.behaviorData.values.push({x: new Date(year, month, date), y: behaviorSum})
   });
 
-  var maxDate = _.max(studentDataForD3.behaviorData.values, function(datum) {
-    return datum.x;
-  }).x;
-
   var minDate = _.min(studentDataForD3.behaviorData.values, function(datum) {
     return datum.x;
   }).x;
 
-  var maxSum = _.max(studentDataForD3.behaviorData.values, function(datum) {
-    return datum.y;
-  }).y;
+  var maxDate = _.max(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.x;
+  }).x;
 
   var minSum = _.min(studentDataForD3.behaviorData.values, function(datum) {
     return datum.y;
   }).y;
 
+  var maxSum = _.max(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.y;
+  }).y;
+
+ 
   var d3ChartVars = {
     minDate: minDate,
     maxDate: maxDate,
     minSum: minSum,
-    maxSum: minSum,
+    maxSum: maxSum,
   }
-
-  console.log(maxDate, minDate, maxSum, minSum)
 
   studentDataForD3.d3ChartVars = d3ChartVars;
 

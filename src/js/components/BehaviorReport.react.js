@@ -89,12 +89,16 @@ var BehaviorDashboard = React.createClass({
       var noBehavior = "";
     }
     console.log(this.state.behaviorHistory)
+    var chartVars = this.state.behaviorHistory.d3ChartVars;
+    var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 400]);
+    var xAxis = {tickValues: xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d")};
+    var yScale = d3.scale.linear().domain([chartVars.minSum - 5, chartVars.maxSum + 5]).range([340, 0]);
     // TODO: Access the behavior history after I make that property
     var studentClicked = this.studentClick;
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       // if there is no behavior history, set this to an empty object
     var behaviorHistory = studentNode.behaviorHistory || {};
-
+   
       return (
         <ReportsStudent key={index} studentId={index} studentTitle={studentNode.studentTitle} studentClick={studentClicked} studentBehavior={studentNode.behavior} behaviorTotal={studentNode.behaviorTotal} behaviorHistory={behaviorHistory}/>
       )
@@ -134,9 +138,9 @@ var BehaviorDashboard = React.createClass({
                      width={400}
                      height={400}
                      margin={{top: 10, bottom: 50, left: 50, right: 20}}
-                     xScale={this.state.xScale}
-                     xAxis={{tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d")}}
-                     yScale={this.state.yScale} />
+                     xScale={xScale}
+                     xAxis={xAxis}
+                     yScale={yScale} />
                   </div>
                 </div>
               </div>
