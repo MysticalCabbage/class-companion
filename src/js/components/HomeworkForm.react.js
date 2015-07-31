@@ -21,17 +21,13 @@ var HomeworkForm = React.createClass({
 
   homeworkSubmit: function(e){
     e.preventDefault();
+    // var today = moment().format('MM-DD-YYYY');
     var homeworkAssignment = React.findDOMNode(this.refs.homeworktitle).value;
     var dueDate = React.findDOMNode(this.refs.duedate).value.split("-");
-    var today = new Date();
-    var dd = today.getDate(); 
-    var mm = today.getMonth()+1; 
-    var yyyy = today.getFullYear();
-    if(dd<10){dd='0'+dd} 
-    if(mm<10){mm='0'+mm} 
-    var todaysDate = mm + '-' + dd + '-' + yyyy;
+    var today = moment().format('MM-DD-YYYY');
+    console.log(dueDate);
     var formattedDate = dueDate[1] + "-" + dueDate[2] + "-" + dueDate[0];
-    HomeworkActions.addAssignment({ assignment: homeworkAssignment, dueDate: formattedDate, classId: this.props.classId, assignedOn: todaysDate, monthYear: [dueDate[1], dueDate[0]] });
+    HomeworkActions.addAssignment({ assignment: homeworkAssignment, dueDate: formattedDate, classId: this.props.classId, assignedOn: today, monthYear: [dueDate[1], dueDate[0]] });
     React.findDOMNode(this.refs.homeworktitle).value = "";
   },
 

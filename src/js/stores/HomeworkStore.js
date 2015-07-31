@@ -48,17 +48,11 @@ var removeAssignment = function(hwId){
 
 var setPastAssignments = function(){
   var pastAssignments = {};
-    //used to find today's date in MM/DD/YYYY
-    var today = new Date();
-    var dd = today.getDate(); 
-    var mm = today.getMonth()+1; 
-    var yyyy = today.getFullYear();
-    if(dd<10){dd='0'+dd} 
-    if(mm<10){mm='0'+mm} 
-    var todaysDate = mm + '-' + dd;
+    var todaysDate = moment().format('MM-DD');
+    var year = moment().format('YYYY');
     //loops through all assignments and filters ones that were due before today
     for(var assignment in _store.assignments){
-      if((_store.assignments[assignment].dueDate.slice(0,5) < todaysDate) && (yyyy >= _store.assignments[assignment].dueDate.slice(6,10))){
+      if((_store.assignments[assignment].dueDate.slice(0,5) < todaysDate) && (year >= _store.assignments[assignment].dueDate.slice(6,10))){
           pastAssignments[assignment] = _store.assignments[assignment];
       }
     }
@@ -112,16 +106,11 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   getPastAssignments: function(){
     var pastAssignments = {};
     //used to find today's date in MM/DD/YYYY
-    var today = new Date();
-    var dd = today.getDate(); 
-    var mm = today.getMonth()+1; 
-    var yyyy = today.getFullYear();
-    if(dd<10){dd='0'+dd} 
-    if(mm<10){mm='0'+mm} 
-    var todaysDate = mm + '-' + dd;
+    var today = moment().format('MM-DD-YYYY');
+    var year = moment().format('YYYY');
     //loops through all assignments and filters ones that were due before today
     for(var assignment in _store.assignments){
-      if((_store.assignments[assignment].dueDate.slice(0,5) < todaysDate) && (yyyy >= _store.assignments[assignment].dueDate.slice(6,10))){
+      if((_store.assignments[assignment].dueDate.slice(0,5) < today) && (year >= _store.assignments[assignment].dueDate.slice(6,10))){
           pastAssignments[assignment] = _store.assignments[assignment];
       }
     }

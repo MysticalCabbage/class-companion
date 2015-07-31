@@ -126,27 +126,23 @@ var HomeworkDashboard = React.createClass({
       return studentEmail.email;
     }).join(",");
 
-    var studentLink = "mailto:" + studentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join(", "));
+    var studentLink = "mailto:" + studentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join("\n"));
 
-    var parentLink = "mailto:" + parentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join(", "));
+    var parentLink = "mailto:" + parentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join("\n"));
     
     window.location.href = studentLink;
     window.location.href = parentLink;
   },
 
   render: function(){
-    
     var url = '#/classroomDashboard/' + this.props.params.id;
+    
+    var today = moment().format('MM-DD-YYYY');
+    var todaysDate = today.slice(0,5);
+    
     var currentAssignments = {};
-    var today = new Date();
-    var dd = today.getDate(); 
-    var mm = today.getMonth()+1; 
-    var yyyy = today.getFullYear();
-    if(dd<10){dd='0'+dd} 
-    if(mm<10){mm='0'+mm} 
-    var todaysDate = mm + '-' + dd;
     for(var assignment in this.state.assignments){
-      if((this.state.assignments[assignment].dueDate.slice(0,5) >= todaysDate) && (yyyy <= this.state.assignments[assignment].dueDate.slice(6,10))){
+      if((this.state.assignments[assignment].dueDate.slice(0,5) >= todaysDate) && ((today.slice(6,10) <= this.state.assignments[assignment].dueDate.slice(6,10)))) {
           currentAssignments[assignment] = this.state.assignments[assignment];
       }
     }
