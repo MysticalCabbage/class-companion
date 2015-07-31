@@ -1,6 +1,5 @@
 var React = require('react');
 var Navbar = require('./Navbar.react');
-var AboutUs = require('./AboutUs.react');
 var Login = require('./Login.react');
 var Signup = require('./Signup.react');
 var AuthStore = require('../stores/AuthStore');
