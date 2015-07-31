@@ -163,19 +163,19 @@ var EmailList = React.createClass({
           <h3 className="panel-title">Students</h3>
         </div>
         <table className="table" id="emailtable">
-            <thead>
-            <tr>
-              <th><h5>Name</h5></th>
-              <th><h5>Student E-Mail</h5></th>
-              <th><h5></h5></th>
-              <th><h5>Parent E-mail</h5></th>
-              <th><h5></h5></th>
-            </tr>
-            </thead>
-            <tbody>
-            {students}
-            </tbody>
-          </table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Student E-Mail</th>
+            <th></th>
+            <th>Parent E-mail</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          {students}
+          </tbody>
+        </table>
       </div>
     );
   }
