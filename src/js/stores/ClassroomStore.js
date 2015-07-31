@@ -146,7 +146,6 @@ var behaviorClicked = function(data){
 };
 
 var behaviorChart = function(data){
-  console.log('behavior chart data', data);
   var total = data.total;
   var behaviors = data.chartData;
   var student = data.student;
@@ -154,7 +153,6 @@ var behaviorChart = function(data){
   var chartData = [];
   var studentBehaviorHistory = _store.list[studentId].behaviorHistory;
 
-  console.log(studentBehaviorHistory)
   for(var key in behaviors){
     newObj = {};
     if (key === "0") {
@@ -165,15 +163,12 @@ var behaviorChart = function(data){
       continue;
     } 
     newObj["label"] = key;
-    // newObj["value"] = Math.ceil(((behaviors[key]/total)*100) * 100)/100;
     newObj["value"] = behaviors[key]
     chartData.push(newObj);
   }
   _store.graph = chartData;
   _store.student = student;
   _store.studentId = studentId;
-  // _store.behaviorHistory = prepareBehaviorHistory(data.behaviorHistory);
-  // _store.behaviorHistory = data.behaviorHistory;
   // _store.behaviorHistory = prepareBehaviorHistory(generateRandomBehaviorHistory());
   _store.behaviorHistory = prepareBehaviorHistory(studentBehaviorHistory);
 
@@ -260,15 +255,11 @@ var prepareBehaviorHistory = function(behaviorHistory) {
   }
 
   studentDataForD3.d3ChartVars = d3ChartVars;
+  // the behavior history can be used for future graphs/charts
   // studentDataForD3.behaviorData.behaviorHistory = behaviorHistory;
 
   return studentDataForD3;
 };
-
-var getBehaviorDataForStudent = function(studentId) {
-
-};
-
 
 
 var initQuery = function(classId){
@@ -362,9 +353,8 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   },
   getBehaviorHistory: function(){
     if (!_store.behaviorHistory || _store.behaviorHistory.length === 0) {
-      _store.behaviorHistory = prepareBehaviorHistory(generateRandomBehaviorHistory())
+      _store.behaviorHistory = [];
     }
-    console.log(_store.behaviorHistory)
     return _store.behaviorHistory;
   },
 });

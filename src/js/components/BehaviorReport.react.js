@@ -82,6 +82,7 @@ var BehaviorDashboard = React.createClass({
   },
 
   render: function(){
+    var behaviorHistoryExists = true;
     if(this.state.student){
       //means no student selected
       var studentState = this.state.student + "'s Behavior";
@@ -95,14 +96,19 @@ var BehaviorDashboard = React.createClass({
     } else {
       var noBehavior = "";
     }
-    console.log(this.state.behaviorHistory)
-    console.log(this.state.graph)
 
-    var chartVars = this.state.behaviorHistory.d3ChartVars;
-    var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 300]);
-    var xAxis = {tickValues: xScale.ticks(d3.time.day), tickFormat: d3.time.format("%m/%d"), label: "date"};
-    var yScale = d3.scale.linear().domain([chartVars.minSum - 5, chartVars.maxSum + 5]).range([340, 0]);
-    var yAxis = {label: "behavior points"};
+    if (this.state.behaviorHistory.length === 0) {
+      var noBehavior = "This student has no behavior points!"
+      behaviorHistoryExists = false;
+    } else {
+      var chartVars = this.state.behaviorHistory.d3ChartVars;
+      var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 300]);
+      var xAxis = {tickValues: xScale.ticks(d3.time.day), tickFormat: d3.time.format("%m/%d"), label: "date"};
+      var yScale = d3.scale.linear().domain([chartVars.minSum - 5, chartVars.maxSum + 5]).range([340, 0]);
+      var yAxis = {label: "behavior points"};
+    }
+
+
  
     // TODO: Access the behavior history after I make that property
     var studentClicked = this.studentClick;
@@ -136,7 +142,7 @@ var BehaviorDashboard = React.createClass({
               <div className="panel-body">
                 <div>{noBehavior}</div>
                 <div className="row">
-                  <div className="col-md-12">
+                  <div className="col-md-6">
                     <PieChart
                       data={this.state.graph}
                       width={400}
@@ -144,22 +150,22 @@ var BehaviorDashboard = React.createClass({
                       radius={100}
                       innerRadius={20}/>
                   </div>
+                {behaviorHistoryExists ? 
+                    <div className="col-md-6">
+                      <LineChart
+                       data={this.state.behaviorHistory.behaviorData}
+                       width={400}
+                       height={400}
+                       margin={{top: 10, bottom: 50, left: 50, right: 20}}
+                       xScale={xScale}
+                       xAxis={xAxis}
+                       yScale={yScale}
+                       yAxis= {yAxis} />
+                    </div>
+                  : <div />}
                 </div>
                 <div className="row">
-                  <div className="col-md-12">
-                    <LineChart
-                     data={this.state.behaviorHistory.behaviorData}
-                     width={400}
-                     height={400}
-                     margin={{top: 10, bottom: 50, left: 50, right: 20}}
-                     xScale={xScale}
-                     xAxis={xAxis}
-                     yScale={yScale}
-                     yAxis= {yAxis} />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12">
+                  <div className="col-md-6">
                     <BarChart
                       data={this.state.graph}
                       width={400}
