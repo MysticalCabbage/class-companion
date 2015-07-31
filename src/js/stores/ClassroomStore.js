@@ -145,6 +145,7 @@ var behaviorClicked = function(data){
 };
 
 var behaviorChart = function(data){
+  console.log('behavior chart data', data)
   var total = data.total;
   var behaviors = data.chartData;
   var student = data.student;
@@ -159,7 +160,8 @@ var behaviorChart = function(data){
       continue;
     } 
     newObj["label"] = key;
-    newObj["value"] = Math.ceil(((behaviors[key]/total)*100) * 100)/100;
+    // newObj["value"] = Math.ceil(((behaviors[key]/total)*100) * 100)/100;
+    newObj["value"] = behaviors[key]
     chartData.push(newObj);
   }
   _store.graph = chartData;
