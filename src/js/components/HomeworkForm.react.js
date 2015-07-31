@@ -38,7 +38,7 @@ var HomeworkForm = React.createClass({
   render: function(){
     return (
       <div className="homeworkForm">
-        <div className="well">
+        <div className="wellhomework">
           <form className="form-inline" onSubmit={this.homeworkSubmit}>
             <div className="form-group">
               <label htmlFor="exampleInputName2" ></label>

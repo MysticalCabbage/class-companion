@@ -37,6 +37,18 @@ var HomeworkActions = {
       actionType: HomeworkConstants.MONTH_SELECTED,
       data: month
     });
+  },
+  addStudentEmail: function(email){
+    AppDispatcher.handleAction({
+      actionType: HomeworkConstants.ADD_STUDENT_EMAIL,
+      data: email
+    });
+  },
+  addParentEmail: function(email){
+    AppDispatcher.handleAction({
+      actionType: HomeworkConstants.ADD_PARENT_EMAIL,
+      data: email
+    });
   }
 };
 

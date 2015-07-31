@@ -4,6 +4,7 @@ var HomeworkActions = require('../actions/HomeworkActions');
 var HomeworkStore = require('../stores/HomeworkStore');
 var Navbar = require('./Navbar.react');
 var AuthStore = require('../stores/AuthStore');
+var EmailList = require('./EmailList.react')
 var _ = require('underscore');
 
 var HomeworkAssignment = React.createClass({
@@ -34,6 +35,7 @@ var HomeworkDashboard = React.createClass({
       assignments: HomeworkStore.getAssignments(),
       pastAssignments: HomeworkStore.getPastAssignments(),
       monthAssignments: HomeworkStore.getMonthAssignments,
+      emails: HomeworkStore.getEmails(),
       showPastAssignments: false,
       showCurrentAssignments: true,
       showMonthAssignments: false
@@ -69,7 +71,8 @@ var HomeworkDashboard = React.createClass({
       assignments: HomeworkStore.getAssignments(),
       loggedIn: AuthStore.checkAuth(),
       pastAssignments: HomeworkStore.getPastAssignments(),
-      monthAssignments: HomeworkStore.getMonthAssignments()
+      monthAssignments: HomeworkStore.getMonthAssignments(),
+      emails: HomeworkStore.getEmails()
     });
   },
 
@@ -107,7 +110,32 @@ var HomeworkDashboard = React.createClass({
     }
   },
 
+  sendAssignments: function(){
+    var today = moment().format('MM-DD-YYYY');
+    var assignments = _.filter(this.state.assignments, function(assignment){
+      return assignment.assignedOn === today;
+    });
+    var bodyText = _.map(assignments, function(assignment){
+      return assignment.assignment + ": due " + assignment.dueDate;
+    });
+
+    var parentEmails = _.map(this.state.emails.student, function(parentEmail){
+      return parentEmail.email;
+    }).join(",");
+    var studentEmails = _.map(this.state.emails.parent, function(studentEmail){
+      return studentEmail.email;
+    }).join(",");
+
+    var studentLink = "mailto:" + studentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join(", "));
+
+    var parentLink = "mailto:" + parentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join(", "));
+    
+    window.location.href = studentLink;
+    window.location.href = parentLink;
+  },
+
   render: function(){
+    
     var url = '#/classroomDashboard/' + this.props.params.id;
     var currentAssignments = {};
     var today = new Date();
@@ -204,20 +232,29 @@ var HomeworkDashboard = React.createClass({
                 <option value="11">November</option>
                 <option value="12">December</option>
             </select>
+             <div className="panel panel-primary">
+              <div className="panel-heading">
+              
+                <h3 className="panel-title">Homework</h3>
+                
+              </div>
           <table className="table" id="homeworktable">
             <thead>
             <tr>
-              <th><h4>Assignment</h4></th>
-              <th><h4>Due Date</h4></th>
-              <th><h4>Assigned On</h4></th>
-              <th></th>
+              <th><h5>Assignment Name</h5></th>
+              <th><h5>Due Date</h5></th>
+              <th><h5>Assigned On</h5></th>
+              <th><h5><a onClick={this.sendAssignments}>Send <i className="fa fa-paper-plane"></i></a></h5></th>
             </tr>
             </thead>
             <tbody>{assignments}</tbody>
           </table>
+          </div>
           <HomeworkForm classId={this.props.params.id}/>
+          <EmailList />
         </div>
       </div>
+
     );
   }
 });

@@ -37,6 +37,14 @@ var addStudent = function(newStudent){
     + '/groups/'
     + studentId
   ).set(1);
+
+  //setting default student/parent email to undefined
+  firebaseRef.child(
+    'classes/'
+    + _store.info.classId
+    + '/students/'
+    + studentId + '/emails'
+  )
 };
 
 var removeStudent = function(studentId){

@@ -16,7 +16,9 @@ var _store = {
   assignments: {},
   homeworkFor : {},
   pastAssignments: {},
-  monthAssignments : {}
+  monthAssignments : {},
+  emails: {},
+  parentEmails: {}
 };
 
 var addAssignment = function(assignment){
@@ -33,6 +35,8 @@ var initQuery = function(classId){
     _store.info = classData.info;
     _store.assignments = classData.assignments;
     _store.homeworkFor = classData.homeworkFor;
+    _store.emails = classData.emails;
+    _store.parentEmails = classData.parentEmails;
   });
   HomeworkStore.emit(CHANGE_EVENT);
 };
@@ -75,6 +79,19 @@ var selectMonth = function(month){
   HomeworkStore.emit(CHANGE_EVENT);
 };
 
+var addStudentEmail = function(email){
+  firebaseRef.child('classes/' + email.classId + '/emails/student').push(email);
+
+  firebaseRef.child('classes/' + email.classId + '/students/' + email.studentId + '/email').set(email.email);
+  HomeworkStore.emit(CHANGE_EVENT);
+};
+
+var addParentEmail = function(email){
+  firebaseRef.child('classes/' + email.classId + '/emails/parent').push(email);
+
+  firebaseRef.child('classes/' + email.classId + '/students/' + email.studentId + '/parentEmail').set(email.email);
+  HomeworkStore.emit(CHANGE_EVENT);
+}
 
 var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   // Invoke the callback function (ie. the _onChange function in TeacherDashboard) whenever it hears a change event
@@ -115,6 +132,12 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   },
   getMonthAssignments: function(){
     return _store.monthAssignments;
+  },
+  getEmails: function(){
+    return _store.emails;
+  },
+  getParentEmails: function(){
+    return _store.parentEmails;
   }
 });
 
@@ -143,6 +166,15 @@ AppDispatcher.register(function(payload){
       break;
     case HomeworkConstants.MONTH_SELECTED:
       selectMonth(action.data);
+      break;
+    case HomeworkConstants.ADD_STUDENT_EMAIL:
+      addStudentEmail(action.data);
+      HomeworkStore.emit(CHANGE_EVENT);
+      break;
+    case HomeworkConstants.ADD_PARENT_EMAIL:
+      addParentEmail(action.data);
+      HomeworkStore.emit(CHANGE_EVENT);
+      break;
     default:
       return true;
   }
