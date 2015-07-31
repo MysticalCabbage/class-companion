@@ -1,10 +1,8 @@
-.teacherDashboard, .classroomDashboard, .reportsDashboard{
-  /*font-family: 'Press Start 2P', cursive;*/
-/*  background-image: url("../assets/background.png");
-  background-repeat: no-repeat;*/
+.teacherDashboard, .classroomDashboard, .reportsDashboard, .homeworkDashboard{
   background-size: cover;
   background: url("../assets/background.png") no-repeat center center fixed;
   height: 100vh;
+  overflow: scroll;
 }
 
 a, a:visited, a:hover, a:active {
@@ -121,9 +119,15 @@ a, a:visited, a:hover, a:active {
 
 .attendanceButton{
   position: absolute;
-  top: -10px;
-  left: 0px;
+  top: -15px;
+  left: -5px;
 }
+
+.attendanceButton .btn{
+  padding: 4px 6px;
+  border-radius: 5px;
+}
+
 .image { 
   position: absolute; 
   top: -25px;
@@ -234,8 +238,19 @@ a, a:visited, a:hover, a:active {
 /*StudentRandom*/
 .StudentRandom, .randomModal{
   width: 250px;
-  height: 100px;
+  height: 170px;
   text-align: center;
+}
+
+.randomStudentTitle{
+  top: 36px;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: left;
+}
+
+.StudentRandom .panel-body{
+  padding: 5px;
 }
 
 /*delete confirmation*/
