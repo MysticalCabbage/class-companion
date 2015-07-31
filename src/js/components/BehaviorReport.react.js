@@ -62,15 +62,17 @@ var BehaviorDashboard = React.createClass({
     } else{
       var studentState = "Student Behavior";
     }
-    if(this.state.graph.length === 0){
+    console.log(this.state.graph)
+    if(!this.state.graph.pieChart || this.state.graph.pieChart.length === 0){
       var noBehavior = "This student has no behavior points!";
         // var noBehavior = "This student has no behavior points!";
         // return (<div/>)
     } else {
       var noBehavior = "";
     }
+    console.log(this.state.behaviorHistory)
     // if there is no behavior history
-    if (this.state.behaviorHistory.length === 0) {
+    if (!this.state.behaviorHistory.behaviorData || this.state.behaviorHistory.behaviorData.values.length < 2) {
       // do not show the behavior history bar graph
       behaviorHistoryExists = false;
     } // else the behavior history exists
@@ -118,7 +120,7 @@ var BehaviorDashboard = React.createClass({
                 <div className="row">
                   <div className="col-md-6">
                     <PieChart
-                      data={this.state.graph}
+                      data={this.state.graph.pieChart}
                       width={400}
                       height={400}
                       radius={100}
@@ -141,7 +143,7 @@ var BehaviorDashboard = React.createClass({
                 <div className="row">
                   <div className="col-md-6">
                     <BarChart
-                      data={this.state.graph}
+                      data={this.state.graph.barGraph}
                       width={400}
                       height={400}
                       fill={'#3182bd'}/>
