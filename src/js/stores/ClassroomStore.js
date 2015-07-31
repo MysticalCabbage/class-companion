@@ -17,7 +17,8 @@ var _store = {
   graph: [],
   behaviorHistory: [],
   assignments: {},
-  student: ""
+  student: "",
+  studentId: "",
 };
 
 var addStudent = function(newStudent){
@@ -145,11 +146,15 @@ var behaviorClicked = function(data){
 };
 
 var behaviorChart = function(data){
-  console.log('behavior chart data', data)
+  console.log('behavior chart data', data);
   var total = data.total;
   var behaviors = data.chartData;
   var student = data.student;
+  var studentId = data.studentId;
   var chartData = [];
+  var studentBehaviorHistory = _store.list[studentId].behaviorHistory;
+
+  console.log(studentBehaviorHistory)
   for(var key in behaviors){
     newObj = {};
     if (key === "0") {
@@ -166,12 +171,19 @@ var behaviorChart = function(data){
   }
   _store.graph = chartData;
   _store.student = student;
+  _store.studentId = studentId;
   // _store.behaviorHistory = prepareBehaviorHistory(data.behaviorHistory);
   // _store.behaviorHistory = data.behaviorHistory;
-  _store.behaviorHistory = prepareBehaviorHistory(generateRandomBehaviorHistory());
+  // _store.behaviorHistory = prepareBehaviorHistory(generateRandomBehaviorHistory());
+  _store.behaviorHistory = prepareBehaviorHistory(studentBehaviorHistory);
 
   ClassroomStore.emit(CHANGE_EVENT);
 };
+
+var getBehaviorHistoryByStudentId = function(studentId) {
+
+};
+
 
 // DEBUG: Generate Random Behavior History
 var generateRandomBehaviorHistory = function() {
@@ -205,6 +217,7 @@ var generateRandomBehaviorHistory = function() {
 
   return randomBehaviorHistory;
 };
+
 // prepare given behavior history for use with D3
 var prepareBehaviorHistory = function(behaviorHistory) {
   var studentDataForD3 = {behaviorData: {label: "", values: []}};
@@ -250,6 +263,10 @@ var prepareBehaviorHistory = function(behaviorHistory) {
   // studentDataForD3.behaviorData.behaviorHistory = behaviorHistory;
 
   return studentDataForD3;
+};
+
+var getBehaviorDataForStudent = function(studentId) {
+
 };
 
 
@@ -340,8 +357,11 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   getStudent: function(){
     return _store.student;
   },
+  getStudentId: function(){
+    return _store.studentId;
+  },
   getBehaviorHistory: function(){
-    if (_store.behaviorHistory.length === 0 || !_store.behaviorHistory) {
+    if (!_store.behaviorHistory || _store.behaviorHistory.length === 0) {
       _store.behaviorHistory = prepareBehaviorHistory(generateRandomBehaviorHistory())
     }
     console.log(_store.behaviorHistory)

@@ -72,13 +72,13 @@ var BehaviorDashboard = React.createClass({
     ClassroomStore.removeChangeListener(this._onChange);
   },
 
-  studentClick: function(studentStats,behaviorTotal, studentTitle, behaviorHistory){
+  studentClick: function(studentStats,behaviorTotal, studentTitle, behaviorHistory, studentId){
     var chartData = [];
     var total = 0;
     for(var key in studentStats){
        total += studentStats[key];
     }
-    ClassroomActions.getBehaviors(studentStats, total, studentTitle, behaviorHistory);
+    ClassroomActions.getBehaviors(studentStats, total, studentTitle, behaviorHistory, studentId);
   },
 
   render: function(){
@@ -99,8 +99,8 @@ var BehaviorDashboard = React.createClass({
     console.log(this.state.graph)
 
     var chartVars = this.state.behaviorHistory.d3ChartVars;
-    var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 400]);
-    var xAxis = {tickValues: xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d"), label: "date"};
+    var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 300]);
+    var xAxis = {tickValues: xScale.ticks(d3.time.day), tickFormat: d3.time.format("%m/%d"), label: "date"};
     var yScale = d3.scale.linear().domain([chartVars.minSum - 5, chartVars.maxSum + 5]).range([340, 0]);
     var yAxis = {label: "behavior points"};
  
