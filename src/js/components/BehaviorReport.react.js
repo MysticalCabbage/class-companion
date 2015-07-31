@@ -44,9 +44,9 @@ var BehaviorDashboard = React.createClass({
   render: function(){
     if(this.state.student === ""){
         //means no student selected
-        var studentState = "Class' Total Student Behavior Percentages";
+        var studentState = "Student Behavior";
     } else if(this.state.student){
-        var studentState = this.state.student + "'s Behavior Percentages";
+        var studentState = this.state.student + "'s Behavior";
     }
     if(this.state.graph.length === 0){
         var noBehavior = "This student has no behavior points!";
@@ -73,10 +73,9 @@ var BehaviorDashboard = React.createClass({
           <div className="col-md-10">
             <div className="panel panel-primary">
               <div className="panel-heading">
-                <h3 className="panel-title">Behavior</h3>
+                <h3 className="panel-title">{studentState}</h3>
               </div>
               <div className="panel-body">
-                <h2>{studentState}</h2>
                 <div>{noBehavior}</div>
                 <PieChart
                   data={this.state.graph}
