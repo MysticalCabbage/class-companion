@@ -119,9 +119,15 @@ a, a:visited, a:hover, a:active {
 
 .attendanceButton{
   position: absolute;
-  top: -10px;
-  left: 0px;
+  top: -15px;
+  left: -5px;
 }
+
+.attendanceButton .btn{
+  padding: 4px 5px;
+  border-radius: 5px;
+}
+
 .image { 
   position: absolute; 
   top: -25px;
