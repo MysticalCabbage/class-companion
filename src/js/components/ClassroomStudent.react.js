@@ -97,7 +97,6 @@ var ClassroomStudent = React.createClass({
         : null }
         {this.props.showBehavior ? 
         <div className="image">
-          <img className="behaviorImg" src="./assets/behaviorStar.png" alt="" />
           <p className="behaviorPoints">{this.props.behavior}</p>
         </div>
         : null}
