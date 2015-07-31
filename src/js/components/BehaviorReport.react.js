@@ -3,10 +3,12 @@ var _ = require('underscore');
 var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var PieChart = require('react-d3/piechart').PieChart;
+var BarChart = require('react-d3/barchart').BarChart;
+
 // var LineChart = require('react-d3/linechart').LineChart;
 var ReactD3Components = require('react-d3-components');
 var LineChart = ReactD3Components.LineChart;
-var BarChart = ReactD3Components.BarChart;
+// var BarChart = ReactD3Components.BarChart;
 // var PieChartComp = ReactD3Components.PieChart;
 
 var ReportsStudent = require('./ReportsStudent.react');
@@ -156,7 +158,15 @@ var BehaviorDashboard = React.createClass({
                      yAxis= {yAxis} />
                   </div>
                 </div>
-
+                <div className="row">
+                  <div className="col-md-12">
+                    <BarChart
+                      data={this.state.graph}
+                      width={400}
+                      height={400}
+                      fill={'#3182bd'}/>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

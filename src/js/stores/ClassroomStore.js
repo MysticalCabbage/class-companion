@@ -151,6 +151,10 @@ var behaviorChart = function(data){
   var chartData = [];
   for(var key in behaviors){
     newObj = {};
+    if (key === "0") {
+      continue;
+    }
+
     if(behaviors[key] === 0){
       continue;
     } 
@@ -262,6 +266,7 @@ var initQuery = function(classId){
     var totalOfStudents = {}
     for(var student in students){
       for(var behavior in students[student]["behavior"]){
+        if (behavior === "0") continue;
         if(totalOfStudents[behavior] === undefined) totalOfStudents[behavior] = 0;
         totalCount += students[student]["behavior"][behavior];
         totalOfStudents[behavior] += students[student]["behavior"][behavior]
