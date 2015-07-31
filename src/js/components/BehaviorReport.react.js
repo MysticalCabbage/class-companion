@@ -74,13 +74,14 @@ var BehaviorDashboard = React.createClass({
       // store the behavior line chart D3 options
       var ticksInterval;
       var numDates = this.state.behaviorHistory.behaviorData.values.length;
-      if (numDates > 5) {
+      if (numDates < 5) {
         ticksInterval = 1
       } else {
-        ticksInterval = numDates / 7;
+        ticksInterval = Math.ceil(numDates / 4);
       }
+      console.log('numdates', numDates, 'ticksInterval', ticksInterval)
       var chartVars = this.state.behaviorHistory.d3ChartVars;
-      var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 300]);
+      var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 520]);
       var xAxis = {tickValues: xScale.ticks(d3.time.day, ticksInterval), tickFormat: d3.time.format("%m/%d"), label: "date"};
       // var xAxis = {ticks: 10}
       var yScale = d3.scale.linear().domain([chartVars.minSum - 5, chartVars.maxSum + 5]).range([340, 0]);
@@ -132,7 +133,7 @@ var BehaviorDashboard = React.createClass({
                     <div className="col-md-6">
                       <LineChart
                        data={this.state.behaviorHistory.behaviorData}
-                       width={400}
+                       width={600}
                        height={400}
                        margin={{top: 10, bottom: 50, left: 50, right: 20}}
                        xScale={xScale}

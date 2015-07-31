@@ -241,6 +241,10 @@ var prepareBehaviorHistory = function(behaviorHistory) {
     });
   });
 
+  studentDataForD3.behaviorData.values = studentDataForD3.behaviorData.values.sort(function(a, b) {
+    return a.x - b.x;
+  });
+
   var minDate = _.min(studentDataForD3.behaviorData.values, function(datum) {
     return datum.x;
   }).x;
