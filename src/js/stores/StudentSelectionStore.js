@@ -54,12 +54,6 @@ var initQuery = function(classId){
 // Runs when ClassroomDashboard is umounted
 // Ends Firebase listener to /classes/<classId>/selection/currentSelection
 var endQuery = function(){
-  // Delete Selected student from database
-/*  firebaseRef.child(
-    'classes/'
-    + _store.classId
-    + '/selection/currentSelection'
-  ).set(null);*/
   
   // Remove listener to currentSelection in Firebase
   firebaseRef.child(
@@ -159,16 +153,6 @@ var setGroup = function(groupNum){
     + '/groups'
   ).set(randGroup(groupNum));
 };
-
-/*var removeStudentFromGroups = function(studentId){
-  // remove student from group list when removing student from class
-  firebaseRef.child(
-    'classes/'
-    + _store.classId
-    + '/groups/'
-    + studentId
-  ).remove();
-};*/
 
 var StudentSelectionStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
