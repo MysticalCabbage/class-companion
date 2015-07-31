@@ -34,33 +34,6 @@ a, a:visited, a:hover, a:active {
   overflow: visible;
 }
 
-/*About Us*/
-.about-us-container {
-  font-size: 16px;
-}
-
-.profile-image {
-  width: 100%;
-  height: auto;
-}
-
-.profile-name {
-  margin-top: 10px;
-  color: rgb(90, 82, 82);
-  font-size: 16px;
-}
-
-.about-us-nav {
-  float: none;
-  text-align: center;
-  display: inline-block;
-  font-size: 22px;
-}
-
-.attribution {
-  margin-top: 40px;
-}
-
 /*AttendanceCalendar*/
 .attendanceCalendar td{
   font-size: 11px;
@@ -93,6 +66,11 @@ a, a:visited, a:hover, a:active {
 /*ClassroomDashboard*/
 .studentsContainer{
   margin-top: 25px;
+}
+
+/*ClassroomForm*/
+.errMsg {
+  color: red;
 }
 
 /*ClassroomStudent*/
@@ -131,7 +109,11 @@ a, a:visited, a:hover, a:active {
 .image { 
   position: absolute; 
   top: -25px;
-  left: -10px;
+  left: -24px;
+  width: 27%;
+  height: 27%;
+  background: url("../assets/behaviorStar.png")center center no-repeat;
+  background-size: contain;
 }
 
 .behaviorImg{
@@ -142,12 +124,10 @@ a, a:visited, a:hover, a:active {
 
 .behaviorPoints { 
   color: cornflowerblue;
-  position: absolute;
-  top: 17px;
-  left: 17px;
-  width: 32%;
   font-weight: bold;
   text-align: center;
+  margin: 22px auto;
+  font-size: 13px;
 }
 
 .studentInfo{
@@ -173,9 +153,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .pokemonSpecs{
-  /*border: #000800 solid 2px;*/
   border-radius: 13px 5px;
-  /*background-color: #F8F8D8;*/
   padding: 0px 8px;
   font-weight: 700;
   clear: both;
@@ -193,7 +171,6 @@ a, a:visited, a:hover, a:active {
 
 .progress{
   width: 75%;
-  /*border-radius: 10px;*/
   margin: 0px;
 }
 
@@ -204,7 +181,6 @@ a, a:visited, a:hover, a:active {
 .hpBar{
   background-color: cornflowerblue;
   clear: both;
-  /*border-radius: 15px;*/
   padding: 1%;
 }
 
@@ -217,6 +193,184 @@ a, a:visited, a:hover, a:active {
 
 .progress-bar{
   background-color: skyblue;
+}
+
+/*Home*/
+section {
+  padding: 65px 0;
+}
+
+.home{
+  background-color: #fff;
+}
+
+section h2.section-heading {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 40px;
+}
+
+section h3.section-subheading {
+  margin-bottom: 75px;
+  text-transform: none;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/*Home - Intro*/
+header {
+  text-align: center;
+  color: #fff;
+  background: #337ab7;
+  padding: 50px;
+}
+
+header .container {
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+header img {
+  display: block;
+  margin: 0 auto 10px;
+}
+
+header .intro-text .name {
+  display: block;
+  text-transform: uppercase;
+  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 55px;
+  font-weight: 700;
+}
+
+header .intro-text .skills {
+  font-size: 1.25em;
+  font-weight: 300;
+}
+
+hr.star-light,
+hr.star-primary {
+  margin: 25px auto 30px;
+  padding: 0;
+  max-width: 250px;
+  border: 0;
+  border-top: solid 5px;
+  text-align: center;
+}
+
+hr.star-light:after,
+hr.star-primary:after {
+  content: "\f005";
+  display: inline-block;
+  position: relative;
+  top: -.8em;
+  padding: 0 .25em;
+  font-family: FontAwesome;
+  font-size: 2em;
+}
+
+hr.star-light {
+  border-color: #fff;
+}
+
+hr.star-light:after {
+  color: #fff;
+  background-color: #337ab7;
+}
+
+hr.star-primary {
+  border-color: #2c3e50;
+}
+
+hr.star-primary:after {
+  color: #2c3e50;
+  background-color: #fff;
+}
+
+.favicon{
+  max-width: 9%;
+  border-radius: 20%;
+}
+
+/*Home - Team*/
+.bg-light-gray {
+  background-color: #f7f7f7;
+}
+
+.team-member {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.team-member img {
+  border: 7px solid #fff;
+}
+
+.team-member h4 {
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+ul.social-buttons li a {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  font-size: 20px;
+  line-height: 40px;
+  outline: 0;
+  color: #fff;
+  background-color: #222;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+}
+
+ul.social-buttons li a:hover,
+ul.social-buttons li a:focus,
+ul.social-buttons li a:active {
+  background-color: #fed136;
+}
+
+/*Home - About*/
+.about-heading {
+margin: 15px 0;
+}
+
+/*Homework Form*/
+#wellhomework{
+  background-color: white;
+}
+
+/*HomeworkDashboard & EmailList*/
+select {
+  margin: 0 0 10px 0;
+  background: #fff;
+  width: 125px;
+  padding: 7px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  height: 34px;
+  color: #777;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#homeworktable {
+  background-color: white;
+  border-radius: 5px;
+}
+
+#homeworktable thead th, #emailtable thead th{
+  font-size: 14px;
+}
+
+#homeworktable tbody th{
+  font-size: 13px;
+  font-weight: normal;
+  padding: 6px 8px;
 }
 
 /*Login*/
@@ -253,13 +407,6 @@ a, a:visited, a:hover, a:active {
   padding: 5px;
 }
 
-/*delete confirmation*/
-.deleteConfirmModal{
-  width: 250px;
-  height: 223px;
-  text-align: center;
-}
-
 /*TeacherClass*/
 .classImg{
   height: auto;
@@ -274,9 +421,11 @@ a, a:visited, a:hover, a:active {
   height: 163px;
 }
 
-/*ClassroomForm*/
-.errMsg {
-  color: red;
+/*TeacherDashboard & ClassroomDashboard*/
+.deleteConfirmModal{
+  width: 250px;
+  height: 223px;
+  text-align: center;
 }
 
 /*StudentGroupForm*/
@@ -368,162 +517,3 @@ a, a:visited, a:hover, a:active {
   width:500px;
 }
 
-#homeworktable {
-  background-color: white;
-  border-radius: 5px;
-}
-
-/*Home*/
-section {
-  padding: 65px 0;
-}
-
-.home{
-  background-color: #fff;
-}
-
-section h2.section-heading {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 40px;
-}
-
-section h3.section-subheading {
-  margin-bottom: 75px;
-  text-transform: none;
-  font-size: 16px;
-  font-style: italic;
-  font-weight: 400;
-}
-
-/*Home - Intro*/
-header {
-  text-align: center;
-  color: #fff;
-  background: #337ab7;
-}
-
-header .container {
-  padding-top: 100px;
-  padding-bottom: 50px;
-}
-
-header img {
-  display: block;
-  margin: 0 auto 10px;
-}
-
-header .intro-text .name {
-  display: block;
-  text-transform: uppercase;
-  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 55px;
-  font-weight: 700;
-}
-
-header .intro-text .skills {
-  font-size: 1.25em;
-  font-weight: 300;
-}
-
-hr.star-light,
-hr.star-primary {
-  margin: 25px auto 30px;
-  padding: 0;
-  max-width: 250px;
-  border: 0;
-  border-top: solid 5px;
-  text-align: center;
-}
-
-hr.star-light:after,
-hr.star-primary:after {
-  content: "\f005";
-  display: inline-block;
-  position: relative;
-  top: -.8em;
-  padding: 0 .25em;
-  font-family: FontAwesome;
-  font-size: 2em;
-}
-
-hr.star-light {
-  border-color: #fff;
-}
-
-hr.star-light:after {
-  color: #fff;
-  background-color: #337ab7;
-}
-
-hr.star-primary {
-  border-color: #2c3e50;
-}
-
-hr.star-primary:after {
-  color: #2c3e50;
-  background-color: #fff;
-}
-
-.favicon{
-  max-width: 12%;
-}
-
-/*Home - Team*/
-.bg-light-gray {
-  background-color: #f7f7f7;
-}
-
-.team-member {
-  margin-bottom: 50px;
-  text-align: center;
-}
-
-.team-member img {
-  /*margin: 0 auto;*/
-  border: 7px solid #fff;
-}
-
-.team-member h4 {
-  margin-top: 25px;
-  margin-bottom: 0;
-  /*text-transform: none;*/
-}
-
-/*.team-member p {
-  margin-top: 0;
-}*/
-
-/*ul.social-buttons {
-    margin-bottom: 0;
-}
-*/
-
-ul.social-buttons li a {
-  display: block;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  font-size: 20px;
-  line-height: 40px;
-  outline: 0;
-  color: #fff;
-  background-color: #222;
-  -webkit-transition: all .3s;
-  -moz-transition: all .3s;
-  transition: all .3s;
-}
-
-ul.social-buttons li a:hover,
-ul.social-buttons li a:focus,
-ul.social-buttons li a:active {
-  background-color: #fed136;
-}
-
-/*Home - About*/
-.about-heading {
-margin: 15px 0;
-}
-#wellhomework{
-  background-color: white;
-}

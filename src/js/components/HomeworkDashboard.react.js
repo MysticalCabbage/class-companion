@@ -218,37 +218,35 @@ var HomeworkDashboard = React.createClass({
             </div>
           </nav>
           <select id = "dropdown" onChange={this.monthSelect}>
-                <option value="N/A">Filter by Due Date</option>
-                <option value="01">January</option>
-                <option value="02">February</option>
-                <option value="03">March</option>
-                <option value="04">April</option>
-                <option value="05">May</option>
-                <option value="06">June</option>
-                <option value="07">July</option>
-                <option value="08">August</option>
-                <option value="09">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-            </select>
-             <div className="panel panel-primary">
-              <div className="panel-heading">
-              
-                <h3 className="panel-title">Homework</h3>
-                
-              </div>
-          <table className="table" id="homeworktable">
-            <thead>
-            <tr>
-              <th><h5>Assignment Name</h5></th>
-              <th><h5>Due Date</h5></th>
-              <th><h5>Assigned On</h5></th>
-              <th><h5><a onClick={this.sendAssignments}>Send <i className="fa fa-paper-plane"></i></a></h5></th>
-            </tr>
-            </thead>
-            <tbody>{assignments}</tbody>
-          </table>
+            <option value="N/A">Filter by Due Date   ▾<i className="fa fa-sort-desc"></i></option>
+            <option value="01">January</option>
+            <option value="02">February</option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+          <div className="panel panel-primary">
+            <div className="panel-heading">
+              <h3 className="panel-title">Homework</h3>
+            </div>
+            <table className="table" id="homeworktable">
+              <thead>
+              <tr>
+                <th><h5>Assignment Name</h5></th>
+                <th><h5>Due Date</h5></th>
+                <th><h5>Assigned On</h5></th>
+                <th><h5><a onClick={this.sendAssignments}>Send <i className="fa fa-paper-plane"></i></a></h5></th>
+              </tr>
+              </thead>
+              <tbody>{assignments}</tbody>
+            </table>
           </div>
           <HomeworkForm classId={this.props.params.id}/>
           <EmailList />
