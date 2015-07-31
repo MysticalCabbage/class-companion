@@ -115,7 +115,7 @@ var Home = React.createClass({
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
-                <img className="img-responsive favicon" src="/assets/pikachu.png" alt="" />
+                <img className="img-responsive favicon" src="/assets/favicon.ico" alt="" />
                 <div className="intro-text">
                   <span className="name">CLASS COMPANION</span>
                   <hr className="star-light" />
