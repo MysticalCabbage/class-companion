@@ -239,10 +239,10 @@ var HomeworkDashboard = React.createClass({
             <table className="table" id="homeworktable">
               <thead>
               <tr>
-                <th><h5>Assignment Name</h5></th>
-                <th><h5>Due Date</h5></th>
-                <th><h5>Assigned On</h5></th>
-                <th><h5><a onClick={this.sendAssignments}>Send <i className="fa fa-paper-plane"></i></a></h5></th>
+                <th>Assignment Name</th>
+                <th>Due Date</th>
+                <th>Assigned On</th>
+                <th><a onClick={this.sendAssignments}>Send <i className="fa fa-paper-plane"></i></a></th>
               </tr>
               </thead>
               <tbody>{assignments}</tbody>
