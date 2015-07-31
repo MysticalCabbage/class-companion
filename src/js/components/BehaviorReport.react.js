@@ -25,33 +25,6 @@ var BehaviorDashboard = React.createClass({
       graph: ClassroomStore.getGraph(),
       student: ClassroomStore.getStudent(),
       behaviorHistory: ClassroomStore.getBehaviorHistory(),
-      demoData: {label: '', values: [
-                {x: moment("7-25-15").toDate(), y: 4},
-                {x: moment("7-26-15").toDate(), y: 21},
-                {x: moment("7-27-15").toDate(), y: -20},
-                {x: moment("7-28-15").toDate(), y: 15},
-                // {x: new Date(2015, 7, 26), y: 2},
-                // {x: new Date(2015, 7, 27), y: 3},
-                // {x: new Date(2015, 7, 28), y: 4},
-                // {x: new Date(2015, 7, 29), y: 4},
-                // {x: new Date(2015, 7, 30), y: 1},
-                // {x: new Date(2015, 2, 14), y: 5},
-                // {x: new Date(2015, 2, 15), y: 0},
-                // {x: new Date(2015, 2, 16), y: 1},
-                // {x: new Date(2015, 2, 16), y: 1},
-                // {x: new Date(2015, 2, 18), y: 4},
-                // {x: new Date(2015, 2, 19), y: 4},
-                // {x: new Date(2015, 2, 20), y: 5},
-                // {x: new Date(2015, 2, 21), y: 5},
-                // {x: new Date(2015, 2, 22), y: 5},
-                // {x: new Date(2015, 2, 23), y: 1},
-                // {x: new Date(2015, 2, 24), y: 0},
-                // {x: new Date(2015, 2, 25), y: 1},
-                // {x: new Date(2015, 2, 26), y: 1}
-            ]},
-            xScale: d3.time.scale().domain([new Date(2015, 7, 26), new Date(2015, 7, 30)]).range([0, 400]),
-            yScale: d3.scale.linear().domain([-40, 40]).range([340, 0]),
-            // xScaleBrush: d3.time.scale().domain([new Date(2015, 2, 5), new Date(2015, 2, 26)]).range([0, 400])
     }
   },
 
@@ -96,11 +69,13 @@ var BehaviorDashboard = React.createClass({
     } else {
       var noBehavior = "";
     }
-
+    // if there is no behavior history
     if (this.state.behaviorHistory.length === 0) {
-      var noBehavior = "This student has no behavior points!"
+      // do not show the behavior history bar graph
       behaviorHistoryExists = false;
-    } else {
+    } // else the behavior history exists
+    else {
+      // store the behavior line chart D3 options
       var chartVars = this.state.behaviorHistory.d3ChartVars;
       var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 300]);
       var xAxis = {tickValues: xScale.ticks(d3.time.day), tickFormat: d3.time.format("%m/%d"), label: "date"};
@@ -112,7 +87,6 @@ var BehaviorDashboard = React.createClass({
  
     // TODO: Access the behavior history after I make that property
     var studentClicked = this.studentClick;
-
 
     var studentNodes = _.map(this.state.list, function(studentNode,index){
       // if there is no behavior history, set this to an empty object
