@@ -4,12 +4,8 @@ var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var PieChart = require('react-d3/piechart').PieChart;
 var BarChart = require('react-d3/barchart').BarChart;
-
-// var LineChart = require('react-d3/linechart').LineChart;
 var ReactD3Components = require('react-d3-components');
 var LineChart = ReactD3Components.LineChart;
-// var BarChart = ReactD3Components.BarChart;
-// var PieChartComp = ReactD3Components.PieChart;
 
 var ReportsStudent = require('./ReportsStudent.react');
 
@@ -62,7 +58,6 @@ var BehaviorDashboard = React.createClass({
     } else{
       var studentState = "Student Behavior";
     }
-    console.log(this.state.graph)
     if(!this.state.graph.pieChart || this.state.graph.pieChart.length === 0){
       var noBehavior = "This student has no behavior points!";
         // var noBehavior = "This student has no behavior points!";
@@ -70,7 +65,6 @@ var BehaviorDashboard = React.createClass({
     } else {
       var noBehavior = "";
     }
-    console.log(this.state.behaviorHistory)
     // if there is no behavior history
     if (!this.state.behaviorHistory.behaviorData || this.state.behaviorHistory.behaviorData.values.length < 2) {
       // do not show the behavior history bar graph
@@ -78,9 +72,17 @@ var BehaviorDashboard = React.createClass({
     } // else the behavior history exists
     else {
       // store the behavior line chart D3 options
+      var ticksInterval;
+      var numDates = this.state.behaviorHistory.behaviorData.values.length;
+      if (numDates > 5) {
+        ticksInterval = 1
+      } else {
+        ticksInterval = numDates / 7;
+      }
       var chartVars = this.state.behaviorHistory.d3ChartVars;
       var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 300]);
-      var xAxis = {tickValues: xScale.ticks(d3.time.day), tickFormat: d3.time.format("%m/%d"), label: "date"};
+      var xAxis = {tickValues: xScale.ticks(d3.time.day, ticksInterval), tickFormat: d3.time.format("%m/%d"), label: "date"};
+      // var xAxis = {ticks: 10}
       var yScale = d3.scale.linear().domain([chartVars.minSum - 5, chartVars.maxSum + 5]).range([340, 0]);
       var yAxis = {label: "behavior points"};
     }
