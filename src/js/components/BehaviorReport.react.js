@@ -12,7 +12,7 @@ var LineChart = ReactD3Components.LineChart;
 // var PieChartComp = ReactD3Components.PieChart;
 
 var ReportsStudent = require('./ReportsStudent.react');
-var BehaviorHistoryChart = require('./BehaviorHistoryChart.react');
+
 var d3 = require('d3');
 var moment = require('moment');
 
