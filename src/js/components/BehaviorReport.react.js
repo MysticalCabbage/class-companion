@@ -6,6 +6,9 @@ var PieChart = require('react-d3/piechart').PieChart;
 // var LineChart = require('react-d3/linechart').LineChart;
 var ReactD3Components = require('react-d3-components');
 var LineChart = ReactD3Components.LineChart;
+var BarChart = ReactD3Components.BarChart;
+var PieChartComp = ReactD3Components.PieChartComp;
+
 var ReportsStudent = require('./ReportsStudent.react');
 var BehaviorHistoryChart = require('./BehaviorHistoryChart.react');
 var d3 = require('d3');
@@ -85,10 +88,14 @@ var BehaviorDashboard = React.createClass({
     }
     if(this.state.graph.length === 0){
       var noBehavior = "This student has no behavior points!";
+        // var noBehavior = "This student has no behavior points!";
+        // return (<div/>)
     } else {
       var noBehavior = "";
     }
     console.log(this.state.behaviorHistory)
+    console.log(this.state.graph)
+
     var chartVars = this.state.behaviorHistory.d3ChartVars;
     var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 400]);
     var xAxis = {tickValues: xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d"), label: "date"};
@@ -128,7 +135,7 @@ var BehaviorDashboard = React.createClass({
                 <div>{noBehavior}</div>
                 <div className="row">
                   <div className="col-md-12">
-                    <PieChart
+                    <PieChartComp
                       data={this.state.graph}
                       width={400}
                       height={400}
@@ -149,6 +156,7 @@ var BehaviorDashboard = React.createClass({
                      yAxis= {yAxis} />
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
