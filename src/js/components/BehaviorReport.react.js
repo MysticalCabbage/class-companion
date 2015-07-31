@@ -130,7 +130,7 @@ var BehaviorDashboard = React.createClass({
                 <div className="row">
                   <div className="col-md-12">
                     <LineChart
-                     data={this.state.behaviorHistory}
+                     data={this.state.behaviorHistory.behaviorData}
                      width={400}
                      height={400}
                      margin={{top: 10, bottom: 50, left: 50, right: 20}}

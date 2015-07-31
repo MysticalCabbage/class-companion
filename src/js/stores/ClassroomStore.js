@@ -201,7 +201,7 @@ var generateRandomBehaviorHistory = function() {
 };
 // prepare given behavior history for use with D3
 var prepareBehaviorHistory = function(behaviorHistory) {
-  var studentDataForD3 = {label: "", values: []};
+  var studentDataForD3 = {behaviorData: {label: "", values: []}};
 
   _.each(behaviorHistory, function(behaviorData, date) {
     var momentObj = moment(date);
@@ -209,12 +209,39 @@ var prepareBehaviorHistory = function(behaviorHistory) {
     var date = momentObj.date();
     var year = momentObj.year();
     var behaviorSum = behaviorData.behaviorDailyTotal;
-    studentDataForD3.values.push({x: new Date(year, month, date), y: behaviorSum})
+    studentDataForD3.behaviorData.values.push({x: new Date(year, month, date), y: behaviorSum})
   });
 
+  var maxDate = _.max(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.x;
+  }).x;
+
+  var minDate = _.min(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.x;
+  }).x;
+
+  var maxSum = _.max(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.y;
+  }).y;
+
+  var minSum = _.min(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.y;
+  }).y;
+
+  var d3ChartVars = {
+    minDate: minDate,
+    maxDate: maxDate,
+    minSum: minSum,
+    maxSum: minSum,
+  }
+
+  console.log(maxDate, minDate, maxSum, minSum)
+
+  studentDataForD3.d3ChartVars = d3ChartVars;
+
   return studentDataForD3;
-  // return demoBehaviorData
 };
+
 
 
 var initQuery = function(classId){
