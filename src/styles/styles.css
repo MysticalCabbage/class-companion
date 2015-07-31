@@ -343,6 +343,7 @@ margin: 15px 0;
   background-color: white;
 }
 
+<<<<<<< HEAD
 /*HomeworkDashboard & EmailList*/
 select {
   margin: 0 0 10px 0;
@@ -517,3 +518,10 @@ select {
   width:500px;
 }
 
+.emailParentModal {
+  bottom: 170px;
+}
+
+.emailModal{
+  bottom:170px;
+}

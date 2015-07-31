@@ -104,14 +104,14 @@ var Student = React.createClass({
     }
     return (
         <tr>
-        <td>{this.props.studentTitle}<Modal className="emailModal" 
+        <td>{this.props.studentTitle}<div className="emailStuff"><Modal className="emailModal" 
             isOpen={this.state.emailModal} 
             onRequestClose={this.closeModal}>
             <EmailForm closeEmailModal={this.closeModal} studentId={this.props.studentId} classId={this.state.info.classId} type="student"/>
           </Modal><Modal className="emailParentModal" 
             isOpen={this.state.emailParentModal} 
             onRequestClose={this.closeParentModal}>
-            <EmailForm closeEmailModal={this.closeParentModal} studentId={this.props.studentId} classId={this.state.info.classId} type="parent"/></Modal></td>
+            <EmailForm closeEmailModal={this.closeParentModal} studentId={this.props.studentId} classId={this.state.info.classId} type="parent"/></Modal></div></td>
         <td><a onClick={this.openModal}>{email}</a></td>
         <td><a className='fa fa-envelope-o' onClick={this.mailClicked}></a></td>
         <td><a onClick={this.openParentModal}>{parentEmail}</a></td>
