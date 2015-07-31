@@ -218,9 +218,7 @@ var ClassroomDashboard = React.createClass({
       // this is to prevent app from halting
       // to repair, delete class and recreate class
       if(studentNode === undefined){
-        //for now we'll just attemp to delete the student
         console.log('Student with id ', studentId, ' does not exist');
-
         return;
       }
 

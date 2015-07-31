@@ -10,6 +10,7 @@ module.exports = function(app, express){
   app.use(bodyParser.urlencoded({extended: true}));
 
   app.use('/api/teacher', teacherRouter);
-
   require('../teachers/teacherRoutes.js')(teacherRouter);
+
+  require('./firebaseRef.js');
 };

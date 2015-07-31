@@ -18,9 +18,9 @@ var BehaviorDashboard = React.createClass({
 
   _onChange: function(){
     this.setState({
-        graph: ClassroomStore.getGraph(),
-        list: ClassroomStore.getList(),
-        student: ClassroomStore.getStudent()
+      graph: ClassroomStore.getGraph(),
+      list: ClassroomStore.getList(),
+      student: ClassroomStore.getStudent()
     });
   },
 

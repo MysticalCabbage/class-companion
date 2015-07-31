@@ -93,12 +93,11 @@ var AuthService = {
 	    .then(function(authData) {
 	      info.uid = authData.uid;
 	      return AuthService.createTeacher(info);
-	    }).then(function(userId){
+	    }).then(function(teacherId){
 	      AuthActions.signup(credentials, AuthService.checkAuth());
-	      return AuthService.createDemo(userId);
+	      return AuthService.createDemo(teacherId);
 	    })
 	    .catch(function(err) {
-	      console.error(err);
 				if(err){
 					cb(err, null);
 				} else {
@@ -123,6 +122,8 @@ var AuthService = {
 	  return deferred.promise;
 	},
 
+	// send teacherId to server
+	// server will add demo class to teacher's account
 	createDemo: function(teacherId){
 		var deferred = new Q.defer();
 
@@ -132,11 +133,7 @@ var AuthService = {
 			data: JSON.stringify({teacherId: teacherId}),
 			contentType: 'application/json',
 			success: function(data){
-				if(err) {
-					deferred.reject(err);
-				} else {
-					deferred.resolve(data);
-				}
+				deferred.resolve(data);
 			},
 			error: function(data){
 				deferred.reject(data);

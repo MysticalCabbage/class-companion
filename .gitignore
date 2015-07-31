@@ -34,4 +34,4 @@ client/lib/
 .Trashes
 
 # firebase secret and reference
-firebaseConfig.json
+config.js
