@@ -41,7 +41,7 @@ var EmailForm = React.createClass({
           <form onSubmit={this.handleAddEmail}> 
             <label>Add E-Mail</label>
             <div className="form-group">
-              <input type="text" ref="newEmail" id="newEmail" className="form-control" placeholder="Example: johndoe@example.com" required />
+              <input type="email" ref="newEmail" id="newEmail" className="form-control" placeholder="Example: johndoe@example.com" required />
             </div>
             <button type="submit" id="addNewEmail" className="btn btn-primary btn-block submit-button">Add email!</button>
           </form>

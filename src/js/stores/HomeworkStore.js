@@ -14,7 +14,6 @@ var _store = {
   list: {},
   info: {},
   assignments: {},
-  homeworkFor : {},
   pastAssignments: {},
   monthAssignments : {},
   emails: {},
@@ -24,7 +23,6 @@ var _store = {
 var addAssignment = function(assignment){
   var hwId = firebaseRef.child('classes/' + assignment.classId + '/assignments').push(assignment).key();
 
-  firebaseRef.child('classes/' + assignment.classId + '/homeworkFor/' + assignment.dueDate + '/' + hwId).set(hwId);
   HomeworkStore.emit(CHANGE_EVENT);
   setPastAssignments();
 };
@@ -34,7 +32,6 @@ var initQuery = function(classId){
     var classData = snapshot.val();
     _store.info = classData.info;
     _store.assignments = classData.assignments;
-    _store.homeworkFor = classData.homeworkFor;
     _store.emails = classData.emails;
     _store.parentEmails = classData.parentEmails;
   });
