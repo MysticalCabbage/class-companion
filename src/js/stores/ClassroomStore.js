@@ -5,7 +5,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var pokeFunctions = require('./ClassroomStorePokemonFunctions');
 var ClassroomConstants = require('../constants/ClassroomConstants');
 var _ = require('underscore');
-
+var moment = require('moment');
 var CHANGE_EVENT = 'change';
 
 var firebaseRef = FirebaseStore.getDb();
@@ -116,7 +116,6 @@ var setBehaviorHistory = function(behaviorData) {
 
     firebaseBehaviorDateRef
       .child('behaviorDailyTotal')
-      .child('behaviorSum')
       .transaction(function(current_value){ 
         // update the sum of behavior points for the specific day
         return current_value + behaviorData.behaviorValue;
@@ -205,12 +204,16 @@ var prepareBehaviorHistory = function(behaviorHistory) {
   var studentDataForD3 = {label: "", values: []};
 
   _.each(behaviorHistory, function(behaviorData, date) {
-    var dateObj = new Date(date);
+    var momentObj = moment(date);
+    var month = momentObj.month() + 1;
+    var date = momentObj.date();
+    var year = momentObj.year();
     var behaviorSum = behaviorData.behaviorDailyTotal;
-    studentDataForD3.values.push({x: dateObj, y: behaviorSum})
+    studentDataForD3.values.push({x: new Date(year, month, date), y: behaviorSum})
   });
 
   return studentDataForD3;
+  // return demoBehaviorData
 };
 
 
@@ -300,7 +303,7 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
     return _store.student;
   },
   getBehaviorHistory: function(){
-    if (_store.behaviorHistory.length === 0) {
+    if (_store.behaviorHistory.length === 0 || !_store.behaviorHistory) {
       _store.behaviorHistory = prepareBehaviorHistory(generateRandomBehaviorHistory())
     }
     console.log(_store.behaviorHistory)

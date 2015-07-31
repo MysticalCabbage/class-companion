@@ -9,6 +9,7 @@ var LineChart = ReactD3Components.LineChart;
 var ReportsStudent = require('./ReportsStudent.react');
 var BehaviorHistoryChart = require('./BehaviorHistoryChart.react');
 var d3 = require('d3');
+var moment = require('moment');
 
 var BehaviorDashboard = React.createClass({
   getInitialState: function(){
@@ -20,15 +21,15 @@ var BehaviorDashboard = React.createClass({
       student: ClassroomStore.getStudent(),
       behaviorHistory: ClassroomStore.getBehaviorHistory(),
       demoData: {label: '', values: [
-                {x: new Date(2015, 7, 26), y: 4},
-                {x: new Date(2015, 7, 27), y: 21},
-                {x: new Date(2015, 7, 28), y: -20},
-                {x: new Date(2015, 7, 29), y: 15},
-                // {x: new Date(2015, 2, 9), y: 2},
-                // {x: new Date(2015, 2, 10), y: 3},
-                // {x: new Date(2015, 2, 11), y: 4},
-                // {x: new Date(2015, 2, 12), y: 4},
-                // {x: new Date(2015, 2, 13), y: 1},
+                {x: moment("7-25-15").toDate(), y: 4},
+                {x: moment("7-26-15").toDate(), y: 21},
+                {x: moment("7-27-15").toDate(), y: -20},
+                {x: moment("7-28-15").toDate(), y: 15},
+                // {x: new Date(2015, 7, 26), y: 2},
+                // {x: new Date(2015, 7, 27), y: 3},
+                // {x: new Date(2015, 7, 28), y: 4},
+                // {x: new Date(2015, 7, 29), y: 4},
+                // {x: new Date(2015, 7, 30), y: 1},
                 // {x: new Date(2015, 2, 14), y: 5},
                 // {x: new Date(2015, 2, 15), y: 0},
                 // {x: new Date(2015, 2, 16), y: 1},
@@ -44,7 +45,7 @@ var BehaviorDashboard = React.createClass({
                 // {x: new Date(2015, 2, 26), y: 1}
             ]},
             xScale: d3.time.scale().domain([new Date(2015, 7, 26), new Date(2015, 7, 30)]).range([0, 400]),
-            yScale: d3.scale.linear().domain([-30, 30]).range([340, 0]),
+            yScale: d3.scale.linear().domain([-40, 40]).range([340, 0]),
             // xScaleBrush: d3.time.scale().domain([new Date(2015, 2, 5), new Date(2015, 2, 26)]).range([0, 400])
     }
   },
@@ -129,13 +130,13 @@ var BehaviorDashboard = React.createClass({
                 <div className="row">
                   <div className="col-md-12">
                     <LineChart
-                   data={this.state.behaviorHistory}
-                   width={400}
-                   height={400}
-                   margin={{top: 10, bottom: 50, left: 50, right: 20}}
-                   xScale={this.state.xScale}
-                   xAxis={{tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d")}}
-                   yScale={this.state.yScale} />
+                     data={this.state.behaviorHistory}
+                     width={400}
+                     height={400}
+                     margin={{top: 10, bottom: 50, left: 50, right: 20}}
+                     xScale={this.state.xScale}
+                     xAxis={{tickValues: this.state.xScale.ticks(d3.time.day, 1), tickFormat: d3.time.format("%m/%d")}}
+                     yScale={this.state.yScale} />
                   </div>
                 </div>
               </div>
