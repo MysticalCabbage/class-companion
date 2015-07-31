@@ -209,7 +209,11 @@ var prepareBehaviorHistory = function(behaviorHistory) {
     var date = momentObj.date();
     var year = momentObj.year();
     var behaviorSum = behaviorData.behaviorDailyTotal;
-    studentDataForD3.behaviorData.values.push({x: new Date(year, month, date), y: behaviorSum})
+    studentDataForD3.behaviorData.values.push({
+      x: new Date(year, month, date),
+      y: behaviorSum, 
+      behaviorData: behaviorData
+    });
   });
 
   var minDate = _.min(studentDataForD3.behaviorData.values, function(datum) {
@@ -237,6 +241,7 @@ var prepareBehaviorHistory = function(behaviorHistory) {
   }
 
   studentDataForD3.d3ChartVars = d3ChartVars;
+  // studentDataForD3.behaviorData.behaviorHistory = behaviorHistory;
 
   return studentDataForD3;
 };
