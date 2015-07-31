@@ -2,20 +2,14 @@
   "rules": {
     "teachers": {
       "$teacher_id" : {
-        ".write" : "auth !== null && auth.uid === $teacher_id",
-        ".read" : "auth !== null && auth.uid === $teacher_id"
+        ".write" : "auth !== null && (auth.uid === 'simplelogin:6' || auth.uid === $teacher_id)",
+        ".read" : "auth !== null && (auth.uid === 'simplelogin:6' || auth.uid === $teacher_id)"
       }
     }, 
     "classes" : {
       "$class_id": {
-        ".write" : "auth !== null && root.child('teachers/' + auth.uid + '/classes').hasChildren([$class_id])",
-        ".read" : "auth !== null && root.child('teachers/' + auth.uid + '/classes').hasChildren([$class_id])"
-      }
-    },
-    "students" : {
-      "$student_id" : {
-        ".write" : "auth !== null && auth.uid === $student_id",
-        ".read" : "auth !== null && auth.uid === $student_id"
+        ".write" : "(auth !== null && root.child('teachers/' + auth.uid + '/classes').hasChildren([$class_id])) || auth.uid === 'simplelogin:6'",
+        ".read" : "(auth !== null && root.child('teachers/' + auth.uid + '/classes').hasChildren([$class_id])) || auth.uid === 'simplelogin:6'"
       }
     },
     "timestamp" : {

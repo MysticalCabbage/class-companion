@@ -3,9 +3,9 @@ var _ = require('underscore');
 var moment = require('moment');
 
 // @params count generate count many days including today
-// returns array of date strings in format of MM-DD-YYYY
+// returns array of date strings in format of M-D-YYYY
 var generateDates = function(count){
-  var dateFormat = 'M-DD-YYYY';
+  var dateFormat = 'M-D-YYYY';
   var today = moment();
   var dates = [today.format(dateFormat)];
   var step = count > 0 ? 1 : -1;
@@ -30,6 +30,8 @@ var getRandomInt = function(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
+// @params teacherId firebase userid of teacher
+// returns class info
 var generateClassInfo = function(teacherId){
   return {
     "behavior" : {
@@ -43,14 +45,14 @@ var generateClassInfo = function(teacherId){
   }
 };
 
-var generateAssignment = function(classId){
-  var date = randDate();
+var generateAssignment = function(classId, hwTitle, date, due){
+  var monthYear = date.split('-');
   /* returns
   {
     "assignedOn" : date,
-    "assignment" : "hw1",
+    "assignment" : hwTitle,
     "classId" : classId,
-    "dueDate" : date+something
+    "dueDate" : dueDate,
     "monthYear" : [ date year, date month ]
   }
   */
@@ -91,7 +93,7 @@ var generateRandomHistory = function(date) {
   return randomBehaviorHistory;
 };
 
-// @params dates array of date string in MM-DD-YYYY format
+// @params dates array of date string in M-D-YYYY format
 var generateAttendance = function(dates){
   var choices = ['Present', 'Late', 'Absent'];
   var attendance = {};
@@ -130,13 +132,15 @@ var demoUtils = {
     ).set(demoClassObj);
 
     // generate 2 sets of 5 consecutive dates
+    // tomorrowDates for assigning homework
     var tomorrowDates = generateDates(5);
+    // yesterdayDates for setting behaviors and attendance
     var yesterdayDates = generateDates(-5);
 
     // generate 4 studentTitle
     var students = generateStudents();
 
-    for(var i = 0; i < students.length; i++){
+    _.each(students, function(student){
       var studentObj = {};
 
       // generate student Object Id
@@ -150,12 +154,13 @@ var demoUtils = {
       studentObj.attendance = generateAttendance(yesterdayDates);
 
       // attach student name as studentTitle
-      studentObj.studentTitle = students[i];
+      studentObj.studentTitle = student;
 
       // default behavior points to 0
       studentObj.behavior = defaultBehaviorPoints();
       studentObj.behaviorTotal = 0;
 
+      // add student obj to firebase class students list
       firebaseRef.child(
         'classes/'
         + demoClassId
@@ -163,13 +168,20 @@ var demoUtils = {
         + studentId
       ).set(studentObj);
 
+      // add student to firebase class group list
       firebaseRef.child(
         'classes/'
         + demoClassId
         + '/groups/'
         + studentId
       ).set(1);
-    }
+    });
+
+    firebaseRef.child(
+      'classes/'
+      + demoClassId
+      + '/assignments'
+    ).set(1);
   }
 };
 

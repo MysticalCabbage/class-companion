@@ -19,6 +19,7 @@ var BehaviorButtons = React.createClass({
   debugAddExperiencePoints: function() {
     var expPointsToAdd = this.state.expInputValue || 1
     ClassroomActions.behaviorClicked(this.props.studentId, null, expPointsToAdd)
+    this.props.closeBehaviorModal();
   },
 
   debugHandleInputChange: function(event) {
