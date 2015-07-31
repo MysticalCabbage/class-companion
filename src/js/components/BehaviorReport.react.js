@@ -7,7 +7,7 @@ var PieChart = require('react-d3/piechart').PieChart;
 var ReactD3Components = require('react-d3-components');
 var LineChart = ReactD3Components.LineChart;
 var BarChart = ReactD3Components.BarChart;
-var PieChartComp = ReactD3Components.PieChartComp;
+// var PieChartComp = ReactD3Components.PieChart;
 
 var ReportsStudent = require('./ReportsStudent.react');
 var BehaviorHistoryChart = require('./BehaviorHistoryChart.react');
@@ -135,7 +135,7 @@ var BehaviorDashboard = React.createClass({
                 <div>{noBehavior}</div>
                 <div className="row">
                   <div className="col-md-12">
-                    <PieChartComp
+                    <PieChart
                       data={this.state.graph}
                       width={400}
                       height={400}
