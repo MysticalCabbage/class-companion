@@ -42,16 +42,16 @@ var BehaviorDashboard = React.createClass({
   },
 
   render: function(){
-    if(this.state.student === ""){
-        //means no student selected
-        var studentState = "Student Behavior";
-    } else if(this.state.student){
-        var studentState = this.state.student + "'s Behavior";
+    if(this.state.student){
+      //means no student selected
+      var studentState = this.state.student + "'s Behavior";
+    } else{
+      var studentState = "Student Behavior";
     }
     if(this.state.graph.length === 0){
-        var noBehavior = "This student has no behavior points!";
+      var noBehavior = "This student has no behavior points!";
     } else {
-        var noBehavior = "";
+      var noBehavior = "";
     }
     var studentClicked = this.studentClick;
     var studentNodes = _.map(this.state.list, function(studentNode,index){

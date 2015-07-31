@@ -124,7 +124,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .attendanceButton .btn{
-  padding: 4px 5px;
+  padding: 4px 6px;
   border-radius: 5px;
 }
 
@@ -238,8 +238,19 @@ a, a:visited, a:hover, a:active {
 /*StudentRandom*/
 .StudentRandom, .randomModal{
   width: 250px;
-  height: 100px;
+  height: 170px;
   text-align: center;
+}
+
+.randomStudentTitle{
+  top: 36px;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: left;
+}
+
+.StudentRandom .panel-body{
+  padding: 5px;
 }
 
 /*delete confirmation*/

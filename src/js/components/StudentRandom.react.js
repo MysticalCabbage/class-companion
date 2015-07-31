@@ -30,7 +30,12 @@ var StudentRandom = React.createClass({
         </div>
         <div className="panel-body">
           <div className="row">
-            {this.state.random ? this.state.random.studentTitle : null}
+            <div className="col-md-6">
+              {this.state.random ? <img src={this.state.random.pokemon._spriteUrl} /> : null}
+            </div>
+            <div className="col-md-6 randomStudentTitle">
+              {this.state.random ? this.state.random.studentTitle : null}
+            </div>
           </div>
         </div>
       </div>
