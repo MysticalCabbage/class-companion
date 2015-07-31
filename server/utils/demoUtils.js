@@ -58,14 +58,6 @@ var generateAssignment = function(classId, hwTitle, date, due){
   */
 };
 
-var defaultBehaviorPoints = function(){
-  return {
-    "Bad Job": 0,
-    "Bullying": 0,
-    "Good Job": 0,
-    "Helping": 0
-  };
-};
 
 var generateStudents = function(){
   return [
@@ -76,22 +68,6 @@ var generateStudents = function(){
   ];
 };
 
-var generateRandomHistory = function(date) {
-  var randomBehaviorHistory = {};
-  var behaviorSum;
-
-  randomBehaviorHistory[date] = {behaviors: {}};
-  randomBehaviorHistory[date].behaviors["Bad Job"] = getRandomInt(-30, 0);
-  randomBehaviorHistory[date].behaviors["Bullying"] = getRandomInt(-30, 0);
-  randomBehaviorHistory[date].behaviors["Good Job"] = getRandomInt(0, 30);
-  randomBehaviorHistory[date].behaviors["Helping"] = getRandomInt(0, 30);
-
-  behaviorSum = _.reduce(randomBehaviorHistory[date].behaviors, function(memo, num) {return memo+num});
-
-  randomBehaviorHistory[date].behaviorDailyTotal = {behaviorSum: behaviorSum};
-
-  return randomBehaviorHistory;
-};
 
 // @params dates array of date string in M-D-YYYY format
 var generateAttendance = function(dates){
@@ -105,6 +81,48 @@ var generateAttendance = function(dates){
   return attendance;
 };
 
+var defaultBehavior = function(){
+  return {
+    "Bad Job": 0,
+    "Bullying": 0,
+    "Good Job": 0,
+    "Helping": 0
+  };
+};
+
+var generateBehavior = function(dates){
+  var behaviorDailyTotal = 0;
+
+  var behavior = defaultBehavior();
+  var behaviorHistory = {};
+  var behaviorTotal = 0;
+
+  _.each(dates, function(date){
+
+    behaviorHistory[date] = {behaviors:{}};
+
+    behaviorHistory[date].behaviors["Bad Job"] = getRandomInt(-1, 0);
+    behaviorHistory[date].behaviors["Bullying"] = getRandomInt(-1, 0);
+    behaviorHistory[date].behaviors["Good Job"] = getRandomInt(0, 5);
+    behaviorHistory[date].behaviors["Helping"] = getRandomInt(0, 5);
+
+    behaviorDailyTotal = _.reduce(behaviorHistory[date].behaviors, function(acc, cur, index){
+      behavior[index] += Math.abs(cur);
+      return acc + cur;
+    }, 0);
+
+    behaviorHistory[date].behaviorDailyTotal = behaviorDailyTotal;
+    behaviorTotal += behaviorDailyTotal;
+
+  });
+
+
+  return {
+    behaviorHistory: behaviorHistory,
+    behavior: behavior,
+    behaviorTotal: behaviorTotal
+  };
+};
 
 var demoUtils = {
   generateDemo: function(teacherId){
@@ -132,10 +150,10 @@ var demoUtils = {
     ).set(demoClassObj);
 
     // generate 2 sets of 5 consecutive dates
-    // tomorrowDates for assigning homework
-    var tomorrowDates = generateDates(5);
-    // yesterdayDates for setting behaviors and attendance
-    var yesterdayDates = generateDates(-5);
+    // nextDates for assigning homework
+    var nextDates = generateDates(5);
+    // prevDates for setting behaviors and attendance
+    var prevDates = generateDates(-35);
 
     // generate 4 studentTitle
     var students = generateStudents();
@@ -150,15 +168,17 @@ var demoUtils = {
         + '/student'
       ).push().key();
 
-      // generate attendance for yesterdayDates
-      studentObj.attendance = generateAttendance(yesterdayDates);
+      // generate attendance for prevDates
+      studentObj.attendance = generateAttendance(prevDates);
 
       // attach student name as studentTitle
       studentObj.studentTitle = student;
 
-      // default behavior points to 0
-      studentObj.behavior = defaultBehaviorPoints();
-      studentObj.behaviorTotal = 0;
+      // generate random behaviors
+      var randomBehavior = generateBehavior(prevDates);
+      studentObj.behavior = randomBehavior.behavior;
+      studentObj.behaviorHistory = randomBehavior.behaviorHistory;
+      studentObj.behaviorTotal = randomBehavior.behaviorTotal;
 
       // add student obj to firebase class students list
       firebaseRef.child(
@@ -176,12 +196,6 @@ var demoUtils = {
         + studentId
       ).set(1);
     });
-
-    firebaseRef.child(
-      'classes/'
-      + demoClassId
-      + '/assignments'
-    ).set(1);
   }
 };
 

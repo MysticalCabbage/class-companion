@@ -40,11 +40,13 @@ var ClassroomForm = React.createClass({
 
   render: function() {
     return (
-      <div className="classroomForm">
-        <div className="well text-center">
+      <div className="panel panel-info classroomForm">
+        <div className="panel-heading">
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeAddStudentModal}><span aria-hidden="true">&times;</span></button>
+          <h3 className="panel-title text-center">Add Student</h3>
+        </div>
+        <div className="well text-center">
           <form onSubmit={this.handleAddStudent}> 
-            <label>Add student</label>
             <div className="form-group">
               <input type="text" ref="newStudent" id="newStudent" className="form-control" placeholder="Example: John Doe" required />
             </div>
