@@ -205,15 +205,7 @@ AppDispatcher.register(function(payload){
     case ClassroomConstants.END_SELECT_QUERY:
       endQuery();
       break;
-/*    case ClassroomConstants.REMOVE_STUDENT:
-      removeStudentFromGroups(action.data);
-      // reset groups when remove student
-      // prevents React from rendering empty holes
-      setGroup(1);
-      break;*/
     case ClassroomConstants.ADD_STUDENT:
-      // reset groups when add student
-      // prevents React from rendering empty holes
       setGroup(1);
       break;
     default:
