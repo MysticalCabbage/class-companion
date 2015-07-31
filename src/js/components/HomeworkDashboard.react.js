@@ -35,6 +35,7 @@ var HomeworkDashboard = React.createClass({
       assignments: HomeworkStore.getAssignments(),
       pastAssignments: HomeworkStore.getPastAssignments(),
       monthAssignments: HomeworkStore.getMonthAssignments,
+      emails: HomeworkStore.getEmails(),
       showPastAssignments: false,
       showCurrentAssignments: true,
       showMonthAssignments: false
@@ -70,7 +71,8 @@ var HomeworkDashboard = React.createClass({
       assignments: HomeworkStore.getAssignments(),
       loggedIn: AuthStore.checkAuth(),
       pastAssignments: HomeworkStore.getPastAssignments(),
-      monthAssignments: HomeworkStore.getMonthAssignments()
+      monthAssignments: HomeworkStore.getMonthAssignments(),
+      emails: HomeworkStore.getEmails()
     });
   },
 
@@ -108,7 +110,32 @@ var HomeworkDashboard = React.createClass({
     }
   },
 
+  sendAssignments: function(){
+    var today = moment().format('MM-DD-YYYY');
+    var assignments = _.filter(this.state.assignments, function(assignment){
+      return assignment.assignedOn === today;
+    });
+    var bodyText = _.map(assignments, function(assignment){
+      return assignment.assignment + ": due " + assignment.dueDate;
+    });
+
+    var parentEmails = _.map(this.state.emails.student, function(parentEmail){
+      return parentEmail.email;
+    }).join(",");
+    var studentEmails = _.map(this.state.emails.parent, function(studentEmail){
+      return studentEmail.email;
+    }).join(",");
+
+    var studentLink = "mailto:" + studentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join(", "));
+
+    var parentLink = "mailto:" + parentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join(", "));
+    
+    window.location.href = studentLink;
+    window.location.href = parentLink;
+  },
+
   render: function(){
+    
     var url = '#/classroomDashboard/' + this.props.params.id;
     var currentAssignments = {};
     var today = new Date();
@@ -207,7 +234,9 @@ var HomeworkDashboard = React.createClass({
             </select>
              <div className="panel panel-primary">
               <div className="panel-heading">
+              
                 <h3 className="panel-title">Homework</h3>
+                
               </div>
           <table className="table" id="homeworktable">
             <thead>
@@ -215,7 +244,7 @@ var HomeworkDashboard = React.createClass({
               <th><h5>Assignment Name</h5></th>
               <th><h5>Due Date</h5></th>
               <th><h5>Assigned On</h5></th>
-              <th></th>
+              <th><h5><a onClick={this.sendAssignments}>Send <i className="fa fa-paper-plane"></i></a></h5></th>
             </tr>
             </thead>
             <tbody>{assignments}</tbody>
