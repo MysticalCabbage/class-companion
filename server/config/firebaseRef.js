@@ -1,5 +1,9 @@
+if(process.env && process.env.TRAVIS){
+  var config = require('../../config.example.js');
+} else {
+  var config = require('../../config.js');
+}
 var Firebase = require('firebase');
-var config = require('../../config.js');
 var Q = require('q');
 
 var firebaseURI = config.firebaseURI;
