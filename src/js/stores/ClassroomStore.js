@@ -4,7 +4,8 @@ var FirebaseStore = require('./FirebaseStore');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var pokeFunctions = require('./ClassroomStorePokemonFunctions');
 var ClassroomConstants = require('../constants/ClassroomConstants');
-
+var _ = require('underscore');
+var moment = require('moment');
 var CHANGE_EVENT = 'change';
 
 var firebaseRef = FirebaseStore.getDb();
@@ -14,8 +15,10 @@ var _store = {
   info: {},
   today: '',
   graph: [],
+  behaviorHistory: [],
   assignments: {},
-  student: ""
+  student: "",
+  studentId: "",
 };
 
 var addStudent = function(newStudent){
@@ -65,8 +68,10 @@ var removeStudent = function(studentId){
   ).remove();
 };
 
-var markAttendance = function(data){
-  // Recored the current timestamp based don the Firebase server
+
+
+var handleFirebaseCallbackWithCurrentDate = function(callback) {
+  // Recored the current timestamp based on the Firebase server
   firebaseRef.child('timestamp')
     .set(Firebase.ServerValue.TIMESTAMP);
 
@@ -77,10 +82,47 @@ var markAttendance = function(data){
     var date = new Date(current_server_time).toLocaleDateString();
     // Replace '/' with '-' so the database recognize date as one string and sets it as the param 
     var newDate = date.replace(/\//g, '-');
-    // Store student attendance for that date
+    // perform a callback using the new date string
+    callback(newDate)
+  });
+};
+
+var markAttendance = function(data){
+
+  var markAttendanceOnDate = function(newDate) {
     firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/attendance/' + newDate)
       .set(data.attendance);
-  });
+  };
+
+  handleFirebaseCallbackWithCurrentDate(markAttendanceOnDate)
+};
+
+var setBehaviorHistory = function(behaviorData) {
+  var setBehaviorHistoryOnDate = function(newDate) {
+    var firebaseBehaviorDateRef = firebaseRef.child('classes/' + _store.info.classId + '/students/' + behaviorData.studentId + '/behaviorHistory/')
+      .child(newDate);
+
+    firebaseBehaviorDateRef
+      .child("behaviors")
+      .child(behaviorData.behaviorAction)
+      .transaction(function(current_value){ 
+        // store the total change the specified behavior made on this specific day
+        // for example:
+        // Bullying: -5
+        //  in this situaiton, the student lost 5 points that day because of bullying
+        // Helping: 3
+        // the student gained 3 points that day by helping
+        return current_value + behaviorData.behaviorValue;
+      });
+
+    firebaseBehaviorDateRef
+      .child('behaviorDailyTotal')
+      .transaction(function(current_value){ 
+        // update the sum of behavior points for the specific day
+        return current_value + behaviorData.behaviorValue;
+      });
+  };
+  handleFirebaseCallbackWithCurrentDate(setBehaviorHistoryOnDate)
 };
 
 var behaviorClicked = function(data){
@@ -96,6 +138,7 @@ var behaviorClicked = function(data){
   if(_store.info.isDemo && !data.behaviorAction){
     return;
   }
+  setBehaviorHistory(data)
 
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
     return current_value + 1;
@@ -106,20 +149,118 @@ var behaviorChart = function(data){
   var total = data.total;
   var behaviors = data.chartData;
   var student = data.student;
+  var studentId = data.studentId;
   var chartData = [];
+  var studentBehaviorHistory = _store.list[studentId].behaviorHistory;
+
   for(var key in behaviors){
     newObj = {};
+    if (key === "0") {
+      continue;
+    }
+
     if(behaviors[key] === 0){
       continue;
     } 
     newObj["label"] = key;
-    newObj["value"] = Math.ceil(((behaviors[key]/total)*100) * 100)/100;
+    newObj["value"] = behaviors[key]
     chartData.push(newObj);
   }
   _store.graph = chartData;
   _store.student = student;
+  _store.studentId = studentId;
+  // _store.behaviorHistory = prepareBehaviorHistory(generateRandomBehaviorHistory());
+  _store.behaviorHistory = prepareBehaviorHistory(studentBehaviorHistory);
+
   ClassroomStore.emit(CHANGE_EVENT);
 };
+
+var getBehaviorHistoryByStudentId = function(studentId) {
+
+};
+
+
+// DEBUG: Generate Random Behavior History
+var generateRandomBehaviorHistory = function() {
+  var getRandomInt = function(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  var randomBehaviorHistory = {};
+
+  var generateRandomHistory = function(date) {
+    var randomBehaviorHistory= {};
+    var behaviorSum;
+    randomBehaviorHistory[date] = {behaviors: {}};
+    randomBehaviorHistory[date].behaviors["Bad Job"] = getRandomInt(-30, 0);
+    randomBehaviorHistory[date].behaviors["Bullying"] = getRandomInt(-30, 0);
+    randomBehaviorHistory[date].behaviors["Good Job"] = getRandomInt(0, 30);
+    randomBehaviorHistory[date].behaviors["Helping"] = getRandomInt(0, 30);
+    behaviorSum = _.reduce(randomBehaviorHistory[date].behaviors, function(memo, num) {return memo+num})
+    randomBehaviorHistory[date].behaviorDailyTotal = behaviorSum
+
+    return randomBehaviorHistory
+  };
+
+  _.extend(randomBehaviorHistory, 
+    generateRandomHistory("7-26-15"), 
+    generateRandomHistory("7-27-15"),
+    generateRandomHistory("7-28-15"),
+    generateRandomHistory("7-29-15"),
+    generateRandomHistory("7-30-15")
+    );
+
+  return randomBehaviorHistory;
+};
+
+// prepare given behavior history for use with D3
+var prepareBehaviorHistory = function(behaviorHistory) {
+  var studentDataForD3 = {behaviorData: {label: "", values: []}};
+
+  _.each(behaviorHistory, function(behaviorData, date) {
+    var momentObj = moment(date);
+    var month = momentObj.month() + 1;
+    var date = momentObj.date();
+    var year = momentObj.year();
+    var behaviorSum = behaviorData.behaviorDailyTotal;
+    studentDataForD3.behaviorData.values.push({
+      x: new Date(year, month, date),
+      y: behaviorSum, 
+      behaviorData: behaviorData
+    });
+  });
+
+  var minDate = _.min(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.x;
+  }).x;
+
+  var maxDate = _.max(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.x;
+  }).x;
+
+  var minSum = _.min(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.y;
+  }).y;
+
+  var maxSum = _.max(studentDataForD3.behaviorData.values, function(datum) {
+    return datum.y;
+  }).y;
+
+ 
+  var d3ChartVars = {
+    minDate: minDate,
+    maxDate: maxDate,
+    minSum: minSum,
+    maxSum: maxSum,
+  }
+
+  studentDataForD3.d3ChartVars = d3ChartVars;
+  // the behavior history can be used for future graphs/charts
+  // studentDataForD3.behaviorData.behaviorHistory = behaviorHistory;
+
+  return studentDataForD3;
+};
+
 
 var initQuery = function(classId){
   firebaseRef.child('classes/'+classId).on('value', function(snapshot){
@@ -135,6 +276,7 @@ var initQuery = function(classId){
     var totalOfStudents = {}
     for(var student in students){
       for(var behavior in students[student]["behavior"]){
+        if (behavior === "0") continue;
         if(totalOfStudents[behavior] === undefined) totalOfStudents[behavior] = 0;
         totalCount += students[student]["behavior"][behavior];
         totalOfStudents[behavior] += students[student]["behavior"][behavior]
@@ -205,7 +347,16 @@ var ClassroomStore = objectAssign({}, EventEmitter.prototype, {
   },
   getStudent: function(){
     return _store.student;
-  }
+  },
+  getStudentId: function(){
+    return _store.studentId;
+  },
+  getBehaviorHistory: function(){
+    if (!_store.behaviorHistory || _store.behaviorHistory.length === 0) {
+      _store.behaviorHistory = [];
+    }
+    return _store.behaviorHistory;
+  },
 });
 
 

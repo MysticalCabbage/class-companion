@@ -39,7 +39,7 @@ var getNewPokemon = function(studentId, classId, specificPokemonAPIUrl, currentL
   });
 };
 
-
+// send the pokemon data to the firebase server for a specified student
 var sendServerPokemon = function(studentId, classId, pokemonDirectory) {
   firebaseRef.child('classes/' 
                     + classId 
@@ -98,18 +98,22 @@ var handleLevelUp = function(firebasePokemonDirectoryRef, numberOfExperiencePoin
       var numberOfTimesToLevelUp = Math.floor(accumulatedExp / profileData.expToNextLevel)
       // stores the amount of leftover exp after leveling up
       var amountOfLeftoverExp = accumulatedExp % (profileData.expToNextLevel * numberOfTimesToLevelUp)
+      // get the current level of the student's pokmon
       firebasePokemonDirectoryRef.child('profile').child('level').transaction(function(current_value) {
           var newLevel = current_value + numberOfTimesToLevelUp
           var pokemonToEvolveToUrl = checkIfNeedToEvolve(newLevel, pokemonDirectoryData)
+          // if the pokemon needs to evolve
           if (pokemonToEvolveToUrl) {
+            // get the pokemon's evolution
             getNewPokemon(studentId, classId, pokemonToEvolveToUrl, newLevel)
             // eject from the function so the pokemon doesn't evolve twice
             return
-          } else {
+          } else { // else if the pokemon does not need to evolve
+            // just return the pokemon's new level
             return newLevel
           }
       });
-
+      // also set the amount of exp the student's pokemon has after leveling up
       firebasePokemonDirectoryRef.child('profile').child('currentExp').transaction(function(current_value) {
           return amountOfLeftoverExp
       });
