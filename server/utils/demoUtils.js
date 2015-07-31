@@ -101,10 +101,10 @@ var generateBehavior = function(dates){
 
     behaviorHistory[date] = {behaviors:{}};
 
-    behaviorHistory[date].behaviors["Bad Job"] = getRandomInt(-2, 0);
-    behaviorHistory[date].behaviors["Bullying"] = getRandomInt(-2, 0);
-    behaviorHistory[date].behaviors["Good Job"] = getRandomInt(0, 10);
-    behaviorHistory[date].behaviors["Helping"] = getRandomInt(0, 10);
+    behaviorHistory[date].behaviors["Bad Job"] = getRandomInt(-1, 0);
+    behaviorHistory[date].behaviors["Bullying"] = getRandomInt(-1, 0);
+    behaviorHistory[date].behaviors["Good Job"] = getRandomInt(0, 5);
+    behaviorHistory[date].behaviors["Helping"] = getRandomInt(0, 5);
 
     behaviorDailyTotal = _.reduce(behaviorHistory[date].behaviors, function(acc, cur, index){
       behavior[index] += Math.abs(cur);
