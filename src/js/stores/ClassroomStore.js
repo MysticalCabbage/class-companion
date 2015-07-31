@@ -78,13 +78,20 @@ var markAttendance = function(data){
 var behaviorClicked = function(data){
   // add the experience poinst to the student's pokemon
   pokeFunctions.addExperiencePoints(data, _store.info.classId)
-  
+
+  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behaviorTotal/').transaction(function(current_value){
+    return current_value + data.behaviorValue;
+  });
+
+  // data.behaviorAction === null when adding from Demo class
+  // and this is a demo class, return and don't tally behaviorAction
+  if(_store.info.isDemo && !data.behaviorAction){
+    return;
+  }
+
   firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behavior/' + data.behaviorAction).transaction(function(current_value){ 
     return current_value + 1;
   });
-  firebaseRef.child('classes/' + _store.info.classId + '/students/' + data.studentId + '/behaviorTotal/').transaction(function(current_value){
-    return current_value + data.behaviorValue;
-  });  
 };
 
 var behaviorChart = function(data){

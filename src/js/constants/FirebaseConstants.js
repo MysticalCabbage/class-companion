@@ -1,5 +1,5 @@
 var FirebaseConstants = {
-  URI: 'https://mysticalcabbage2.firebaseio.com/'
+  URI: require('../../../config.js').firebaseURI
 };
 
 module.exports = FirebaseConstants;

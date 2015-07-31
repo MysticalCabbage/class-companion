@@ -5,6 +5,7 @@ var AuthActions = require('../actions/AuthActions');
 var FirebaseStore = require('../stores/FirebaseStore');
 var Link = Router.Link;
 var Q = require('q');
+var $ = require('jquery');
 
 // set ref to firebase database
 var firebaseRef = FirebaseStore.getDb();
@@ -51,13 +52,15 @@ var AuthService = {
 	// returns a promsie
 	createUser: function(userObj) {
 	  var deferred = Q.defer();
+
 	  firebaseRef.createUser(userObj, function (err) {
-	    if (!err) {
-	      deferred.resolve();
+	    if (err) {
+	      deferred.reject(err);
 	    } else {
-	     deferred.reject(err);
+	      deferred.resolve();
 	    }
 	  });
+
 	  return deferred.promise;
 	},
 
@@ -90,11 +93,11 @@ var AuthService = {
 	    .then(function(authData) {
 	      info.uid = authData.uid;
 	      return AuthService.createTeacher(info);
-	    }).then(function(){
+	    }).then(function(teacherId){
 	      AuthActions.signup(credentials, AuthService.checkAuth());
+	      return AuthService.createDemo(teacherId);
 	    })
 	    .catch(function(err) {
-	      //console.error(err);
 				if(err){
 					cb(err, null);
 				} else {
@@ -112,11 +115,32 @@ var AuthService = {
 	    if(err) {
 	      deferred.reject(err);
 	    } else {
-	      deferred.resolve();
+	      deferred.resolve(info.uid);
 	    }
 	  });
 
 	  return deferred.promise;
+	},
+
+	// send teacherId to server
+	// server will add demo class to teacher's account
+	createDemo: function(teacherId){
+		var deferred = new Q.defer();
+
+		$.ajax({
+			type: 'POST',
+			url: '/api/teacher/demo',
+			data: JSON.stringify({teacherId: teacherId}),
+			contentType: 'application/json',
+			success: function(data){
+				deferred.resolve(data);
+			},
+			error: function(data){
+				deferred.reject(data);
+			}
+		});
+
+		return deferred.promise;
 	},
 
 	// log out user

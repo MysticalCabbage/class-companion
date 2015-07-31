@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "teachers": {
+      "$teacher_id" : {
+        ".write" : "auth !== null && (auth.uid === 'simplelogin:6' || auth.uid === $teacher_id)",
+        ".read" : "auth !== null && (auth.uid === 'simplelogin:6' || auth.uid === $teacher_id)"
+      }
+    }, 
+    "classes" : {
+      "$class_id": {
+        ".write" : "(auth !== null && root.child('teachers/' + auth.uid + '/classes').hasChildren([$class_id])) || auth.uid === 'simplelogin:6'",
+        ".read" : "(auth !== null && root.child('teachers/' + auth.uid + '/classes').hasChildren([$class_id])) || auth.uid === 'simplelogin:6'"
+      }
+    },
+    "timestamp" : {
+      ".write" : "auth !== null",
+      ".read" : "auth !== null",
+      ".validate": "newData.val() === now"
+    },
+    "$other" : {
+      ".validate": false
+    }
+  }
+}

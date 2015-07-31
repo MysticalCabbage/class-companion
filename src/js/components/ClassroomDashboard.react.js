@@ -213,14 +213,9 @@ var ClassroomDashboard = React.createClass({
     _.each(groupList, function(group, studentId){
       var studentNode = list[studentId];
 
-      // handle error during data corruption
-      // ocassionally, data gets out of sync
+      // handle error for any reason student list and groups list is out of sync
       // this is to prevent app from halting
-      // to repair, delete class and recreate class
       if(studentNode === undefined){
-        //for now we'll just attemp to delete the student
-        console.log('Student with id ', studentId, ' does not exist');
-
         return;
       }
 
