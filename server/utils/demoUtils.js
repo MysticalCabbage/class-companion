@@ -1,6 +1,7 @@
 var firebaseRef = require('../config/firebaseRef').firebaseRef;
 var _ = require('underscore');
 var moment = require('moment');
+var starterPokemons = require('./starters').starters;
 
 // @params count generate count many days including today
 // returns array of date strings in format of M-D-YYYY
@@ -70,14 +71,42 @@ var generateAssignments = function(classId, dates){
   return assignments;
 };
 
-// returns an array with predefined student names
+// returns an array with student objects
+// each student object has the studentTitle and a pokemon
 var generateStudents = function(){
-  return [
-    'Jonathan Davis',
-    'Stacy Huang',
-    'Eric Kao',
-    'David Hom'
+  var students = [
+    {studentTitle: 'Jonathan Davis'},
+    {studentTitle: 'Stacy Huang'},
+    {studentTitle: 'Eric Kao'},
+    {studentTitle: 'David Hom'}
   ];
+
+  // shuffle students to get different order each time
+  var idx = 0;
+  var shuffledStudents = [];
+  var shuffledPokemons = [];
+
+  var toShuffle = students.slice();
+
+  while(toShuffle.length){
+    idx = Math.floor(Math.random() * toShuffle.length)
+    shuffledStudents.push(toShuffle.splice(idx,1)[0]);
+  }
+
+  // shuffle pokemons give each student a different pokemon
+  var toShuffle = starterPokemons.slice();
+
+  while(toShuffle.length){
+    idx = Math.floor(Math.random() * toShuffle.length)
+    shuffledPokemons.push(toShuffle.splice(idx,1)[0]);
+  }
+
+  // attach pokemon to each student
+  _.each(shuffledStudents, function(student, index){
+    shuffledStudents[index].pokemon = shuffledPokemons[index];
+  });
+
+  return shuffledStudents;
 };
 
 // @params dates array of date string with format M-D-YYYY
@@ -141,7 +170,6 @@ var generateBehavior = function(dates){
   };
 };
 
-
 var demoUtils = {
   // @params teacherId user Id to generate demoClass for
   generateDemo: function(teacherId){
@@ -177,9 +205,7 @@ var demoUtils = {
     // generate 4 studentTitle
     var students = generateStudents();
 
-    _.each(students, function(student){
-      var studentObj = {};
-
+    _.each(students, function(studentObj){
       // generate student Object Id
       var studentId = firebaseRef.child(
         'classes/'
@@ -190,14 +216,18 @@ var demoUtils = {
       // generate attendance for prevDates
       studentObj.attendance = generateAttendance(prevDates);
 
-      // attach student name as studentTitle
-      studentObj.studentTitle = student;
-
       // generate random behaviors
       var randomBehavior = generateBehavior(prevDates);
       studentObj.behavior = randomBehavior.behavior;
       studentObj.behaviorHistory = randomBehavior.behaviorHistory;
       studentObj.behaviorTotal = randomBehavior.behaviorTotal;
+
+      // set pokemon exp and level
+      var exp = randomBehavior.behavior["Good Job"] + randomBehavior.behavior["Helping"];
+
+      studentObj.pokemon.profile.currentExp = exp % 20;
+      studentObj.pokemon.profile.level = Math.floor(exp/20);
+      studentObj.pokemon.profile.expToNextLevel =  20 - (exp % 20);
 
       // add student obj to firebase class students list
       firebaseRef.child(
