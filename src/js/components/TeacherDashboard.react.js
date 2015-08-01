@@ -13,7 +13,6 @@ Modal.setAppElement(appElement);
 Modal.injectCSS();
 
 var TeacherDashboard = React.createClass({
-  // Invoke TeacherStore.getList() and set the result to the list property on our state
   getInitialState: function(){
     return {
       list: TeacherStore.getList(),
@@ -23,6 +22,7 @@ var TeacherDashboard = React.createClass({
     }
   },
 
+  // Redirect to home page if user is not logged in
   componentWillMount: function(){
     if(!AuthStore.checkAuth()){
       this.render = function () {
@@ -32,9 +32,9 @@ var TeacherDashboard = React.createClass({
     }
   },
 
-  // Call the addChangeListener method on TeacherStore to add an event listener
+  // Call the addChangeListener methods on TeacherStore and AuthStore to add event listeners
   componentDidMount: function(){
-    // query firebase for logged in user information
+    // Query firebase for logged in user information
     var authData = AuthStore.checkAuth();
     if(authData){
       TeacherActions.initQuery(authData.uid);
@@ -44,14 +44,14 @@ var TeacherDashboard = React.createClass({
     
   },
 
-  // Call the removeChangeListener method on TeacherStore to remove an event listener
+  // Call the removeChangeListener methods on TeacherStore and AuthStore to remove event listeners
   componentWillUnmount: function(){
     TeacherActions.endQuery();
     TeacherStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
   },
 
-  // Whenever data in the store changes, fetch data from the store and update the component state
+  // Whenever data in the stores changes, fetch data from the stores and update the component states
   _onChange: function(){
     this.setState({
       list: TeacherStore.getList(),
@@ -60,10 +60,12 @@ var TeacherDashboard = React.createClass({
     })
   },
 
+  // Open the "Add Class" modal
   openModal: function(){
     this.setState({modalIsOpen: true});
   },
   
+  // Close the "Add Class modal"
   closeModal: function() {
     this.setState({modalIsOpen: false});
   },
@@ -77,7 +79,7 @@ var TeacherDashboard = React.createClass({
 
     return (
       <div className="teacherDashboard">
-        <Navbar loggedIn = {this.state.loggedIn}/>
+        <Navbar loggedIn={this.state.loggedIn}/>
         <div className="container">
           <div className="row">
             {classNodes}

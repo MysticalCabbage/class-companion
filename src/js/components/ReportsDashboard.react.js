@@ -1,7 +1,6 @@
 var React = require('react');
 var Navbar = require('./Navbar.react');
 var AuthStore = require('../stores/AuthStore');
-var ReportsStudent = require('./ReportsStudent.react');
 var ClassroomStore = require('../stores/ClassroomStore');
 var BehaviorDashboard = require('./BehaviorReport.react');
 var ClassroomActions = require('../actions/ClassroomActions');
@@ -10,18 +9,18 @@ var _ = require('underscore');
 
 var ReportsDashboard = React.createClass({
 	getInitialState: function(){
-	  //set list upon initialstate w/ ClassroomStore.getList
+	  // Set list upon initialstate w/ ClassroomStore.getList
 	  return {
 	  	list: ClassroomStore.getList(),
 	  	info: ClassroomStore.getInfo(),
 	    loggedIn: AuthStore.checkAuth(),
-	    reportType: 'Attendance',
       classInfo: ClassroomStore.getList(),
       showAttendanceCalendar: true,
       showBehaviorDashboard: false
 	  }
 	},
 
+  // Redirect to home page if user is not logged in
 	componentWillMount: function(){
 	  if(!AuthStore.checkAuth()){
 	    this.render = function () {
@@ -70,7 +69,7 @@ var ReportsDashboard = React.createClass({
     var url = '#/classroomDashboard/' + this.props.params.id;
     return (
       <div className="reportsDashboard">
-        <Navbar loggedIn = {this.state.loggedIn}/>
+        <Navbar loggedIn={this.state.loggedIn}/>
         <div className="container">
           <nav className="classroomNavbar container navbar navbar-default">
             <div className="container-fluid">
