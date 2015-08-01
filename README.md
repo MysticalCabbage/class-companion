@@ -1,23 +1,32 @@
 # Class-Companion
 
-- Class Companion is a classroom management tool that helps teachers keep track of attendance and behaviors, perform random student selection, and assign student groups. Class Companion positively reinforces good behavior from students and tracks data over time so teachers can identify issues that students are facing.
-
-## Team
-
-  - __Product Owner__: JD Davis
-  - __Scrum Master__: Eric Kao
-  - __Full Stack Engineer__: Stacy Huang
-  - __Full Stack Engineer__: David Hom
+Class Companion is a classroom management optimization tool for a teacher to use in and out of the classroom.
 
 ## Table of Contents
 
+1. [Features](#features)
+1. [Team](#team)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Server Environment Setup](#server-environment-setup)
-    1. [Client Environment Setup](#client-environment-setup)
-    1. [Tasks](#tasks)
-1. [Team](#team)
+1. [Tech Stack](#tech-stack)
 
+
+## Features
+ - Record and track daily attendance
+ - Arrange students into groups
+ - Randomly select students
+ - Show a timer to the classroom
+ - Record and track student behavior over time
+ - Schedule coursework and email the assignments to parents and students
+ 
+
+## Team
+
+  - __Jonathan "JD" Davis__: Full Stack Engineer / Product Owner 
+  - __Eric Kao__: Full Stack Engineer / Scrum Master
+  - __Stacy Huang__: Full Stack Engineer / Lead Front End Engineer
+  - __David Hom__: Full Stack Engineer / Lead Back End Engineer
 
 
 ## Development
@@ -28,35 +37,22 @@
 npm install
 ```
 
-NPM should install bower dependencies automatically.
-
-
 ### Server Environment Setup
 
-#### Description
-Follow these instructions to get server up and running for the development and testing environments.
+```
+gulp
+```
+
+## Tech Stack
+ - React
+ - Flux
+ - Node.js / Express
+ - Firebase
+ - Swift
+ - Xcode
+ - D3.js
+ - PokéAPI
+ - Browserify
+ - Gulp
 
 
-## Initial Setup
-
-- Clone the repo
-- cd MysticalCabbage
-- npm install
-- gulp
-
- 
-### Client Environment Setup
-
-
-### Run Tests
-
-To run the tests after installing, simply type ```npm test``` into the command line from the root directly.
-
-
-### Deploying to Heroku
-
-- git push heroku master
-
-## Code Documentation
-
-- Coming Soon 
