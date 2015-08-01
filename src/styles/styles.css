@@ -346,6 +346,11 @@ ul.social-buttons li a:active {
 margin: 15px 0;
 }
 
+/*Home - Mobile*/
+section #mobile {
+  padding-bottom: 40px;
+}
+
 /*Homework Form*/
 #wellhomework{
   background-color: white;
