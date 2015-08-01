@@ -26,39 +26,51 @@ var generateDates = function(count){
   return dates;
 };
 
+// generate random int between min and max
 var getRandomInt = function(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
 // @params teacherId firebase userid of teacher
 // returns class info
-var generateClassInfo = function(teacherId){
-  return {
-    "behavior" : {
-      "Bad Job" : -1,
-      "Bullying" : -1,
-      "Good Job" : 1,
-      "Helping" : 1
-    },
-    "classTitle": 'Demo Class',
-    "teacherId": teacherId
-  }
+var ClassInfo = function(teacherId){
+  this.behavior = {
+    "Bad Job" : -1,
+    "Bullying" : -1,
+    "Good Job" : 1,
+    "Helping" : 1
+  };
+  this.classTitle = 'Demo Class';
+  this.teacherId = teacherId;
 };
 
-var generateAssignment = function(classId, hwTitle, date, due){
-  var monthYear = date.split('-');
-  /* returns
-  {
-    "assignedOn" : date,
-    "assignment" : hwTitle,
-    "classId" : classId,
-    "dueDate" : dueDate,
-    "monthYear" : [ date year, date month ]
-  }
-  */
+// Assignment constructor
+var Assignment = function(classId, assignDate, dueDate, assignment){
+  this.assignedOn = assignDate;
+  this.assignment =  assignment;
+  this.classId = classId;
+  this.dueDate = dueDate;
+  var date = assignDate.split('-');
+  this.monthYear = [date[0], date[2]];
 };
 
+// @param classId firebase object id of current class
+// @param dates array of dates in format M-D-YYYY
+// return array of assignment objects
+var generateAssignments = function(classId, dates){
+  var assignments = [];
 
+  for(var i = 0; i < dates.length - 1; i++){
+    var assignDate = moment(dates[i], 'M-D-YYYY').format('MM-DD-YYYY');
+    var dueDate = moment(dates[i+1], 'M-D-YYYY').format('MM-DD-YYYY');
+
+    assignments.push(new Assignment(classId, assignDate, dueDate, 'HW'+i));
+  }
+
+  return assignments;
+};
+
+// returns an array with predefined student names
 var generateStudents = function(){
   return [
     'Jonathan Davis',
@@ -68,11 +80,10 @@ var generateStudents = function(){
   ];
 };
 
-
-// @params dates array of date string in M-D-YYYY format
+// @params dates array of date string with format M-D-YYYY
 var generateAttendance = function(dates){
   var choices = ['Present', 'Late', 'Absent'];
-  var attendance = {};
+  var attendance = [];
 
   _.each(dates, function(date){
     attendance[date] = choices[Math.floor(Math.random()*3)];
@@ -81,6 +92,7 @@ var generateAttendance = function(dates){
   return attendance;
 };
 
+// returns an object with default behavior points
 var defaultBehavior = function(){
   return {
     "Bad Job": 0,
@@ -90,6 +102,11 @@ var defaultBehavior = function(){
   };
 };
 
+// @params dates array of dates with format M-D-YYYY
+// returns an object with:
+// behaviorHistory - object of dates and behaviors of that day
+// behavior - total count of each behavior
+// behaviorTotal - total behavior points
 var generateBehavior = function(dates){
   var behaviorDailyTotal = 0;
 
@@ -124,10 +141,12 @@ var generateBehavior = function(dates){
   };
 };
 
+
 var demoUtils = {
+  // @params teacherId user Id to generate demoClass for
   generateDemo: function(teacherId){
     // create a set of Demo class object
-    var demoClassObj = generateClassInfo(teacherId);
+    var demoClassObj = new ClassInfo(teacherId);
 
     // add demo class to teacher
     var demoClassId = firebaseRef.child(
@@ -195,6 +214,25 @@ var demoUtils = {
         + '/groups/'
         + studentId
       ).set(1);
+
+      // generates an array of assignment objects
+      var assignments = generateAssignments(demoClassId, prevDates.slice(25).concat(nextDates));
+
+      // sort assignment by assigned date
+      assignments.sort(function(a,b){
+          return moment(a.assignedOn, 'MM-DD-YYYY') > moment(b.assignedOn, 'MM-DD-YYYY');
+        });
+
+      // add each assignment to firebase
+      _.each(assignments, function(assignment){
+        firebaseRef.child(
+          'classes/'
+          + demoClassId
+          + '/assignments/'
+          + assignment.assignment
+        ).set(assignment);
+      });
+
     });
   }
 };
