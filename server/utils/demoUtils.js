@@ -228,7 +228,6 @@ var demoUtils = {
 
       studentObj.pokemon.profile.currentExp = exp % 20;
       studentObj.pokemon.profile.level = Math.floor(exp/20);
-      studentObj.pokemon.profile.expToNextLevel =  20 - (exp % 20);
 
       // add student obj to firebase class students list
       firebaseRef.child(
