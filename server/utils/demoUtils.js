@@ -110,12 +110,13 @@ var generateStudents = function(){
 };
 
 // @params dates array of date string with format M-D-YYYY
+// biased to choose Present
 var generateAttendance = function(dates){
-  var choices = ['Present', 'Late', 'Absent'];
-  var attendance = [];
+  var choices = ['Present', 'Late', 'Present', 'Absent', 'Present'];
+  var attendance = {};
 
   _.each(dates, function(date){
-    attendance[date] = choices[Math.floor(Math.random()*3)];
+    attendance[date] = choices[Math.floor(Math.random()*choices.length)];
   });
 
   return attendance;
@@ -227,7 +228,6 @@ var demoUtils = {
 
       studentObj.pokemon.profile.currentExp = exp % 20;
       studentObj.pokemon.profile.level = Math.floor(exp/20);
-      studentObj.pokemon.profile.expToNextLevel =  20 - (exp % 20);
 
       // add student obj to firebase class students list
       firebaseRef.child(
