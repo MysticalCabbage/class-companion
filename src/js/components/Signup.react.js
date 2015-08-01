@@ -42,9 +42,9 @@ var Signup = React.createClass({
     Auth.signup({
       email: emailNode.value, 
       password: passwordNode.value,
-      prefix: prefixNode.value,
-      firstName: firstNameNode.value,
-      lastName: lastNameNode.value
+      prefix: prefixNode.value || '',
+      firstName: firstNameNode.value || '',
+      lastName: lastNameNode.value || ''
     }, authCb);
 
     emailNode.value = '';
@@ -61,34 +61,34 @@ var Signup = React.createClass({
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeSignupModal}><span aria-hidden="true">&times;</span></button>
           <h2>Signup</h2>
           <div id="spinner"/>
-          {this.state.authError ? <div className="authErrMsg">Email already taken.</div> : null}
+          {this.state.authError ? <div className="authErrMsg">Email already taken.</div> : <div className="authErrMsg">* required</div> }
           <form className="form-horizontal" id="frmSignup" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="txtPrefix" className="col-sm-3 control-label">Prefix</label>
               <div className="col-sm-9">
-                <input type="text" className="form-control" id="txtPrefix" placeholder="Mr/Ms/Mrs" ref="prefix" required/>
+                <input type="text" className="form-control" id="txtPrefix" placeholder="Mr/Ms/Mrs" ref="prefix"/>
               </div>
             </div>
             <div className="form-group">
               <label htmlFor="txtFirstName" className="col-sm-3 control-label">First Name</label>
               <div className="col-sm-9">
-                <input type="text" className="form-control" placeholder="First Name" ref="firstName" required/>
+                <input type="text" className="form-control" placeholder="First Name" ref="firstName"/>
               </div>
             </div>
             <div className="form-group">
               <label htmlFor="txtLastName" className="col-sm-3 control-label">Last Name</label>
               <div className="col-sm-9">
-                <input type="text" className="form-control" placeholder="Last Name" ref="lastName" required/>
+                <input type="text" className="form-control" placeholder="Last Name" ref="lastName"/>
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="txtRegEmail" className="col-sm-3 control-label">Email</label>
+              <label htmlFor="txtRegEmail" className="col-sm-3 control-label">*Email</label>
               <div className="col-sm-9">
                 <input type="email" className="form-control" id="txtEmail" placeholder="Enter email" ref="email" required/>
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="txtRegPass" className="col-sm-3 control-label">Password</label>
+              <label htmlFor="txtRegPass" className="col-sm-3 control-label">*Password</label>
               <div className="col-sm-9">
                 <input type="password" className="form-control" id="txtPass" placeholder="Password" ref="password" required/>
               </div>

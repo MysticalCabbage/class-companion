@@ -74,12 +74,24 @@ var ClassroomStudent = React.createClass({
       minWidth: '0',
       width: currentExpPercentage + '%'
     }
+
+    // format the student name
+    // split first name and remaining name
+    // display up to 6 characters
     var studentTitle = this.props.studentTitle;
     var idxSpace = studentTitle.indexOf(' ');
     var studentFirstName = studentTitle.substr(0, idxSpace);
     var studentLastName = studentTitle.substr(idxSpace + 1);
     studentFirstName = (studentFirstName.length > 6) ? studentFirstName.slice(0,6) + '...' : studentFirstName;
     studentLastName = (studentLastName.length > 6) ? studentLastName.slice(0,6) + '...' : studentLastName;
+
+    // if studentTitle only contains first name
+    // idxSpace is equal to -1, causing firstname to be empty string
+    if(studentFirstName === ''){
+      studentFirstName = studentLastName;
+      studentLastName = ''
+    }
+
     return (
       <div className="col-md-3" >
         { this.props.attendance ? 
