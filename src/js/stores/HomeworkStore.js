@@ -32,6 +32,7 @@ var initQuery = function(classId){
     var classData = snapshot.val();
     _store.info = classData.info;
     _store.assignments = classData.assignments;
+    _store.list = classData.students;
     });
   HomeworkStore.emit(CHANGE_EVENT);
 };
@@ -117,13 +118,25 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   getMonthAssignments: function(){
     return _store.monthAssignments;
   },
-  getEmails: function(){
-    console.log(this.state.info);
-  },
-  getParentEmails: function(){
-    return _store.parentEmails;
-  }
-});
+  getEmails: function () {
+      var studentEmails = {};
+      for (var key in _store.list) {
+        studentEmails[key] = _store.list[key]["email"];
+      }
+      _store.emails = studentEmails;
+      return _store.emails;
+    },
+
+    getParentEmails: function () {
+      var parentEmails = {};
+      for (var key in _store.list) {
+        parentEmails[key] = _store.list[key]["parentEmail"];
+      }
+      _store.parentEmails = parentEmails;
+      return _store.parentEmails;
+    }
+  });
+
 
 AppDispatcher.register(function(payload){
   var action = payload.action;
