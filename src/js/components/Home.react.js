@@ -83,27 +83,27 @@ var Home = React.createClass({
                   <a href="#page-top"></a>
                 </li>
                 <li className="page-scroll">
-                  <a href="#about">LEARN MORE</a>
+                  <a href="#about">Learn More</a>
                 </li>
                 <li className="page-scroll">
-                  <a href="#mobile">MOBILE APP</a>
+                  <a href="#mobile">Mobile App</a>
                 </li>
                 <li className="page-scroll">
-                  <a href="#team">TEAM</a>
+                  <a href="#team">Team</a>
                 </li>
                 { this.state.loggedIn ? 
                 <li>
-                  <a href={'#/teacherDashboard/'}>ENTER CLASSROOM</a>
+                  <a href={'#/teacherDashboard/'}>Enter Classroom</a>
                 </li>
                 : null }
                 { this.state.loggedIn ? 
                 <li className="page-scroll">
-                  <a onClick={this.handleLogout}>LOGOUT</a>
+                  <a onClick={this.handleLogout}>Logout</a>
                 </li>
                 : null }
                 { this.state.loggedIn ? null :
                 <li className="page-scroll">
-                  <a onClick={this.openLoginModal}>LOGIN</a>
+                  <a onClick={this.openLoginModal}>Login</a>
                 </li>
                 }
               </ul>
