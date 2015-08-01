@@ -518,9 +518,16 @@ select {
 }
 
 .emailParentModal {
-  bottom: 170px;
+  height: 163px;
+  width: 500px;
 }
 
 .emailModal{
-  bottom:170px;
+  height:163px;
+  width: 500px;
+}
+
+.emailForm{
+  height:163px;
+  width: 500px;
 }

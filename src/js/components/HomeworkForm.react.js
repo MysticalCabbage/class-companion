@@ -23,7 +23,6 @@ var HomeworkForm = React.createClass({
     e.preventDefault();
     var homeworkAssignment = React.findDOMNode(this.refs.homeworktitle).value;
     var dueDate = React.findDOMNode(this.refs.duedate).value.split("-");
-    console.log("sdf", dueDate);
     var today = moment().format('MM-DD-YYYY');
     var formattedDate = dueDate[1] + "-" + dueDate[2] + "-" + dueDate[0];
     HomeworkActions.addAssignment({ assignment: homeworkAssignment, dueDate: formattedDate, classId: this.props.classId, assignedOn: today, monthYear: [dueDate[1], dueDate[0]] });

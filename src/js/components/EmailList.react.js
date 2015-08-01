@@ -35,18 +35,20 @@ var EmailForm = React.createClass({
   },
   render: function() {
     return (
-      <div className="emailForm">
-        <div className="well text-center">
-          <button type="button" className="close" aria-label="Close" onClick={this.props.closeEmailModal}><span aria-hidden="true">&times;</span></button>
-          <form onSubmit={this.handleAddEmail}> 
-            <label>Add E-Mail</label>
-            <div className="form-group">
+      <div className="panel panel-info emailForm">
+        <div className="panel-heading">
+         <button type="button" className="close" aria-label="Close" onClick={this.props.closeEmailModal}><span aria-hidden="true">&times;</span></button>
+          <h3 className="panel-title text-center">Add E-Mail</h3>
+        </div>
+          <form onSubmit={this.handleAddEmail} className="form-horizontal" role="form"> 
+          <div className="well text-center">
+          <div className="panel-body">
               <input type="email" ref="newEmail" id="newEmail" className="form-control" placeholder="Example: johndoe@example.com" required />
             </div>
             <button type="submit" id="addNewEmail" className="btn btn-primary btn-block submit-button">Add email!</button>
+            </div>
           </form>
         </div> 
-      </div>
     );
   }
 });
