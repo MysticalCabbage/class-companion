@@ -34,51 +34,32 @@ NPM should install bower dependencies automatically.
 ### Server Environment Setup
 
 #### Description
-Follow these instructions to get Postgres up and running for the development and testing environments.
-
-EDIT FROM HERE
+Follow these instructions to get server up and running for the development and testing environments.
 
 
 ## Initial Setup
 
 - Clone the repo
-- cd impromptu-sunset
+- cd MysticalCabbage
 - npm install
-- grunt setup —user ```YOUR_MAC_USERNAME```
-- grunt nodemon
+- gulp
 
-
-- be sure to change ```YOUR_MAC_USERNAME``` to your actual Mac username
  
 ### Client Environment Setup
 
 #### Description
 Follow these instructions if you want Karma to re-run the tests automatically on a file change.
 
-#### Install the Karma Command Line Tool
-
-```npm install -g karma-cli```
-
-#### Start Karma
-
-```karma start```
 
 ### Run Tests
 
-To run the tests after installing, simply type ```grunt test``` into the command line from the root directly.
+To run the tests after installing, simply type ```npm test``` into the command line from the root directly.
 
-### Updating Database migrations
-
-Check sequelize-cli for information on how to create migrations. 
 
 ### Deploying to Heroku
 
-- grunt deploy --prod  (push to heroku)
-
-- grunt heroku-setup  (runs migrations on heroku)
+- git push heroku master
 
 ## Code Documentation
 
-[Documented Client Code here](docs/client/index.html)
-[Documented Server Code here](docs/server/index.html)
-
+- Coming Soon 
