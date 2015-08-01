@@ -4,12 +4,8 @@ var ClassroomActions = require('../actions/ClassroomActions');
 var ClassroomStore = require('../stores/ClassroomStore');
 var PieChart = require('react-d3/piechart').PieChart;
 var BarChart = require('react-d3/barchart').BarChart;
-
-// var LineChart = require('react-d3/linechart').LineChart;
 var ReactD3Components = require('react-d3-components');
 var LineChart = ReactD3Components.LineChart;
-// var BarChart = ReactD3Components.BarChart;
-// var PieChartComp = ReactD3Components.PieChart;
 
 var ReportsStudent = require('./ReportsStudent.react');
 
@@ -62,23 +58,33 @@ var BehaviorDashboard = React.createClass({
     } else{
       var studentState = "Student Behavior";
     }
-    if(this.state.graph.length === 0){
+    if(!this.state.graph.pieChart || this.state.graph.pieChart.length === 0){
       var noBehavior = "This student has no behavior points!";
-        // var noBehavior = "This student has no behavior points!";
-        // return (<div/>)
     } else {
       var noBehavior = "";
     }
     // if there is no behavior history
-    if (this.state.behaviorHistory.length === 0) {
+    if (!this.state.behaviorHistory.behaviorData || this.state.behaviorHistory.behaviorData.values.length < 2) {
       // do not show the behavior history bar graph
       behaviorHistoryExists = false;
     } // else the behavior history exists
     else {
       // store the behavior line chart D3 options
+      var ticksInterval;
+      var numDates = this.state.behaviorHistory.behaviorData.values.length;
+      // if there are less than 5 dates
+      if (numDates < 5) {
+        // assign a tick for every date
+        ticksInterval = 1
+      } // else if there are more than 5 dates
+      else {
+        // set the tick intervals to be 5 ticks long
+        ticksInterval = Math.ceil(numDates / 4);
+      }
       var chartVars = this.state.behaviorHistory.d3ChartVars;
-      var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 300]);
-      var xAxis = {tickValues: xScale.ticks(d3.time.day), tickFormat: d3.time.format("%m/%d"), label: "date"};
+      var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 420]);
+      var xAxis = {tickValues: xScale.ticks(d3.time.day, ticksInterval), tickFormat: d3.time.format("%m/%d"), label: "date"};
+      // var xAxis = {ticks: 10}
       var yScale = d3.scale.linear().domain([chartVars.minSum - 5, chartVars.maxSum + 5]).range([340, 0]);
       var yAxis = {label: "behavior points"};
     }
@@ -116,19 +122,19 @@ var BehaviorDashboard = React.createClass({
               <div className="panel-body">
                 <div>{noBehavior}</div>
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-12">
                     <PieChart
-                      data={this.state.graph}
+                      data={this.state.graph.pieChart}
                       width={400}
                       height={400}
                       radius={100}
                       innerRadius={20}/>
                   </div>
                 {behaviorHistoryExists ? 
-                    <div className="col-md-6">
+                    <div className="col-md-12">
                       <LineChart
                        data={this.state.behaviorHistory.behaviorData}
-                       width={400}
+                       width={500}
                        height={400}
                        margin={{top: 10, bottom: 50, left: 50, right: 20}}
                        xScale={xScale}
@@ -139,9 +145,9 @@ var BehaviorDashboard = React.createClass({
                   : <div />}
                 </div>
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-12">
                     <BarChart
-                      data={this.state.graph}
+                      data={this.state.graph.barGraph}
                       width={400}
                       height={400}
                       fill={'#3182bd'}/>

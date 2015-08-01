@@ -150,7 +150,7 @@ var behaviorChart = function(data){
   var behaviors = data.chartData;
   var student = data.student;
   var studentId = data.studentId;
-  var chartData = [];
+  var chartData = {pieChart: [], barGraph: []};
   var studentBehaviorHistory = _store.list[studentId].behaviorHistory;
 
   for(var key in behaviors){
@@ -163,9 +163,24 @@ var behaviorChart = function(data){
       continue;
     } 
     newObj["label"] = key;
-    newObj["value"] = behaviors[key]
-    chartData.push(newObj);
+    newObj["value"] = Math.ceil(((behaviors[key]/total)*100) * 100)/100;
+    chartData.pieChart.push(newObj);
   }
+
+   for(var key in behaviors){
+    newObj = {};
+    if (key === "0") {
+      continue;
+    }
+
+    if(behaviors[key] === 0){
+      continue;
+    } 
+    newObj["label"] = key;
+    newObj["value"] = behaviors[key]
+    chartData.barGraph.push(newObj);
+  }
+
   _store.graph = chartData;
   _store.student = student;
   _store.studentId = studentId;
@@ -173,10 +188,6 @@ var behaviorChart = function(data){
   _store.behaviorHistory = prepareBehaviorHistory(studentBehaviorHistory);
 
   ClassroomStore.emit(CHANGE_EVENT);
-};
-
-var getBehaviorHistoryByStudentId = function(studentId) {
-
 };
 
 
@@ -229,6 +240,10 @@ var prepareBehaviorHistory = function(behaviorHistory) {
       behaviorData: behaviorData
     });
   });
+  // sorts the values by date in ascending order
+  studentDataForD3.behaviorData.values = studentDataForD3.behaviorData.values.sort(function(a, b) {
+    return a.x - b.x;
+  });
 
   var minDate = _.min(studentDataForD3.behaviorData.values, function(datum) {
     return datum.x;
@@ -268,11 +283,12 @@ var initQuery = function(classId){
     _store.info = classData.info;
     _store.list = classData.students || {};
     _store.assignments = classData.assignments || {};
+    var graphData = {pieChart: [], barGraph: []}
 
     //this is for grabbing behaviorTotal of all students for graphs
     var students = classData.students;
     var totalCount = 0;
-    var studentsArray = [];
+    var pieChartData = [];
     var totalOfStudents = {}
     for(var student in students){
       for(var behavior in students[student]["behavior"]){
@@ -287,9 +303,16 @@ var initQuery = function(classId){
       var newObj = {};
       newObj["label"] = value;
       newObj["value"] = Math.ceil((totalOfStudents[value]/totalCount * 100)*100)/100;
-      studentsArray.push(newObj);
+      graphData.pieChart.push(newObj);
     }
-    _store.graph = studentsArray || [];
+    for(var value in totalOfStudents){
+      if(totalOfStudents[value] === 0) continue;
+      var newObj = {};
+      newObj["label"] = value;
+      newObj["value"] = totalOfStudents[value];
+      graphData.barGraph.push(newObj);
+    }
+    _store.graph = graphData || [];
 
     ClassroomStore.emit(CHANGE_EVENT);
 
