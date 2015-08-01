@@ -118,6 +118,7 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
     return _store.monthAssignments;
   },
   getEmails: function(){
+    console.log(this.state.info);
   },
   getParentEmails: function(){
     return _store.parentEmails;
