@@ -7,6 +7,7 @@ var TeacherForm = React.createClass({
     return null;
   },
 
+  // Redirect to home page if user is not logged in
   componentWillMount: function(){
     if(!AuthStore.checkAuth()){
       this.render = function () {
