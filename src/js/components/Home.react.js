@@ -190,7 +190,7 @@ var Home = React.createClass({
           <div className="container">
             <div className="row">
               <div className="col-md-8">
-                <h2 className="section-heading">Mobile</h2>
+                <h2 className="section-heading">Mobile iOS App</h2>
                 <h3 className="section-subheading text-muted">Manage your class from your phone while teaching</h3>
                 <div className="row">
                   <div className="col-md-6">
@@ -236,7 +236,7 @@ var Home = React.createClass({
                 </div>
               </div>
               <div className="col-md-4">
-              <img src="/assets/iphone-white-mockup-md.png" className="img-responsive" alt="" />
+              <img src="/assets/iphone-points.png" className="img-responsive" alt="" />
               </div>
             </div>
           </div>
