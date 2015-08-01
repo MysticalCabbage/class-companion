@@ -1,6 +1,6 @@
 # Class-Companion
 
--add description here
+- Class Companion is a classroom management tool that helps teachers keep track of attendance and behaviors, perform random student selection, and assign student groups. Class Companion positively reinforces good behavior from students and tracks data over time so teachers can identify issues that students are facing.
 
 ## Team
 
