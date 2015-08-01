@@ -82,7 +82,7 @@ var BehaviorDashboard = React.createClass({
         ticksInterval = Math.ceil(numDates / 4);
       }
       var chartVars = this.state.behaviorHistory.d3ChartVars;
-      var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 520]);
+      var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 420]);
       var xAxis = {tickValues: xScale.ticks(d3.time.day, ticksInterval), tickFormat: d3.time.format("%m/%d"), label: "date"};
       // var xAxis = {ticks: 10}
       var yScale = d3.scale.linear().domain([chartVars.minSum - 5, chartVars.maxSum + 5]).range([340, 0]);
@@ -122,7 +122,7 @@ var BehaviorDashboard = React.createClass({
               <div className="panel-body">
                 <div>{noBehavior}</div>
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-12">
                     <PieChart
                       data={this.state.graph.pieChart}
                       width={400}
@@ -131,10 +131,10 @@ var BehaviorDashboard = React.createClass({
                       innerRadius={20}/>
                   </div>
                 {behaviorHistoryExists ? 
-                    <div className="col-md-6">
+                    <div className="col-md-12">
                       <LineChart
                        data={this.state.behaviorHistory.behaviorData}
-                       width={600}
+                       width={500}
                        height={400}
                        margin={{top: 10, bottom: 50, left: 50, right: 20}}
                        xScale={xScale}
@@ -145,7 +145,7 @@ var BehaviorDashboard = React.createClass({
                   : <div />}
                 </div>
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-12">
                     <BarChart
                       data={this.state.graph.barGraph}
                       width={400}
