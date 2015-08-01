@@ -36,6 +36,7 @@ var HomeworkDashboard = React.createClass({
       pastAssignments: HomeworkStore.getPastAssignments(),
       monthAssignments: HomeworkStore.getMonthAssignments,
       emails: HomeworkStore.getEmails(),
+      parentEmails: HomeworkStore.getParentEmails(),
       showPastAssignments: false,
       showCurrentAssignments: true,
       showMonthAssignments: false
@@ -72,6 +73,7 @@ var HomeworkDashboard = React.createClass({
       loggedIn: AuthStore.checkAuth(),
       pastAssignments: HomeworkStore.getPastAssignments(),
       monthAssignments: HomeworkStore.getMonthAssignments(),
+      parentEmails: HomeworkStore.getParentEmails(),
       emails: HomeworkStore.getEmails()
     });
   },
@@ -118,13 +120,17 @@ var HomeworkDashboard = React.createClass({
     var bodyText = _.map(assignments, function(assignment){
       return assignment.assignment + ": due " + assignment.dueDate;
     });
+    var parentEmails = [];
+    for(var key in this.state.parentEmails){
+      parentEmails.push(this.state.parentEmails[key]);
+    }
+    parentEmails = parentEmails.join(",");
 
-    var parentEmails = _.map(this.state.emails.student, function(parentEmail){
-      return parentEmail.email;
-    }).join(",");
-    var studentEmails = _.map(this.state.emails.parent, function(studentEmail){
-      return studentEmail.email;
-    }).join(",");
+    var studentEmails = [];
+    for(var key in this.state.emails){
+      studentEmails.push(this.state.emails[key]);
+    }
+    studentEmails = studentEmails.join(",");
 
     var studentLink = "mailto:" + studentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join("\n"));
 
