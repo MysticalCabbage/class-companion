@@ -129,7 +129,7 @@ var Home = React.createClass({
             <div className="row">
               <div className="col-lg-12 text-center">
                 <h2 className="section-heading">FEATURES</h2>
-                <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 className="section-subheading text-muted">Works on iOS and on any computer</h3>
               </div>
             </div>
             <div className="row text-center">
@@ -139,7 +139,7 @@ var Home = React.createClass({
                   <i className="fa fa-check-square-o fa-stack-1x fa-inverse"></i>
                 </span>
                 <h4 className="about-heading">Attendance</h4>
-                <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <p className="text-muted">Take attendance of your class in the mornings. The attendance reports show which students are constantly tardy or absent.</p>
               </div>
               <div className="col-md-4">
                 <span className="fa-stack fa-4x">
@@ -147,7 +147,7 @@ var Home = React.createClass({
                     <i className="fa fa-users fa-stack-1x fa-inverse"></i>
                 </span>
                 <h4 className="about-heading">Group</h4>
-                <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <p className="text-muted">Set up groups for your classroom. Pair students up or select different group sizes.</p>
               </div>
               <div className="col-md-4">
                 <span className="fa-stack fa-4x">
@@ -155,7 +155,7 @@ var Home = React.createClass({
                     <i className="fa fa-random fa-stack-1x fa-inverse"></i>
                 </span>
                 <h4 className="about-heading">Random</h4>
-                <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <p className="text-muted">Pick a random student for questions and participation. Liven things up or keep students on their toes. </p>
               </div>
             </div>
             <div className="row text-center">
@@ -165,7 +165,7 @@ var Home = React.createClass({
                     <i className="fa fa-clock-o fa-stack-1x fa-inverse"></i>
                 </span>
                 <h4 className="about-heading">Timer</h4>
-                <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <p className="text-muted">The timer is perfect for quizes, tests, and presentations. Use the timer to encourage time management and keeping students focused.</p>
               </div>
               <div className="col-md-4">
                 <span className="fa-stack fa-4x">
@@ -173,7 +173,7 @@ var Home = React.createClass({
                     <i className="fa fa-book fa-stack-1x fa-inverse"></i>
                 </span>
                 <h4 className="about-heading">Homework</h4>
-                <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <p className="text-muted">Assign homework assignments or send homework reminders. Need to make an announcement? Message students or parents.</p>
               </div>
               <div className="col-md-4">
                 <span className="fa-stack fa-4x">
@@ -181,7 +181,7 @@ var Home = React.createClass({
                     <i className="fa fa-pie-chart fa-stack-1x fa-inverse"></i>
                 </span>
                 <h4 className="about-heading">Reports</h4>
-                <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                <p className="text-muted">See a timeline of students’ progress - keep track of student behaviors over time.</p>
               </div>
             </div>
           </div>
@@ -246,7 +246,7 @@ var Home = React.createClass({
             <div className="row">
               <div className="col-lg-12 text-center">
                 <h2 className="section-heading">Our Amazing Team</h2>
-                <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 className="section-subheading text-muted"></h3>
               </div>
             </div>
             <div className="row">
@@ -305,7 +305,7 @@ var Home = React.createClass({
             </div>
             <div className="row">
                 <div className="col-lg-8 col-lg-offset-2 text-center">
-                    <p className="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                    <p className="large text-muted"></p>
                 </div>
             </div>
           </div>
