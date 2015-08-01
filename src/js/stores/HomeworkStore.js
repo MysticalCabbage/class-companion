@@ -33,16 +33,7 @@ var initQuery = function(classId){
     _store.info = classData.info;
     console.log("CD", classData.students);
     _store.assignments = classData.assignments;
-    // console.log("cd",classData);
-    var emails = {};
-    _.each(classData.students, function(student){
-      console.log("boo",student);
     });
-    
-    _store.parentEmails = _.map(classData.students, function(student){
-      return student.parentEmail;
-    });
-  });
   HomeworkStore.emit(CHANGE_EVENT);
 };
 
@@ -128,7 +119,7 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
     return _store.monthAssignments;
   },
   getEmails: function(){
-    return _store.emails;
+    console.log("here",_store.info);
   },
   getParentEmails: function(){
     return _store.parentEmails;
