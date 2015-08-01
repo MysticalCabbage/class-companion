@@ -531,11 +531,16 @@ select {
 }
 
 .emailModal{
-  height:163px;
-  width: 500px;
+  height: 164px;
+  width: 501px;
 }
 
 .emailForm{
   height:163px;
   width: 500px;
+}
+
+.emailForm .well{
+  padding: 2px 19px 19px 19px;
+  border: none;
 }
