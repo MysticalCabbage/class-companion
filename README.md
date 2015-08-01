@@ -47,9 +47,6 @@ Follow these instructions to get server up and running for the development and t
  
 ### Client Environment Setup
 
-#### Description
-Follow these instructions if you want Karma to re-run the tests automatically on a file change.
-
 
 ### Run Tests
 
