@@ -189,11 +189,53 @@ var Home = React.createClass({
         <section id="mobile">
           <div className="container">
             <div className="row">
-              <div className="col-lg-6">
+              <div className="col-md-6">
                 <h2 className="section-heading">Mobile</h2>
                 <h3 className="section-subheading text-muted">Manage your class from your phone</h3>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="mobile-description-box">
+                      <h2>Students</h2>
+                      <p>Seamlessly add and remove students with live updates</p>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="mobile-description-box">
+                      <h2>Behavior Points</h2>
+                      <p>Assign points to students based on their in-class behavior</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="mobile-description-box">
+                      <h2>Take attendance</h2>
+                      <p>Take daily attendance from the phone while teaching</p>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="mobile-description-box">
+                      <h2>Select Students</h2>
+                      <p>Randomly or Manually select a student from the phone and have their name appear on the projector</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="mobile-description-box">
+                      <h2>Add and Remove Students</h2>
+                      <p>Seamlessly add and remove students with live updates</p>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="mobile-description-box">
+                      <h2>Assign behavior</h2>
+                      <p>Seamlessly add and remove students with live updates</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="col-lg-6">
+              <div className="col-md-6">
               <img src="/assets/iphone-white-mockup-md.png" className="img-responsive" alt="" />
               </div>
             </div>
