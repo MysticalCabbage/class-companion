@@ -31,9 +31,17 @@ var initQuery = function(classId){
   firebaseRef.child('classes/' + classId).on('value', function(snapshot){
     var classData = snapshot.val();
     _store.info = classData.info;
+    console.log("CD", classData.students);
     _store.assignments = classData.assignments;
-    _store.emails = classData.emails;
-    _store.parentEmails = classData.parentEmails;
+    // console.log("cd",classData);
+    var emails = {};
+    _.each(classData.students, function(student){
+      console.log("boo",student);
+    });
+    
+    _store.parentEmails = _.map(classData.students, function(student){
+      return student.parentEmail;
+    });
   });
   HomeworkStore.emit(CHANGE_EVENT);
 };
@@ -71,14 +79,14 @@ var selectMonth = function(month){
 };
 
 var addStudentEmail = function(email){
-  firebaseRef.child('classes/' + email.classId + '/emails/student').push(email);
+  // firebaseRef.child('classes/' + email.classId + '/emails/student').push(email);
 
   firebaseRef.child('classes/' + email.classId + '/students/' + email.studentId + '/email').set(email.email);
   HomeworkStore.emit(CHANGE_EVENT);
 };
 
 var addParentEmail = function(email){
-  firebaseRef.child('classes/' + email.classId + '/emails/parent').push(email);
+  // firebaseRef.child('classes/' + email.classId + '/emails/parent').push(email);
 
   firebaseRef.child('classes/' + email.classId + '/students/' + email.studentId + '/parentEmail').set(email.email);
   HomeworkStore.emit(CHANGE_EVENT);

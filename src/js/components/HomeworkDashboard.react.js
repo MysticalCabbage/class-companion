@@ -136,7 +136,6 @@ var HomeworkDashboard = React.createClass({
 
   render: function(){
     var url = '#/classroomDashboard/' + this.props.params.id;
-    
     var today = moment().format('MM-DD-YYYY');
     var todaysDate = today.slice(0,5);
     
