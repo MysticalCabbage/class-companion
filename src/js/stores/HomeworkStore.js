@@ -14,7 +14,6 @@ var _store = {
   list: {},
   info: {},
   assignments: {},
-  homeworkFor : {},
   pastAssignments: {},
   monthAssignments : {},
   emails: {},
@@ -24,7 +23,6 @@ var _store = {
 var addAssignment = function(assignment){
   var hwId = firebaseRef.child('classes/' + assignment.classId + '/assignments').push(assignment).key();
 
-  firebaseRef.child('classes/' + assignment.classId + '/homeworkFor/' + assignment.dueDate + '/' + hwId).set(hwId);
   HomeworkStore.emit(CHANGE_EVENT);
   setPastAssignments();
 };
@@ -34,10 +32,7 @@ var initQuery = function(classId){
     var classData = snapshot.val();
     _store.info = classData.info;
     _store.assignments = classData.assignments;
-    _store.homeworkFor = classData.homeworkFor;
-    _store.emails = classData.emails;
-    _store.parentEmails = classData.parentEmails;
-  });
+    });
   HomeworkStore.emit(CHANGE_EVENT);
 };
 
@@ -49,23 +44,17 @@ var removeAssignment = function(hwId){
   firebaseRef.child('classes/' + _store.info.classId + '/assignments/' + hwId ).remove();
 };
 
-var setPastAssignments = function(){
+var setPastAssignments = function () {
   var pastAssignments = {};
-    //used to find today's date in MM/DD/YYYY
-    var today = new Date();
-    var dd = today.getDate(); 
-    var mm = today.getMonth()+1; 
-    var yyyy = today.getFullYear();
-    if(dd<10){dd='0'+dd} 
-    if(mm<10){mm='0'+mm} 
-    var todaysDate = mm + '-' + dd;
-    //loops through all assignments and filters ones that were due before today
-    for(var assignment in _store.assignments){
-      if((_store.assignments[assignment].dueDate.slice(0,5) < todaysDate) && (yyyy >= _store.assignments[assignment].dueDate.slice(6,10))){
-          pastAssignments[assignment] = _store.assignments[assignment];
-      }
+  var todaysDate = moment().format('MM-DD');
+  var year = moment().format('YYYY');
+  //loops through all assignments and filters ones that were due before today
+  for (var assignment in _store.assignments) {
+    if ((_store.assignments[assignment].dueDate.slice(0, 5) < todaysDate) && (year >= _store.assignments[assignment].dueDate.slice(6, 10))) {
+      pastAssignments[assignment] = _store.assignments[assignment];
     }
-    _store.pastAssignments = pastAssignments;
+  }
+  _store.pastAssignments = pastAssignments;
 };
 
 var selectMonth = function(month){
@@ -80,14 +69,14 @@ var selectMonth = function(month){
 };
 
 var addStudentEmail = function(email){
-  firebaseRef.child('classes/' + email.classId + '/emails/student').push(email);
+  // firebaseRef.child('classes/' + email.classId + '/emails/student').push(email);
 
   firebaseRef.child('classes/' + email.classId + '/students/' + email.studentId + '/email').set(email.email);
   HomeworkStore.emit(CHANGE_EVENT);
 };
 
 var addParentEmail = function(email){
-  firebaseRef.child('classes/' + email.classId + '/emails/parent').push(email);
+  // firebaseRef.child('classes/' + email.classId + '/emails/parent').push(email);
 
   firebaseRef.child('classes/' + email.classId + '/students/' + email.studentId + '/parentEmail').set(email.email);
   HomeworkStore.emit(CHANGE_EVENT);
@@ -115,16 +104,11 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
   getPastAssignments: function(){
     var pastAssignments = {};
     //used to find today's date in MM/DD/YYYY
-    var today = new Date();
-    var dd = today.getDate(); 
-    var mm = today.getMonth()+1; 
-    var yyyy = today.getFullYear();
-    if(dd<10){dd='0'+dd} 
-    if(mm<10){mm='0'+mm} 
-    var todaysDate = mm + '-' + dd;
+    var today = moment().format('MM-DD-YYYY');
+    var year = moment().format('YYYY');
     //loops through all assignments and filters ones that were due before today
     for(var assignment in _store.assignments){
-      if((_store.assignments[assignment].dueDate.slice(0,5) < todaysDate) && (yyyy >= _store.assignments[assignment].dueDate.slice(6,10))){
+      if((_store.assignments[assignment].dueDate.slice(0,5) < today) && (year >= _store.assignments[assignment].dueDate.slice(6,10))){
           pastAssignments[assignment] = _store.assignments[assignment];
       }
     }
@@ -134,7 +118,7 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
     return _store.monthAssignments;
   },
   getEmails: function(){
-    return _store.emails;
+    console.log(this.state.info);
   },
   getParentEmails: function(){
     return _store.parentEmails;

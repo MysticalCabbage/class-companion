@@ -517,3 +517,10 @@ select {
   width:500px;
 }
 
+.emailParentModal {
+  bottom: 170px;
+}
+
+.emailModal{
+  bottom:170px;
+}
