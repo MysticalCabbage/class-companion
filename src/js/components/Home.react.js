@@ -189,19 +189,19 @@ var Home = React.createClass({
         <section id="mobile">
           <div className="container">
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-8">
                 <h2 className="section-heading">Mobile</h2>
-                <h3 className="section-subheading text-muted">Manage your class from your phone</h3>
+                <h3 className="section-subheading text-muted">Manage your class from your phone while teaching</h3>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="mobile-description-box">
-                      <h2>Students</h2>
-                      <p>Seamlessly add and remove students with live updates</p>
+                      <h2>Groups</h2>
+                      <p>Sort groups students into groups with a few taps</p>
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="mobile-description-box">
-                      <h2>Behavior Points</h2>
+                      <h2>Behavior</h2>
                       <p>Assign points to students based on their in-class behavior</p>
                     </div>
                   </div>
@@ -209,8 +209,8 @@ var Home = React.createClass({
                 <div className="row">
                   <div className="col-md-6">
                     <div className="mobile-description-box">
-                      <h2>Take attendance</h2>
-                      <p>Take daily attendance from the phone while teaching</p>
+                      <h2>Attendance</h2>
+                      <p>Take daily attendance from the phone</p>
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -221,21 +221,21 @@ var Home = React.createClass({
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-6">
-                    <div className="mobile-description-box">
-                      <h2>Add and Remove Students</h2>
-                      <p>Seamlessly add and remove students with live updates</p>
-                    </div>
+                <div className="col-md-6">
+                  <div className="mobile-description-box">
+                    <h2>Students</h2>
+                    <p>Seamlessly add and remove students with live updates</p>
                   </div>
+                </div>
                   <div className="col-md-6">
                     <div className="mobile-description-box">
-                      <h2>Assign behavior</h2>
-                      <p>Seamlessly add and remove students with live updates</p>
+                      <h2>Classes</h2>
+                      <p>Add and remove classes right from the phone</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-4">
               <img src="/assets/iphone-white-mockup-md.png" className="img-responsive" alt="" />
               </div>
             </div>
