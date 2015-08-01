@@ -19,21 +19,21 @@ var Navbar = React.createClass({
             { this.props.loggedIn ? 
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a onClick={this.handleLogout}>LOGOUT</a>
+                  <a onClick={this.handleLogout}>Logout</a>
                 </li>
               </ul>
             : null }
             { this.props.loggedIn ? null :
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a onClick={this.props.openSignupModal}>SIGNUP</a>
+                  <a onClick={this.props.openSignupModal}>Signup</a>
                 </li>
               </ul>
             }
             { this.props.loggedIn ? null :
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a onClick={this.props.openLoginModal}>LOGIN</a>
+                  <a onClick={this.props.openLoginModal}>Login</a>
                 </li>
               </ul>
             }

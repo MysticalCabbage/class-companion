@@ -44,6 +44,14 @@ a, a:visited, a:hover, a:active {
   margin-top: 0;
 }
 
+.attendanceCalendar p{
+  margin: 0 0 5px;
+}
+
+.attendanceCalendar ul{
+  padding-left: 25px;
+}
+
 /*AttendanceNavbar*/
 .attendanceNavbar{
   margin-bottom: 15px;
