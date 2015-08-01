@@ -31,7 +31,6 @@ var initQuery = function(classId){
   firebaseRef.child('classes/' + classId).on('value', function(snapshot){
     var classData = snapshot.val();
     _store.info = classData.info;
-    console.log("CD", classData.students);
     _store.assignments = classData.assignments;
     });
   HomeworkStore.emit(CHANGE_EVENT);
@@ -45,17 +44,17 @@ var removeAssignment = function(hwId){
   firebaseRef.child('classes/' + _store.info.classId + '/assignments/' + hwId ).remove();
 };
 
-var setPastAssignments = function(){
+var setPastAssignments = function () {
   var pastAssignments = {};
-    var todaysDate = moment().format('MM-DD');
-    var year = moment().format('YYYY');
-    //loops through all assignments and filters ones that were due before today
-    for(var assignment in _store.assignments){
-      if((_store.assignments[assignment].dueDate.slice(0,5) < todaysDate) && (year >= _store.assignments[assignment].dueDate.slice(6,10))){
-          pastAssignments[assignment] = _store.assignments[assignment];
-      }
+  var todaysDate = moment().format('MM-DD');
+  var year = moment().format('YYYY');
+  //loops through all assignments and filters ones that were due before today
+  for (var assignment in _store.assignments) {
+    if ((_store.assignments[assignment].dueDate.slice(0, 5) < todaysDate) && (year >= _store.assignments[assignment].dueDate.slice(6, 10))) {
+      pastAssignments[assignment] = _store.assignments[assignment];
     }
-    _store.pastAssignments = pastAssignments;
+  }
+  _store.pastAssignments = pastAssignments;
 };
 
 var selectMonth = function(month){
@@ -119,7 +118,6 @@ var HomeworkStore = objectAssign({}, EventEmitter.prototype, {
     return _store.monthAssignments;
   },
   getEmails: function(){
-    console.log("here",_store.info);
   },
   getParentEmails: function(){
     return _store.parentEmails;

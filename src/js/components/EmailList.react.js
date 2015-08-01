@@ -91,8 +91,6 @@ var Student = React.createClass({
   },
 
   render: function(){
-    console.log('se',this.state.emails);
-    console.log('pe',this.state.parentEmails);
     if(this.props.email === undefined){
       var email = "No email added! Click here to add";
     } else {
@@ -154,7 +152,6 @@ var EmailList = React.createClass({
   },
 
   render: function(){
-    console.log("statemails",this.state.emails)
     var students = _.map(this.state.list, function(student,index,next){
       return (
         <Student key={index} studentId={index} studentTitle={student.studentTitle} email={student.email} parentEmail={student.parentEmail}/>
