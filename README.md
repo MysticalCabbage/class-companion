@@ -1,11 +1,11 @@
-# Class-Companion
-
+# Class Companion
 Class Companion is a classroom management optimization tool for a teacher to use in and out of the classroom.
 
 ## Table of Contents
 
 1. [Features](#features)
 1. [Team](#team)
+1. [Mobile](#mobile)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Server Environment Setup](#server-environment-setup)
@@ -28,6 +28,10 @@ Class Companion is a classroom management optimization tool for a teacher to use
   - __Stacy Huang__: Full Stack Engineer / Lead Front End Engineer
   - __David Hom__: Full Stack Engineer / Lead Back End Engineer
 
+## Mobile
+[Class Companion iOS GitHub](https://github.com/MysticalCabbage/class-companion-mobile)
+
+Manage the classroom while teaching using the iOS app. The mobile app allows real time interaction with the web app.
 
 ## Development
 
@@ -54,5 +58,4 @@ gulp
  - PokéAPI
  - Browserify
  - Gulp
-
 
