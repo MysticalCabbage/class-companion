@@ -45,6 +45,17 @@ var ClassInfo = function(teacherId){
   this.teacherId = teacherId;
 };
 
+var books = ['Math', 'History', 'Literature', 'Science'];
+
+var randomAssignment = function(textbooks){
+  var book = books[Math.floor(Math.random()*books.length)];
+
+  var startPage = textbooks[book] + 1;
+  var endPage = textbooks[book] += 5;
+
+  return book + ' Pg.' + startPage + '-' + endPage;
+};
+
 // Assignment constructor
 var Assignment = function(classId, assignDate, dueDate, assignment){
   this.assignedOn = assignDate;
@@ -59,13 +70,18 @@ var Assignment = function(classId, assignDate, dueDate, assignment){
 // @param dates array of dates in format M-D-YYYY
 // return array of assignment objects
 var generateAssignments = function(classId, dates){
+  var textbooks = {};
+  _.each(books, function(book){
+    textbooks[book] = getRandomInt(0,10);
+  });
+
   var assignments = [];
 
   for(var i = 0; i < dates.length - 1; i++){
     var assignDate = moment(dates[i], 'M-D-YYYY').format('MM-DD-YYYY');
     var dueDate = moment(dates[i+1], 'M-D-YYYY').format('MM-DD-YYYY');
 
-    assignments.push(new Assignment(classId, assignDate, dueDate, 'HW'+i));
+    assignments.push(new Assignment(classId, assignDate, dueDate, randomAssignment(textbooks)));
   }
 
   return assignments;
@@ -257,12 +273,12 @@ var demoUtils = {
         });
 
       // add each assignment to firebase
-      _.each(assignments, function(assignment){
+      _.each(assignments, function(assignment, index){
         firebaseRef.child(
           'classes/'
           + demoClassId
           + '/assignments/'
-          + assignment.assignment
+          + ('HW'+index)
         ).set(assignment);
       });
 
