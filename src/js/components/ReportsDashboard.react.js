@@ -15,8 +15,8 @@ var ReportsDashboard = React.createClass({
 	  	info: ClassroomStore.getInfo(),
 	    loggedIn: AuthStore.checkAuth(),
       classInfo: ClassroomStore.getList(),
-      showAttendanceCalendar: true,
-      showBehaviorDashboard: false
+      showBehaviorDashboard: false,
+      showAttendanceCalendar: true
 	  }
 	},
 

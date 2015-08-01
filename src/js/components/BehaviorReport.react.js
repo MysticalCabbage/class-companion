@@ -26,10 +26,10 @@ var BehaviorDashboard = React.createClass({
 
   _onChange: function(){
     this.setState({
-        graph: ClassroomStore.getGraph(),
-        list: ClassroomStore.getList(),
-        student: ClassroomStore.getStudent(),
-        behaviorHistory: ClassroomStore.getBehaviorHistory()
+      graph: ClassroomStore.getGraph(),
+      list: ClassroomStore.getList(),
+      student: ClassroomStore.getStudent(),
+      behaviorHistory: ClassroomStore.getBehaviorHistory()
     });
   },
 
@@ -56,7 +56,7 @@ var BehaviorDashboard = React.createClass({
       //means no student selected
       var studentState = this.state.student + "'s Behavior";
     } else{
-      var studentState = "Student Behavior";
+      var studentState = "Overall Classroom Behavior";
     }
     if(!this.state.graph.pieChart || this.state.graph.pieChart.length === 0){
       var noBehavior = "This student has no behavior points!";
@@ -84,18 +84,14 @@ var BehaviorDashboard = React.createClass({
       var chartVars = this.state.behaviorHistory.d3ChartVars;
       var xScale = d3.time.scale().domain([chartVars.minDate, chartVars.maxDate]).range([0, 520]);
       var xAxis = {tickValues: xScale.ticks(d3.time.day, ticksInterval), tickFormat: d3.time.format("%m/%d"), label: "date"};
-      // var xAxis = {ticks: 10}
       var yScale = d3.scale.linear().domain([chartVars.minSum - 5, chartVars.maxSum + 5]).range([340, 0]);
       var yAxis = {label: "behavior points"};
     }
 
-
- 
-    // TODO: Access the behavior history after I make that property
     var studentClicked = this.studentClick;
 
     var studentNodes = _.map(this.state.list, function(studentNode,index){
-      // if there is no behavior history, set this to an empty object
+    // if there is no behavior history, set this to an empty object
     var behaviorHistory = studentNode.behaviorHistory || {};
     
    
