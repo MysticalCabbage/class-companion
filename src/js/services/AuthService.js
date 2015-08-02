@@ -165,6 +165,8 @@ var AuthService = {
     return firebaseRef.getAuth();
   },
 
+ 	// @param len len of string desired
+ 	// returns random string of [A-Za-z0-9] of length len
   makeid: function(len) {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
