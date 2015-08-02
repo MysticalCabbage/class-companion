@@ -74,11 +74,15 @@ var Home = React.createClass({
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
               </button>
               <a className="navbar-brand page-scroll" href="#page-top">Class Companion</a>
             </div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav navbar-right">
+                <li className="page-scroll">
+                  <a href="https://github.com/MysticalCabbage/class-companion">GitHub</a>
+                </li>
                 <li className="hidden">
                   <a href="#page-top"></a>
                 </li>
@@ -216,7 +220,7 @@ var Home = React.createClass({
                   <div className="col-md-6">
                     <div className="mobile-description-box">
                       <h2>Select Students</h2>
-                      <p>Randomly or Manually select a student from the phone and have their name appear on the projector</p>
+                      <p>Randomly or manually select a student from the phone and have their name appear on the projector</p>
                     </div>
                   </div>
                 </div>
