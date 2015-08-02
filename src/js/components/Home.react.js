@@ -128,7 +128,7 @@ var Home = React.createClass({
           <div className="container">
             <div className="row">
               <div className="col-lg-12 text-center">
-                <h2 className="section-heading">FEATURES</h2>
+                <h2 className="section-heading">Features</h2>
                 <h3 className="section-subheading text-muted">Works on iOS and on any computer</h3>
               </div>
             </div>
