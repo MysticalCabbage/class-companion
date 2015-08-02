@@ -133,7 +133,6 @@ var Home = React.createClass({
             <div className="row">
               <div className="col-lg-12 text-center">
                 <h2 className="section-heading">Features</h2>
-                <h3 className="section-subheading text-muted">Works on iOS and on any computer</h3>
               </div>
             </div>
             <div className="row text-center">
@@ -199,13 +198,13 @@ var Home = React.createClass({
                 <div className="row">
                   <div className="col-md-6">
                     <div className="mobile-description-box">
-                      <h2>Groups</h2>
+                      <h3>Groups</h3>
                       <p>Sort groups students into groups with a few taps</p>
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="mobile-description-box">
-                      <h2>Behavior</h2>
+                      <h3>Behavior</h3>
                       <p>Assign points to students based on their in-class behavior</p>
                     </div>
                   </div>
@@ -213,13 +212,13 @@ var Home = React.createClass({
                 <div className="row">
                   <div className="col-md-6">
                     <div className="mobile-description-box">
-                      <h2>Attendance</h2>
+                      <h3>Attendance</h3>
                       <p>Take daily attendance from the phone</p>
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="mobile-description-box">
-                      <h2>Select Students</h2>
+                      <h3>Select Students</h3>
                       <p>Randomly or manually select a student from the phone and have their name appear on the projector</p>
                     </div>
                   </div>
@@ -227,13 +226,13 @@ var Home = React.createClass({
                 <div className="row">
                 <div className="col-md-6">
                   <div className="mobile-description-box">
-                    <h2>Students</h2>
+                    <h3>Students</h3>
                     <p>Seamlessly add and remove students with live updates</p>
                   </div>
                 </div>
                   <div className="col-md-6">
                     <div className="mobile-description-box">
-                      <h2>Classes</h2>
+                      <h3>Classes</h3>
                       <p>Add and remove classes right from the phone</p>
                     </div>
                   </div>

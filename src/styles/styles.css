@@ -347,8 +347,12 @@ margin: 15px 0;
 }
 
 /*Home - Mobile*/
-section #mobile {
-  padding-bottom: 40px;
+section#mobile {
+  padding-bottom: 30px;
+}
+
+section#mobile h3.section-subheading {
+  margin-bottom: 35px;
 }
 
 /*Homework Form*/
