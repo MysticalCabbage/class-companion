@@ -343,7 +343,11 @@ ul.social-buttons li a:active {
 
 /*Home - About*/
 .about-heading {
-margin: 15px 0;
+  margin: 15px 0;
+}
+
+section#about h2.section-heading {
+  margin-bottom: 30px;
 }
 
 /*Home - Mobile*/
