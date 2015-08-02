@@ -10,6 +10,7 @@ var streamify = require('gulp-streamify');
 var clean = require('gulp-clean');
 var runSequence = require('run-sequence');
 var gutil = require('gulp-util');
+var envify = require('envify');
 
 // DEVELOPMENT TASKS
 
@@ -98,7 +99,7 @@ gulp.task('copyAssets',function() {
 gulp.task('build', function(){
  browserify({
    entries: ['src/js/app.js'],
-   transform: [reactify]
+   transform: [[reactify],['envify', {'global': true, '_': 'purge', NODE_ENV: 'production'}]]
  })
  .bundle()
  .pipe(source('app.min.js'))
