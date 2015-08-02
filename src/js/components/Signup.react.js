@@ -4,6 +4,9 @@ var Auth = require('../services/AuthService');
 var Navbar = require('./Navbar.react');
 var Spinner = require('spin');
 
+var spinner = new Spinner();
+var spinnerEl;
+
 var Signup = React.createClass({
   getInitialState: function () {
     return {
@@ -12,21 +15,34 @@ var Signup = React.createClass({
     };
   },
 
+  componentDidMount: function(){
+    spinnerEl = document.getElementById('spinner');
+
+    // on mount, if demo signup
+    // start spinner and display signing up demo message
+    if(this.props.demoSignup){
+      spinner.spin(spinnerEl);
+      this.setState({authError: 'Signing up demo, please wait.'});
+    }
+  },
+
+  componentDidUnmount: function(){
+    spinner.stop();
+  },
+
   handleSubmit: function(e){
     e.preventDefault();
+    spinner.spin(spinnerEl);
 
     // clear previous error message upon retry
-    this.setState({authError: false});
-
-    var spinnerEl = document.getElementById('spinner');
-    var spinner = new Spinner().spin(spinnerEl)
+    this.setState({authError: null});
 
     // callback when successful to close signup modal
     // callback when error to stop spinner and display error message
     var authCb = function(err, success){
       if(err){
         spinner.stop();
-        this.setState({authError: true});
+        this.setState({authError: 'Email already taken.'});
       } else {
         this.props.closeLoginModal();
         spinner.stop();
@@ -61,7 +77,7 @@ var Signup = React.createClass({
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeSignupModal}><span aria-hidden="true">&times;</span></button>
           <h2>Signup</h2>
           <div id="spinner"/>
-          {this.state.authError ? <div className="authErrMsg">Email already taken.</div> : <div className="authErrMsg">* required</div> }
+          {this.state.authError ? <div className="authErrMsg">{this.state.authError}</div> : <div className="authErrMsg">* required</div> }
           <form className="form-horizontal" id="frmSignup" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="txtPrefix" className="col-sm-3 control-label">Prefix</label>

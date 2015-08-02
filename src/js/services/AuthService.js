@@ -36,16 +36,20 @@ var AuthService = {
 	  this.authWithPassword(credentials)
 	    .then(function(authData) {
 	      AuthActions.login(credentials, AuthService.checkAuth());
-	      //cb(null, authData);
 	    })
 	    .catch(function(err) {
-	      //console.error(err);
-	      if(err){
-					cb(err, null);
+				if(cb){
+					if(err){
+						cb(err, null);
+					} else {
+						cb(null, true);
+					}
 				} else {
-					cb(null, true);
+					if(err){
+						console.error(err);
+					}
 				}
-	    });
+			});
 	},
 
 	// create a user but not log in
@@ -97,11 +101,17 @@ var AuthService = {
 	      AuthActions.signup(credentials, AuthService.checkAuth());
 	      return AuthService.createDemo(teacherId);
 	    })
-	    .catch(function(err) {
-				if(err){
-					cb(err, null);
+			.catch(function(err) {
+				if(cb){
+					if(err){
+						cb(err, null);
+					} else {
+						cb(null, true);
+					}
 				} else {
-					cb(null, true);
+					if(err){
+						console.error(err);
+					}
 				}
 	    });
 	},
@@ -153,6 +163,16 @@ var AuthService = {
 	// returns firebase authentication data
 	checkAuth: function(){
 	  return firebaseRef.getAuth();
+	},
+
+	makeid: function(len) {
+		var text = "";
+		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		for( var i=0; i < len; i++ )
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+		return text;
 	}
 
 };
