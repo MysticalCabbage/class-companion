@@ -9,30 +9,43 @@ var _ = require('underscore');
 
 
 var EmailForm = React.createClass({
-  getInitialState: function(){
+  getInitialState: function (){
     return {
       newEmail: ''
     }
   },
-  componentWillMount: function(){
+
+  componentWillMount: function (){
     if(!AuthStore.checkAuth()){
-      this.render = function () {
+      this.render = function (){
         return false;
       }
       location.hash = '/';
     }
   },
-   handleAddEmail: function(e){
-    e.preventDefault();
-    var newEmail = React.findDOMNode(this.refs.newEmail).value;
-    if(this.props.type === "parent"){
-      HomeworkActions.addParentEmail({email: newEmail, studentId: this.props.studentId, classId: this.props.classId});
-    } else {
-      HomeworkActions.addStudentEmail({email: newEmail, studentId: this.props.studentId, classId: this.props.classId});  
-    }
-    React.findDOMNode(this.refs.newEmail).value = '';
-    this.props.closeEmailModal();
-  },
+
+   handleAddEmail: function (e) {
+     e.preventDefault();
+     var newEmail = React.findDOMNode(this.refs.newEmail).value;
+     //adds Parent or Student email depending on type of props
+     if (this.props.type === "parent") {
+       HomeworkActions.addParentEmail({
+         email: newEmail,
+         studentId: this.props.studentId,
+         classId: this.props.classId
+       });
+     } else {
+       HomeworkActions.addStudentEmail({
+         email: newEmail,
+         studentId: this.props.studentId,
+         classId: this.props.classId
+       });
+     }
+     //reset form value to ""
+     React.findDOMNode(this.refs.newEmail).value = '';
+     this.props.closeEmailModal();
+   },
+
   render: function() {
     return (
       <div className="panel panel-info emailForm">
@@ -65,11 +78,14 @@ var Student = React.createClass({
     }
   },
 
+  //used to send individual emails to students
   mailClicked: function(e){
     e.preventDefault();
     var link = "mailto:"+this.props.email;
     window.location.href = link;
   },
+
+  //send individual emails to parents
   parentMailClicked: function(e){
     e.preventDefault();
     var link = "mailto:"+this.props.parentEmail;
@@ -93,12 +109,15 @@ var Student = React.createClass({
   },
 
   render: function(){
+    //if there is no email saved, set custom message
     if(this.props.email === undefined){
       var email = "No email added! Click here to add";
     } else {
       var email = this.props.email;
 
     }
+
+    //if there is no email saved, set custom message
     if(this.props.parentEmail === undefined){
       var parentEmail = "No Parent email added! Click here to add";
     } else {
@@ -109,7 +128,8 @@ var Student = React.createClass({
         <td>{this.props.studentTitle}<div className="emailStuff"><Modal className="emailModal" 
             isOpen={this.state.emailModal} 
             onRequestClose={this.closeModal}>
-            <EmailForm closeEmailModal={this.closeModal} studentId={this.props.studentId} classId={this.state.info.classId} type="student"/>
+            <EmailForm closeEmailModal={this.closeModal} studentId={this.props.studentId} 
+            classId={this.state.info.classId} type="student"/>
           </Modal><Modal className="emailParentModal" 
             isOpen={this.state.emailParentModal} 
             onRequestClose={this.closeParentModal}>
@@ -119,7 +139,6 @@ var Student = React.createClass({
         <td><a onClick={this.openParentModal}>{parentEmail}</a></td>
         <td><a className='fa fa-envelope-o' onClick={this.parentMailClicked}></a></td>
         </tr>    
-
     );
   }
 });
@@ -156,7 +175,8 @@ var EmailList = React.createClass({
   render: function(){
     var students = _.map(this.state.list, function(student,index,next){
       return (
-        <Student key={index} studentId={index} studentTitle={student.studentTitle} email={student.email} parentEmail={student.parentEmail}/>
+        <Student key={index} studentId={index} studentTitle={student.studentTitle}
+         email={student.email} parentEmail={student.parentEmail}/>
       );
     });
     return (

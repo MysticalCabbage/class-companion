@@ -22,17 +22,15 @@ var ClassroomForm = React.createClass({
 
   handleAddStudent: function(e){
     e.preventDefault();
-
+    //grabs input value of newStudent from form
     var newStudent = React.findDOMNode(this.refs.newStudent).value;
-
     var setBehavior = ClassroomStore.getInfo().behavior;
-
+    //When creating a new student, set their initial behaviorType count to 0
     for(var key in setBehavior){
       setBehavior[key] = 0;
     }
-
-    ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0  });
-
+    ClassroomActions.addStudent({studentTitle: newStudent, behavior: setBehavior, behaviorTotal: 0 });
+    //Set input value back to ""
     React.findDOMNode(this.refs.newStudent).value = '';
 
     this.props.closeAddStudentModal();
