@@ -11,9 +11,12 @@ var HomeworkAssignment = React.createClass({
   getInitialState: function(){
     return null
   },
+  
+  //for deleting homework assignments (delete by ID)
   removeHW: function(){
     HomeworkActions.removeAssignment(this.props.hwId)
   },
+
   render: function(){
     return (
       <tr>
@@ -25,7 +28,6 @@ var HomeworkAssignment = React.createClass({
     );
   }
 });
-
 
 var HomeworkDashboard = React.createClass({
   getInitialState: function(){
@@ -78,6 +80,7 @@ var HomeworkDashboard = React.createClass({
     });
   },
 
+  //show assignments that had a due date before todays date
   showPastAssignments: function(){
     this.setState({
       showPastAssignments: true,
@@ -86,6 +89,7 @@ var HomeworkDashboard = React.createClass({
     });
   },
 
+  //used to show assignments that are not past due date
   showCurrentAssignments: function(){
     this.setState({
       showPastAssignments: false,
@@ -94,6 +98,7 @@ var HomeworkDashboard = React.createClass({
     });
   },
 
+  //when a month is selected from drop down, dispatcher retrieves homework assignments from that month
   monthSelect: function(e){
     var month = document.getElementById('dropdown').value;
     if(month === "N/A"){
@@ -112,24 +117,30 @@ var HomeworkDashboard = React.createClass({
     }
   },
 
+  // mail to e-mail sent out to parents and students (separately)
   sendAssignments: function(){
     var today = moment().format('MM-DD-YYYY');
+    //selects only assignments that were assigned today
     var assignments = _.filter(this.state.assignments, function(assignment){
       return assignment.assignedOn === today;
     });
+    //personalizing body of e-mail message with HW assignment title and due date
     var bodyText = _.map(assignments, function(assignment){
       return assignment.assignment + ": due " + assignment.dueDate;
     });
+
     var parentEmails = [];
     for(var key in this.state.parentEmails){
       parentEmails.push(this.state.parentEmails[key]);
     }
+    //join all parent e-mails into one string
     parentEmails = parentEmails.join(",");
 
     var studentEmails = [];
     for(var key in this.state.emails){
       studentEmails.push(this.state.emails[key]);
     }
+    //join all student e-mails to one string
     studentEmails = studentEmails.join(",");
 
     var studentLink = "mailto:" + studentEmails + "?cc=" +   "&subject=" + escape("Homework assigned on " + today) + "&body=" + escape(bodyText.join("\n"));
@@ -151,6 +162,7 @@ var HomeworkDashboard = React.createClass({
           currentAssignments[assignment] = this.state.assignments[assignment];
       }
     }
+    //on default, only current assignments are shown (hw assignments where due date has not yet passed)
     if(this.state.showCurrentAssignments){
       var assignments = _.map(currentAssignments, function(assignment, index){
       return (
@@ -164,7 +176,8 @@ var HomeworkDashboard = React.createClass({
           assignedOn = {assignment.assignedOn}/>
        );
       });
-    } else if(this.state.showPastAssignments){
+    } //clicking on Past Assignments will change state of showCurentAssignments to false, and showPastAssignments to true 
+    else if(this.state.showPastAssignments){
       var assignments = _.map(this.state.pastAssignments, function(assignment,index){
         return (
           <HomeworkAssignment
@@ -177,6 +190,7 @@ var HomeworkDashboard = React.createClass({
             assignedOn = {assignment.assignedOn}/>
         );
       });
+      //shows dropdown selected month
     } else if(this.state.showMonthAssignments){
       var assignments = _.map(this.state.monthAssignments, function(assignment,index){
         return (
@@ -191,8 +205,6 @@ var HomeworkDashboard = React.createClass({
         );
       });
     }
-
-
     return (
       <div className="homeworkDashboard">
         <Navbar loggedIn = {this.state.loggedIn}/>

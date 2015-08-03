@@ -21,10 +21,13 @@ var HomeworkForm = React.createClass({
 
   homeworkSubmit: function(e){
     e.preventDefault();
+    //selects input value from homeworkinput form-control and duedate from date input for dispatch
     var homeworkAssignment = React.findDOMNode(this.refs.homeworktitle).value;
     var dueDate = React.findDOMNode(this.refs.duedate).value.split("-");
+    //moment.js to create today's date value
     var today = moment().format('MM-DD-YYYY');
     var formattedDate = dueDate[1] + "-" + dueDate[2] + "-" + dueDate[0];
+    //send assignment name, due date, classId, and today's date to dispatcher
     HomeworkActions.addAssignment({ assignment: homeworkAssignment, dueDate: formattedDate, classId: this.props.classId, assignedOn: today, monthYear: [dueDate[1], dueDate[0]] });
     React.findDOMNode(this.refs.homeworktitle).value = "";
   },
