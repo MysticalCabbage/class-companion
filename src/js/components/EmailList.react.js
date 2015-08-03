@@ -88,7 +88,6 @@ var Student = React.createClass({
   //send individual emails to parents
   parentMailClicked: function(e){
     e.preventDefault();
-    console.log(this.props.parentEmail);
     var link = "mailto:"+this.props.parentEmail;
     window.location.href = link;
   },
