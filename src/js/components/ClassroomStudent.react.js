@@ -97,7 +97,6 @@ var ClassroomStudent = React.createClass({
       studentFirstName = studentLastName;
       studentLastName = ''
     }
-    console.log(this.state.toggle)
 
     return (
       <div className="col-md-3" >
