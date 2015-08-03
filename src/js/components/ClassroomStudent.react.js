@@ -46,6 +46,12 @@ var ClassroomStudent = React.createClass({
     }
   },
 
+  componentWillReceiveProps: function(newProps) {
+    this.setState({
+      toggle: newProps.status
+    });
+  },
+
 
   markAttendance: function(attendance){
     this.props.markAttendance(this.props.studentId, attendance);

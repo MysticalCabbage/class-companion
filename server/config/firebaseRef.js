@@ -8,7 +8,7 @@ var firebaseRef = new Firebase(firebaseURI)
 
 firebaseRef.authWithCustomToken(firebaseSECRET, function(error, authData) {
   if(!error) {
-    console.log(authData);
+    console.log('Server logged in as admin to', firebaseURI);
   } else {
     console.log(error);
   }
