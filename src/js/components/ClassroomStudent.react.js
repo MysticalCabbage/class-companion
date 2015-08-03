@@ -46,6 +46,12 @@ var ClassroomStudent = React.createClass({
     }
   },
 
+  componentWillReceiveProps: function(newProps) {
+    this.setState({
+      toggle: newProps.status
+    });
+  },
+
 
   markAttendance: function(attendance){
     this.props.markAttendance(this.props.studentId, attendance);
@@ -91,6 +97,7 @@ var ClassroomStudent = React.createClass({
       studentFirstName = studentLastName;
       studentLastName = ''
     }
+    console.log(this.state.toggle)
 
     return (
       <div className="col-md-3" >
