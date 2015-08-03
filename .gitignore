@@ -32,3 +32,6 @@ client/lib/
 .DS_Store
 .Spotlight-V100
 .Trashes
+
+# Firebase Secret
+config.js
