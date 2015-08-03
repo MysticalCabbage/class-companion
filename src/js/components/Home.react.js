@@ -5,6 +5,7 @@ var Signup = require('./Signup.react');
 var AuthStore = require('../stores/AuthStore');
 var Modal = require('react-modal');
 var Auth = require('../services/AuthService');
+var Spinner = require('spin');
 
 var appElement = document.app;
 Modal.setAppElement(appElement);
@@ -15,12 +16,14 @@ var Home = React.createClass({
     return {
       loggedIn: AuthStore.checkAuth(),
       loginModalIsOpen: false,
-      signupModalIsOpen: false
+      signupModalIsOpen: false,
+      demoSignup: false
     }
   },
 
   componentDidMount: function(){
     AuthStore.addChangeListener(this._onChange);
+    this.setState.demoSignup = false;
   },
 
   componentWillUnmount: function(){
@@ -61,6 +64,21 @@ var Home = React.createClass({
     Auth.logout();
   },
 
+  demoSignup: function(){
+    // set demoSignup to true which is passed into signup modal
+    this.setState({demoSignup: true });
+    this.setState({signupModalIsOpen: true});
+
+    // signup with random string email and password
+    Auth.signup({
+      email: Auth.makeid(10) + '@' + Auth.makeid(10) + '.com',
+      password: Auth.makeid(5),
+      prefix: '',
+      firstName: '',
+      lastName: ''
+    });
+  },
+
   render: function() {
     return (
       <div className="home">
@@ -86,6 +104,11 @@ var Home = React.createClass({
                 <li className="hidden">
                   <a href="#page-top"></a>
                 </li>
+                { this.state.loggedIn ? null :
+                <li className="page-scroll">
+                  <a onClick={this.demoSignup}>Demo</a>
+                </li>
+                }
                 <li className="page-scroll">
                   <a href="#about">Learn More</a>
                 </li>
@@ -317,7 +340,7 @@ var Home = React.createClass({
           <Login closeLoginModal={this.closeLoginModal} switchModal={this.switchModal} />
         </Modal>
         <Modal className="signupModal" isOpen={this.state.signupModalIsOpen} onRequestClose={this.closeSignupModal}>
-          <Signup closeSignupModal={this.closeSignupModal} switchModal={this.switchModal} />
+          <Signup closeSignupModal={this.closeSignupModal} switchModal={this.switchModal} demoSignup={this.state.demoSignup} />
         </Modal>
       </div>
     );
