@@ -278,9 +278,9 @@ var Home = React.createClass({
             <div className="row">
               <div className="col-sm-3">
                 <div className="team-member">
-                  <img src="/assets/jd.jpeg" className="img-responsive img-circle" alt="" />
+                  <img src="/assets/jd.jpeg" className="img-responsive img-circle center-block" alt="" />
                   <h4>Jonathan Davis</h4>
-                  <p className="text-muted">Product Owner</p>
+                  <p className="text-muted">Fullstack Engineer / Product Owner</p>
                   <ul className="list-inline social-buttons">
                     <li><a href="https://github.com/jdstep"><i className="fa fa-github"></i></a>
                     </li>
@@ -291,9 +291,9 @@ var Home = React.createClass({
               </div>
               <div className="col-sm-3">
                 <div className="team-member">
-                  <img src="/assets/stacy.jpeg" className="img-responsive img-circle" alt="" />
+                  <img src="/assets/stacy.jpeg" className="img-responsive img-circle center-block" alt="" />
                   <h4>Stacy Huang</h4>
-                  <p className="text-muted">Lead Front-End Engineer</p>
+                  <p className="text-muted">Fullstack Engineer / Lead Front-End Engineer</p>
                   <ul className="list-inline social-buttons">
                     <li><a href="https://github.com/stacyhuang"><i className="fa fa-github"></i></a>
                     </li>
@@ -304,9 +304,9 @@ var Home = React.createClass({
               </div>
               <div className="col-sm-3">
                 <div className="team-member">
-                  <img src="/assets/eric.jpeg" className="img-responsive img-circle" alt="" />
+                  <img src="/assets/eric.jpeg" className="img-responsive img-circle center-block" alt="" />
                   <h4>Eric Kao</h4>
-                  <p className="text-muted">Scrum Master</p>
+                  <p className="text-muted">Fullstack Engineer / Scrum Master</p>
                   <ul className="list-inline social-buttons">
                     <li><a href="https://github.com/ericskao"><i className="fa fa-github"></i></a>
                     </li>
@@ -317,9 +317,9 @@ var Home = React.createClass({
               </div>
               <div className="col-sm-3">
                 <div className="team-member">
-                  <img src="/assets/david.jpeg" className="img-responsive img-circle" alt="" />
+                  <img src="/assets/david.jpeg" className="img-responsive img-circle center-block" alt="" />
                   <h4>David Hom</h4>
-                  <p className="text-muted">Lead Back-End Engineer</p>
+                  <p className="text-muted">Fullstack Engineer / Lead Back-End Engineer</p>
                   <ul className="list-inline social-buttons">
                     <li><a href="https://github.com/dlhom"><i className="fa fa-github"></i></a>
                     </li>
