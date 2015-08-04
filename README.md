@@ -25,7 +25,7 @@ Class Companion is a classroom management optimization tool for a teacher to use
 
 ## Team
 
-  - __Jonathan "JD" Davis__: Full Stack Engineer / Product Owner 
+  - __Jonathan Davis__: Full Stack Engineer / Product Owner 
   - __Eric Kao__: Full Stack Engineer / Scrum Master
   - __Stacy Huang__: Full Stack Engineer / Lead Front End Engineer
   - __David Hom__: Full Stack Engineer / Lead Back End Engineer
