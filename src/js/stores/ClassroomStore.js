@@ -230,7 +230,7 @@ var prepareBehaviorHistory = function(behaviorHistory) {
 
   _.each(behaviorHistory, function(behaviorData, date) {
     var momentObj = moment(date);
-    var month = momentObj.month() + 1;
+    var month = momentObj.month();
     var date = momentObj.date();
     var year = momentObj.year();
     var behaviorSum = behaviorData.behaviorDailyTotal;
