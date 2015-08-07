@@ -106,7 +106,7 @@ var Home = React.createClass({
                 </li>
                 { this.state.loggedIn ? null :
                 <li className="page-scroll">
-                  <a onClick={this.demoSignup}>Demo</a>
+                  <a onClick={this.demoSignup}><strong>Demo</strong></a>
                 </li>
                 }
                 <li className="page-scroll">
@@ -147,6 +147,11 @@ var Home = React.createClass({
                   <hr className="star-light" />
                   <span className="skills">A classroom management tool for teachers</span>
                 </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12 text-center">
+                <a onClick={this.demoSignup} className="btn btn-success" id="demo-button" role="button">Start a demo</a>
               </div>
             </div>
           </div>

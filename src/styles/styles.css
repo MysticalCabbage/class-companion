@@ -226,6 +226,10 @@ section h3.section-subheading {
   font-weight: 400;
 }
 
+#demo-button {
+  margin-top: 30px;
+}
+
 /*Home - Intro*/
 header {
   text-align: center;
