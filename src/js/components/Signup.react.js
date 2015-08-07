@@ -76,7 +76,6 @@ var Signup = React.createClass({
         <div className="well">
           <button type="button" className="close" aria-label="Close" onClick={this.props.closeSignupModal}><span aria-hidden="true">&times;</span></button>
           <h2>Signup</h2>
-          <div id="spinner"/>
           {this.state.authError ? <div className="authErrMsg">{this.state.authError}</div> : <div className="authErrMsg">* required</div> }
           <form className="form-horizontal" id="frmSignup" role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
@@ -118,6 +117,7 @@ var Signup = React.createClass({
               <div className="col-sm-offset-9 col-sm-3">
                 <button type="submit" className="btn btn-default btn-block submit-button">Sign up</button>
               </div>
+              <div id="spinner"/>
             </div>
           </form>
         </div>
