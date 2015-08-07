@@ -1,7 +1,7 @@
 # Class Companion
  [http://www.class-companion.com](http://www.class-companion.com)
 
-Class Companion is a classroom management optimization tool for a teacher to use in and out of the classroom.
+Class Companion is a classroom management and optimization tool for a teacher to use in and out of the classroom.
 
 ## Table of Contents
 
