@@ -305,6 +305,16 @@ hr.star-primary:after {
   border-radius: 20%;
 }
 
+.btn-success{
+  background-color: #66B6B9;
+  border-color: #66B6B9;
+}
+
+.btn-success:hover{
+  background-color: #85D8CE;
+  border-color: #85D8CE;
+}
+
 /*Home - Team*/
 .bg-light-gray {
   background-color: #f7f7f7;
