@@ -71,6 +71,13 @@ a, a:visited, a:hover, a:active {
   height: 160px;
 }
 
+.demoMsg{
+  margin-left: 5px;
+  height: 33px;
+  padding: 7px;
+  margin-top: 10px;
+}
+
 /*ClassroomDashboard*/
 .studentsContainer{
   margin-top: 25px;

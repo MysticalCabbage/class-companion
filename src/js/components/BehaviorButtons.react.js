@@ -52,7 +52,7 @@ var BehaviorButtons = React.createClass({
             <div className="well">
               <div>Demo: quickly add behavior points and watch the pokemon evolve!</div>
               <button className="btn btn-success" onClick={this.debugAddExperiencePoints}>Add Points</button>
-              <input type="text" placeholder="Try 1000" value={this.state.value} onChange={this.debugHandleInputChange}></input>
+              <input type="text" className="demoMsg" placeholder="Try 1000" value={this.state.value} onChange={this.debugHandleInputChange}></input>
             </div>
            : null}
         </div>
