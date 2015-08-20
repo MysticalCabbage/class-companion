@@ -137,7 +137,7 @@ var Home = React.createClass({
             </div>
           </div>
         </nav>
-        <header>
+        <header> 
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -227,7 +227,7 @@ var Home = React.createClass({
                   <div className="col-md-6">
                     <div className="mobile-description-box">
                       <h3>Groups</h3>
-                      <p>Sort groups students into groups with a few taps</p>
+                      <p>Sort students into groups with a few taps</p>
                     </div>
                   </div>
                   <div className="col-md-6">
