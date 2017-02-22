@@ -69,9 +69,24 @@ var ClassroomStudent = React.createClass({
     });
   },
 
+  fixSpriteUrl: function(serverSpriteUrl) {
+    if (!serverSpriteUrl) {
+      return serverSpriteUrl;
+    }
+    if (/asset/.test(serverSpriteUrl) === false) {
+      var separated = serverSpriteUrl.split('/');
+      var extension = separated[separated.length - 1];
+      var pokemonId = extension.split('.')[0];
+      return './assets/pokemon/' + pokemonId + '.png';
+    }
+    return serverSpriteUrl;
+
+  },
+
   render: function(){
     var pokemonName = this.props.pokemon._pokemonData.name;
-    var spriteUrl = this.props.pokemon._spriteUrl;
+    // var spriteUrl = this.props.pokemon._spriteUrl;
+    var spriteUrl = this.fixSpriteUrl(this.props.pokemon._spriteUrl);
     var currentExp = this.props.pokemon.profile.currentExp;
     var expToNextLevel = this.props.pokemon.profile.expToNextLevel;
     var level = this.props.pokemon.profile.level;
