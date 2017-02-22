@@ -69,9 +69,33 @@ var ClassroomStudent = React.createClass({
     });
   },
 
+  /**
+   * The PokeAPI disabled hotlinking the sprites. The quick fix below
+   * converts the PokeAPI sprite url into url for the local
+   * sprite for that particular Pokemon.
+   *
+   * The format from the PokeAPI is as follows: http://pokeapi.co/media/img/1.png
+   *
+   * The longer term solution would be to update the 'getNewPokemon' function
+   * in "ClassroomStorePokemonFunctions", however this quick fix will do for now.
+   *
+   * Jonathan 22 February 2017
+   */
+  fixSpriteUrl: function(serverSpriteUrl) {
+    // if there is no sprite url, or the sprite url is linking to the api 
+    if (!serverSpriteUrl || /pokeapi/.test(serverSpriteUrl) === false) {
+      return serverSpriteUrl;
+    }
+    var filename = serverSpriteUrl.split('/').pop();
+    var pokemonId = filename.split('.')[0];
+    return './assets/pokemon/' + pokemonId + '.png';
+
+  },
+
   render: function(){
     var pokemonName = this.props.pokemon._pokemonData.name;
-    var spriteUrl = this.props.pokemon._spriteUrl;
+    // var spriteUrl = this.props.pokemon._spriteUrl;
+    var spriteUrl = this.fixSpriteUrl(this.props.pokemon._spriteUrl);
     var currentExp = this.props.pokemon.profile.currentExp;
     var expToNextLevel = this.props.pokemon.profile.expToNextLevel;
     var level = this.props.pokemon.profile.level;
